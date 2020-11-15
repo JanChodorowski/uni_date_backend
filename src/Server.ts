@@ -1,14 +1,14 @@
+import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
+import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
+import helmet from 'helmet';
+import StatusCodes from 'http-status-codes';
 import morgan from 'morgan';
 import path from 'path';
-import helmet from 'helmet';
-
-import express, { NextFunction, Request, Response } from 'express';
-import StatusCodes from 'http-status-codes';
-import 'express-async-errors';
-
 import BaseRouter from './routes';
-import logger from '@shared/Logger';
+console.log('dupa',process.env.DATABASE_URL)
+
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
@@ -32,6 +32,29 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
     app.use(helmet());
 }
+
+interface IDbResponse extends Response{
+    rows: any;
+}
+
+const { Pool, Client } = require('pg')
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
+    ssl: process.env.DATABASE_URL ? true : false
+})
+app.get('/hey/:id', (req: Request, res: Response) => {
+    const id = req.params.id
+    console.log('heyyyyyyyyyyyyy',id)
+    pool.query('INSERT INTO test.test_table(id, name) VALUES($1, $2)', [id, 'testName'],  (err: Error, results: any) => {
+      if (err) {
+        throw err
+      }
+      for (let row of results.rows) {
+        console.log(JSON.stringify(row));
+      }
+      res.status(200).json(results.rows)
+    })
+  })
 
 // Add APIs
 app.use('/api', BaseRouter);

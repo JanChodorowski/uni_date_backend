@@ -1,8 +1,8 @@
-import StatusCodes from 'http-status-codes';
-import { Request, Response, Router } from 'express';
-
 import UserDao from '@daos/User/UserDao.mock';
-import { paramMissingError, IRequest } from '@shared/constants';
+import { IRequest, paramMissingError } from '@shared/constants';
+import { Request, Response, Router } from 'express';
+import StatusCodes from 'http-status-codes';
+
 
 const router = Router();
 const userDao = new UserDao();
@@ -27,12 +27,23 @@ router.get('/all', async (req: Request, res: Response) => {
 
 router.post('/add', async (req: IRequest, res: Response) => {
     const { user } = req.body;
+    console.log(user)
+
     if (!user) {
         return res.status(BAD_REQUEST).json({
             error: paramMissingError,
         });
     }
     await userDao.add(user);
+    return res.status(CREATED).end();
+});
+
+router.post('/addddd', async (req: IRequest, res: Response) => {
+    console.log(req.params)
+
+    const { user } = req.body;
+    console.log(user)
+
     return res.status(CREATED).end();
 });
 
@@ -44,6 +55,7 @@ router.post('/add', async (req: IRequest, res: Response) => {
 
 router.put('/update', async (req: IRequest, res: Response) => {
     const { user } = req.body;
+    console.log(user)
     if (!user) {
         return res.status(BAD_REQUEST).json({
             error: paramMissingError,
