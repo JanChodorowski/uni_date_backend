@@ -40,7 +40,8 @@ interface IDbResponse extends Response{
 const { Pool, Client } = require('pg')
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
-    ssl: process.env.DATABASE_URL ? true : false
+    sslmode: process.env.NODE_ENV === "production" ? "require" : "disable"
+    // ssl: process.env.DATABASE_URL ? true : false
 })
 app.get('/hey/:id', (req: Request, res: Response) => {
     const id = req.params.id
