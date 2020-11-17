@@ -50,8 +50,24 @@ app.get('/hey/:id', (req: Request, res: Response) => {
       if (err) {
         throw err
       }
+      console.log('before rowwwwwwwwwwwwwwww')
       for (let row of results.rows) {
-        console.log(JSON.stringify(row));
+        console.log('rowwwwwwwwww', JSON.stringify(row));
+      }
+      res.status(200).json(results.rows)
+    })
+  })
+
+  app.get('/fruits/:name', (req: Request, res: Response) => {
+    const name = req.params.name
+    console.log('fruitssssssssssssssssssssssssss',name)
+    pool.query('INSERT INTO fruits(name) VALUES($1);', [name], (err: Error, results: any) => {
+      if (err) {
+        throw err
+      }
+      console.log('before rowwwwwwwwwwwwwwww')
+      for (let row of results.rows) {
+        console.log('rowwwwwwwwww', JSON.stringify(row));
       }
       res.status(200).json(results.rows)
     })
