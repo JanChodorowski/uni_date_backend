@@ -58,10 +58,10 @@ app.get('/hey/:id', (req: Request, res: Response) => {
     })
   })
 
-  app.get('/fruits/:name', (req: Request, res: Response) => {
+  app.get('/university/:name', (req: Request, res: Response) => {
     const name = req.params.name
     console.log('fruitssssssssssssssssssssssssss',name)
-    pool.query('INSERT INTO fruits(name) VALUES($1);', [name], (err: Error, results: any) => {
+    pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
       if (err) {
         throw err
       }
