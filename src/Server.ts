@@ -43,20 +43,6 @@ const pool = new Pool({
     sslmode: process.env.NODE_ENV === "production" ? "require" : "disable"
     // ssl: process.env.DATABASE_URL ? true : false
 })
-app.get('/hey/:id', (req: Request, res: Response) => {
-    const id = req.params.id
-    console.log('heyyyyyyyyyyyyy',id)
-    pool.query('INSERT INTO test.test_table(id, name) VALUES($1, $2)', [id, 'testName'],  (err: Error, results: any) => {
-      if (err) {
-        throw err
-      }
-      console.log('before rowwwwwwwwwwwwwwww')
-      for (let row of results.rows) {
-        console.log('rowwwwwwwwww', JSON.stringify(row));
-      }
-      res.status(200).json(results.rows)
-    })
-  })
 
   app.get('/university/:name', (req: Request, res: Response) => {
     const name = req.params.name
@@ -69,7 +55,7 @@ app.get('/hey/:id', (req: Request, res: Response) => {
       for (let row of results.rows) {
         console.log('rowwwwwwwwww', JSON.stringify(row));
       }
-      res.status(200).json(results.rows)
+      res.status(200).json({czyDotarlo: 'no dotarlo'})
     })
   })
 
