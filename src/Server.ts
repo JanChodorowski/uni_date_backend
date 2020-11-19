@@ -13,6 +13,8 @@ console.log('dupa',process.env.DATABASE_URL)
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 
+// var cors = require('cors')
+// app.use(cors())
 
 
 /************************************************************************************
@@ -103,6 +105,14 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  // res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
 });
+
+// const root = require('path').join(__dirname, 'client', 'build')
+// app.use(express.static(root));
+// app.get("*", (req, res) => {
+//     res.sendFile('index.html', { root });
+// })
 // Export express instance
 export default app;
