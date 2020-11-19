@@ -59,6 +59,21 @@ const pool = new Pool({
     })
   })
 
+  app.post('/university', (req: Request, res: Response) => {
+    const name = req.body.name
+    console.log('fruitssssssssssssssssssssssssss',name)
+    pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
+      if (err) {
+        throw err
+      }
+      console.log('before rowwwwwwwwwwwwwwww')
+      for (let row of results.rows) {
+        console.log('rowwwwwwwwww', JSON.stringify(row));
+      }
+      res.status(200).json({czyDotarlo: 'no dotarlo'})
+    })
+  })
+
 // Add APIs
 app.use('/api', BaseRouter);
 
@@ -77,13 +92,17 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
  *                              Serve front-end content
  ***********************************************************************************/
 
-const viewsDir = path.join(__dirname, 'views');
-app.set('views', viewsDir);
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
-app.get('*', (req: Request, res: Response) => {
-    res.sendFile('index.html', {root: viewsDir});
-});
+// const viewsDir = path.join(__dirname, 'views');
+// app.set('views', viewsDir);
+// const staticDir = path.join(__dirname, 'public');
+// app.use(express.static(staticDir));
+// app.get('*', (req: Request, res: Response) => {
+//     res.sendFile('index.html', {root: viewsDir});
+// });
 
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use('*', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 // Export express instance
 export default app;
