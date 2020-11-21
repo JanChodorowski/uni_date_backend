@@ -14,7 +14,7 @@ const app = express();
 const { BAD_REQUEST } = StatusCodes;
 
 // https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://uni-dating-server.herokuapp.com']
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:3006', 'https://uni-dating-server.herokuapp.com']
 const corsOptions = {
   origin: function (origin: any, callback: any) {
     console.log("** Origin of request " + origin)
