@@ -108,13 +108,13 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
  ***********************************************************************************/
 const path = require('path');
 
-const viewsDir = path.join(__dirname, 'views');
-app.set('views', viewsDir);
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
-app.get('*', (req: Request, res: Response) => {
-    res.sendFile('index.html', {root: viewsDir});
-});
+// const viewsDir = path.join(__dirname, 'views');
+// app.set('views', viewsDir);
+// const staticDir = path.join(__dirname, 'public');
+// app.use(express.static(staticDir));
+// app.get('*', (req: Request, res: Response) => {
+//     res.sendFile('index.html', {root: viewsDir});
+// });
 
 // app.use(express.static(path.join(__dirname, 'client', 'build')));
 // app.use('*', (req: Request, res: Response) => {
@@ -123,15 +123,15 @@ app.get('*', (req: Request, res: Response) => {
 //   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
 // });
 
-// https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
-// if (process.env.NODE_ENV === 'production') {
-//   // Serve any static files
-//   app.use(express.static(path.join(__dirname, 'client/build')));
-// // Handle React routing, return all requests to React app
-//   app.get('*', function(req, res) {
-//     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-//   });
-// }
+//https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 // Export express instance
 export default app;
