@@ -2,7 +2,6 @@
   "name": "uni_date_backend",
   "version": "0.0.0",
   "scripts": {
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "build": "ts-node build.ts && tsc --build tsconfig.prod.json",
     "lint": "eslint . --ext .ts",
     "start": "node -r module-alias/register ./dist --env=production",
