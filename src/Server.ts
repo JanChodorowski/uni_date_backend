@@ -1,11 +1,11 @@
 import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import helmet from 'helmet';
 import StatusCodes from 'http-status-codes';
 import morgan from 'morgan';
-import path from 'path';
 import BaseRouter from './routes';
 console.log('dupa',process.env.DATABASE_URL)
 
@@ -13,8 +13,21 @@ console.log('dupa',process.env.DATABASE_URL)
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 
-// var cors = require('cors')
-// app.use(cors())
+// https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://uni-dating-server.herokuapp.com']
+const corsOptions = {
+  origin: function (origin: any, callback: any) {
+    console.log("** Origin of request " + origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable")
+      callback(null, true)
+    } else {
+      console.log("Origin rejected")
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions))
 
 
 /************************************************************************************
@@ -102,17 +115,23 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 //     res.sendFile('index.html', {root: viewsDir});
 // });
 
-app.use(express.static(path.join(__dirname, 'client', 'build')));
-app.use('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-  // res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
-});
+// app.use(express.static(path.join(__dirname, 'client', 'build')));
+// app.use('*', (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+//   // res.sendFile(path.join(__dirname, '../client/build/index.html'));
+//   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
+// });
 
-// const root = require('path').join(__dirname, 'client', 'build')
-// app.use(express.static(root));
-// app.get("*", (req, res) => {
-//     res.sendFile('index.html', { root });
-// })
+// https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
+const path = require('path');
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
+
 // Export express instance
 export default app;
