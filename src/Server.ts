@@ -1,94 +1,101 @@
+/* eslint-disable import/no-unresolved */
+import University from '@entities/University';
 import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import helmet from 'helmet';
 import StatusCodes from 'http-status-codes';
 import morgan from 'morgan';
+import 'reflect-metadata';
+import {
+  ConnectionOptions, createConnection, Connection, getConnection,
+} from 'typeorm';
+// import UniversityDao from 'daos/University/UniversityDao';
+import ormConfig from 'ormConfig';
+// eslint-disable-next-line import/extensions
 import BaseRouter from './routes';
-console.log('dupa',process.env.DATABASE_URL)
 
+console.log('ormConfig', ormConfig);
+const initDb = async () => {
+  await createConnection(ormConfig as any).then(async (connection) => {
+    const res = await connection.manager.find(University).catch((err) => console.log(err));
+    console.log(res);
+    // .then((res) => console.log('hej', res));
+  }).catch((error) => console.log(error));
+};
+
+initDb();
+
+// can be used once createConnection is called and is resolved
+// const unii = getConnection().manager.find(University);
+
+// console.log('dupa', process.env.DATABASE_URL, unii);
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 
-// https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:3006', 'https://uni-dating-server.herokuapp.com']
-const corsOptions = {
-  origin: function (origin: any, callback: any) {
-    console.log("** Origin of request " + origin)
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      console.log("Origin acceptable")
-      callback(null, true)
-    } else {
-      console.log("Origin rejected")
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-app.use(cors(corsOptions))
-
-
-/************************************************************************************
+/** **********************************************************************************
  *                              Set basic express settings
- ***********************************************************************************/
+ ********************************************************************************** */
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
+  app.use(morgan('dev'));
 }
 
 // Security
 if (process.env.NODE_ENV === 'production') {
   app.use(helmet({
     contentSecurityPolicy: false,
-  }));}
-
-interface IDbResponse extends Response{
-    rows: any;
+  }));
 }
 
-const { Pool, Client } = require('pg')
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
-    sslmode: process.env.NODE_ENV === "production" ? "require" : "disable"
-    // ssl: process.env.DATABASE_URL ? true : false
-})
+// interface IDbResponse extends Response{
+//     rows: any;
+// }
 
-  app.get('/university/:name', (req: Request, res: Response) => {
-    const name = req.params.name
-    console.log('fruitssssssssssssssssssssssssss',name)
-    pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
-      if (err) {
-        throw err
-      }
-      console.log('before rowwwwwwwwwwwwwwww')
-      for (let row of results.rows) {
-        console.log('rowwwwwwwwww', JSON.stringify(row));
-      }
-      res.status(200).json({czyDotarlo: 'no dotarlo'})
-    })
-  })
+// const { Pool, Client } = require('pg');
 
-  app.post('/university', (req: Request, res: Response) => {
-    const name = req.body.name
-    console.log('fruitssssssssssssssssssssssssss',name)
-    pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
-      if (err) {
-        throw err
-      }
-      console.log('before rowwwwwwwwwwwwwwww')
-      for (let row of results.rows) {
-        console.log('rowwwwwwwwww', JSON.stringify(row));
-      }
-      res.status(200).json({czyDotarlo: 'no dotarlo'})
-    })
-  })
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
+//   sslmode: process.env.NODE_ENV === 'production' ? 'require' : 'disable',
+//   // ssl: process.env.DATABASE_URL ? true : false
+// });
+
+// app.get('/university/:name', (req: Request, res: Response) => {
+//   const { name } = req.params;
+//   console.log('fruitssssssssssssssssssssssssss', name);
+//   pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
+//     if (err) {
+//       throw err;
+//     }
+//     console.log('before rowwwwwwwwwwwwwwww');
+//     for (const row of results.rows) {
+//       console.log('rowwwwwwwwww', JSON.stringify(row));
+//     }
+//     res.status(200).json({ czyDotarlo: 'no dotarlo' });
+//   });
+// });
+
+// app.post('/university', (req: Request, res: Response) => {
+//   const { name } = req.body;
+//   console.log('fruitssssssssssssssssssssssssss', name);
+//   pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
+//     if (err) {
+//       throw err;
+//     }
+//     console.log('before rowwwwwwwwwwwwwwww');
+//     for (const row of results.rows) {
+//       console.log('rowwwwwwwwww', JSON.stringify(row));
+//     }
+//     res.status(200).json({ czyDotarlo: 'no dotarlo' });
+//   });
+// });
 
 // Add APIs
 app.use('/api', BaseRouter);
@@ -96,17 +103,15 @@ app.use('/api', BaseRouter);
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    logger.err(err, true);
-    return res.status(BAD_REQUEST).json({
-        error: err.message,
-    });
+  logger.err(err, true);
+  return res.status(BAD_REQUEST).json({
+    error: err.message,
+  });
 });
 
-
-
-/************************************************************************************
+/** **********************************************************************************
  *                              Serve front-end content
- ***********************************************************************************/
+ ********************************************************************************** */
 const path = require('path');
 
 // const viewsDir = path.join(__dirname, 'views');
@@ -124,14 +129,14 @@ const path = require('path');
 //   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
 // });
 
-//https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
+// https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
 // if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
+// Serve any static files
+app.use(express.static(path.join(__dirname, 'client/build')));
 // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 // }
 
 // Export express instance

@@ -1,6 +1,5 @@
+/* eslint-disable no-unused-vars */
 import { IUser } from '@entities/User';
-
-
 
 export interface IUserDao {
     getOne: (email: string) => Promise<IUser | null>;
@@ -11,54 +10,48 @@ export interface IUserDao {
 }
 
 class UserDao implements IUserDao {
-
-
-    /**
+  /**
      * @param email
      */
-    public getOne(email: string): Promise<IUser | null> {
-        // TODO
-        return Promise.resolve(null);
-    }
+  public getOne(email: string): Promise<IUser | null> {
+    // TODO
+    return Promise.resolve(null);
+  }
 
-
-    /**
+  /**
      *
      */
-    public getAll(): Promise<IUser[]> {
-         // TODO
-        return Promise.resolve([]);
-    }
+  public getAll(): Promise<IUser[]> {
+    // TODO
+    return Promise.resolve([]);
+  }
 
-
-    /**
+  /**
      *
      * @param user
      */
-    public async add(user: IUser): Promise<void> {
-         // TODO
-        return Promise.resolve(undefined);
-    }
+  public async add(user: IUser): Promise<void> {
+    // TODO
+    return Promise.resolve(undefined);
+  }
 
-
-    /**
+  /**
      *
      * @param user
      */
-    public async update(user: IUser): Promise<void> {
-         // TODO
-        return Promise.resolve(undefined);
-    }
+  public async update(user: IUser): Promise<void> {
+    // TODO
+    return Promise.resolve(undefined);
+  }
 
-
-    /**
+  /**
      *
      * @param id
      */
-    public async delete(id: number): Promise<void> {
-         // TODO
-        return Promise.resolve(undefined);
-    }
+  public async delete(id: number): Promise<void> {
+    // TODO
+    return Promise.resolve(undefined);
+  }
 }
 
 export default UserDao;
