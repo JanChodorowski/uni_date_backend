@@ -12,14 +12,13 @@ import {
 } from 'typeorm';
 // import UniversityDao from 'daos/University/UniversityDao';
 import User from '@entities/User';
-import ormConfig from '../ormconfig';
 // eslint-disable-next-line import/extensions
 // import db from './db';
 import BaseRouter from './routes';
 
 const path = require('path');
 
-console.log('ormConfig', ormConfig);
+// console.log('ormConfig', ormConfig);
 // const connection = async () => await createConnection(ormConfig as any);
 
 // db().then(async (cnt) => {
@@ -55,6 +54,26 @@ if (process.env.NODE_ENV === 'production') {
     contentSecurityPolicy: false,
   }));
 }
+const ormConfig = {
+  type: 'postgres',
+  url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
+  synchronize: false,
+  logging: false,
+  entities: [
+    'src/entities/**/*.ts',
+  ],
+  migrations: [
+    'src/migration/**/*.ts',
+  ],
+  subscribers: [
+    'src/subscriber/**/*.ts',
+  ],
+  cli: {
+    entitiesDir: 'src/entities',
+    migrationsDir: 'src/migration',
+    subscribersDir: 'src/subscriber',
+  },
+};
 createConnection(ormConfig as any).then(async (connection) => {
   app.get('/university/:name', (req: Request, res: Response) => {
     const { name } = req.params;
