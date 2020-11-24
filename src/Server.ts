@@ -60,13 +60,13 @@ const ormConfig = {
   synchronize: false,
   logging: false,
   entities: [
-    'src/entities/**/*.{ts,js}',
+    'src/entities/*.*',
   ],
   migrations: [
-    'src/migration/**/*.ts',
+    'src/migration/*.*',
   ],
   subscribers: [
-    'src/subscriber/**/*.ts',
+    'src/subscriber/*.*',
   ],
   cli: {
     entitiesDir: 'src/entities',
