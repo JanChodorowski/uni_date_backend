@@ -1,7 +1,7 @@
 const ormConfig = {
   type: 'postgres',
   url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
-  synchronize: true,
+  synchronize: false,
   logging: false,
   entities: [
     'src/entities/**/*.ts',

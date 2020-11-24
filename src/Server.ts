@@ -14,18 +14,20 @@ import {
 // import UniversityDao from 'daos/University/UniversityDao';
 import ormConfig from 'ormConfig';
 // eslint-disable-next-line import/extensions
+import User from '@entities/User';
+// import db from './db';
 import BaseRouter from './routes';
 
-console.log('ormConfig', ormConfig);
-const initDb = async () => {
-  await createConnection(ormConfig as any).then(async (connection) => {
-    const res = await connection.manager.find(University).catch((err) => console.log(err));
-    console.log(res);
-    // .then((res) => console.log('hej', res));
-  }).catch((error) => console.log(error));
-};
+const path = require('path');
 
-initDb();
+console.log('ormConfig', ormConfig);
+// const connection = async () => await createConnection(ormConfig as any);
+
+// db().then(async (cnt) => {
+//   const res = await cnt.manager.find(University).catch((err) => console.log(err));
+//   console.log(res);
+//   // .then((res) => console.log('hej', res));
+// }).catch((error) => console.log(error));
 
 // can be used once createConnection is called and is resolved
 // const unii = getConnection().manager.find(University);
@@ -54,90 +56,109 @@ if (process.env.NODE_ENV === 'production') {
     contentSecurityPolicy: false,
   }));
 }
-
-// interface IDbResponse extends Response{
-//     rows: any;
-// }
-
-// const { Pool, Client } = require('pg');
-
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
-//   sslmode: process.env.NODE_ENV === 'production' ? 'require' : 'disable',
-//   // ssl: process.env.DATABASE_URL ? true : false
-// });
-
-// app.get('/university/:name', (req: Request, res: Response) => {
-//   const { name } = req.params;
-//   console.log('fruitssssssssssssssssssssssssss', name);
-//   pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
-//     if (err) {
-//       throw err;
-//     }
-//     console.log('before rowwwwwwwwwwwwwwww');
-//     for (const row of results.rows) {
-//       console.log('rowwwwwwwwww', JSON.stringify(row));
-//     }
-//     res.status(200).json({ czyDotarlo: 'no dotarlo' });
-//   });
-// });
-
-// app.post('/university', (req: Request, res: Response) => {
-//   const { name } = req.body;
-//   console.log('fruitssssssssssssssssssssssssss', name);
-//   pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
-//     if (err) {
-//       throw err;
-//     }
-//     console.log('before rowwwwwwwwwwwwwwww');
-//     for (const row of results.rows) {
-//       console.log('rowwwwwwwwww', JSON.stringify(row));
-//     }
-//     res.status(200).json({ czyDotarlo: 'no dotarlo' });
-//   });
-// });
-
-// Add APIs
-app.use('/api', BaseRouter);
-
-// Print API errors
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  logger.err(err, true);
-  return res.status(BAD_REQUEST).json({
-    error: err.message,
+createConnection(ormConfig as any).then(async (connection) => {
+  app.get('/university/:name', (req: Request, res: Response) => {
+    const { name } = req.params;
+    const newUniversity = new University({ name });
+    console.log('fruitssssssssssssssssssssssssss', name);
+    connection.manager
+      .save(newUniversity)
+      .then((result) => res.status(200).json({ czyDotarlo: result }));
+    // .then((res) => console.log('hej', res));
+  // pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   console.log('before rowwwwwwwwwwwwwwww');
+  //   for (const row of results.rows) {
+  //     console.log('rowwwwwwwwww', JSON.stringify(row));
+  //   }
+  //   res.status(200).json({ czyDotarlo: 'no dotarlo' });
+  // });newUser
   });
-});
 
-/** **********************************************************************************
+  // interface IDbResponse extends Response{
+  //     rows: any;
+  // }
+
+  // const { Pool, Client } = require('pg');
+
+  // const pool = new Pool({
+  //   connectionString: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
+  //   sslmode: process.env.NODE_ENV === 'production' ? 'require' : 'disable',
+  //   // ssl: process.env.DATABASE_URL ? true : false
+  // });
+
+  // app.get('/university/:name', (req: Request, res: Response) => {
+  //   const { name } = req.params;
+  //   console.log('fruitssssssssssssssssssssssssss', name);
+  //   pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     console.log('before rowwwwwwwwwwwwwwww');
+  //     for (const row of results.rows) {
+  //       console.log('rowwwwwwwwww', JSON.stringify(row));
+  //     }
+  //     res.status(200).json({ czyDotarlo: 'no dotarlo' });
+  //   });
+  // });
+
+  // app.post('/university', (req: Request, res: Response) => {
+  //   const { name } = req.body;
+  //   console.log('fruitssssssssssssssssssssssssss', name);
+  //   pool.query('INSERT INTO university(name) VALUES($1);', [name], (err: Error, results: any) => {
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     console.log('before rowwwwwwwwwwwwwwww');
+  //     for (const row of results.rows) {
+  //       console.log('rowwwwwwwwww', JSON.stringify(row));
+  //     }
+  //     res.status(200).json({ czyDotarlo: 'no dotarlo' });
+  //   });
+  // });
+
+  // Add APIs
+  app.use('/api', BaseRouter);
+
+  // Print API errors
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    logger.err(err, true);
+    return res.status(BAD_REQUEST).json({
+      error: err.message,
+    });
+  });
+
+  /** **********************************************************************************
  *                              Serve front-end content
  ********************************************************************************** */
-const path = require('path');
 
-// const viewsDir = path.join(__dirname, 'views');
-// app.set('views', viewsDir);
-// const staticDir = path.join(__dirname, 'public');
-// app.use(express.static(staticDir));
-// app.get('*', (req: Request, res: Response) => {
-//     res.sendFile('index.html', {root: viewsDir});
-// });
+  // const viewsDir = path.join(__dirname, 'views');
+  // app.set('views', viewsDir);
+  // const staticDir = path.join(__dirname, 'public');
+  // app.use(express.static(staticDir));
+  // app.get('*', (req: Request, res: Response) => {
+  //     res.sendFile('index.html', {root: viewsDir});
+  // });
 
-// app.use(express.static(path.join(__dirname, 'client', 'build')));
-// app.use('*', (req: Request, res: Response) => {
-//   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-//   // res.sendFile(path.join(__dirname, '../client/build/index.html'));
-//   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
-// });
+  // app.use(express.static(path.join(__dirname, 'client', 'build')));
+  // app.use('*', (req: Request, res: Response) => {
+  //   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  //   // res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  //   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
+  // });
 
-// https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
-// if (process.env.NODE_ENV === 'production') {
-// Serve any static files
-app.use(express.static(path.join(__dirname, 'client/build')));
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+  // https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
+  // if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
 // }
-
+}).catch((error) => console.log('TypeORM connection error: ', error));
 // Export express instance
 export default app;

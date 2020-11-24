@@ -1,5 +1,6 @@
 // import * as PostgressConnectionStringParser from 'pg-connection-string';
 
+import ormConfig from 'ormConfig';
 import { ConnectionOptions, createConnection, Connection } from 'typeorm';
 
 // const databaseUrl = process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL;
@@ -66,27 +67,30 @@ import { ConnectionOptions, createConnection, Connection } from 'typeorm';
 //   // do whatever you want with connection and use await if you want since its an async function
 // }).catch((error: Error) => console.log(error));
 
-const initDb = async () => {
-  await createConnection({
-    type: 'postgres',
-    url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
-    synchronize: true,
-    logging: false,
-    entities: [
-      'src/entities/**/*.ts',
-    ],
-    migrations: [
-      'src/migration/**/*.ts',
-    ],
-    subscribers: [
-      'src/subscriber/**/*.ts',
-    ],
-    cli: {
-      entitiesDir: 'src/entities',
-      migrationsDir: 'src/migration',
-      subscribersDir: 'src/subscriber',
-    },
-  });
-};
+// const initDb = async () => {
+//   await createConnection({
+//     type: 'postgres',
+//     url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
+//     synchronize: true,
+//     logging: false,
+//     entities: [
+//       'src/entities/**/*.ts',
+//     ],
+//     migrations: [
+//       'src/migration/**/*.ts',
+//     ],
+//     subscribers: [
+//       'src/subscriber/**/*.ts',
+//     ],
+//     cli: {
+//       entitiesDir: 'src/entities',
+//       migrationsDir: 'src/migration',
+//       subscribersDir: 'src/subscriber',
+//     },
+//   });
+// };
 
-initDb();
+// initDb();
+
+const db = async () => createConnection(ormConfig as any);
+export default db;
