@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import University from '@entities/University';
 import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
@@ -12,9 +11,9 @@ import {
   ConnectionOptions, createConnection, Connection, getConnection,
 } from 'typeorm';
 // import UniversityDao from 'daos/University/UniversityDao';
-import ormConfig from 'ormConfig';
-// eslint-disable-next-line import/extensions
 import User from '@entities/User';
+import ormConfig from '../ormconfig';
+// eslint-disable-next-line import/extensions
 // import db from './db';
 import BaseRouter from './routes';
 
