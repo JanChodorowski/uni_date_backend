@@ -84,7 +84,7 @@ createConnection(ormConfig as any).then(async (connection) => {
   //     .then((result) => res.status(200).json({ czyDotarlo: result }));
 
   // Add APIs
-  app.use('/api', BaseRouter);
+  // app.use('/api', BaseRouter);
 
   // Print API errors
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
