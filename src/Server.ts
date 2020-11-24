@@ -60,7 +60,7 @@ const ormConfig = {
   synchronize: false,
   logging: false,
   entities: [
-    'src/entities/*.*',
+    University,
   ],
   migrations: [
     'src/migration/*.*',
