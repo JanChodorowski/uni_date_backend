@@ -60,18 +60,18 @@ const ormConfig = {
   synchronize: false,
   logging: false,
   entities: [
-    'src/entities/**/*.ts',
+    'dist/src/entities/**/*.ts',
   ],
   migrations: [
-    'src/migration/**/*.ts',
+    'dist/src/migration/**/*.ts',
   ],
   subscribers: [
-    'src/subscriber/**/*.ts',
+    'dist/src/subscriber/**/*.ts',
   ],
   cli: {
-    entitiesDir: 'src/entities',
-    migrationsDir: 'src/migration',
-    subscribersDir: 'src/subscriber',
+    entitiesDir: 'dist/src/entities',
+    migrationsDir: 'dist/src/migration',
+    subscribersDir: 'dist/src/subscriber',
   },
 };
 createConnection(ormConfig as any).then(async (connection) => {
