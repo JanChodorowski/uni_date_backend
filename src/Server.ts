@@ -74,7 +74,7 @@ const ormConfig = {
     subscribersDir: 'src/subscriber',
   },
 };
-createConnection(ormConfig as any).then(async (connection) => {
+// createConnection(ormConfig as any).then(async (connection) => {
   // app.get('/university/:name', (req: Request, res: Response) => {
   //   const { name } = req.params;
   //   const newUniversity = new University({ name });
@@ -83,46 +83,46 @@ createConnection(ormConfig as any).then(async (connection) => {
   //     .save(newUniversity)
   //     .then((result) => res.status(200).json({ czyDotarlo: result }));
 
-  // Add APIs
-  // app.use('/api', BaseRouter);
+// Add APIs
+// app.use('/api', BaseRouter);
 
-  // Print API errors
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    logger.err(err, true);
-    return res.status(BAD_REQUEST).json({
-      error: err.message,
-    });
+// Print API errors
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  logger.err(err, true);
+  return res.status(BAD_REQUEST).json({
+    error: err.message,
   });
+});
 
-  /** **********************************************************************************
+/** **********************************************************************************
  *                              Serve front-end content
  ********************************************************************************** */
 
-  // const viewsDir = path.join(__dirname, 'views');
-  // app.set('views', viewsDir);
-  // const staticDir = path.join(__dirname, 'public');
-  // app.use(express.static(staticDir));
-  // app.get('*', (req: Request, res: Response) => {
-  //     res.sendFile('index.html', {root: viewsDir});
-  // });
+// const viewsDir = path.join(__dirname, 'views');
+// app.set('views', viewsDir);
+// const staticDir = path.join(__dirname, 'public');
+// app.use(express.static(staticDir));
+// app.get('*', (req: Request, res: Response) => {
+//     res.sendFile('index.html', {root: viewsDir});
+// });
 
-  // app.use(express.static(path.join(__dirname, 'client', 'build')));
-  // app.use('*', (req: Request, res: Response) => {
-  //   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-  //   // res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  //   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
-  // });
+// app.use(express.static(path.join(__dirname, 'client', 'build')));
+// app.use('*', (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+//   // res.sendFile(path.join(__dirname, '../client/build/index.html'));
+//   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
+// });
 
-  // https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
-  // if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  // Handle React routing, return all requests to React app
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+// https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
+// if (process.env.NODE_ENV === 'production') {
+// Serve any static files
+app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 // }
-}).catch((error) => console.log('TypeORM connection error: ', error));
+// }).catch((error) => console.log('TypeORM connection error: ', error));
 // Export express instance
 export default app;
