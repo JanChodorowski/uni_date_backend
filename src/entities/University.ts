@@ -1,22 +1,21 @@
-/* eslint-disable import/prefer-default-export */
 import {
-  Entity, PrimaryGeneratedColumn, Column, PrimaryColumn,
+  Column, Entity, Index, OneToMany,
 } from 'typeorm';
+import { UniversityAttendance } from './UniversityAttendance';
+import { User } from './User';
 
-export interface IUniversity {
-    name: string;
+@Index('university_pk', ['name'], { unique: true })
+@Entity('university', { schema: 'public' })
+export class University {
+  @Column('character varying', { primary: true, name: 'name', length: 255 })
+  name: string;
+
+  @OneToMany(
+    () => UniversityAttendance,
+    (universityAttendance) => universityAttendance.universityName2,
+  )
+  universityAttendances: UniversityAttendance[];
+
+  @OneToMany(() => User, (user) => user.universityIdFilter)
+  users: User[];
 }
-
-@Entity()
-class University implements IUniversity {
-    @PrimaryColumn()
-    public name: string;
-
-    constructor(newUniversity: IUniversity) {
-      const { name } = newUniversity || {} as IUniversity;
-      console.log('HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY', name);
-      this.name = name;
-    }
-}
-
-export default University;

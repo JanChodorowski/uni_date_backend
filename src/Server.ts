@@ -1,4 +1,4 @@
-import University from '@entities/University';
+import { University } from '@entities/University';
 import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
 import express, { NextFunction, Request, Response } from 'express';
@@ -10,28 +10,11 @@ import 'reflect-metadata';
 import {
   ConnectionOptions, createConnection, Connection, getConnection,
 } from 'typeorm';
-// import UniversityDao from 'daos/University/UniversityDao';
-import User from '@entities/User';
-// eslint-disable-next-line import/extensions
-// import db from './db';
+import { User } from '@entities/User';
+
 import BaseRouter from './routes';
 
 const path = require('path');
-
-console.log('__dirname', __dirname);
-// console.log('ormConfig', ormConfig);
-// const connection = async () => await createConnection(ormConfig as any);
-
-// db().then(async (cnt) => {
-//   const res = await cnt.manager.find(University).catch((err) => console.log(err));
-//   console.log(res);
-//   // .then((res) => console.log('hej', res));
-// }).catch((error) => console.log(error));
-
-// can be used once createConnection is called and is resolved
-// const unii = getConnection().manager.find(University);
-
-// console.log('dupa', process.env.DATABASE_URL, unii);
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
@@ -44,11 +27,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Show routes called in console during development
 const { NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL } = process.env;
 let mainDirName;
 
 if (NODE_ENV === 'development') {
+  // Show routes called in console during development
   app.use(morgan('dev'));
 
   mainDirName = 'src';
@@ -84,7 +67,8 @@ const ormConfig = {
 createConnection(ormConfig as any).then(async (connection) => {
   app.get('/university/:name', (req: Request, res: Response) => {
     const { name } = req.params;
-    const newUniversity = new University({ name });
+    const newUniversity = new University();
+    newUniversity.name = name;
     console.log('fruitssssssssssssssssssssssssss', name);
     connection.manager
       .save(newUniversity)
