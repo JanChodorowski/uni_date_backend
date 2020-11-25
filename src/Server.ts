@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 const ormConfig = {
   type: 'postgres',
-  url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
+  url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL, // czy LOCAL_DATABASE_URL jest potrzebne?
   synchronize: false,
   logging: false,
   entities: [
