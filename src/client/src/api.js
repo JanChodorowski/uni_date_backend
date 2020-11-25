@@ -15,3 +15,19 @@ export const insertUniversity = (university) => {
     // always executed
   });
 }
+
+export const insertUniversityWithRoute = (university) => {
+  axios.get(`api/universities/${university}`)
+.then(function (response) {
+  // handle success
+  console.log(response);
+})
+.catch(function (error) {
+  // handle error
+  console.log(error); 
+})
+.then(function () {
+  // always executed
+});
+}
+
