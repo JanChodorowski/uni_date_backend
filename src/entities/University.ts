@@ -8,7 +8,7 @@ export interface IUniversity {
 }
 
 @Entity()
-class University implements IUniversity {
+class University implements IUniversity { // geters and seters?
     @PrimaryColumn()
     public name: string;
 
