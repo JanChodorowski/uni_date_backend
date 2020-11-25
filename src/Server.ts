@@ -44,8 +44,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Show routes called in console during development
+let ormStartPath = 'dist';
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
+
+  ormStartPath = 'src';
 }
 
 // Security
@@ -60,19 +64,18 @@ const ormConfig = {
   synchronize: false,
   logging: false,
   entities: [
-    // University, // dist  zamiast src?
-    'dist/entities/*.*',
+    `${ormStartPath}/entities/*.*`,
   ],
   migrations: [
-    'src/migration/*.*',
+    `${ormStartPath}/migration/*.*`,
   ],
   subscribers: [
-    'src/subscriber/*.*',
+    `${ormStartPath}/subscriber/*.*`,
   ],
   cli: {
-    entitiesDir: 'src/entities',
-    migrationsDir: 'src/migration',
-    subscribersDir: 'src/subscriber',
+    entitiesDir: `${ormStartPath}/entities`,
+    migrationsDir: `${ormStartPath}/migration`,
+    subscribersDir: `${ormStartPath}/subscriber`,
   },
 };
 createConnection(ormConfig as any).then(async (connection) => {
