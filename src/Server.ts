@@ -60,7 +60,7 @@ const ormConfig = {
   synchronize: false,
   logging: false,
   entities: [
-    University,
+    University, // dist  zamiast src?
   ],
   migrations: [
     'src/migration/*.*',
@@ -75,13 +75,13 @@ const ormConfig = {
   },
 };
 createConnection(ormConfig as any).then(async (connection) => {
-  // app.get('/university/:name', (req: Request, res: Response) => {
-  //   const { name } = req.params;
-  //   const newUniversity = new University({ name });
-  //   console.log('fruitssssssssssssssssssssssssss', name);
-  //   connection.manager
-  //     .save(newUniversity)
-  //     .then((result) => res.status(200).json({ czyDotarlo: result }));
+  app.get('/university/:name', (req: Request, res: Response) => {
+    const { name } = req.params;
+    const newUniversity = new University({ name });
+    console.log('fruitssssssssssssssssssssssssss', name);
+    connection.manager
+      .save(newUniversity)
+      .then((result) => res.status(200).json({ czyDotarlo: result }));
 
   // Add APIs
   app.use('/api', BaseRouter);
