@@ -56,11 +56,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 const ormConfig = {
   type: 'postgres',
-  url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL, // czy LOCAL_DATABASE_URL jest potrzebne?
+  url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
   synchronize: false,
   logging: false,
   entities: [
-    University, // dist  zamiast src?
+    // University, // dist  zamiast src?
+    'dist/entities/*.*',
   ],
   migrations: [
     'src/migration/*.*',
