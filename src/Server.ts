@@ -18,6 +18,7 @@ import BaseRouter from './routes';
 
 const path = require('path');
 
+console.log('__dirname', __dirname);
 // console.log('ormConfig', ormConfig);
 // const connection = async () => await createConnection(ormConfig as any);
 
@@ -44,38 +45,40 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Show routes called in console during development
-let ormStartPath = 'dist';
+const { NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL } = process.env;
+let mainDirName;
 
-if (process.env.NODE_ENV === 'development') {
+if (NODE_ENV === 'development') {
   app.use(morgan('dev'));
 
-  ormStartPath = 'src';
-}
-
-// Security
-if (process.env.NODE_ENV === 'production') {
+  mainDirName = 'src';
+} else if (NODE_ENV === 'production') {
+  // Security
   app.use(helmet({
     contentSecurityPolicy: false,
   }));
+
+  mainDirName = 'dist';
 }
+
 const ormConfig = {
   type: 'postgres',
-  url: process.env.DATABASE_URL || process.env.LOCAL_DATABASE_URL,
+  url: DATABASE_URL || LOCAL_DATABASE_URL,
   synchronize: false,
   logging: false,
   entities: [
-    `${ormStartPath}/entities/*.*`,
+    `${mainDirName}/entities/*.*`,
   ],
   migrations: [
-    `${ormStartPath}/migration/*.*`,
+    `${mainDirName}/migration/*.*`,
   ],
   subscribers: [
-    `${ormStartPath}/subscriber/*.*`,
+    `${mainDirName}/subscriber/*.*`,
   ],
   cli: {
-    entitiesDir: `${ormStartPath}/entities`,
-    migrationsDir: `${ormStartPath}/migration`,
-    subscribersDir: `${ormStartPath}/subscriber`,
+    entitiesDir: `${mainDirName}/entities`,
+    migrationsDir: `${mainDirName}/migration`,
+    subscribersDir: `${mainDirName}/subscriber`,
   },
 };
 createConnection(ormConfig as any).then(async (connection) => {
@@ -104,22 +107,6 @@ createConnection(ormConfig as any).then(async (connection) => {
  *                              Serve front-end content
  ********************************************************************************** */
 
-  // const viewsDir = path.join(__dirname, 'views');
-  // app.set('views', viewsDir);
-  // const staticDir = path.join(__dirname, 'public');
-  // app.use(express.static(staticDir));
-  // app.get('*', (req: Request, res: Response) => {
-  //     res.sendFile('index.html', {root: viewsDir});
-  // });
-
-  // app.use(express.static(path.join(__dirname, 'client', 'build')));
-  // app.use('*', (req: Request, res: Response) => {
-  //   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-  //   // res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  //   // res.sendFile('index.html', {root: path.join(__dirname, 'client/build ')});
-  // });
-
-  // https://www.youtube.com/watch?v=xgvLP3f2Y7k&list=LL&index=1
   // if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
