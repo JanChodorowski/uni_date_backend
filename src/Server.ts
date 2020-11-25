@@ -82,6 +82,7 @@ createConnection(ormConfig as any).then(async (connection) => {
     connection.manager
       .save(newUniversity)
       .then((result) => res.status(200).json({ czyDotarlo: result }));
+  });
 
   // Add APIs
   app.use('/api', BaseRouter);

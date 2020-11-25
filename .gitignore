@@ -130,4 +130,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # React build
-#/src/client/build
+/src/client/build
