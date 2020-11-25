@@ -132,7 +132,7 @@ yarn-error.log*
 # React build
 /src/client/build
 
-
+/ignore_me
 
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,vscode,visualstudio,visualstudiocode,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,vscode,visualstudio,visualstudiocode,intellij
