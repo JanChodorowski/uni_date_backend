@@ -8,7 +8,7 @@ import { getConnection } from 'typeorm';
 export interface IUniversityDao {
     // getOne: (email: string) => Promise<IUser | null>;
     getAll: () => Promise<IUniversity[]>;
-    // add: (user: IUser) => Promise<void>;
+    add: (user: IUniversity) => Promise<IUniversity>;
     // update: (user: IUser) => Promise<void>;
     // delete: (id: number) => Promise<void>;
 }
@@ -31,14 +31,13 @@ class UniversityDao implements IUniversityDao {
     return getConnection().manager.find(University);
   }
 
-  //   /**
-  //      *
-  //      * @param user
-  //      */
-  //   public async add(user: IUser): Promise<void> {
-  //     // TODO
-  //     return Promise.resolve(undefined);
-  //   }
+  /**
+       *
+       * @param newUniversity
+       */
+  public async add(newUniversity: IUniversity): Promise<IUniversity> {
+    return getConnection().manager.save(newUniversity);
+  }
 
   //   /**
   //      *

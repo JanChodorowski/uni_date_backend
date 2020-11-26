@@ -1,20 +1,25 @@
+import UniversityDao, { IUniversityDao } from '@daos/University/UniversityDao';
+import UserDao from '@daos/User/UserDao';
 import { University } from '@entities/University';
+import { UniversityAttendance } from '@entities/UniversityAttendance';
+import { User } from '@entities/User';
+import { IUniversityAttendance } from '@interfaces/IUniversityAttendance';
 import { IUser } from '@interfaces/IUser';
 import { IRequest, paramMissingError } from '@shared/constants';
 import { Request, Response, Router } from 'express';
 import StatusCodes from 'http-status-codes';
-import { getConnection } from 'typeorm';
+import { getConnection, getManager } from 'typeorm';
 
 const router = Router();
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
-
+const universityDao : IUniversityDao = new UniversityDao();
 router.get('/:name', (req: Request, res: Response) => {
   const { name } = req.params;
   const newUniversity = new University();
   newUniversity.name = name;
   console.log('fruitssssssssssssssssssssssssss', name);
-  getConnection().manager
-    .save(newUniversity)
+  universityDao
+    .add(newUniversity)
     .then((result) => res.status(OK).json({ czyDotarlo: result }));
 });
 
@@ -22,12 +27,45 @@ router.post('/add', async (req: Request, res: Response) => {
   const { name } = req.body;
   const newUniversity = new University();
   newUniversity.name = name;
-  const newUser = {
+  const example = {
+    stringValue: 'TestUser3',
+    stringDate: '2017-10-10',
+    numberValue: 42,
+    dateValue: new Date(),
+  };
+  const {
+    stringValue, numberValue, dateValue, stringDate,
+  } = example;
+  const newUser = new User();
 
-  } as IUser;
-  console.log('fruitssssssssssssssssssssssssss', name);
-  await getConnection().manager.save(newUniversity);
-  await getConnection().manager.save(newUser);
+  newUser.id = stringValue;
+  newUser.userName = stringValue;
+  newUser.dateOfBirth = stringDate;
+  newUser.gender = numberValue;
+  newUser.description = stringValue;
+  newUser.email = stringValue;
+  newUser.passwordHash = stringValue;
+  newUser.createdAt = dateValue;
+  newUser.popularity = numberValue;
+  newUser.activityIntensity = numberValue;
+  newUser.localization = numberValue;
+  newUser.maxSearchDistanceFilter = numberValue;
+  newUser.ageFromFilter = numberValue;
+  newUser.ageToFilter = numberValue;
+  newUser.genderFilter = numberValue;
+
+  const newUniversityAttendance = new UniversityAttendance();
+  newUniversityAttendance.fieldOfStudy = stringValue;
+  newUniversityAttendance.isGraduated = false;
+  newUniversityAttendance.universityName2 = newUniversity;
+  newUniversityAttendance.user = newUser;
+  console.log('elo', name);
+
+  await getConnection().transaction(async (entityManager) => {
+    await entityManager.save(newUniversity);
+    await entityManager.save(newUser);
+    await entityManager.save(newUniversityAttendance);
+  });
   res.status(OK).json({ czyDotarlo: 'no pewnie mordo' });
 });
 

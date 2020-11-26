@@ -31,3 +31,20 @@ export const insertUniversityWithRoute = (university) => {
 });
 }
 
+export const insertUniversityWithRoutePOST = (university) => {
+  axios.post(`api/universities/add`, {
+    name: university,
+  })
+.then(function (response) {
+  // handle success
+  console.log(response);
+})
+.catch(function (error) {
+  // handle error
+  console.log(error); 
+})
+.then(function () {
+  // always executed
+});
+}
+

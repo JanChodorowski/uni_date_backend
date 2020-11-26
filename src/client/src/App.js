@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { insertUniversity ,insertUniversityWithRoute} from './api';
+import { insertUniversity ,insertUniversityWithRoute,insertUniversityWithRoutePOST} from './api';
 import './App.css';
 import logo from './logo.svg';
 
@@ -24,6 +24,7 @@ function App() {
         <input type="text" value={university} onChange={(e) => setUniversity(e.target.value)}/>
         <button onClick={() => insertUniversity(university)}>insertUniversity</button>
         <button onClick={() => insertUniversityWithRoute(university)}>insertUniversityWithRoute</button>
+        <button onClick={() => insertUniversityWithRoutePOST(university)}>insertUniversityWithRoutePOST</button>
 
       </header>
     </div>
