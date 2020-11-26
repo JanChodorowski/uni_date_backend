@@ -65,16 +65,6 @@ const ormConfig = {
   },
 };
 createConnection(ormConfig as any).then(async (connection) => {
-  app.get('/university/:name', (req: Request, res: Response) => {
-    const { name } = req.params;
-    const newUniversity = new University();
-    newUniversity.name = name;
-    console.log('fruitssssssssssssssssssssssssss', name);
-    connection.manager
-      .save(newUniversity)
-      .then((result) => res.status(200).json({ czyDotarlo: result }));
-  });
-
   // Add APIs
   app.use('/api', BaseRouter);
 
