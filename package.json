@@ -23,6 +23,7 @@
   "_moduleAliases": {
     "@daos": "dist/daos",
     "@entities": "dist/entities",
+    "@interfaces": "dist/interfaces",
     "@shared": "dist/shared",
     "@server": "dist/Server"
   },

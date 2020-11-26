@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { IUser } from '@entities/User';
+
+import { IUser } from '@interfaces/IUser';
 
 export interface IUserDao {
     getOne: (email: string) => Promise<IUser | null>;

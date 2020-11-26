@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
 import { University } from '@entities/University';
-import { IUniversity } from '@interfaces';
+import { IUniversity } from '@interfaces/IUniversity';
 
 import { getConnection } from 'typeorm';
 

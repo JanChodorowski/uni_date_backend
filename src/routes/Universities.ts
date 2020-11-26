@@ -1,4 +1,5 @@
 import { University } from '@entities/University';
+import { IUser } from '@interfaces/IUser';
 import { IRequest, paramMissingError } from '@shared/constants';
 import { Request, Response, Router } from 'express';
 import StatusCodes from 'http-status-codes';
