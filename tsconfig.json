@@ -77,6 +77,9 @@
       ],
       "@server": [
         "src/Server"
+      ],
+      "@interfaces": [
+        "src/interfaces/*"
       ]
     },
   },
