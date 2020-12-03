@@ -12,9 +12,8 @@ import {
 } from 'typeorm';
 import { User } from '@entities/User';
 
+import path from 'path';
 import BaseRouter from './routes';
-
-const path = require('path');
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
