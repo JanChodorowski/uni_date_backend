@@ -16,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React siema
+          Learn React siema simea
         </a>
       </header>
     </div>
