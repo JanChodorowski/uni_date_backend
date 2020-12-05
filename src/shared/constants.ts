@@ -9,6 +9,10 @@ export interface IRequest extends Request {
     }
 }
 
+// export interface IRequestWithPayload extends Request {
+//     payload: Object
+// }
+
 // to be continued...
 export enum gender {
     none,

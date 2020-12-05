@@ -7,40 +7,38 @@ import { UniversityAttendance } from '@entities/UniversityAttendance';
 import { User } from '@entities/User';
 import { IUniversityAttendance } from '@interfaces/IUniversityAttendance';
 import { IUser } from '@interfaces/IUser';
-import { IRequest, paramMissingError, gender } from '@shared/constants';
+import {
+  IRequest, paramMissingError, gender,
+} from '@shared/constants';
 import StatusCodes from 'http-status-codes';
 import { getConnection, getManager } from 'typeorm';
 import * as yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
+import { authenticate } from '@middleware/middleware';
 
 const router = Router();
 const {
   BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,
 } = StatusCodes;
 const {
-  NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL, TOKEN_SECRET,
+  TOKEN_SECRET,
 } = process.env;
 const jwtExpirySeconds = 100000000000;
 
-const users: any = {
-  user1: 'password1',
-  user2: 'password2',
-};
-
-const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
-  passwordConfirmation: yup.string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
-});
-
 router.post('/register', async (req: Request, res: Response) => {
-  // Get credentials from JSON body
   const { email, password, passwordConfirmation } = req.body;
   const trimmedEmail = String(email).trim();
   const trimmedPassword = String(password).trim();
   const trimmedPasswordConfirmation = String(passwordConfirmation).trim();
+
+  const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+    passwordConfirmation: yup.string()
+      .oneOf([yup.ref('password'), null], 'Passwords must match'),
+  });
+
   const isValid = await schema.isValid({
     email: trimmedEmail,
     password: trimmedPassword,
@@ -76,7 +74,6 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.createdAt = new Date();
   newUser.popularity = 0;
   newUser.activityIntensity = 0;
-  // To-Do get clients localization
   newUser.localization = 0;
   newUser.maxSearchDistanceFilter = 0;
   newUser.ageFromFilter = 0;
@@ -92,18 +89,31 @@ router.post('/register', async (req: Request, res: Response) => {
     expiresIn: jwtExpirySeconds,
   });
 
-  res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 });
-  res.end();
+  res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 })
+    .sendStatus(CREATED)
+    .end();
 });
 
 router.post('/login', async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  const trimmedEmail = String(email).trim();
-  const trimmedPassword = String(password).trim();
+
+  const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+  });
+
+  const isValid = await schema.isValid({
+    email,
+    password,
+  });
+
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
 
   const foundUser = await getConnection()
     .createEntityManager()
-    .findOne(User, { where: { email: trimmedEmail } })
+    .findOne(User, { where: { email } })
     .catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
@@ -113,7 +123,7 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(UNAUTHORIZED).end();
   }
 
-  const arePasswordsMatching = await bcrypt.compare(trimmedPassword, foundUser.passwordHash);
+  const arePasswordsMatching = await bcrypt.compare(password, foundUser.passwordHash);
 
   if (!arePasswordsMatching) {
     return res.status(UNAUTHORIZED).end();
@@ -124,48 +134,47 @@ router.post('/login', async (req: Request, res: Response) => {
     expiresIn: jwtExpirySeconds,
   });
 
-  res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 });
-  res.end();
+  res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 })
+    .end();
 });
 
-router.post('/secret', (req: Request, res: Response) => {
-  const { token } = req.cookies;
+router.post('/secret', authenticate, (req: Request, res: Response) => {
+  // const { token } = req.cookies;
+  //
+  // if (!token) {
+  //   return res.status(UNAUTHORIZED)
+  //     .end();
+  // }
+  //
+  // let payload : any;
+  // try {
+  //   payload = jwt.verify(token, TOKEN_SECRET!);
+  // } catch (e) {
+  //   if (e instanceof jwt.JsonWebTokenError) {
+  //     return res.status(UNAUTHORIZED).end();
+  //   }
+  //   return res.status(BAD_REQUEST).end();
+  // }
 
-  if (!token) {
-    return res.status(UNAUTHORIZED).end();
-  }
-
-  let payload : any;
-  try {
-    payload = jwt.verify(token, TOKEN_SECRET!);
-  } catch (e) {
-    if (e instanceof jwt.JsonWebTokenError) {
-      return res.status(UNAUTHORIZED).end();
-    }
-    return res.status(BAD_REQUEST).end();
-  }
-
-  res.send(`Welcome ${payload.email}!`);
+  res.send('Welcome!');
 });
 
-router.post('/refresh', (req, res) => {
-  const { token } = req.cookies;
-
-  if (!token) {
-    console.log('no token');
-    return res.status(UNAUTHORIZED).end();
-  }
-
-  let payload : any;
-  try {
-    payload = jwt.verify(token, TOKEN_SECRET!);
-  } catch (e) {
-    if (e instanceof jwt.JsonWebTokenError) {
-      return res.status(UNAUTHORIZED).end();
-    }
-    console.log('smth wrong:', e);
-    return res.status(BAD_REQUEST).end();
-  }
+router.post('/refresh', authenticate, (req, res) => {
+  // const { token } = req.cookies;
+  //
+  // if (!token) {
+  //   return res.status(UNAUTHORIZED).end();
+  // }
+  //
+  // let payload : any;
+  // try {
+  //   payload = jwt.verify(token, TOKEN_SECRET!);
+  // } catch (e) {
+  //   if (e instanceof jwt.JsonWebTokenError) {
+  //     return res.status(UNAUTHORIZED).end();
+  //   }
+  //   return res.status(BAD_REQUEST).end();
+  // }
 
   // We ensure that a new token is not issued until enough time has elapsed
   // In this case, a new token will only be issued if the old token is within
@@ -177,14 +186,13 @@ router.post('/refresh', (req, res) => {
   // }
 
   // Now, create a new token for the current user, with a renewed expiration time
-  const newToken = jwt.sign({ id: payload.id }, TOKEN_SECRET!, {
+  const newToken = jwt.sign({ id: req.payload.id }, TOKEN_SECRET!, {
     algorithm: 'HS256',
     expiresIn: jwtExpirySeconds,
   });
 
   // Set the new token as the users `token` cookie
-  res.cookie('token', newToken, { maxAge: jwtExpirySeconds * 1000 });
-  res.end();
+  res.cookie('token', newToken, { maxAge: jwtExpirySeconds * 1000 }).end();
 });
 
 export default router;
