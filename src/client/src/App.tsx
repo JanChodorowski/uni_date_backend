@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {signIn, secret, refresh,register} from "./api";
+import {login, secret, refresh,register} from "./api";
 import logo from "./logo.svg";
 import "./App.css";
 import Cookies  from 'universal-cookie';
@@ -9,12 +9,12 @@ function App() {
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [email, setEmail] = useState("");
 
-    const handleSignIn = () => {
+    const handleLogin = () => {
         const user = {
             email,
             password,
         };
-        signIn(user);
+        login(user);
     };
 
     const handleRegister = () => {
@@ -71,7 +71,7 @@ function App() {
                     placeholder={"passwordConfirmation"}
                     onChange={(e) => setPasswordConfirmation(e.target.value)}
                 />
-                <button onClick={handleSignIn}>SignIn</button>
+                <button onClick={handleLogin}>Login</button>
                 <button onClick={handleSecret}>Secret</button>
                 <button onClick={handleRefresh}>Refresh</button>
                 <button onClick={handleLogOut}>LogOut</button>

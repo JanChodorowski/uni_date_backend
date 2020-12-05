@@ -50,10 +50,10 @@ const axios = require("axios");
 // });
 // }
 
-export const signIn = (user: any) => {
+export const login = (user: any) => {
     console.log(user)
     axios
-        .post(`api/auth/signin`, {
+        .post(`api/auth/login`, {
             email: user.email,
             password: user.password,
         })

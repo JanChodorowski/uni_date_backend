@@ -29,7 +29,7 @@ const users: any = {
 };
 
 const schema = yup.object().shape({
-  email: yup.string().email(),
+  email: yup.string().email().required(),
   password: yup.string().required(),
   passwordConfirmation: yup.string()
     .oneOf([yup.ref('password'), null], 'Passwords must match'),
@@ -99,7 +99,7 @@ router.post('/register', async (req: Request, res: Response) => {
   res.end();
 });
 
-router.post('/signin', (req: Request, res: Response) => {
+router.post('/login', (req: Request, res: Response) => {
   // Get credentials from JSON body
   const { email, password } = req.body;
   const trimmedEmail = String(email).trim();
@@ -107,7 +107,6 @@ router.post('/signin', (req: Request, res: Response) => {
   if (!trimmedEmail || !trimmedPassword || users[trimmedEmail] !== trimmedPassword) {
     // return UNAUTHORIZED error is email or password doesn't exist, or if password does
     // not match the password in our records
-    console.log('ioio', trimmedEmail, password);
     return res.status(UNAUTHORIZED).end();
   }
 
@@ -117,7 +116,6 @@ router.post('/signin', (req: Request, res: Response) => {
     algorithm: 'HS256',
     expiresIn: jwtExpirySeconds,
   });
-  console.log('token:', token);
 
   // set the cookie as the token string, with a similar max age as the token
   // here, the max age is in milliseconds, so we multiply by 1000
