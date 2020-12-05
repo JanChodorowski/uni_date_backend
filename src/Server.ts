@@ -11,7 +11,7 @@ import {
   ConnectionOptions, createConnection, Connection, getConnection,
 } from 'typeorm';
 import { User } from '@entities/User';
-
+import jwt from 'jsonwebtoken';
 import path from 'path';
 import BaseRouter from './routes';
 
@@ -26,7 +26,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const { NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL } = process.env;
+const {
+  NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL, TOKEN_SECRET,
+} = process.env;
+
 let mainDirName;
 
 if (NODE_ENV === 'development') {

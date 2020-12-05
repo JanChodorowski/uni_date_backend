@@ -80,6 +80,9 @@
       ],
       "@interfaces/*": [
         "src/interfaces/*"
+      ],
+      "@middleware/*": [
+        "src/middleware/*"
       ]
     },
   },
