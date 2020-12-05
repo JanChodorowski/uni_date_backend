@@ -1,6 +1,18 @@
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import jwt from 'jsonwebtoken';
+import UniversityDao, { IUniversityDao } from '@daos/University/UniversityDao';
+import UserDao from '@daos/User/UserDao';
+import { University } from '@entities/University';
+import { UniversityAttendance } from '@entities/UniversityAttendance';
+import { User } from '@entities/User';
+import { IUniversityAttendance } from '@interfaces/IUniversityAttendance';
+import { IUser } from '@interfaces/IUser';
+import { IRequest, paramMissingError } from '@shared/constants';
+import StatusCodes from 'http-status-codes';
+import { getConnection, getManager } from 'typeorm';
 
+const router = Router();
+const { BAD_REQUEST, CREATED, OK } = StatusCodes;
 const {
   NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL, TOKEN_SECRET,
 } = process.env;
@@ -11,12 +23,13 @@ const users: any = {
   user2: 'password2',
 };
 
-const signIn = (req: Request, res: Response) => {
+router.post('/signin', (req: Request, res: Response) => {
   // Get credentials from JSON body
   const { username, password } = req.body;
   if (!username || !password || users[username] !== password) {
     // return 401 error is username or password doesn't exist, or if password does
     // not match the password in our records
+    console.log('ioio', username, password);
     return res.status(401).end();
   }
 
@@ -32,9 +45,9 @@ const signIn = (req: Request, res: Response) => {
   // here, the max age is in milliseconds, so we multiply by 1000
   res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 });
   res.end();
-};
+});
 
-const welcome = (req: Request, res: Response) => {
+router.post('/secret', (req: Request, res: Response) => {
   // We can obtain the session token from the requests cookies, which come with every request
   const { token } = req.cookies;
 
@@ -62,4 +75,6 @@ const welcome = (req: Request, res: Response) => {
   // Finally, return the welcome message to the user, along with their
   // username given in the token
   res.send(`Welcome ${payload.username}!`);
-};
+});
+
+export default router;
