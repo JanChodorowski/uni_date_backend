@@ -8,3 +8,11 @@ export interface IRequest extends Request {
         user: IUser;
     }
 }
+
+// to be continued...
+export enum gender {
+    none,
+    male,
+    female,
+    other,
+}

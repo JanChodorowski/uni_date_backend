@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import {AxiosResponse} from "axios";
 
 const axios = require("axios");
 
@@ -51,36 +51,74 @@ const axios = require("axios");
 // }
 
 export const signIn = (user: any) => {
-  axios
-    .post(`api/auth/signin`, {
-      username: user.username,
-      password: user.password,
-    })
-    .then(function (response: AxiosResponse) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error: Error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+    console.log(user)
+    axios
+        .post(`api/auth/signin`, {
+            email: user.email,
+            password: user.password,
+        })
+        .then(function (response: AxiosResponse) {
+            // handle success
+            console.log(response);
+        })
+        .catch(function (error: Error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
 };
 
 export const secret = () => {
-  axios
-    .post(`api/auth/secret`)
-    .then(function (response: AxiosResponse) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error: Error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+    axios
+        .post(`api/auth/secret`)
+        .then(function (response: AxiosResponse) {
+            // handle success
+            console.log(response);
+        })
+        .catch(function (error: Error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
 };
+
+export const refresh = () => {
+    axios
+        .post(`api/auth/refresh`)
+        .then(function (response: AxiosResponse) {
+            // handle success
+            console.log(response);
+        })
+        .catch(function (error: Error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+};
+
+export const register = (user:any) => {
+    axios
+        .post(`api/auth/register`, {
+            email: user.email,
+            password: user.password,
+            passwordConfirmation: user.passwordConfirmation
+        })
+        .then(function (response: AxiosResponse) {
+            // handle success
+            console.log(response);
+        })
+        .catch(function (error: Error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+};
+
