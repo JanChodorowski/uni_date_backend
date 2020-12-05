@@ -1,5 +1,7 @@
-import { Request, Response, Router } from 'express';
-import jwt from 'jsonwebtoken';
+import {
+  CookieOptions, Request, Response, Router,
+} from 'express';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import UniversityDao, { IUniversityDao } from '@daos/University/UniversityDao';
 import UserDao from '@daos/User/UserDao';
 import { University } from '@entities/University';
@@ -25,6 +27,11 @@ const {
   TOKEN_SECRET,
 } = process.env;
 const jwtExpirySeconds = 100000000000;
+const signOptions : SignOptions = {
+  algorithm: 'HS256',
+  expiresIn: jwtExpirySeconds,
+};
+const cookieOptions : CookieOptions = { maxAge: jwtExpirySeconds * 1000 };
 
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
@@ -84,12 +91,9 @@ router.post('/register', async (req: Request, res: Response) => {
     .createEntityManager()
     .save(newUser);
 
-  const token = jwt.sign({ id: newUser.id }, TOKEN_SECRET!, {
-    algorithm: 'HS256',
-    expiresIn: jwtExpirySeconds,
-  });
+  const token = jwt.sign({ id: newUser.id }, TOKEN_SECRET!, signOptions);
 
-  res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 })
+  res.cookie('token', token, cookieOptions)
     .sendStatus(CREATED)
     .end();
 });
@@ -134,7 +138,7 @@ router.post('/login', async (req: Request, res: Response) => {
     expiresIn: jwtExpirySeconds,
   });
 
-  res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 })
+  res.cookie('token', token, cookieOptions)
     .end();
 });
 
@@ -186,13 +190,10 @@ router.post('/refresh', authenticate, (req, res) => {
   // }
 
   // Now, create a new token for the current user, with a renewed expiration time
-  const newToken = jwt.sign({ id: req.payload.id }, TOKEN_SECRET!, {
-    algorithm: 'HS256',
-    expiresIn: jwtExpirySeconds,
-  });
+  const newToken = jwt.sign({ id: req.payload.id }, TOKEN_SECRET!, signOptions);
 
   // Set the new token as the users `token` cookie
-  res.cookie('token', newToken, { maxAge: jwtExpirySeconds * 1000 }).end();
+  res.cookie('token', newToken, cookieOptions).end();
 });
 
 export default router;
