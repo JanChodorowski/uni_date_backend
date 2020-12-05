@@ -3,13 +3,14 @@ import StatusCodes from 'http-status-codes';
 import {
   NextFunction, Request, Response, Router,
 } from 'express';
+import { IRequestWithPayload } from '@shared/constants';
 
 const {
   BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,
 } = StatusCodes;
 const { TOKEN_SECRET } = process.env;
 
-export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = (req: IRequestWithPayload, res: Response, next: NextFunction) => {
   const { token } = req.cookies;
 
   if (!token) {
@@ -26,6 +27,6 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     return res.status(BAD_REQUEST).end();
   }
 
-  req.payload = payload;
+  req.body.payload = payload;
   next();
 };
