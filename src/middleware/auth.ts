@@ -22,7 +22,7 @@ const signIn = (req: Request, res: Response) => {
 
   // Create a new token with the username in the payload
   // and which expires 300 seconds after issue
-  const token = jwt.sign({ username }, TOKEN_SECRET, {
+  const token = jwt.sign({ username }, TOKEN_SECRET!, {
     algorithm: 'HS256',
     expiresIn: jwtExpirySeconds,
   });
@@ -43,13 +43,13 @@ const welcome = (req: Request, res: Response) => {
     return res.status(401).end();
   }
 
-  let payload;
+  let payload : any;
   try {
     // Parse the JWT string and store the result in `payload`.
     // Note that we are passing the key in this method as well. This method will throw an error
     // if the token is invalid (if it has expired according to the expiry time we set on sign in),
     // or if the signature does not match
-    payload = jwt.verify(token, TOKEN_SECRET);
+    payload = jwt.verify(token, TOKEN_SECRET!);
   } catch (e) {
     if (e instanceof jwt.JsonWebTokenError) {
       // if the error thrown is because the JWT is unauthorized, return a 401 error

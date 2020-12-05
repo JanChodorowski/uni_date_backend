@@ -13,6 +13,7 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
+    'only-warn',
   ],
   rules: {
     'import/prefer-default-export': 'off',
