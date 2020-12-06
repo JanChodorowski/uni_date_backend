@@ -13,7 +13,6 @@ import {
   IRequest, paramMissingError, gender,
 } from '@shared/constants';
 import StatusCodes from 'http-status-codes';
-import { getConnection, getManager } from 'typeorm';
 import * as yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
@@ -32,6 +31,7 @@ const signOptions : SignOptions = {
   expiresIn: jwtExpirySeconds,
 };
 const cookieOptions : CookieOptions = { maxAge: jwtExpirySeconds * 1000 };
+const userDao = new UserDao();
 
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
@@ -56,13 +56,10 @@ router.post('/register', async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await getConnection()
-    .createEntityManager()
-    .findOne(User, { where: { email: trimmedEmail } })
-    .catch((err) => {
-      console.error(err);
-      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
-    });
+  const foundUser = await userDao.findOneByEmail(trimmedEmail).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
 
   if (foundUser) {
     return res.json({ isUserExisting: true }).end();
@@ -87,9 +84,7 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.ageToFilter = 0;
   newUser.genderFilter = 0;
 
-  await getConnection()
-    .createEntityManager()
-    .save(newUser);
+  await userDao.add(newUser);
 
   const token = jwt.sign({ id: newUser.id }, TOKEN_SECRET!, signOptions);
 
@@ -115,9 +110,7 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await getConnection()
-    .createEntityManager()
-    .findOne(User, { where: { email } })
+  const foundUser = await userDao.findOneByEmail(email)
     .catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
