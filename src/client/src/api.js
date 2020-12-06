@@ -1,23 +1,25 @@
-const axios = require('axios');
+const axios = require("axios");
 
 // Make a request for a user with a given ID
 export const insertUniversity = (university) => {
-  axios.get(`university/${university}`)
+  axios
+    .get(`university/${university}`)
     .then((response) => {
-    // handle success
+      // handle success
       console.log(response);
     })
     .catch((error) => {
-    // handle error
+      // handle error
       console.log(error);
     })
     .then(() => {
-    // always executed
+      // always executed
     });
 };
 
 export const insertUniversityWithRoute = (university) => {
-  axios.get(`api/universities/${university}`)
+  axios
+    .get(`api/universities/${university}`)
     .then((response) => {
       // handle success
       console.log(response);
@@ -32,9 +34,10 @@ export const insertUniversityWithRoute = (university) => {
 };
 
 export const insertUniversityWithRoutePOST = (university) => {
-  axios.post('api/universities/add', {
-    name: university,
-  })
+  axios
+    .post("api/universities/add", {
+      name: university,
+    })
     .then((response) => {
       // handle success
       console.log(response);
@@ -51,7 +54,7 @@ export const insertUniversityWithRoutePOST = (university) => {
 export const login = (user) => {
   console.log(user);
   axios
-    .post('api/auth/login', {
+    .post("api/auth/login", {
       email: user.email,
       password: user.password,
     })
@@ -70,7 +73,7 @@ export const login = (user) => {
 
 export const secret = () => {
   axios
-    .post('api/auth/secret')
+    .post("api/auth/secret")
     .then((response) => {
       // handle success
       console.log(response);
@@ -86,7 +89,7 @@ export const secret = () => {
 
 export const refresh = () => {
   axios
-    .post('api/auth/refresh')
+    .post("api/auth/refresh")
     .then((response) => {
       // handle success
       console.log(response);
@@ -102,7 +105,7 @@ export const refresh = () => {
 
 export const register = (user) => {
   axios
-    .post('api/auth/register', {
+    .post("api/auth/register", {
       email: user.email,
       password: user.password,
       passwordConfirmation: user.passwordConfirmation,

@@ -41,7 +41,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
   const schema = yup.object().shape({
     email: yup.string().email().required(),
-    password: yup.string().required(),
+    password: yup.string().min(8).required(),
     passwordConfirmation: yup.string()
       .oneOf([yup.ref('password'), null], 'Passwords must match'),
   });
@@ -98,7 +98,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
   const schema = yup.object().shape({
     email: yup.string().email().required(),
-    password: yup.string().required(),
+    password: yup.string().min(8).required(),
   });
 
   const isValid = await schema.isValid({
