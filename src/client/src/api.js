@@ -53,22 +53,21 @@ export const insertUniversityWithRoutePOST = (university) => {
 
 export const login = (user) => {
   console.log(user);
-  axios
-    .post("api/auth/login", {
-      email: user.email,
-      password: user.password,
-    })
-    .then((response) => {
-      // handle success
-      console.log(response);
-    })
-    .catch((error) => {
-      // handle error
-      console.log(error);
-    })
-    .then(() => {
-      // always executed
-    });
+  return axios.post("api/auth/login", {
+    email: user.email,
+    password: user.password,
+  });
+  // .then((response) => {
+  //   // handle success
+  //   console.log(response);
+  // })
+  // .catch((error) => {
+  //   // handle error
+  //   console.log(error);
+  // })
+  // .then(() => {
+  //   // always executed
+  // });
 };
 
 export const secret = () => {

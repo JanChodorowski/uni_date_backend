@@ -1,4 +1,4 @@
-import blueGrey from "@material-ui/core/colors/blueGrey";
+import red from "@material-ui/core/colors/red";
 
 export const LOCAL_STORAGE_KEY = {
   theme: "theme-ui-color-mode",
@@ -11,15 +11,18 @@ export const THEME_NAMES = {
   dark: "dark",
 };
 
-const color = blueGrey;
+const color = red;
 
 const APP_THEME_EXTENDED = {
-  overrides: {
-    MUIDataTableBodyCell: {
-      root: {
-        backgroundColor: color["600"],
-      },
-    },
+  // overrides: {
+  //   MUIDataTableBodyCell: {
+  //     root: {
+  //       backgroundColor: color["600"],
+  //     },
+  //   },
+  // },
+  primary: {
+    main: color["900"],
   },
 };
 
@@ -39,8 +42,8 @@ export const APP_THEME = {
       // elevation2: {
       //   backgroundColor: color['200'],
       // },
+      ...APP_THEME_EXTENDED,
     },
-    // ...APP_THEME_EXTENDED,
   },
   dark: {
     palette: {
@@ -57,8 +60,8 @@ export const APP_THEME = {
       // elevation2: {
       //   backgroundColor: color['700'],
       // },
+      ...APP_THEME_EXTENDED,
     },
-    // ...APP_THEME_EXTENDED,
   },
 };
 

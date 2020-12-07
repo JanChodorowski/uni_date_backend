@@ -8,6 +8,7 @@ import {
 import {
   Button,
   CssBaseline,
+  Divider,
   Grid,
   Paper,
   ThemeProvider,
@@ -18,6 +19,7 @@ import { login, secret, refresh, register } from "./api";
 import { APP_THEME } from "./helpers/constants";
 import heart from "./images/heart-rate.png";
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   const [password, setPassword] = useState("");
@@ -103,7 +105,13 @@ function App() {
           </Paper>
         </Grid>
         <Grid item>
-          <Login />
+          <Paper style={{ padding: "1rem" }}>
+            <Login />
+          </Paper>
+          <br />
+          <Paper style={{ padding: "1rem" }}>
+            <Register></Register>
+          </Paper>
         </Grid>
       </Grid>
 
