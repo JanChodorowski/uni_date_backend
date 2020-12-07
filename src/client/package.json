@@ -10,7 +10,6 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
     "formik": "^2.2.5",
-    "husky": "^4.3.4",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
