@@ -5,7 +5,7 @@ import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import React, { useContext, useLayoutEffect, useRef } from "react";
 import { ColorContext } from "../context/colorContext";
-import { LOCAL_STORAGE_KEY, THEME_NAMES } from "../helpers/constants";
+import { LOCAL_STORAGE_KEY, THEME_NAMES } from "../shared/constants";
 import { Grid, InputAdornment } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
@@ -16,13 +16,13 @@ const PasswordVisibilityBtn = ({
 }) => {
   return (
     <Tooltip title="Toggle show/hide password" arrow TransitionComponent={Zoom}>
-        <IconButton
-          aria-label="toggle password visibility"
-          onClick={handleClickShowPassword}
-          onMouseDown={handleMouseDownPassword}
-        >
-          {showPassword ? <Visibility /> : <VisibilityOff />}
-        </IconButton>
+      <IconButton
+        aria-label="toggle password visibility"
+        onClick={handleClickShowPassword}
+        onMouseDown={handleMouseDownPassword}
+      >
+        {showPassword ? <Visibility /> : <VisibilityOff />}
+      </IconButton>
     </Tooltip>
   );
 };

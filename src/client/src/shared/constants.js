@@ -3,8 +3,6 @@ import red from "@material-ui/core/colors/red";
 export const LOCAL_STORAGE_KEY = {
   theme: "theme-ui-color-mode",
 };
-export const getItemByKey = (item) =>
-  typeof window !== "undefined" && window.localStorage.getItem(item);
 
 export const THEME_NAMES = {
   light: "light",

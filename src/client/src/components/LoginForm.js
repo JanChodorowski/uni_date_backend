@@ -10,7 +10,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
-import {basicValidation} from "../helpers/functions"
+import { basicValidation } from "../shared/functions";
 
 const validationSchema = yup.object(basicValidation);
 

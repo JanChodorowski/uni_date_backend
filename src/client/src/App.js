@@ -16,12 +16,7 @@ import {
 } from "@material-ui/core";
 import logo from "./logo.svg";
 import { login, secret, refresh, register, getUserData } from "./api";
-import {
-  APP_THEME,
-  getItemByKey,
-  LOCAL_STORAGE_KEY,
-  THEME_NAMES,
-} from "./helpers/constants";
+import { APP_THEME, LOCAL_STORAGE_KEY, THEME_NAMES } from "./shared/constants";
 import heart from "./images/heart-rate.png";
 import LoginForm from "./components/LoginForm";
 import Register from "./components/Register";
@@ -29,6 +24,7 @@ import BtmNav from "./components/BtmNav";
 import ColorBtn from "./components/ColorBtn";
 import { ColorContext } from "./context/colorContext";
 import { UserContext } from "./context/userContext";
+import { getItemByKey } from "./shared/functions";
 
 function App() {
   const [isDark, setIsDark] = useState(true);

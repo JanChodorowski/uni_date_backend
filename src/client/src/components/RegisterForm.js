@@ -15,7 +15,7 @@ import {
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import red from "@material-ui/core/colors/red";
 import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
-import {basicValidation} from "../helpers/functions";
+import { basicValidation } from "../shared/functions";
 
 const validationSchema = yup.object({
   ...basicValidation,

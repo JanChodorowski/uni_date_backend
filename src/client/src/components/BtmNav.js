@@ -13,7 +13,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Grid, Paper } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
-import { NAVIGATION } from "../helpers/constants";
+import { NAVIGATION } from "../shared/constants";
 
 const useStyles = makeStyles({
   root: {
