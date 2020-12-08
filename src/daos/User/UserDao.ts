@@ -7,12 +7,13 @@ import { University } from '@entities/University';
 import { User } from '@entities/User';
 
 export interface IUserDao {
-    getOne: (email: string) => Promise<IUser | null>;
-    getAll: () => Promise<IUser[]>;
-    add: (user: IUser) => Promise<IUser>;
-    update: (user: IUser) => Promise<void>;
-    delete: (id: number) => Promise<void>;
-    findOneByEmail: (email: string) => Promise<IUser | undefined>;
+  getOne: (email: string) => Promise<IUser | null>;
+  getAll: () => Promise<IUser[]>;
+  add: (user: IUser) => Promise<IUser>;
+  update: (user: IUser) => Promise<void>;
+  delete: (id: number) => Promise<void>;
+  findOneByEmail: (email: string) => Promise<IUser | undefined>;
+  findOneById: (id: string) => Promise<IUser | undefined>;
 }
 
 class UserDao implements IUserDao {
@@ -23,6 +24,15 @@ class UserDao implements IUserDao {
     return getConnection()
       .createEntityManager()
       .findOne(User, { where: { email } });
+  }
+
+  /**
+   * @param id
+   */
+  public findOneById(id: string): Promise<IUser | undefined> {
+    return getConnection()
+      .createEntityManager()
+      .findOne(User, { where: { id } });
   }
 
   /**

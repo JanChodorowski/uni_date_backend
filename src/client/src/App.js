@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Cookies from "universal-cookie";
 import {
   createMuiTheme,
@@ -16,39 +16,30 @@ import {
 } from "@material-ui/core";
 import logo from "./logo.svg";
 import { login, secret, refresh, register } from "./api";
-import { APP_THEME } from "./helpers/constants";
+import {APP_THEME, getItemByKey, LOCAL_STORAGE_KEY, THEME_NAMES} from "./helpers/constants";
 import heart from "./images/heart-rate.png";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import BtmNav from "./components/BtmNav";
+import ColorBtn from "./components/ColorBtn";
+import { ColorContext } from './context/colorContext';
 
 function App() {
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [email, setEmail] = useState("");
   const [isDark, setIsDark] = useState(true);
 
-  const handleLogin = () => {
-    const user = {
-      email,
-      password,
-    };
-    login(user);
-  };
 
 
-  const handleLogOut = () => {
-    const cookies = new Cookies();
-
-    console.log("getoken", cookies.get("token"));
-    cookies.remove("token");
-  };
+  useEffect(() => {
+    setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
+  }, []);
 
   let chosenTheme = createMuiTheme(isDark ? APP_THEME.dark : APP_THEME.light);
   chosenTheme = responsiveFontSizes(chosenTheme);
 
   return (
     <ThemeProvider theme={chosenTheme}>
+      <ColorContext.Provider value={[isDark, setIsDark]}>
+
       <CssBaseline />
       <br/>
       <Grid
@@ -82,10 +73,17 @@ function App() {
                   <Grid item>
                     <Typography variant="h1" style={{lineHeight: "80%"}}>UNI DATE</Typography>
                   </Grid>
-                  <Grid item style={{ padding: "1rem" }}>
-                    <Typography style={{ fontSize: "1rem" }}>
-                      Dating app for universities students & graduates
-                    </Typography>
+                  <Grid item style={{ padding: "1rem" }} container nowrap direction="row"
+                        alignItems="center"
+                        justify="center">
+                    <Grid item>
+                      <Typography style={{ fontSize: "1rem" }}>
+                        Dating app for universities students & graduates
+                      </Typography>
+                    </Grid>
+                   <Grid item>
+                     <ColorBtn></ColorBtn>
+                   </Grid>
                   </Grid>
                 </Grid>
               </Grid>
@@ -106,7 +104,7 @@ function App() {
       <br/>
       <br/>
       <br/>
-      <BtmNav></BtmNav>
+      <BtmNav></BtmNav></ColorContext.Provider>
     </ThemeProvider>
   );
 }
