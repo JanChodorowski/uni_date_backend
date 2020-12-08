@@ -90,6 +90,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
   res.cookie('token', token, cookieOptions)
     .sendStatus(CREATED)
+    .json(foundUser)
     .end();
 });
 
@@ -132,6 +133,7 @@ router.post('/login', async (req: Request, res: Response) => {
   });
 
   res.cookie('token', token, cookieOptions)
+    .json(foundUser)
     .end();
 });
 

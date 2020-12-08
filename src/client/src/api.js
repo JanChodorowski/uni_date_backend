@@ -51,11 +51,10 @@ export const insertUniversityWithRoutePOST = (university) => {
     });
 };
 
-export const login = (user) => {
-  console.log(user);
+export const login = ({ email, password }) => {
   return axios.post("api/auth/login", {
-    email: user.email,
-    password: user.password,
+    email,
+    password,
   });
   // .then((response) => {
   //   // handle success
@@ -102,22 +101,10 @@ export const refresh = () => {
     });
 };
 
-export const register = (user) => {
-  axios
-    .post("api/auth/register", {
-      email: user.email,
-      password: user.password,
-      passwordConfirmation: user.passwordConfirmation,
-    })
-    .then((response) => {
-      // handle success
-      console.log(response);
-    })
-    .catch((error) => {
-      // handle error
-      console.log(error);
-    })
-    .then(() => {
-      // always executed
-    });
+export const register = ({ email, password, passwordConfirmation }) => {
+  return axios.post("api/auth/register", {
+    email,
+    password,
+    passwordConfirmation,
+  });
 };

@@ -21,6 +21,8 @@ const validationSchema = yup.object({
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [areCredentialsIncorrect, setAreCredentialsIncorrect] = useState(false);
+
   const handleClickShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -34,30 +36,21 @@ const Login = () => {
       password: "domestos",
     },
     validationSchema: validationSchema,
-    // onSubmit: async (values) => {
-    //   console.log('formik 1', formik.isSubmitting)
-    //   formik.setSubmitting(true);
-    //
-    //   await setTimeout(()=>{
-    //     formik.setSubmitting(false);
-    //     console.log('formik 2', formik.isSubmitting)
-    //   }, 2000)
-    //   await login(values);
-    //   console.log('formik 3', formik.isSubmitting)
-    //
-    // },
     onSubmit: async (values, { setSubmitting }) => {
-      await login(values);
-
-      //.then(
-      //     async (u) => {
-      //       await setTimeout(()=>{
-      //         setSubmitting(false);
-      //
-      //         console.log('formik 2', formik.isSubmitting)
-      //           }, 2000)
-      //     },
-      // ).catch((e) => console.log(e));
+      console.log("res1");
+      let res;
+      try {
+        res = await login(values);
+      } catch {
+      } finally {
+        console.log("res2", res);
+        if (res?.data?.id) {
+          setAreCredentialsIncorrect(false);
+        } else {
+          setAreCredentialsIncorrect(true);
+        }
+        console.log("res", res);
+      }
     },
   });
 
@@ -76,24 +69,7 @@ const Login = () => {
         />
         <br />
         <br />
-        {/*<TextField*/}
-        {/*  fullWidth*/}
-        {/*  id="password"*/}
-        {/*  name="password"*/}
-        {/*  label="Password"*/}
-        {/*  type="password"*/}
-        {/*  value={formik.values.password}*/}
-        {/*  onChange={formik.handleChange}*/}
-        {/*  error={formik.touched.password && Boolean(formik.errors.password)}*/}
-        {/*  helperText={formik.touched.password && formik.errors.password}*/}
-        {/*/>*/}
-        <Grid
-          container
-          // spacing={0}
-          direction="row"
-          alignItems="center"
-          justify="center"
-        >
+        <Grid container direction="row" alignItems="center" justify="center">
           <Grid item>
             <TextField
               fullWidth
@@ -120,6 +96,13 @@ const Login = () => {
           </Grid>
         </Grid>
         <br />
+        {areCredentialsIncorrect && (
+          <>
+            <p style={{ color: "rgb(204,0,0)" }}>
+              No user with this email and password
+            </p>
+          </>
+        )}
         <Button
           color="primary"
           variant="contained"
