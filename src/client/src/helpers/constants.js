@@ -65,18 +65,6 @@ export const APP_THEME = {
   },
 };
 
-export const DRAWER_WIDTH = 180;
-
-export const COMPANY = "VAVICOM";
-export const STREET = "Ogrodowa 6";
-export const STREET2 = "Grochowskiego 7";
-export const TOWN = "05-500 Józefosław";
-export const TOWN2 = "05-500 Piaseczno";
-export const PHONE_NUMBER = "+48 602 237 246";
-export const PHONE_NUMBER2 = "+48 606 368 694";
-export const EMAIL = "vavicom.info@gmail.com";
-export const EMAIL2 = "info@vavicom.pl";
-
 export const NAVIGATION = {
   chat: "chat",
   match: "match",
@@ -84,9 +72,3 @@ export const NAVIGATION = {
   profile: "profile",
   settings: "settings",
 };
-
-export const OFFSET = -42;
-
-export const TITLE = "BIURO RACHUNKOWE VAVICOM PIASECZNO JÓZEFOSŁAW WARSZAWA";
-export const DESCRIPTION =
-  "Biuro Rachunkowe VAVICOM Piaseczno, Józefosław, Warszawa. Księgowość, Kadry i Płace, Podatki, Finanse, Biznes";

@@ -94,7 +94,11 @@ const RegisterForm = () => {
             />
           </Grid>
           <Grid item>
-            <PasswordVisibilityBtn showPassword={showPassword} handleClickShowPassword={handleClickShowPassword} handleMouseDownPassword={handleMouseDownPassword}></PasswordVisibilityBtn>
+            <PasswordVisibilityBtn
+              showPassword={showPassword}
+              handleClickShowPassword={handleClickShowPassword}
+              handleMouseDownPassword={handleMouseDownPassword}
+            ></PasswordVisibilityBtn>
           </Grid>
         </Grid>
         <br />
