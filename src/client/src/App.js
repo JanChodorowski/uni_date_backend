@@ -55,7 +55,7 @@ function App() {
   return (
     <ThemeProvider theme={chosenTheme}>
       <ColorContext.Provider value={[isDark, setIsDark]}>
-        <UserContext.Provider>
+        <UserContext.Provider value={[user, setUser]}>
           <CssBaseline />
           <p>{user.id}</p>
           <br />
