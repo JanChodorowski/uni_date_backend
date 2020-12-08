@@ -16,7 +16,6 @@ const PasswordVisibilityBtn = ({
 }) => {
   return (
     <Tooltip title="Toggle show/hide password" arrow TransitionComponent={Zoom}>
-      <InputAdornment position="end">
         <IconButton
           aria-label="toggle password visibility"
           onClick={handleClickShowPassword}
@@ -24,7 +23,6 @@ const PasswordVisibilityBtn = ({
         >
           {showPassword ? <Visibility /> : <VisibilityOff />}
         </IconButton>
-      </InputAdornment>
     </Tooltip>
   );
 };
