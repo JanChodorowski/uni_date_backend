@@ -15,16 +15,10 @@ import {
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import red from "@material-ui/core/colors/red";
 import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
+import {basicValidation} from "../helpers/functions";
 
 const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+  ...basicValidation,
   passwordConfirmation: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),

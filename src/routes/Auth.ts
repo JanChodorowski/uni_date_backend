@@ -33,6 +33,11 @@ const signOptions : SignOptions = {
 const cookieOptions : CookieOptions = { maxAge: jwtExpirySeconds * 1000 };
 const userDao = new UserDao();
 
+const basicValidation = {
+  email: yup.string().email().required(),
+  password: yup.string().min(8).required(),
+};
+
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
   const trimmedEmail = String(email).trim();
@@ -40,8 +45,7 @@ router.post('/register', async (req: Request, res: Response) => {
   const trimmedPasswordConfirmation = String(passwordConfirmation).trim();
 
   const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    ...basicValidation,
     passwordConfirmation: yup.string()
       .oneOf([yup.ref('password'), null], 'Passwords must match'),
   });
@@ -97,10 +101,7 @@ router.post('/register', async (req: Request, res: Response) => {
 router.post('/login', async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
-  });
+  const schema = yup.object().shape(basicValidation);
 
   const isValid = await schema.isValid({
     email,

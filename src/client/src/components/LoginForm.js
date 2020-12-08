@@ -10,19 +10,11 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
+import {basicValidation} from "../helpers/functions"
 
-const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
-});
+const validationSchema = yup.object(basicValidation);
 
-const Login = () => {
+const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [areCredentialsIncorrect, setAreCredentialsIncorrect] = useState(false);
 
@@ -40,6 +32,10 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
+      const formattedValues = {
+        ...values,
+        email: values.email.trim(),
+      };
       console.log("res1");
       let res;
       try {
@@ -122,4 +118,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

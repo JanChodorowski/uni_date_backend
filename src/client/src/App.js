@@ -23,7 +23,7 @@ import {
   THEME_NAMES,
 } from "./helpers/constants";
 import heart from "./images/heart-rate.png";
-import Login from "./components/Login";
+import LoginForm from "./components/LoginForm";
 import Register from "./components/Register";
 import BtmNav from "./components/BtmNav";
 import ColorBtn from "./components/ColorBtn";
@@ -120,7 +120,7 @@ function App() {
             </Grid>
             <Grid item>
               <Paper style={{ padding: "1rem" }}>
-                <Login />
+                <LoginForm />
               </Paper>
               <br />
               <Paper style={{ padding: "1rem" }}>
