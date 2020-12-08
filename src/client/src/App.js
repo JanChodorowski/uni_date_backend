@@ -14,7 +14,6 @@ import {
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
-import logo from "./logo.svg";
 import { login, secret, refresh, register, getUserData } from "./api";
 import { APP_THEME, LOCAL_STORAGE_KEY, THEME_NAMES } from "./shared/constants";
 import heart from "./images/heart-rate.png";
