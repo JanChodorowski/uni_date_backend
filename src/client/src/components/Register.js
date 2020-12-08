@@ -7,10 +7,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import RegisterForm from "./RegisterForm";
-import Zoom from '@material-ui/core/Zoom';
+import Zoom from "@material-ui/core/Zoom";
 
-
-const Transition = React.forwardRef((props, ref) => <Zoom ref={ref} {...props} />);
+const Transition = React.forwardRef((props, ref) => (
+  <Zoom ref={ref} {...props} />
+));
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);

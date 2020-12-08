@@ -69,7 +69,13 @@ const Login = () => {
         />
         <br />
         <br />
-        <Grid container direction="row" alignItems="center" justify="center" wrap="nowrap">
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justify="center"
+          wrap="nowrap"
+        >
           <Grid item>
             <TextField
               fullWidth

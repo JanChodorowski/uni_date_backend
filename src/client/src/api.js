@@ -108,3 +108,7 @@ export const register = ({ email, password, passwordConfirmation }) => {
     passwordConfirmation,
   });
 };
+
+export const getUserData = () => {
+  return axios.get("api/users/data");
+};

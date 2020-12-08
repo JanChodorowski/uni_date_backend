@@ -25,7 +25,7 @@ router.get('/data', authenticate, async (req: Request, res: Response) => {
   if (!foundUser) {
     res.sendStatus(BAD_REQUEST).end();
   }
-
+  console.log('foundUser', foundUser);
   res.json(foundUser).end();
 });
 
