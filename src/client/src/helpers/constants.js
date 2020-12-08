@@ -78,12 +78,11 @@ export const EMAIL = "vavicom.info@gmail.com";
 export const EMAIL2 = "info@vavicom.pl";
 
 export const NAVIGATION = {
-  home: "home",
-  services: "services",
-  about: "about",
-  faq: "faq",
-  contact: "contact",
-  prices: "prices",
+  chat: "chat",
+  match: "match",
+  filter: "filter",
+  profile: "profile",
+  settings: "settings",
 };
 
 export const OFFSET = -42;

@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import red from "@material-ui/core/colors/red";
+import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
 
 const validationSchema = yup.object({
   email: yup
@@ -93,15 +94,7 @@ const RegisterForm = () => {
             />
           </Grid>
           <Grid item>
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
-            </InputAdornment>
+            <PasswordVisibilityBtn showPassword={showPassword} handleClickShowPassword={handleClickShowPassword} handleMouseDownPassword={handleMouseDownPassword}></PasswordVisibilityBtn>
           </Grid>
         </Grid>
         <br />
