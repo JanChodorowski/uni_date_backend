@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "universal-cookie";
 import {
   createMuiTheme,
   makeStyles,
@@ -56,7 +55,6 @@ function App() {
           <br />
           <Grid
             container
-            // spacing={0}
             direction="row"
             alignItems="center"
             justify="center"
@@ -66,7 +64,6 @@ function App() {
               <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
                 <Grid
                   container
-                  // spacing={0}
                   direction="row"
                   alignItems="center"
                   justify="center"
@@ -80,7 +77,6 @@ function App() {
                   <Grid item style={{ padding: "1rem" }}>
                     <Grid
                       container
-                      // spacing={0}
                       direction="column"
                       alignItems="center"
                       justify="center"
