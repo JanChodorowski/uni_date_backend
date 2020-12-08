@@ -49,6 +49,7 @@ export default function BtmNav() {
                     direction="row"
                     alignItems="center"
                     justify="space-around"
+                    wrap="nowrap"
                 >
                     <Grid item>
                         <IconButton size="small" onClick={handleChangeOnSmallView("chat")}  >
