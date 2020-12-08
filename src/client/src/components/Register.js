@@ -7,6 +7,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import RegisterForm from "./RegisterForm";
+import Zoom from '@material-ui/core/Zoom';
+
+
+const Transition = React.forwardRef((props, ref) => <Zoom ref={ref} {...props} />);
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
@@ -33,6 +37,7 @@ export default function Register() {
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        TransitionComponent={Transition}
       >
         <DialogTitle id="form-dialog-title">Create New Account</DialogTitle>
         <DialogContent>
