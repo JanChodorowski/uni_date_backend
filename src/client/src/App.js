@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { login, secret, refresh, register, getUserData } from "./api";
 import {
-  APP_THEME,
+  APP_THEME, emptyUser,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
   THEME_NAMES,
@@ -42,7 +42,7 @@ import FilterPage from "./components/pages/FilterPage";
 import SettingsPage from "./components/pages/SettingsPage";
 function App() {
   const [isDark, setIsDark] = useState(true);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(emptyUser);
 
   useEffect(() => {
     let mounted = true;
