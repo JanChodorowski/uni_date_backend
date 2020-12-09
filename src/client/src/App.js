@@ -25,7 +25,7 @@ import { UserContext } from "./context/userContext";
 import { getItemByKey } from "./shared/functions";
 import LandingPage from "./components/pages/LandingPage";
 import {
-  BrowserRouter as Router, Route, Switch
+  BrowserRouter as Router, Route, Switch, withRouter
 } from 'react-router-dom';
 import ProfilePage from "./components/pages/ProfilePage";
 import ChatPage from "./components/pages/ChatPage";
@@ -41,8 +41,9 @@ function App() {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
     const setUserDataFromApi = async () => {
       const userData = await getUserData();
-      if (userData.data && mounted) {
-        setUser(userData.data);
+      const {data} = userData
+      if (data && mounted) {
+        setUser(data);
       }
     };
     try {
@@ -59,15 +60,13 @@ function App() {
       <ColorContext.Provider value={[isDark, setIsDark]}>
         <UserContext.Provider value={[user, setUser]}>
           <CssBaseline />
-          <Router>
             <Switch>
               <Route path={`/${chat}`} component={user.id ? ChatPage : LandingPage} />
               <Route path={`/${match}`} component={user.id ? MatchPage : LandingPage} />
               <Route path={`/${filter}`} component={user.id ? FilterPage : LandingPage} />
               <Route path={`/${settings}`} component={user.id ? SettingsPage : LandingPage} />
-              <Route path={`/`} component={user.id ? LandingPage : LandingPage} />
+              <Route path={`/${profile}`} component={user.id ? LandingPage : LandingPage} />
             </Switch>
-          </Router>
           <BtmNav/>
         </UserContext.Provider>
       </ColorContext.Provider>

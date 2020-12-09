@@ -17,6 +17,7 @@ import heart from "../../images/heart-rate.png";
 import LoginForm from "../forms/LoginForm";
 import Register from "../Register";
 import ColorBtn from "../buttons/ColorBtn";
+import BtmNav from "../BtmNav";
 
 
 const LandingPage = () => {
@@ -94,7 +95,6 @@ const LandingPage = () => {
             <br />
             <br />
             <br />
-
             </>
     );
 };

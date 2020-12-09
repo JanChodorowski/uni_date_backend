@@ -14,6 +14,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Grid, Paper } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import { NAVIGATION } from "../shared/constants";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -23,17 +24,20 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BtmNav() {
+function BtmNav() {
   const classes = useStyles();
   const { chat, filter, match, profile, settings } = NAVIGATION;
+  const history = useHistory();
 
   const [value, setValue] = React.useState({ profile });
   const isSmallView = useMediaQuery("(min-width:400px)");
+  const historyPush = (newValue) => history.push(`/${newValue}`);
   const handleChange = (event, newValue) => {
+    historyPush(newValue)
     setValue(newValue);
   };
   const handleChangeOnSmallView = (name) => () => {
-    console.log("Not implemented", name);
+    historyPush(name)
   };
   return (
     <>
@@ -82,7 +86,7 @@ export default function BtmNav() {
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView({ chat })}
+                onClick={handleChangeOnSmallView( chat )}
               >
                 <ChatIcon></ChatIcon>
               </IconButton>
@@ -90,7 +94,7 @@ export default function BtmNav() {
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView({ match })}
+                onClick={handleChangeOnSmallView(match )}
               >
                 <FavoriteIcon></FavoriteIcon>
               </IconButton>
@@ -98,7 +102,7 @@ export default function BtmNav() {
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView({ filter })}
+                onClick={handleChangeOnSmallView( filter )}
               >
                 <FilterListIcon></FilterListIcon>
               </IconButton>
@@ -106,7 +110,7 @@ export default function BtmNav() {
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView({ profile })}
+                onClick={handleChangeOnSmallView( profile )}
               >
                 <AccountCircleIcon></AccountCircleIcon>
               </IconButton>
@@ -114,7 +118,7 @@ export default function BtmNav() {
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView({ settings })}
+                onClick={handleChangeOnSmallView(settings )}
               >
                 <SettingsIcon></SettingsIcon>
               </IconButton>
@@ -125,3 +129,5 @@ export default function BtmNav() {
     </>
   );
 }
+export default BtmNav
+
