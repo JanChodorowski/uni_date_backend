@@ -40,7 +40,6 @@ function BtmNav() {
   const handleChangeOnSmallView = (name) => () => {
     historyPush(name);
   };
-  console.log('user',user)
   return (
     <>
       {isSmallView ? (

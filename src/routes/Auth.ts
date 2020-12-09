@@ -105,8 +105,9 @@ router.post('/register', async (req: Request, res: Response) => {
   resUser.ageToFilter = newUser.ageToFilter;
   resUser.genderFilter = newUser.genderFilter;
 
-  res.cookie('token', token, cookieOptions)
-    .sendStatus(CREATED)
+  res
+    .cookie('token', token, cookieOptions)
+    .status(CREATED)
     .json(resUser)
     .end();
 });

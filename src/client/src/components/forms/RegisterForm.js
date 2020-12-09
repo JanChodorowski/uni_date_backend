@@ -31,27 +31,28 @@ const RegisterForm = () => {
   const handleClickShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  const [  setUser ] = useContext(UserContext);
+  const [user,  setUser ] = useContext(UserContext);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   const formik = useFormik({
     initialValues: {
-      email: "domestos@gmail.com",
-      password: "domestos",
-      passwordConfirmation: "domestos",
+      email: "abcdefgh@gmail.com",
+      password: "abcdefgh",
+      passwordConfirmation: "abcdefgh",
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       let res;
       try {
         res = await register(values);
-        console.log('res?.data?',res?.data)
         setUser(res?.data)
+
       } catch {
       } finally {
         setIsUserExisting(!!res?.data?.isUserExisting);
+        console.log('user',user)
 
       }
     },
