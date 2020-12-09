@@ -22,7 +22,6 @@ import BtmNav from "../BtmNav";
 const LandingPage = () => {
   return (
     <>
-      <br />
       <Grid
         container
         direction="row"
@@ -86,10 +85,6 @@ const LandingPage = () => {
           </Paper>
         </Grid>
       </Grid>
-      <br />
-      <br />
-      <br />
-      <br />
     </>
   );
 };

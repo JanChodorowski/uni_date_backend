@@ -87,10 +87,10 @@ function App() {
             />
             <Route
               path={`/${profile}`}
-              component={user.id ? LandingPage : LandingPage}
+              component={user.id ? ProfilePage : LandingPage}
             />
           </Switch>
-          <BtmNav />
+          {user.id && <BtmNav />}
         </UserContext.Provider>
       </ColorContext.Provider>
     </ThemeProvider>
