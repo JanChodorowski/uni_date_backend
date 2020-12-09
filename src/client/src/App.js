@@ -14,16 +14,24 @@ import {
   Typography,
 } from "@material-ui/core";
 import { login, secret, refresh, register, getUserData } from "./api";
-import { APP_THEME, LOCAL_STORAGE_KEY, THEME_NAMES } from "./shared/constants";
+import {APP_THEME, LOCAL_STORAGE_KEY, NAVIGATION, THEME_NAMES} from "./shared/constants";
 import heart from "./images/heart-rate.png";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/forms/LoginForm";
 import Register from "./components/Register";
 import BtmNav from "./components/BtmNav";
-import ColorBtn from "./components/ColorBtn";
+import ColorBtn from "./components/buttons/ColorBtn";
 import { ColorContext } from "./context/colorContext";
 import { UserContext } from "./context/userContext";
 import { getItemByKey } from "./shared/functions";
-
+import LandingPage from "./components/pages/LandingPage";
+import {
+  BrowserRouter as Router, Route, Switch
+} from 'react-router-dom';
+import ProfilePage from "./components/pages/ProfilePage";
+import ChatPage from "./components/pages/ChatPage";
+import MatchPage from "./components/pages/MatchPage";
+import FilterPage from "./components/pages/FilterPage";
+import SettingsPage from "./components/pages/SettingsPage";
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState({});
@@ -45,85 +53,22 @@ function App() {
 
   let chosenTheme = createMuiTheme(isDark ? APP_THEME.dark : APP_THEME.light);
   chosenTheme = responsiveFontSizes(chosenTheme);
-
+  const { chat, filter, match, profile, settings } = NAVIGATION;
   return (
     <ThemeProvider theme={chosenTheme}>
       <ColorContext.Provider value={[isDark, setIsDark]}>
         <UserContext.Provider value={[user, setUser]}>
           <CssBaseline />
-          <p>{user.id}</p>
-          <br />
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: "80vh" }}
-          >
-            <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
-              <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  justify="center"
-                >
-                  <Grid item>
-                    <img
-                      src={heart}
-                      style={{ width: "10rem", height: "10rem" }}
-                    />
-                  </Grid>
-                  <Grid item style={{ padding: "1rem" }}>
-                    <Grid
-                      container
-                      direction="column"
-                      alignItems="center"
-                      justify="center"
-                    >
-                      <Grid item>
-                        <Typography variant="h1" style={{ lineHeight: "80%" }}>
-                          UNI DATE
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        item
-                        style={{ padding: "1rem" }}
-                        container
-                        wrap="nowrap"
-                        direction="row"
-                        alignItems="center"
-                        justify="center"
-                      >
-                        <Grid item>
-                          <Typography style={{ fontSize: "1rem" }}>
-                            Dating app for universities students & graduates
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <ColorBtn></ColorBtn>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Paper style={{ padding: "1rem" }}>
-                <LoginForm />
-              </Paper>
-              <br />
-              <Paper style={{ padding: "1rem" }}>
-                <Register></Register>
-              </Paper>
-            </Grid>
-          </Grid>
-          <br />
-          <br />
-          <br />
-          <br />
-          <BtmNav></BtmNav>
+          <Router>
+            <Switch>
+              <Route path={`/${chat}`} component={user.id ? ChatPage : LandingPage} />
+              <Route path={`/${match}`} component={user.id ? MatchPage : LandingPage} />
+              <Route path={`/${filter}`} component={user.id ? FilterPage : LandingPage} />
+              <Route path={`/${settings}`} component={user.id ? SettingsPage : LandingPage} />
+              <Route path={`/`} component={user.id ? LandingPage : LandingPage} />
+            </Switch>
+          </Router>
+          <BtmNav/>
         </UserContext.Provider>
       </ColorContext.Provider>
     </ThemeProvider>

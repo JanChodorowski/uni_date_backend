@@ -4,8 +4,8 @@ import Zoom from "@material-ui/core/Zoom";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import React, { useContext, useLayoutEffect, useRef } from "react";
-import { ColorContext } from "../context/colorContext";
-import { LOCAL_STORAGE_KEY, THEME_NAMES } from "../shared/constants";
+import { ColorContext } from "../../context/colorContext";
+import { LOCAL_STORAGE_KEY, THEME_NAMES } from "../../shared/constants";
 
 const ColorBtn = () => {
   const [isDark, setIsDark] = useContext(ColorContext);

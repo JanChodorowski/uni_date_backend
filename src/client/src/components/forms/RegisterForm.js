@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { register } from "../api";
+import { register } from "../../api";
 import {
   Grid,
   IconButton,
@@ -14,8 +14,8 @@ import {
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import red from "@material-ui/core/colors/red";
-import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
-import { basicValidation } from "../shared/constants";
+import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
+import { basicValidation } from "../../shared/constants";
 
 const validationSchema = yup.object({
   ...basicValidation,
