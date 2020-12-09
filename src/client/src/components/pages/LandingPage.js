@@ -23,7 +23,7 @@ import CenterGridContainerHOC from "../hocs/CenterGridContainerHOC";
 const LandingPage = () => {
   return (
     <>
-     <CenterGridContainerHOC>
+      <CenterGridContainerHOC>
         <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
           <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
             <Grid
@@ -79,7 +79,8 @@ const LandingPage = () => {
             <Register></Register>
           </Paper>
         </Grid>
-     </CenterGridContainerHOC>    </>
+      </CenterGridContainerHOC>{" "}
+    </>
   );
 };
 

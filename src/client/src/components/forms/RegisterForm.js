@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -16,7 +16,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import red from "@material-ui/core/colors/red";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { basicValidation } from "../../shared/constants";
-import {UserContext} from "../../context/userContext";
+import { UserContext } from "../../context/userContext";
 
 const validationSchema = yup.object({
   ...basicValidation,
@@ -31,7 +31,7 @@ const RegisterForm = () => {
   const handleClickShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  const [ user, setUser ] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -47,7 +47,7 @@ const RegisterForm = () => {
       let res;
       try {
         res = await register(values);
-        setUser(res?.data)
+        setUser(res?.data);
       } catch {
       } finally {
         setIsUserExisting(!!res?.data?.isUserExisting);

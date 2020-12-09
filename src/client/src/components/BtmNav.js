@@ -1,4 +1,4 @@
-import React , {useContext} from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -15,7 +15,7 @@ import { Grid, Paper } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import { NAVIGATION } from "../shared/constants";
 import { useHistory } from "react-router-dom";
-import {UserContext } from "../context/userContext"
+import { UserContext } from "../context/userContext";
 
 const useStyles = makeStyles({
   root: {
@@ -28,8 +28,10 @@ const useStyles = makeStyles({
 function BtmNav() {
   const classes = useStyles();
   const { chat, filter, match, profile, settings } = NAVIGATION;
-  const [ user ] = useContext(UserContext);
-  const [value, setValue] = React.useState(window.location.pathname.replace(/\//g, ""));
+  const [user] = useContext(UserContext);
+  const [value, setValue] = React.useState(
+    window.location.pathname.replace(/\//g, "")
+  );
 
   const isSmallView = useMediaQuery("(min-width:400px)");
   const history = useHistory();
@@ -54,28 +56,24 @@ function BtmNav() {
             value={chat}
             icon={<ChatIcon />}
             disabled={!user.email}
-
           />
           <BottomNavigationAction
             label="MATCH"
             value={match}
             icon={<FavoriteIcon />}
             disabled={!user.email}
-
           />
           <BottomNavigationAction
             label="FILTER"
             value={filter}
             icon={<FilterListIcon />}
             disabled={!user.email}
-
           />
           <BottomNavigationAction
             label="PROFILE"
             value={profile}
             icon={<AccountCircleIcon />}
             disabled={!user.email}
-
           />
           <BottomNavigationAction
             label="SETTINGS"
@@ -95,12 +93,20 @@ function BtmNav() {
             wrap="nowrap"
           >
             <Grid item>
-              <IconButton size="small" onClick={handleChangeOnSmallView(chat)} disabled={!user.email}>
+              <IconButton
+                size="small"
+                onClick={handleChangeOnSmallView(chat)}
+                disabled={!user.email}
+              >
                 <ChatIcon></ChatIcon>
               </IconButton>
             </Grid>
             <Grid item>
-              <IconButton size="small" onClick={handleChangeOnSmallView(match)} disabled={!user.email}>
+              <IconButton
+                size="small"
+                onClick={handleChangeOnSmallView(match)}
+                disabled={!user.email}
+              >
                 <FavoriteIcon></FavoriteIcon>
               </IconButton>
             </Grid>

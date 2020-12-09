@@ -15,7 +15,8 @@ import {
 } from "@material-ui/core";
 import { login, secret, refresh, register, getUserData } from "./api";
 import {
-  APP_THEME, emptyUser,
+  APP_THEME,
+  emptyUser,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
   THEME_NAMES,
@@ -30,7 +31,8 @@ import { UserContext } from "./context/userContext";
 import { getItemByKey } from "./shared/functions";
 import LandingPage from "./components/pages/LandingPage";
 import {
-  BrowserRouter as Router, Redirect,
+  BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
   withRouter,
@@ -50,7 +52,7 @@ function App() {
     const setUserDataFromApi = async () => {
       const userData = await getUserData();
       const { data } = userData;
-      console.log('userdata', data)
+      console.log("userdata", data);
       if (data && mounted) {
         setUser(data);
       }

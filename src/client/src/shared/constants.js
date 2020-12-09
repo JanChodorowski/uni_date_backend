@@ -83,4 +83,4 @@ export const basicValidation = {
     .required("Password is required"),
 };
 
-export const emptyUser = {}
+export const emptyUser = {};
