@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const FilterPage = () => {
-    return (
-        <>
-            
-        </>
-    )
-}
+  return <></>;
+};
 
-export default FilterPage
+export default FilterPage;

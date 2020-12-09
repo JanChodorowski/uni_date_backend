@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const MatchPage = () => {
-    return (
-        <>
-            
-        </>
-    )
-}
+  return <></>;
+};
 
-export default MatchPage
+export default MatchPage;

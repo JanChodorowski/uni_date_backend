@@ -33,11 +33,11 @@ function BtmNav() {
   const isSmallView = useMediaQuery("(min-width:400px)");
   const historyPush = (newValue) => history.push(`/${newValue}`);
   const handleChange = (event, newValue) => {
-    historyPush(newValue)
+    historyPush(newValue);
     setValue(newValue);
   };
   const handleChangeOnSmallView = (name) => () => {
-    historyPush(name)
+    historyPush(name);
   };
   return (
     <>
@@ -84,25 +84,19 @@ function BtmNav() {
             wrap="nowrap"
           >
             <Grid item>
-              <IconButton
-                size="small"
-                onClick={handleChangeOnSmallView( chat )}
-              >
+              <IconButton size="small" onClick={handleChangeOnSmallView(chat)}>
                 <ChatIcon></ChatIcon>
               </IconButton>
             </Grid>
             <Grid item>
-              <IconButton
-                size="small"
-                onClick={handleChangeOnSmallView(match )}
-              >
+              <IconButton size="small" onClick={handleChangeOnSmallView(match)}>
                 <FavoriteIcon></FavoriteIcon>
               </IconButton>
             </Grid>
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView( filter )}
+                onClick={handleChangeOnSmallView(filter)}
               >
                 <FilterListIcon></FilterListIcon>
               </IconButton>
@@ -110,7 +104,7 @@ function BtmNav() {
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView( profile )}
+                onClick={handleChangeOnSmallView(profile)}
               >
                 <AccountCircleIcon></AccountCircleIcon>
               </IconButton>
@@ -118,7 +112,7 @@ function BtmNav() {
             <Grid item>
               <IconButton
                 size="small"
-                onClick={handleChangeOnSmallView(settings )}
+                onClick={handleChangeOnSmallView(settings)}
               >
                 <SettingsIcon></SettingsIcon>
               </IconButton>
@@ -129,5 +123,4 @@ function BtmNav() {
     </>
   );
 }
-export default BtmNav
-
+export default BtmNav;

@@ -14,7 +14,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import { login, secret, refresh, register, getUserData } from "./api";
-import {APP_THEME, LOCAL_STORAGE_KEY, NAVIGATION, THEME_NAMES} from "./shared/constants";
+import {
+  APP_THEME,
+  LOCAL_STORAGE_KEY,
+  NAVIGATION,
+  THEME_NAMES,
+} from "./shared/constants";
 import heart from "./images/heart-rate.png";
 import LoginForm from "./components/forms/LoginForm";
 import Register from "./components/Register";
@@ -25,8 +30,11 @@ import { UserContext } from "./context/userContext";
 import { getItemByKey } from "./shared/functions";
 import LandingPage from "./components/pages/LandingPage";
 import {
-  BrowserRouter as Router, Route, Switch, withRouter
-} from 'react-router-dom';
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter,
+} from "react-router-dom";
 import ProfilePage from "./components/pages/ProfilePage";
 import ChatPage from "./components/pages/ChatPage";
 import MatchPage from "./components/pages/MatchPage";
@@ -41,7 +49,7 @@ function App() {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
     const setUserDataFromApi = async () => {
       const userData = await getUserData();
-      const {data} = userData
+      const { data } = userData;
       if (data && mounted) {
         setUser(data);
       }
@@ -60,14 +68,29 @@ function App() {
       <ColorContext.Provider value={[isDark, setIsDark]}>
         <UserContext.Provider value={[user, setUser]}>
           <CssBaseline />
-            <Switch>
-              <Route path={`/${chat}`} component={user.id ? ChatPage : LandingPage} />
-              <Route path={`/${match}`} component={user.id ? MatchPage : LandingPage} />
-              <Route path={`/${filter}`} component={user.id ? FilterPage : LandingPage} />
-              <Route path={`/${settings}`} component={user.id ? SettingsPage : LandingPage} />
-              <Route path={`/${profile}`} component={user.id ? LandingPage : LandingPage} />
-            </Switch>
-          <BtmNav/>
+          <Switch>
+            <Route
+              path={`/${chat}`}
+              component={user.id ? ChatPage : LandingPage}
+            />
+            <Route
+              path={`/${match}`}
+              component={user.id ? MatchPage : LandingPage}
+            />
+            <Route
+              path={`/${filter}`}
+              component={user.id ? FilterPage : LandingPage}
+            />
+            <Route
+              path={`/${settings}`}
+              component={user.id ? SettingsPage : LandingPage}
+            />
+            <Route
+              path={`/${profile}`}
+              component={user.id ? LandingPage : LandingPage}
+            />
+          </Switch>
+          <BtmNav />
         </UserContext.Provider>
       </ColorContext.Provider>
     </ThemeProvider>
