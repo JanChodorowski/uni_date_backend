@@ -75,6 +75,9 @@
       "@entities/*": [
         "src/entities/*"
       ],
+      "@dto/*": [
+        "src/dto/*"
+      ],
       "@shared/*": [
         "src/shared/*"
       ],

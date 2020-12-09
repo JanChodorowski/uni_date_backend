@@ -17,6 +17,8 @@ import * as yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import { authenticate } from '@middleware/middleware';
+import { UserDto } from '@dto/UserDto';
+import { removeWhiteSpaces } from '@shared/functions';
 
 const router = Router();
 const {
@@ -41,8 +43,8 @@ const basicValidation = {
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
   const trimmedEmail = String(email).trim();
-  const trimmedPassword = String(password).trim();
-  const trimmedPasswordConfirmation = String(passwordConfirmation).trim();
+  const noWhitespacePassword = removeWhiteSpaces(password);
+  const noWhitespacePasswordConfirmation = removeWhiteSpaces(passwordConfirmation);
 
   const schema = yup.object().shape({
     ...basicValidation,
@@ -52,15 +54,15 @@ router.post('/register', async (req: Request, res: Response) => {
 
   const isValid = await schema.isValid({
     email: trimmedEmail,
-    password: trimmedPassword,
-    passwordConfirmation: trimmedPasswordConfirmation,
+    password: noWhitespacePassword,
+    passwordConfirmation: noWhitespacePasswordConfirmation,
   });
 
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await userDao.findOneByEmail(trimmedEmail).catch((err) => {
+  const foundUser = await userDao.register(trimmedEmail).catch((err) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -69,7 +71,7 @@ router.post('/register', async (req: Request, res: Response) => {
     return res.json({ isUserExisting: true }).end();
   }
   const saltRounds = 10;
-  const passwordHash = await bcrypt.hash(trimmedPassword, saltRounds);
+  const passwordHash = await bcrypt.hash(noWhitespacePassword, saltRounds);
   const newUser = new User();
 
   newUser.id = uuidv4();
@@ -92,9 +94,20 @@ router.post('/register', async (req: Request, res: Response) => {
 
   const token = jwt.sign({ id: newUser.id }, TOKEN_SECRET!, signOptions);
 
+  const resUser = new UserDto();
+  resUser.userName = newUser.userName;
+  resUser.dateOfBirth = newUser.dateOfBirth;
+  resUser.gender = newUser.gender;
+  resUser.description = newUser.description;
+  resUser.email = newUser.email;
+  resUser.maxSearchDistanceFilter = newUser.maxSearchDistanceFilter;
+  resUser.ageFromFilter = newUser.ageFromFilter;
+  resUser.ageToFilter = newUser.ageToFilter;
+  resUser.genderFilter = newUser.genderFilter;
+
   res.cookie('token', token, cookieOptions)
     .sendStatus(CREATED)
-    .json(foundUser)
+    .json(resUser)
     .end();
 });
 
@@ -112,7 +125,7 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await userDao.findOneByEmail(email)
+  const foundUser = await userDao.login(email)
     .catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
@@ -121,7 +134,7 @@ router.post('/login', async (req: Request, res: Response) => {
   if (!foundUser) {
     return res.status(UNAUTHORIZED).end();
   }
-
+  console.log('login foundUser', foundUser);
   const arePasswordsMatching = await bcrypt.compare(password, foundUser.passwordHash);
 
   if (!arePasswordsMatching) {
@@ -133,8 +146,19 @@ router.post('/login', async (req: Request, res: Response) => {
     expiresIn: jwtExpirySeconds,
   });
 
+  const resUser = new UserDto();
+  resUser.userName = foundUser.userName;
+  resUser.dateOfBirth = foundUser.dateOfBirth;
+  resUser.gender = foundUser.gender;
+  resUser.description = foundUser.description;
+  resUser.email = foundUser.email;
+  resUser.maxSearchDistanceFilter = foundUser.maxSearchDistanceFilter;
+  resUser.ageFromFilter = foundUser.ageFromFilter;
+  resUser.ageToFilter = foundUser.ageToFilter;
+  resUser.genderFilter = foundUser.genderFilter;
+  console.log('resUser.genderFilter', resUser.genderFilter);
   res.cookie('token', token, cookieOptions)
-    .json(foundUser)
+    .json(resUser)
     .end();
 });
 

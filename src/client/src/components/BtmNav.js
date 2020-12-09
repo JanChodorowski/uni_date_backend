@@ -53,35 +53,35 @@ function BtmNav() {
             label="CHAT"
             value={chat}
             icon={<ChatIcon />}
-            disabled={!user.id}
+            disabled={!user.email}
 
           />
           <BottomNavigationAction
             label="MATCH"
             value={match}
             icon={<FavoriteIcon />}
-            disabled={!user.id}
+            disabled={!user.email}
 
           />
           <BottomNavigationAction
             label="FILTER"
             value={filter}
             icon={<FilterListIcon />}
-            disabled={!user.id}
+            disabled={!user.email}
 
           />
           <BottomNavigationAction
             label="PROFILE"
             value={profile}
             icon={<AccountCircleIcon />}
-            disabled={!user.id}
+            disabled={!user.email}
 
           />
           <BottomNavigationAction
             label="SETTINGS"
             value={settings}
             icon={<SettingsIcon />}
-            disabled={!user.id}
+            disabled={!user.email}
           />
         </BottomNavigation>
       ) : (
@@ -95,12 +95,12 @@ function BtmNav() {
             wrap="nowrap"
           >
             <Grid item>
-              <IconButton size="small" onClick={handleChangeOnSmallView(chat)} disabled={!user.id}>
+              <IconButton size="small" onClick={handleChangeOnSmallView(chat)} disabled={!user.email}>
                 <ChatIcon></ChatIcon>
               </IconButton>
             </Grid>
             <Grid item>
-              <IconButton size="small" onClick={handleChangeOnSmallView(match)} disabled={!user.id}>
+              <IconButton size="small" onClick={handleChangeOnSmallView(match)} disabled={!user.email}>
                 <FavoriteIcon></FavoriteIcon>
               </IconButton>
             </Grid>
@@ -108,7 +108,7 @@ function BtmNav() {
               <IconButton
                 size="small"
                 onClick={handleChangeOnSmallView(filter)}
-                disabled={!user.id}
+                disabled={!user.email}
               >
                 <FilterListIcon></FilterListIcon>
               </IconButton>
@@ -117,7 +117,7 @@ function BtmNav() {
               <IconButton
                 size="small"
                 onClick={handleChangeOnSmallView(profile)}
-                disabled={!user.id}
+                disabled={!user.email}
               >
                 <AccountCircleIcon></AccountCircleIcon>
               </IconButton>
@@ -126,7 +126,7 @@ function BtmNav() {
               <IconButton
                 size="small"
                 onClick={handleChangeOnSmallView(settings)}
-                disabled={!user.id}
+                disabled={!user.email}
               >
                 <SettingsIcon></SettingsIcon>
               </IconButton>

@@ -43,7 +43,7 @@ const LoginForm = () => {
       } catch {
       } finally {
         console.log("res2", res);
-        if (res?.data?.id) {
+        if (res?.data?.email) {
           setAreCredentialsIncorrect(false);
         } else {
           setAreCredentialsIncorrect(true);

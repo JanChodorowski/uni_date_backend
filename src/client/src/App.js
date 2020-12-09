@@ -50,6 +50,7 @@ function App() {
     const setUserDataFromApi = async () => {
       const userData = await getUserData();
       const { data } = userData;
+      console.log('userdata', data)
       if (data && mounted) {
         setUser(data);
       }
@@ -71,26 +72,26 @@ function App() {
           <Switch>
             <Route
               path={`/${chat}`}
-              component={user.id ? ChatPage : LandingPage}
+              component={user.email ? ChatPage : LandingPage}
             />
             <Route
               path={`/${match}`}
-              component={user.id ? MatchPage : LandingPage}
+              component={user.email ? MatchPage : LandingPage}
             />
             <Route
               path={`/${filter}`}
-              component={user.id ? FilterPage : LandingPage}
+              component={user.email ? FilterPage : LandingPage}
             />
             <Route
               path={`/${settings}`}
-              component={user.id ? SettingsPage : LandingPage}
+              component={user.email ? SettingsPage : LandingPage}
             />
             <Route
               path={`/${profile}`}
-              component={user.id ? ProfilePage : LandingPage}
+              component={user.email ? ProfilePage : LandingPage}
             />
           </Switch>
-          {user.id && <BtmNav />}
+          {user.email && <BtmNav />}
         </UserContext.Provider>
       </ColorContext.Provider>
     </ThemeProvider>
