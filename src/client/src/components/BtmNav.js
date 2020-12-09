@@ -28,10 +28,11 @@ const useStyles = makeStyles({
 function BtmNav() {
   const classes = useStyles();
   const { chat, filter, match, profile, settings } = NAVIGATION;
-  const history = useHistory();
   const [ user ] = useContext(UserContext);
-  const [value, setValue] = React.useState({ profile });
+  const [value, setValue] = React.useState(window.location.pathname.replace(/\//g, ""));
+
   const isSmallView = useMediaQuery("(min-width:400px)");
+  const history = useHistory();
   const historyPush = (newValue) => history.push(`/${newValue}`);
   const handleChange = (event, newValue) => {
     historyPush(newValue);

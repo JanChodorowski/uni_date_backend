@@ -30,7 +30,7 @@ import { UserContext } from "./context/userContext";
 import { getItemByKey } from "./shared/functions";
 import LandingPage from "./components/pages/LandingPage";
 import {
-  BrowserRouter as Router,
+  BrowserRouter as Router, Redirect,
   Route,
   Switch,
   withRouter,
@@ -90,6 +90,9 @@ function App() {
               path={`/${profile}`}
               component={user.email ? ProfilePage : LandingPage}
             />
+            <Route path="/">
+              {user.email ? <Redirect to={`/${profile}`} /> : <LandingPage />}
+            </Route>
           </Switch>
           {user.email && <BtmNav />}
         </UserContext.Provider>

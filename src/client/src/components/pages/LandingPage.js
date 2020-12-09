@@ -18,17 +18,12 @@ import LoginForm from "../forms/LoginForm";
 import Register from "../Register";
 import ColorBtn from "../buttons/ColorBtn";
 import BtmNav from "../BtmNav";
+import CenterGridContainerHOC from "../hocs/CenterGridContainerHOC";
 
 const LandingPage = () => {
   return (
     <>
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "80vh" }}
-      >
+     <CenterGridContainerHOC>
         <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
           <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
             <Grid
@@ -84,8 +79,7 @@ const LandingPage = () => {
             <Register></Register>
           </Paper>
         </Grid>
-      </Grid>
-    </>
+     </CenterGridContainerHOC>    </>
   );
 };
 

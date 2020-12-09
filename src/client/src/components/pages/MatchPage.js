@@ -1,7 +1,7 @@
 import React from "react";
 
 const MatchPage = () => {
-  return <></>;
+  return <>match</>;
 };
 
 export default MatchPage;

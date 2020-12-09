@@ -68,7 +68,7 @@ export const NAVIGATION = {
   chat: "chat",
   match: "match",
   filter: "filter",
-  profile: "",
+  profile: "profile",
   settings: "settings",
 };
 
