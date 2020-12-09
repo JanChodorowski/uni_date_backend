@@ -31,7 +31,7 @@ const RegisterForm = () => {
   const handleClickShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  const [user,  setUser ] = useContext(UserContext);
+  const [ user, setUser ] = useContext(UserContext);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -48,12 +48,9 @@ const RegisterForm = () => {
       try {
         res = await register(values);
         setUser(res?.data)
-
       } catch {
       } finally {
         setIsUserExisting(!!res?.data?.isUserExisting);
-        console.log('user',user)
-
       }
     },
   });

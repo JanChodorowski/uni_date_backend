@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import ReactDOM from "react-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -11,6 +11,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { basicValidation } from "../../shared/constants";
+import {UserContext} from "../../context/userContext";
 
 const validationSchema = yup.object(basicValidation);
 
@@ -21,6 +22,7 @@ const LoginForm = () => {
   const handleClickShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+  const [ user, setUser ] = useContext(UserContext);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -39,12 +41,14 @@ const LoginForm = () => {
       console.log("res1");
       let res;
       try {
-        res = await login(values);
+        res = await login(formattedValues);
       } catch {
       } finally {
         console.log("res2", res);
         if (res?.data?.email) {
           setAreCredentialsIncorrect(false);
+          setUser(res?.data)
+          console.log('res?.data',res?.data)
         } else {
           setAreCredentialsIncorrect(true);
         }
