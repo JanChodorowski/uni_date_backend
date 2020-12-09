@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Grid, Paper } from "@material-ui/core";
 import ColorBtn from "../buttons/ColorBtn";
 import CenterGridContainerHOC from "../hocs/CenterGridContainerHOC";
+import ColorBtnCorner from "../ColorBtnCorner";
 
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
@@ -20,6 +21,7 @@ const SettingsPage = () => {
   };
   return (
     <>
+      <ColorBtnCorner></ColorBtnCorner>
       <CenterGridContainerHOC>
         <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
           <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
@@ -29,9 +31,9 @@ const SettingsPage = () => {
               alignItems="center"
               justify="center"
             >
-              <Grid item>
-                <ColorBtn></ColorBtn>
-              </Grid>
+              {/*<Grid item>*/}
+              {/*  <ColorBtn></ColorBtn>*/}
+              {/*</Grid>*/}
               <Grid item>
                 <Button
                   color="primary"
