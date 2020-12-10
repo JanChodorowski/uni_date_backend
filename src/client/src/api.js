@@ -17,7 +17,6 @@ export const insertUniversity = (university) => {
     });
 };
 
-
 export const insertUniversityWithRoute = (university) => {
   axios
     .get(`api/universities/${university}`)
@@ -121,4 +120,3 @@ export const deleteUser = () => {
 // export const uploadPicture = () => {
 //   return axios.post("api/pictures");
 // };
-
