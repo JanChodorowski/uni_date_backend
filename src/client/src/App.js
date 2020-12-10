@@ -45,7 +45,7 @@ import FilterPage from "./components/pages/FilterPage";
 import SettingsPage from "./components/pages/SettingsPage";
 import { LoadingContext } from "./context/loadingContext";
 import ProgressShower from "./components/ProgressShower";
-import {LoadingUserDataContext} from "./context/loadingUserDataContex";
+import { LoadingUserDataContext } from "./context/loadingUserDataContex";
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState(emptyUser);
@@ -58,19 +58,19 @@ function App() {
     setIsLoading(true);
     setIsLoadingUserData(true);
     getUserData()
-        .then((userData) => {
-          const { data } = userData;
-          console.log("userdata", data);
-          if (data && mounted) {
-            setUser(data);
-          }
-          setIsLoading(false);
-          setIsLoadingUserData(false);
-        })
-        .catch((e) => {
-          setIsLoading(false);
-          setIsLoadingUserData(false);
-        });
+      .then((userData) => {
+        const { data } = userData;
+        console.log("userdata", data);
+        if (data && mounted) {
+          setUser(data);
+        }
+        setIsLoading(false);
+        setIsLoadingUserData(false);
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        setIsLoadingUserData(false);
+      });
     return () => {
       mounted = false;
     };
@@ -80,45 +80,51 @@ function App() {
   chosenTheme = responsiveFontSizes(chosenTheme);
   const { chat, filter, match, profile, settings } = NAVIGATION;
   return (
-      <ThemeProvider theme={chosenTheme}>
-        <ColorContext.Provider value={[isDark, setIsDark]}>
-          <UserContext.Provider value={[user, setUser]}>
-            <LoadingContext.Provider value={[isLoading, setIsLoading]}>
-              <LoadingUserDataContext.Provider value={[isLoadingUserData, setIsLoadingUserData]}>
+    <ThemeProvider theme={chosenTheme}>
+      <ColorContext.Provider value={[isDark, setIsDark]}>
+        <UserContext.Provider value={[user, setUser]}>
+          <LoadingContext.Provider value={[isLoading, setIsLoading]}>
+            <LoadingUserDataContext.Provider
+              value={[isLoadingUserData, setIsLoadingUserData]}
+            >
               <CssBaseline />
               {/*{isLoading && <LinearProgress />}*/}
               <ProgressShower></ProgressShower>
               <Switch>
                 <Route
-                    path={`/${chat}`}
-                    component={user.email ? ChatPage : LandingPage}
+                  path={`/${chat}`}
+                  component={user.email ? ChatPage : LandingPage}
                 />
                 <Route
-                    path={`/${match}`}
-                    component={user.email ? MatchPage : LandingPage}
+                  path={`/${match}`}
+                  component={user.email ? MatchPage : LandingPage}
                 />
                 <Route
-                    path={`/${filter}`}
-                    component={user.email ? FilterPage : LandingPage}
+                  path={`/${filter}`}
+                  component={user.email ? FilterPage : LandingPage}
                 />
                 <Route
-                    path={`/${settings}`}
-                    component={user.email ? SettingsPage : LandingPage}
+                  path={`/${settings}`}
+                  component={user.email ? SettingsPage : LandingPage}
                 />
                 <Route
-                    path={`/${profile}`}
-                    component={user.email ? ProfilePage : LandingPage}
+                  path={`/${profile}`}
+                  component={user.email ? ProfilePage : LandingPage}
                 />
                 <Route path="/">
-                  {user.email ? <Redirect to={`/${profile}`} /> : <LandingPage />}
+                  {user.email ? (
+                    <Redirect to={`/${profile}`} />
+                  ) : (
+                    <LandingPage />
+                  )}
                 </Route>
               </Switch>
               {user.email && <BtmNav />}
-              </LoadingUserDataContext.Provider>
-            </LoadingContext.Provider>
-          </UserContext.Provider>
-        </ColorContext.Provider>
-      </ThemeProvider>
+            </LoadingUserDataContext.Provider>
+          </LoadingContext.Provider>
+        </UserContext.Provider>
+      </ColorContext.Provider>
+    </ThemeProvider>
   );
 }
 

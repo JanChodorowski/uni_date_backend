@@ -1,13 +1,11 @@
-import React, {useContext} from "react";
-import {LinearProgress} from "@material-ui/core";
-import {LoadingContext} from "../context/loadingContext";
+import React, { useContext } from "react";
+import { LinearProgress } from "@material-ui/core";
+import { LoadingContext } from "../context/loadingContext";
 
 const ProgressShower = () => {
-    const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
 
-    return <>
-        {isLoading && <LinearProgress />}
-    </>;
+  return <>{isLoading && <LinearProgress />}</>;
 };
 
 export default ProgressShower;

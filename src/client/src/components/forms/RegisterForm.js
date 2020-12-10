@@ -17,7 +17,7 @@ import red from "@material-ui/core/colors/red";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { basicValidation } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
-import {LoadingContext} from "../../context/loadingContext";
+import { LoadingContext } from "../../context/loadingContext";
 
 const validationSchema = yup.object({
   ...basicValidation,
@@ -55,15 +55,17 @@ const RegisterForm = () => {
       //   setIsUserExisting(!!res?.data?.isUserExisting);
       // }
       setIsLoading(true);
-      register(values).then(userData => {
-        const { data } = userData;
-        if (data.email) {
-          setUser(data);
-        }
-        setIsLoading(false);
-      }).catch((e) => {
-        setIsLoading(false);
-      })
+      register(values)
+        .then((userData) => {
+          const { data } = userData;
+          if (data.email) {
+            setUser(data);
+          }
+          setIsLoading(false);
+        })
+        .catch((e) => {
+          setIsLoading(false);
+        });
     },
   });
 
