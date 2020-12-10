@@ -211,7 +211,7 @@ router.post('/refresh', authenticate, (req, res) => {
   // }
 
   // Now, create a new token for the current user, with a renewed expiration time
-  const newToken = jwt.sign({ id: req.body.payload.id }, TOKEN_SECRET!, signOptions);
+  const newToken = jwt.sign({ id: req?.body?.payload?.id }, TOKEN_SECRET!, signOptions);
 
   // Set the new token as the users `token` cookie
   res.cookie('token', newToken, cookieOptions).end();

@@ -119,7 +119,12 @@ class UserDao implements IUserDao {
      */
   public async delete(id: number): Promise<void> {
     // TODO
-    return Promise.resolve(undefined);
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(User)
+      .where('id = :id', { id })
+      .execute();
   }
 }
 
