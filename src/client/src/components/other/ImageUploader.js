@@ -17,7 +17,6 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
-// Our app
 function ImageUploader() {
     const [files, setFiles] = useState([])
     return (
@@ -26,10 +25,11 @@ function ImageUploader() {
                 files={files}
                 onupdatefiles={setFiles}
                 allowMultiple={true}
-                maxFiles={3}
+                maxFiles={8}
                 server="/api/pictures"
                 name="files"
                 labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                instantUpload={false}
             />
         </div>
     )
