@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Grid, Paper } from "@material-ui/core";
 import ColorBtn from "../buttons/ColorBtn";
 import CenterHOC from "../hocs/CenterHOC";
-import ColorBtnCorner from "../ColorBtnCorner";
+import ColorBtnCorner from "../other/ColorBtnCorner";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 
 const SettingsPage = () => {

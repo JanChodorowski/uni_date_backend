@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import React, { useContext } from "react";
 
-import ColorBtn from "./buttons/ColorBtn";
+import ColorBtn from "../buttons/ColorBtn";
 
 const ColorBtnCorner = () => {
   const useStyles = makeStyles((theme) => ({

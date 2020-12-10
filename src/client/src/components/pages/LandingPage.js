@@ -15,11 +15,11 @@ import {
 } from "@material-ui/core";
 import heart from "../../images/heart-rate.png";
 import LoginForm from "../forms/LoginForm";
-import Register from "../Register";
+import Register from "../other/Register";
 import ColorBtn from "../buttons/ColorBtn";
-import BtmNav from "../BtmNav";
+import BtmNav from "../other/BtmNav";
 import CenterHOC from "../hocs/CenterHOC";
-import ColorBtnCorner from "../ColorBtnCorner";
+import ColorBtnCorner from "../other/ColorBtnCorner";
 import { ColorContext } from "../../context/colorContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { LoadingUserDataContext } from "../../context/loadingUserDataContex";

@@ -24,8 +24,8 @@ import {
 } from "./shared/constants";
 import heart from "./images/heart-rate.png";
 import LoginForm from "./components/forms/LoginForm";
-import Register from "./components/Register";
-import BtmNav from "./components/BtmNav";
+import Register from "./components/other/Register";
+import BtmNav from "./components/other/BtmNav";
 import ColorBtn from "./components/buttons/ColorBtn";
 import { ColorContext } from "./context/colorContext";
 import { UserContext } from "./context/userContext";
@@ -44,7 +44,7 @@ import MatchPage from "./components/pages/MatchPage";
 import FilterPage from "./components/pages/FilterPage";
 import SettingsPage from "./components/pages/SettingsPage";
 import { LoadingContext } from "./context/loadingContext";
-import ProgressShower from "./components/ProgressShower";
+import ProgressShower from "./components/other/ProgressShower";
 import { LoadingUserDataContext } from "./context/loadingUserDataContex";
 import DeleteAccountPage from "./components/pages/DeleteAccountPage";
 function App() {

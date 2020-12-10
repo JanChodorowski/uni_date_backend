@@ -13,9 +13,9 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Grid, Paper } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
-import { NAVIGATION } from "../shared/constants";
+import { NAVIGATION } from "../../shared/constants";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "../../context/userContext";
 
 const useStyles = makeStyles({
   root: {
