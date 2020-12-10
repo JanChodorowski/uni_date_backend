@@ -12,6 +12,7 @@ import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { basicValidation } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
+import {LoadingContext} from "../../context/loadingContext";
 
 const validationSchema = yup.object(basicValidation);
 
@@ -23,15 +24,15 @@ const LoginForm = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const [user, setUser] = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   const formik = useFormik({
     initialValues: {
-      email: "abcdefgh@gmail.com",
-      password: "abcdefgh",
+      email: "karmazyn@gmail.com",
+      password: "karmazyn",
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
@@ -40,86 +41,99 @@ const LoginForm = () => {
         email: values.email.trim(),
       };
       console.log("res1");
-      let res;
-      try {
-        res = await login(formattedValues);
-      } catch {
-      } finally {
-        console.log("res2", res);
-        if (res?.data?.email) {
+      // let res;
+      // try {
+      //   res = await login(formattedValues);
+      // } catch {
+      // } finally {
+      //   console.log("res2", res);
+      //   if (res?.data?.email) {
+      //     setAreCredentialsIncorrect(false);
+      //     setUser(res?.data);
+      //     console.log("res?.data", res?.data);
+      //   } else {
+      //     setAreCredentialsIncorrect(true);
+      //   }
+      //   console.log("res", res);
+      // }
+      setIsLoading(true);
+      login(formattedValues).then(userData => {
+        const { data } = userData;
+        if (data.email) {
           setAreCredentialsIncorrect(false);
-          setUser(res?.data);
-          console.log("res?.data", res?.data);
+          setUser(data);
         } else {
           setAreCredentialsIncorrect(true);
         }
-        console.log("res", res);
-      }
+        setIsLoading(false);
+      }).catch((e) => {
+        setIsLoading(false);
+      })
     },
   });
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
-          id="email"
-          name="email"
-          label="Email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-        />
-        <br />
-        <br />
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          justify="center"
-          wrap="nowrap"
-        >
-          <Grid item>
-            <TextField
+      <div>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
               fullWidth
-              id="password"
-              name="password"
-              label="Password"
-              type={showPassword ? "text" : "password"}
-              value={formik.values.password}
+              id="email"
+              name="email"
+              label="Email"
+              value={formik.values.email}
               onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+          />
+          <br />
+          <br />
+          <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="center"
+              wrap="nowrap"
+          >
+            <Grid item>
+              <TextField
+                  fullWidth
+                  id="password"
+                  name="password"
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={formik.touched.password && Boolean(formik.errors.password)}
+                  helperText={formik.touched.password && formik.errors.password}
+              />
+            </Grid>
+            <Grid item>
+              <PasswordVisibilityBtn
+                  showPassword={showPassword}
+                  handleClickShowPassword={handleClickShowPassword}
+                  handleMouseDownPassword={handleMouseDownPassword}
+              ></PasswordVisibilityBtn>
+            </Grid>
           </Grid>
-          <Grid item>
-            <PasswordVisibilityBtn
-              showPassword={showPassword}
-              handleClickShowPassword={handleClickShowPassword}
-              handleMouseDownPassword={handleMouseDownPassword}
-            ></PasswordVisibilityBtn>
-          </Grid>
-        </Grid>
-        <br />
-        {areCredentialsIncorrect && (
-          <>
-            <p style={{ color: "rgb(204,0,0)" }}>
-              No user with this email and password
-            </p>
-          </>
-        )}
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-          disabled={formik.isSubmitting}
-        >
-          Log In
-        </Button>
-      </form>
-    </div>
+          <br />
+          {areCredentialsIncorrect && (
+              <>
+                <p style={{ color: "rgb(204,0,0)" }}>
+                  No user with this email and password
+                </p>
+              </>
+          )}
+          <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              type="submit"
+              disabled={formik.isSubmitting}
+          >
+            Log In
+          </Button>
+        </form>
+      </div>
   );
 };
 

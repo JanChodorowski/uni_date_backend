@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   createMuiTheme,
   makeStyles,
@@ -20,60 +20,68 @@ import ColorBtn from "../buttons/ColorBtn";
 import BtmNav from "../BtmNav";
 import CenterHOC from "../hocs/CenterHOC";
 import ColorBtnCorner from "../ColorBtnCorner";
+import { ColorContext } from "../../context/colorContext";
+import { LoadingContext } from "../../context/loadingContext";
+import {LoadingUserDataContext} from "../../context/loadingUserDataContex";
 
 const LandingPage = () => {
-  return (
-    <>
-      <ColorBtnCorner></ColorBtnCorner>
-      <CenterHOC>
-        <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
-          <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="center"
-            >
-              <Grid item>
-                <img src={heart} style={{ width: "10rem", height: "10rem" }} />
-              </Grid>
-              <Grid item style={{ padding: "1rem" }}>
-                <Grid
-                  container
-                  direction="column"
-                  alignItems="center"
-                  justify="center"
-                >
-                  <Grid item>
-                    <Typography variant="h1" style={{ lineHeight: "80%" }}>
-                      UNI DATE
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    style={{ padding: "1rem" }}
+  const [isLoadingUserData] = useContext(LoadingUserDataContext);
 
-                  >
-                    <Typography style={{ fontSize: "1rem" }}>
-                      Dating app for universities students & graduates
-                    </Typography>
-                  </Grid>
+  return (
+      <>
+        {!isLoadingUserData && (
+            <>
+              <ColorBtnCorner></ColorBtnCorner>
+              <CenterHOC>
+                <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
+                  <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
+                    <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justify="center"
+                    >
+                      <Grid item>
+                        <img
+                            src={heart}
+                            style={{ width: "10rem", height: "10rem" }}
+                        />
+                      </Grid>
+                      <Grid item style={{ padding: "1rem" }}>
+                        <Grid
+                            container
+                            direction="column"
+                            alignItems="center"
+                            justify="center"
+                        >
+                          <Grid item>
+                            <Typography variant="h1" style={{ lineHeight: "80%" }}>
+                              UNI DATE
+                            </Typography>
+                          </Grid>
+                          <Grid item style={{ padding: "1rem" }}>
+                            <Typography style={{ fontSize: "1rem" }}>
+                              Dating app for universities students & graduates
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>
                 </Grid>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-        <Grid item>
-          <Paper style={{ padding: "1rem" }}>
-            <LoginForm />
-          </Paper>
-          <br />
-          <Paper style={{ padding: "1rem" }}>
-            <Register></Register>
-          </Paper>
-        </Grid>
-      </CenterHOC>{" "}
-    </>
+                <Grid item>
+                  <Paper style={{ padding: "1rem" }}>
+                    <LoginForm />
+                  </Paper>
+                  <br />
+                  <Paper style={{ padding: "1rem" }}>
+                    <Register></Register>
+                  </Paper>
+                </Grid>
+              </CenterHOC>
+            </>
+        )}
+      </>
   );
 };
 

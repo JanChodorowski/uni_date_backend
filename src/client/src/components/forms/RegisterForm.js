@@ -17,6 +17,7 @@ import red from "@material-ui/core/colors/red";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { basicValidation } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
+import {LoadingContext} from "../../context/loadingContext";
 
 const validationSchema = yup.object({
   ...basicValidation,
@@ -32,26 +33,37 @@ const RegisterForm = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const [user, setUser] = useContext(UserContext);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   const formik = useFormik({
     initialValues: {
-      email: "abcdefgh@gmail.com",
-      password: "abcdefgh",
-      passwordConfirmation: "abcdefgh",
+      email: "karmazyn@gmail.com",
+      password: "karmazyn",
+      passwordConfirmation: "karmazyn",
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      let res;
-      try {
-        res = await register(values);
-        setUser(res?.data);
-      } catch {
-      } finally {
-        setIsUserExisting(!!res?.data?.isUserExisting);
-      }
+      // let res;
+      // try {
+      //   res = await register(values);
+      //   setUser(res?.data);
+      // } catch {
+      // } finally {
+      //   setIsUserExisting(!!res?.data?.isUserExisting);
+      // }
+      setIsLoading(true);
+      register(values).then(userData => {
+        const { data } = userData;
+        if (data.email) {
+          setUser(data);
+        }
+        setIsLoading(false);
+      }).catch((e) => {
+        setIsLoading(false);
+      })
     },
   });
 
