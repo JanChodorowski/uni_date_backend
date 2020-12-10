@@ -63,8 +63,7 @@ const RegisterForm = () => {
           }
           setIsUserExisting(!!data?.isUserExisting);
         })
-        .catch((e) => {
-        })
+        .catch((e) => {})
         .finally(() => {
           setIsLoading(false);
         });

@@ -66,8 +66,7 @@ function App() {
           setUser(data);
         }
       })
-      .catch((e) => {
-      })
+      .catch((e) => {})
       .finally(() => {
         setIsLoading(false);
         setIsLoadingUserData(false);
@@ -79,7 +78,7 @@ function App() {
 
   let chosenTheme = createMuiTheme(isDark ? APP_THEME.dark : APP_THEME.light);
   chosenTheme = responsiveFontSizes(chosenTheme);
-  const { chat, filter, match, profile, settings,deleteaccount } = NAVIGATION;
+  const { chat, filter, match, profile, settings, deleteaccount } = NAVIGATION;
   return (
     <ThemeProvider theme={chosenTheme}>
       <ColorContext.Provider value={[isDark, setIsDark]}>
@@ -112,8 +111,8 @@ function App() {
                   component={user.email ? ProfilePage : LandingPage}
                 />
                 <Route
-                    path={`/${deleteaccount}`}
-                    component={user.email ? DeleteAccountPage : LandingPage}
+                  path={`/${deleteaccount}`}
+                  component={user.email ? DeleteAccountPage : LandingPage}
                 />
                 <Route path="/">
                   {user.email ? (

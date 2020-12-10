@@ -1,15 +1,14 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import CenterHOC from "../hocs/CenterHOC";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
-import {emptyUser} from "../../shared/constants";
-import {UserContext} from "../../context/userContext";
-import {deleteUser} from "../../api";
-import {LoadingContext} from "../../context/loadingContext";
-
+import { emptyUser } from "../../shared/constants";
+import { UserContext } from "../../context/userContext";
+import { deleteUser } from "../../api";
+import { LoadingContext } from "../../context/loadingContext";
 
 const DeleteAccountPage = () => {
   const history = useHistory();
@@ -18,26 +17,23 @@ const DeleteAccountPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const handleNoClick = () => {
-    redirectToHomePage()
+    redirectToHomePage();
   };
 
   const handleYesClick = () => {
     setIsLoading(true);
     deleteUser()
-        .then(() => {
-          const cookies = new Cookies();
-          cookies.remove("token");
-          setUser(emptyUser);
-          redirectToHomePage()
-        })
-        .catch((e) => {
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-
+      .then(() => {
+        const cookies = new Cookies();
+        cookies.remove("token");
+        setUser(emptyUser);
+        redirectToHomePage();
+      })
+      .catch((e) => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
-
 
   return (
     <>
