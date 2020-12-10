@@ -61,11 +61,15 @@ const RegisterForm = () => {
           if (data.email) {
             setUser(data);
           }
+          setIsUserExisting(!!data?.isUserExisting);
           setIsLoading(false);
         })
         .catch((e) => {
           setIsLoading(false);
-        });
+        }).finally(()=>{
+        setIsLoading(false);
+
+      })
     },
   });
 
@@ -132,7 +136,7 @@ const RegisterForm = () => {
         />
         <br />
         <br />
-        {isUserExisting && (
+        {isUserExisting && !isLoading && (
           <>
             <p style={{ color: "rgb(204,0,0)" }}>
               User with this email already exists

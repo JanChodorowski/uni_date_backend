@@ -63,14 +63,15 @@ const LoginForm = () => {
           if (data.email) {
             setAreCredentialsIncorrect(false);
             setUser(data);
-          } else {
-            setAreCredentialsIncorrect(true);
           }
-          setIsLoading(false);
+          // setIsLoading(false);
         })
         .catch((e) => {
-          setIsLoading(false);
-        });
+          // setIsLoading(false);
+          setAreCredentialsIncorrect(true);
+        }).finally(()=>{
+        setIsLoading(false);
+      })
     },
   });
 
@@ -118,7 +119,7 @@ const LoginForm = () => {
           </Grid>
         </Grid>
         <br />
-        {areCredentialsIncorrect && (
+        {areCredentialsIncorrect && !isLoading && (
           <>
             <p style={{ color: "rgb(204,0,0)" }}>
               No user with this email and password

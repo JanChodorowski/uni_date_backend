@@ -64,13 +64,16 @@ function App() {
         if (data && mounted) {
           setUser(data);
         }
-        setIsLoading(false);
-        setIsLoadingUserData(false);
+        // setIsLoading(false);
+        // setIsLoadingUserData(false);
       })
       .catch((e) => {
-        setIsLoading(false);
-        setIsLoadingUserData(false);
-      });
+        // setIsLoading(false);
+        // setIsLoadingUserData(false);
+      }).finally(() => {
+      setIsLoading(false);
+      setIsLoadingUserData(false);
+    })
     return () => {
       mounted = false;
     };
@@ -88,7 +91,6 @@ function App() {
               value={[isLoadingUserData, setIsLoadingUserData]}
             >
               <CssBaseline />
-              {/*{isLoading && <LinearProgress />}*/}
               <ProgressShower></ProgressShower>
               <Switch>
                 <Route
