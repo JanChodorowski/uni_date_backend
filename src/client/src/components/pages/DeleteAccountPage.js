@@ -5,17 +5,22 @@ import Button from "@material-ui/core/Button";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { emptyUser } from "../../shared/constants";
+import {emptyUser, NAVIGATION} from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { deleteUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
+import {PathContext} from "../../context/pathContext";
 
 const DeleteAccountPage = () => {
   const history = useHistory();
   const [user, setUser] = useContext(UserContext);
-  const redirectToHomePage = () => history.push(`/`);
+  const {profile} = NAVIGATION
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-
+  const [path, setPath] = useContext(PathContext);
+  const redirectToHomePage = () => {
+    history.push(`/${profile}`)
+    setPath(profile);
+  }
   const handleNoClick = () => {
     redirectToHomePage();
   };
@@ -44,6 +49,7 @@ const DeleteAccountPage = () => {
           variant="contained"
           fullWidth
           onClick={handleYesClick}
+          disabled={isLoading}
         >
           YES
         </Button>
@@ -52,6 +58,7 @@ const DeleteAccountPage = () => {
           variant="contained"
           fullWidth
           onClick={handleNoClick}
+          disabled={isLoading}
         >
           NO
         </Button>

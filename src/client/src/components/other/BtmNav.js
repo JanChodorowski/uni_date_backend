@@ -16,6 +16,7 @@ import { IconButton } from "@material-ui/core";
 import { NAVIGATION } from "../../shared/constants";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
+import {PathContext} from "../../context/pathContext";
 
 const useStyles = makeStyles({
   root: {
@@ -29,25 +30,25 @@ function BtmNav() {
   const classes = useStyles();
   const { chat, filter, match, profile, settings } = NAVIGATION;
   const [user] = useContext(UserContext);
-  const [value, setValue] = React.useState(
-    window.location.pathname.replace(/\//g, "")
-  );
+  const [path, setPath] = useContext(PathContext);
 
   const isSmallView = useMediaQuery("(min-width:400px)");
   const history = useHistory();
-  const historyPush = (newValue) => history.push(`/${newValue}`);
-  const handleChange = (event, newValue) => {
-    historyPush(newValue);
-    setValue(newValue);
+  const redirect = (path) => {
+    history.push(`/${path}`);
+    setPath(path);
+  }
+  const handleChange = (event, path) => {
+    redirect(path)
   };
   const handleChangeOnSmallView = (name) => () => {
-    historyPush(name);
+    redirect(name)
   };
   return (
     <>
       {isSmallView ? (
         <BottomNavigation
-          value={value}
+          value={path}
           onChange={handleChange}
           className={classes.root}
         >

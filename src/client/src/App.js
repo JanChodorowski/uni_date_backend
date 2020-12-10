@@ -47,11 +47,13 @@ import { LoadingContext } from "./context/loadingContext";
 import ProgressShower from "./components/other/ProgressShower";
 import { LoadingUserDataContext } from "./context/loadingUserDataContex";
 import DeleteAccountPage from "./components/pages/DeleteAccountPage";
+import {PathContext} from "./context/pathContext";
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState(emptyUser);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
+  const [path, setPath] = useState(window.location.pathname.replace(/\//g, ""));
 
   useEffect(() => {
     let mounted = true;
@@ -87,6 +89,7 @@ function App() {
             <LoadingUserDataContext.Provider
               value={[isLoadingUserData, setIsLoadingUserData]}
             >
+              <PathContext.Provider value={[path, setPath]}>
               <CssBaseline />
               <ProgressShower></ProgressShower>
               <Switch>
@@ -123,6 +126,7 @@ function App() {
                 </Route>
               </Switch>
               {user.email && <BtmNav />}
+                </PathContext.Provider>
             </LoadingUserDataContext.Provider>
           </LoadingContext.Provider>
         </UserContext.Provider>
