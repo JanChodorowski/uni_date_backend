@@ -44,6 +44,7 @@ export const NAVIGATION = {
   filter: "filter",
   profile: "profile",
   settings: "settings",
+  deleteaccount: "deleteaccount",
 };
 
 export const basicValidation = {

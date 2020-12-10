@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Cookies from "universal-cookie";
 import Button from "@material-ui/core/Button";
 import { UserContext } from "../../context/userContext";
-import { emptyUser } from "../../shared/constants";
+import {emptyUser, NAVIGATION} from "../../shared/constants";
 import { useHistory } from "react-router-dom";
 import { Grid, Paper } from "@material-ui/core";
 import ColorBtn from "../buttons/ColorBtn";
@@ -16,9 +16,14 @@ const SettingsPage = () => {
   const handleLogOut = () => {
     const cookies = new Cookies();
     cookies.remove("token");
-    history.push(`/`);
     setUser(emptyUser);
+    history.push(`/`);
   };
+  const {deleteaccount} = NAVIGATION
+  const handleDeleteAccount = () => {
+    history.push(`/${deleteaccount}`);
+  };
+
 
   return (
     <>
@@ -45,7 +50,7 @@ const SettingsPage = () => {
               variant="contained"
               fullWidth
               type="submit"
-              // onClick={handleLogOut}
+              onClick={handleDeleteAccount}
             >
               DELETE ACCOUNT
             </Button>

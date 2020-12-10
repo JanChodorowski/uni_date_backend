@@ -112,3 +112,7 @@ export const register = ({ email, password, passwordConfirmation }) => {
 export const getUserData = () => {
   return axios.get("api/users/data");
 };
+
+export const deleteUser = () => {
+  return axios.delete("api/users");
+};

@@ -64,14 +64,13 @@ const LoginForm = () => {
             setAreCredentialsIncorrect(false);
             setUser(data);
           }
-          // setIsLoading(false);
         })
         .catch((e) => {
-          // setIsLoading(false);
           setAreCredentialsIncorrect(true);
-        }).finally(()=>{
-        setIsLoading(false);
-      })
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     },
   });
 

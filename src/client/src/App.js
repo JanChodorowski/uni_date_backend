@@ -46,6 +46,7 @@ import SettingsPage from "./components/pages/SettingsPage";
 import { LoadingContext } from "./context/loadingContext";
 import ProgressShower from "./components/ProgressShower";
 import { LoadingUserDataContext } from "./context/loadingUserDataContex";
+import DeleteAccountPage from "./components/pages/DeleteAccountPage";
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState(emptyUser);
@@ -64,16 +65,13 @@ function App() {
         if (data && mounted) {
           setUser(data);
         }
-        // setIsLoading(false);
-        // setIsLoadingUserData(false);
       })
       .catch((e) => {
-        // setIsLoading(false);
-        // setIsLoadingUserData(false);
-      }).finally(() => {
-      setIsLoading(false);
-      setIsLoadingUserData(false);
-    })
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setIsLoadingUserData(false);
+      });
     return () => {
       mounted = false;
     };
@@ -81,7 +79,7 @@ function App() {
 
   let chosenTheme = createMuiTheme(isDark ? APP_THEME.dark : APP_THEME.light);
   chosenTheme = responsiveFontSizes(chosenTheme);
-  const { chat, filter, match, profile, settings } = NAVIGATION;
+  const { chat, filter, match, profile, settings,deleteaccount } = NAVIGATION;
   return (
     <ThemeProvider theme={chosenTheme}>
       <ColorContext.Provider value={[isDark, setIsDark]}>
@@ -112,6 +110,10 @@ function App() {
                 <Route
                   path={`/${profile}`}
                   component={user.email ? ProfilePage : LandingPage}
+                />
+                <Route
+                    path={`/${deleteaccount}`}
+                    component={user.email ? DeleteAccountPage : LandingPage}
                 />
                 <Route path="/">
                   {user.email ? (

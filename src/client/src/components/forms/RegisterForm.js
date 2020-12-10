@@ -62,14 +62,12 @@ const RegisterForm = () => {
             setUser(data);
           }
           setIsUserExisting(!!data?.isUserExisting);
-          setIsLoading(false);
         })
         .catch((e) => {
+        })
+        .finally(() => {
           setIsLoading(false);
-        }).finally(()=>{
-        setIsLoading(false);
-
-      })
+        });
     },
   });
 
