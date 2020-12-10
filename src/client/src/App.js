@@ -96,26 +96,32 @@ function App() {
                   <Route
                     path={`/${chat}`}
                     component={user.email ? ChatPage : LandingPage}
+                    exact
                   />
                   <Route
                     path={`/${match}`}
                     component={user.email ? MatchPage : LandingPage}
+                    exact
                   />
                   <Route
                     path={`/${filter}`}
                     component={user.email ? FilterPage : LandingPage}
+                    exact
                   />
                   <Route
                     path={`/${settings}`}
                     component={user.email ? SettingsPage : LandingPage}
+                    exact
                   />
                   <Route
                     path={`/${profile}`}
                     component={user.email ? ProfilePage : LandingPage}
+                    exact
                   />
                   <Route
-                    path={`/${deleteaccount}`}
+                    path={`/${settings}/${deleteaccount}`}
                     component={user.email ? DeleteAccountPage : LandingPage}
+                    exact
                   />
                   <Route path="/">
                     {user.email ? (

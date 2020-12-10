@@ -16,7 +16,7 @@ const SettingsPage = () => {
   const [path, setPath] = useContext(PathContext);
 
   const history = useHistory();
-  const { profile } = NAVIGATION;
+  const { profile, settings } = NAVIGATION;
 
   const handleLogOut = () => {
     const cookies = new Cookies();
@@ -27,8 +27,7 @@ const SettingsPage = () => {
   };
   const { deleteaccount } = NAVIGATION;
   const handleDeleteAccount = () => {
-    history.push(`/${deleteaccount}`);
-    setPath(profile);
+    history.push(`/${settings}/${deleteaccount}`);
   };
   return (
     <>
