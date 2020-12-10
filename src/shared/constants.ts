@@ -15,7 +15,12 @@ export interface IRequestWithPayload extends Request {
             id : string
         }
     }
+
 }
+//
+// export interface IRequestWithFiles extends Request {
+//     files: any
+// }
 
 // to be continued...
 export enum gender {

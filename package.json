@@ -27,6 +27,7 @@
     "@interfaces": "dist/interfaces",
     "@middleware": "dist/middleware",
     "@shared": "dist/shared",
+    "@uploads": "dist/uploads",
     "@server": "dist/Server"
   },
   "eslintConfig": {
@@ -69,6 +70,7 @@
     "bcrypt": "^5.0.0",
     "command-line-args": "^5.1.1",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -79,9 +81,11 @@
     "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.29",
+    "unique-string": "^2.0.0",
     "uuid": "^8.3.1",
     "yup": "^0.32.1"
   },

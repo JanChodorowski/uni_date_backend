@@ -26,7 +26,6 @@ export const authenticate = (req: IRequestWithPayload, res: Response, next: Next
     }
     return res.status(BAD_REQUEST).end();
   }
-
   req.body.payload = payload;
   next();
 };

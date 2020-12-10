@@ -9,7 +9,7 @@ import ColorBtn from "../buttons/ColorBtn";
 import CenterHOC from "../hocs/CenterHOC";
 import ColorBtnCorner from "../other/ColorBtnCorner";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
-import {PathContext} from "../../context/pathContext";
+import { PathContext } from "../../context/pathContext";
 
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
@@ -30,7 +30,6 @@ const SettingsPage = () => {
     history.push(`/${deleteaccount}`);
     setPath(profile);
   };
-
   return (
     <>
       <ColorBtnCorner></ColorBtnCorner>

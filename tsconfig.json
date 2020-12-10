@@ -89,6 +89,9 @@
       ],
       "@middleware/*": [
         "src/middleware/*"
+      ],
+      "@uploads/*": [
+        "src/uploads/*"
       ]
     }
   },
