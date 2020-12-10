@@ -9,19 +9,26 @@ import ColorBtn from "../buttons/ColorBtn";
 import CenterHOC from "../hocs/CenterHOC";
 import ColorBtnCorner from "../other/ColorBtnCorner";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
+import {PathContext} from "../../context/pathContext";
 
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
+  const [path, setPath] = useContext(PathContext);
+
   const history = useHistory();
+  const { profile } = NAVIGATION;
+
   const handleLogOut = () => {
     const cookies = new Cookies();
     cookies.remove("token");
     setUser(emptyUser);
     history.push(`/`);
+    setPath(profile);
   };
   const { deleteaccount } = NAVIGATION;
   const handleDeleteAccount = () => {
     history.push(`/${deleteaccount}`);
+    setPath(profile);
   };
 
   return (

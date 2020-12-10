@@ -47,7 +47,7 @@ import { LoadingContext } from "./context/loadingContext";
 import ProgressShower from "./components/other/ProgressShower";
 import { LoadingUserDataContext } from "./context/loadingUserDataContex";
 import DeleteAccountPage from "./components/pages/DeleteAccountPage";
-import {PathContext} from "./context/pathContext";
+import { PathContext } from "./context/pathContext";
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState(emptyUser);
@@ -90,43 +90,43 @@ function App() {
               value={[isLoadingUserData, setIsLoadingUserData]}
             >
               <PathContext.Provider value={[path, setPath]}>
-              <CssBaseline />
-              <ProgressShower></ProgressShower>
-              <Switch>
-                <Route
-                  path={`/${chat}`}
-                  component={user.email ? ChatPage : LandingPage}
-                />
-                <Route
-                  path={`/${match}`}
-                  component={user.email ? MatchPage : LandingPage}
-                />
-                <Route
-                  path={`/${filter}`}
-                  component={user.email ? FilterPage : LandingPage}
-                />
-                <Route
-                  path={`/${settings}`}
-                  component={user.email ? SettingsPage : LandingPage}
-                />
-                <Route
-                  path={`/${profile}`}
-                  component={user.email ? ProfilePage : LandingPage}
-                />
-                <Route
-                  path={`/${deleteaccount}`}
-                  component={user.email ? DeleteAccountPage : LandingPage}
-                />
-                <Route path="/">
-                  {user.email ? (
-                    <Redirect to={`/${profile}`} />
-                  ) : (
-                    <LandingPage />
-                  )}
-                </Route>
-              </Switch>
-              {user.email && <BtmNav />}
-                </PathContext.Provider>
+                <CssBaseline />
+                <ProgressShower></ProgressShower>
+                <Switch>
+                  <Route
+                    path={`/${chat}`}
+                    component={user.email ? ChatPage : LandingPage}
+                  />
+                  <Route
+                    path={`/${match}`}
+                    component={user.email ? MatchPage : LandingPage}
+                  />
+                  <Route
+                    path={`/${filter}`}
+                    component={user.email ? FilterPage : LandingPage}
+                  />
+                  <Route
+                    path={`/${settings}`}
+                    component={user.email ? SettingsPage : LandingPage}
+                  />
+                  <Route
+                    path={`/${profile}`}
+                    component={user.email ? ProfilePage : LandingPage}
+                  />
+                  <Route
+                    path={`/${deleteaccount}`}
+                    component={user.email ? DeleteAccountPage : LandingPage}
+                  />
+                  <Route path="/">
+                    {user.email ? (
+                      <Redirect to={`/${profile}`} />
+                    ) : (
+                      <LandingPage />
+                    )}
+                  </Route>
+                </Switch>
+                {user.email && <BtmNav />}
+              </PathContext.Provider>
             </LoadingUserDataContext.Provider>
           </LoadingContext.Provider>
         </UserContext.Provider>

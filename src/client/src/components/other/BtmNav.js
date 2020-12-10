@@ -16,7 +16,7 @@ import { IconButton } from "@material-ui/core";
 import { NAVIGATION } from "../../shared/constants";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
-import {PathContext} from "../../context/pathContext";
+import { PathContext } from "../../context/pathContext";
 
 const useStyles = makeStyles({
   root: {
@@ -37,13 +37,14 @@ function BtmNav() {
   const redirect = (path) => {
     history.push(`/${path}`);
     setPath(path);
-  }
+  };
   const handleChange = (event, path) => {
-    redirect(path)
+    redirect(path);
   };
   const handleChangeOnSmallView = (name) => () => {
-    redirect(name)
+    redirect(name);
   };
+
   return (
     <>
       {isSmallView ? (
