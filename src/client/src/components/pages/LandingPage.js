@@ -54,10 +54,9 @@ const LandingPage = () => {
                     style={{ padding: "1rem" }}
 
                   >
-                      <Typography style={{ fontSize: "1rem" }}>
-                        Dating app for universities students & graduates
-                      </Typography>
-
+                    <Typography style={{ fontSize: "1rem" }}>
+                      Dating app for universities students & graduates
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
