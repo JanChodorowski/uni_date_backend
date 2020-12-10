@@ -1,7 +1,7 @@
 import React, { useContext, useLayoutEffect, useRef } from "react";
 import { Grid, Paper } from "@material-ui/core";
 
-const CenterGridContainerHOC = ({ children }) => {
+const CenterHOC = ({ children }) => {
   return (
     <>
       <Grid
@@ -17,4 +17,4 @@ const CenterGridContainerHOC = ({ children }) => {
   );
 };
 
-export default CenterGridContainerHOC;
+export default CenterHOC;

@@ -23,6 +23,7 @@ const LoginForm = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const [user, setUser] = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();

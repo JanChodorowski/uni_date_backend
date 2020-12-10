@@ -1,4 +1,5 @@
 import red from "@material-ui/core/colors/red";
+import green from "@material-ui/core/colors/green";
 import * as yup from "yup";
 
 export const LOCAL_STORAGE_KEY = {
@@ -10,11 +11,15 @@ export const THEME_NAMES = {
   dark: "dark",
 };
 
-const color = red;
+const primaryColor = red;
+const secondaryColor = green;
 
 const APP_THEME_EXTENDED = {
   primary: {
-    main: color["900"],
+    main: primaryColor["900"],
+  },
+  secondary: {
+    main: secondaryColor["900"],
   },
 };
 

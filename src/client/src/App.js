@@ -8,7 +8,7 @@ import {
   Button,
   CssBaseline,
   Divider,
-  Grid,
+  Grid, LinearProgress,
   Paper,
   ThemeProvider,
   Typography,
@@ -45,22 +45,23 @@ import SettingsPage from "./components/pages/SettingsPage";
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState(emptyUser);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let mounted = true;
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
-    const setUserDataFromApi = async () => {
-      const userData = await getUserData();
-      const { data } = userData;
-      console.log("userdata", data);
-      if (data && mounted) {
-        setUser(data);
-      }
-    };
-    try {
-      setUserDataFromApi();
-    } catch {}
-    return () => (mounted = false);
+      setIsLoading(true)
+      getUserData().then(userData => {
+        const { data } = userData;
+          console.log("userdata", data);
+          if (data && mounted) {
+            setUser(data);
+          }
+          setIsLoading(false)
+      }).catch(e => {
+        setIsLoading(false);
+      })
+    return () => {mounted = false; };
   }, []);
 
   let chosenTheme = createMuiTheme(isDark ? APP_THEME.dark : APP_THEME.light);
@@ -71,6 +72,7 @@ function App() {
       <ColorContext.Provider value={[isDark, setIsDark]}>
         <UserContext.Provider value={[user, setUser]}>
           <CssBaseline />
+          {isLoading ? <LinearProgress /> :
           <Switch>
             <Route
               path={`/${chat}`}
@@ -95,8 +97,9 @@ function App() {
             <Route path="/">
               {user.email ? <Redirect to={`/${profile}`} /> : <LandingPage />}
             </Route>
-          </Switch>
+          </Switch>}
           {user.email && <BtmNav />}
+
         </UserContext.Provider>
       </ColorContext.Provider>
     </ThemeProvider>
