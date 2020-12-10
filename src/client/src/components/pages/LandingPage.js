@@ -19,10 +19,12 @@ import Register from "../Register";
 import ColorBtn from "../buttons/ColorBtn";
 import BtmNav from "../BtmNav";
 import CenterHOC from "../hocs/CenterHOC";
+import ColorBtnCorner from "../ColorBtnCorner";
 
 const LandingPage = () => {
   return (
     <>
+      <ColorBtnCorner></ColorBtnCorner>
       <CenterHOC>
         <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
           <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
@@ -50,20 +52,12 @@ const LandingPage = () => {
                   <Grid
                     item
                     style={{ padding: "1rem" }}
-                    container
-                    wrap="nowrap"
-                    direction="row"
-                    alignItems="center"
-                    justify="center"
+
                   >
-                    <Grid item>
                       <Typography style={{ fontSize: "1rem" }}>
                         Dating app for universities students & graduates
                       </Typography>
-                    </Grid>
-                    <Grid item>
-                      <ColorBtn></ColorBtn>
-                    </Grid>
+
                   </Grid>
                 </Grid>
               </Grid>
