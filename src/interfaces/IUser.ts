@@ -26,10 +26,10 @@ export interface IUser {
     matchedUsers2: MatchedUsers[];
     oneSidedRelations: OneSidedRelation[];
     oneSidedRelations2: OneSidedRelation[];
-    picture: Picture;
+    pictures: Picture[];
     universityAttendances: UniversityAttendance[];
     city: City;
     interestIdFilter: Interest;
     universityIdFilter: University;
     interests: Interest[];
-  }
+}

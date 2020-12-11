@@ -60,9 +60,8 @@ console.log('upload', upload);
 router.post('/', authenticate, upload.array('files'), (req: any, res: Response) => {
   // console.log('req picture', req.files);
   console.log('req picture', req.files);
-  // const uuid = uuidv4();
-  // res.setHeader('content-type', 'text/plain');
-  // res.send(uuid);
+  const filesIds = req.files.map((f: any) => f.filename.split('.')[0]);
+  console.log('filesIds', filesIds);
   res.end();
 });
 

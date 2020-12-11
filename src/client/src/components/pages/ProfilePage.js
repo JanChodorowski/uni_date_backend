@@ -9,7 +9,6 @@ const ProfilePage = () => {
 
     const handlePictureChange = (newPictures) => {
         setPictures(newPictures)
-        console.log('pictures',pictures)
     };
 
     const handleUpload = () => {
@@ -21,15 +20,18 @@ const ProfilePage = () => {
                 const { data } = res;
                 if (data.isUploaded) {
                     setIsUploaded(true)
+                    window.location.reload();
                 } else {
                     setIsUploaded(false)
                 }
+                window.location.reload();
             })
             .catch((e) => {
                 setIsUploaded(false)
             })
             .finally(() => {
                 setIsLoading(false);
+
             });
     };
 
