@@ -38,15 +38,18 @@ const SettingsPage = () => {
           {/*  <ColorBtn></ColorBtn>*/}
           {/*</Grid>*/}
           <Grid item>
-            <Button
-              color="primary"
-              variant="contained"
-              fullWidth
-              type="submit"
-              onClick={handleLogOut}
-            >
-              LOG OUT
-            </Button>
+            <>
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                type="submit"
+                onClick={handleLogOut}
+              >
+                LOG OUT
+              </Button>
+              <br /><br /><br />
+            </>
           </Grid>
           <Grid item>
             <Button

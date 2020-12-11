@@ -47,6 +47,9 @@ function BtmNav() {
 
   return (
     <>
+      <br />
+      <br />
+      <br />
       {isSmallView ? (
         <BottomNavigation
           value={path}

@@ -17,7 +17,7 @@ const {
 const userDao = new UserDao();
 
 router.get('/data', authenticate, async (req: Request, res: Response) => {
-  const userDto : UserDto = await userDao.findUserViewDataByUserId(req?.body?.payload?.id)
+  const userDto : UserDto = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
     .catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);

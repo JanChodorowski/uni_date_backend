@@ -5,21 +5,9 @@ import { LoadingContext } from "../../context/loadingContext";
 import { login, uploadPictures } from "../../api";
 import Gallery from "../other/Gallery";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
-import { Grid } from "@material-ui/core";
-const images = [
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-];
+import { Grid, Paper } from "@material-ui/core";
+import CenterHOC from "../hocs/CenterHOC";
+
 const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
@@ -55,33 +43,54 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Grid container direction="column" alignItems="center" justify="center">
+      <Grid container direction="row" alignItems="center" justify="center">
         <Grid item>
-          <ImageUploader
-            withIcon={true}
-            buttonText="Choose pictures"
-            onChange={handlePictureChange}
-            imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
-            maxFileSize={5242880}
-            withPreview
-          />
-        </Grid>
-        <Grid item>
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-            disabled={isLoading || pictures.length === 0}
-            onClick={handleUpload}
-          >
-            Upload pictures
-          </Button>
-        </Grid>
-        <Grid item>
-          <CenterPaperHOC minHeight="0">
-            <Gallery></Gallery>
-          </CenterPaperHOC>
+          <Paper style={{ padding: "1rem" }}>
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              justify="center"
+            >
+              <Grid item>
+                <>
+                  <ImageUploader
+                    withIcon={true}
+                    buttonText="Choose pictures"
+                    onChange={handlePictureChange}
+                    imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
+                    maxFileSize={5242880}
+                    withPreview
+                    label=""
+                  />
+                </>
+              </Grid>
+              <Grid item>
+                <>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    type="submit"
+                    disabled={isLoading || pictures.length === 0}
+                    onClick={handleUpload}
+                  >
+                    Upload pictures
+                  </Button>
+                  <br />
+                  <br />
+                </>
+              </Grid>
+              <Grid item>
+                <>
+                  <CenterHOC minHeight="0">
+                    <Gallery></Gallery>
+                  </CenterHOC>
+                  <br />
+                </>
+              </Grid>
+            </Grid>
+          </Paper>
         </Grid>
       </Grid>
     </>
