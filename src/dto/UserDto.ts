@@ -1,15 +1,4 @@
 export class UserDto {
-    static allFields = [
-      'userDto.userName',
-      'userDto.gender',
-      'userDto.description',
-      'userDto.email',
-      'userDto.maxSearchDistanceFilter',
-      'userDto.ageFromFilter',
-      'userDto.ageToFilter',
-      'userDto.genderFilter',
-    ]
-
     userName: string;
 
     gender: number;
@@ -27,4 +16,6 @@ export class UserDto {
     ageToFilter: number;
 
     genderFilter: number;
+
+    pictures: any
 }

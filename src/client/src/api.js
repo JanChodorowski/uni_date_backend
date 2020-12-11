@@ -120,15 +120,14 @@ export const deleteUser = () => {
 export const uploadPictures = (pictures) => {
   const formData = new FormData();
   pictures.forEach((p, i) => {
-    formData.append('files',pictures[i]);
-  })
-
+    formData.append("files", pictures[i]);
+  });
 
   const config = {
     headers: {
-      'Content-type': 'multipart/form-data'
-    }
+      "Content-type": "multipart/form-data",
+    },
   };
-  console.log('uploadPictures', pictures)
+  console.log("uploadPictures", pictures);
   return axios.post("api/pictures", formData, config);
 };

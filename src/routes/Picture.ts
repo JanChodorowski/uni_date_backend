@@ -10,6 +10,11 @@ import app from '@server';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import { v4 as uuidv4 } from 'uuid';
+import UserDao from '@daos/User/UserDao';
+import { IPicture } from '@interfaces/IPicture';
+import { Picture } from '@entities/Picture';
+import { IUser } from '@interfaces/IUser';
+import PictureDao from '@daos/Picture/PictureDao';
 
 const { promisify } = require('util');
 const fs = require('fs');
@@ -57,11 +62,33 @@ const fileFilter = (req:any, file:any, cb:any) => {
 export const upload = multer({ storage, fileFilter });
 console.log('upload', upload);
 // upload.array('images', 12)  upload.array('image')
-router.post('/', authenticate, upload.array('files'), (req: any, res: Response) => {
-  // console.log('req picture', req.files);
-  console.log('req picture', req.files);
-  const filesIds = req.files.map((f: any) => f.filename.split('.')[0]);
-  console.log('filesIds', filesIds);
+router.post('/', upload.array('files'), authenticate, async (req: any, res: Response) => {
+  try {
+    const userDao = new UserDao();
+    const foundUser = await userDao.findOneById(req?.body?.payload?.id)
+      .catch((err) => {
+        console.error(err);
+        res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+      });
+    // console.log('req picture', req.files);
+    console.log('req picture', req.files, foundUser, req?.body?.payload?.id);
+    if (foundUser) {
+      const newPictures: IPicture[] = req.files.map((f: any, i: number) => {
+        const newPicture = new Picture();
+        newPicture.order = i;
+        newPicture.pictureId = f.filename.split('.')[0];
+        newPicture.user = foundUser!;
+        return newPicture;
+      });
+      console.log('HEJ', newPictures);
+      const pictureDao = new PictureDao();
+      await pictureDao.add(newPictures);
+    } else {
+      res.status(INTERNAL_SERVER_ERROR).end();
+    }
+  } catch (e) {
+    console.log(`error${e}`);
+  }
   res.end();
 });
 

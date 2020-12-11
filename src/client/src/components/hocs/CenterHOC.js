@@ -1,7 +1,7 @@
 import React, { useContext, useLayoutEffect, useRef } from "react";
 import { Grid, Paper } from "@material-ui/core";
 
-const CenterHOC = ({ children }) => {
+const CenterHOC = ({ children, minHeight = "80vh" }) => {
   return (
     <>
       <Grid
@@ -9,7 +9,7 @@ const CenterHOC = ({ children }) => {
         direction="row"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "80vh" }}
+        style={{ minHeight }}
       >
         {children}
       </Grid>

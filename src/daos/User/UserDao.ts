@@ -15,12 +15,23 @@ export interface IUserDao {
   delete: (id: number) => Promise<void>;
   findOneByEmail: (email: string) => Promise<IUser | undefined>;
   findOneById: (id: string) => Promise<IUser | undefined>;
-  findUserDtoById: (id: string) => Promise<any>
+  findUserViewDataByUserId: (id: string) => Promise<any>
   login: (email: string) => Promise<any>
   register: (email: string) => Promise<any>
 }
 
 class UserDao implements IUserDao {
+  userViewData = [
+    'userViewData.userName',
+    'userViewData.gender',
+    'userViewData.description',
+    'userViewData.email',
+    'userViewData.maxSearchDistanceFilter',
+    'userViewData.ageFromFilter',
+    'userViewData.ageToFilter',
+    'userViewData.genderFilter',
+  ]
+
   /**
      * @param email
      */
@@ -42,11 +53,12 @@ class UserDao implements IUserDao {
   /**
    * @param id
    */
-  public findUserDtoById(id: string): Promise<any> {
+  public findUserViewDataByUserId(id: string): Promise<any> {
     return getRepository(User)
-      .createQueryBuilder('userDto')
+      .createQueryBuilder('userViewData')
+      .leftJoinAndSelect('userViewData.pictures', 'photo')
       .where({ id })
-      .select(UserDto.allFields)
+      .select(this.userViewData)
       .getOne();
   }
 
@@ -55,12 +67,12 @@ class UserDao implements IUserDao {
    */
   public login(email: string): Promise<any> {
     return getRepository(User)
-      .createQueryBuilder('userDto')
+      .createQueryBuilder('userViewData')
       .where({ email })
       .select([
-        ...UserDto.allFields,
-        'userDto.id',
-        'userDto.passwordHash',
+        ...this.userViewData,
+        'userViewData.id',
+        'userViewData.passwordHash',
       ])
       .getOne();
   }
@@ -70,10 +82,10 @@ class UserDao implements IUserDao {
    */
   public register(email: string): Promise<any> {
     return getRepository(User)
-      .createQueryBuilder('userDto')
+      .createQueryBuilder('userViewData')
       .where({ email })
       .select([
-        'userDto.id',
+        'userViewData.id',
       ])
       .getOne();
   }
