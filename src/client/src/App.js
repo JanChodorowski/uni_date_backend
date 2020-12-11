@@ -61,8 +61,8 @@ function App() {
     setIsLoading(true);
     setIsLoadingUserData(true);
     getUserData()
-      .then((userData) => {
-        const { data } = userData;
+      .then((res) => {
+        const { data } = res;
         console.log("userdata", data);
         if (data && mounted) {
           setUser(data);

@@ -3,13 +3,18 @@ import express, {
 } from 'express';
 
 import StatusCodes from 'http-status-codes';
-
 import { authenticate } from '@middleware/middleware';
 import { IRequestWithPayload } from '@shared/constants';
 import path from 'path';
 import app from '@server';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import { v4 as uuidv4 } from 'uuid';
+
+const { promisify } = require('util');
+const fs = require('fs');
+
+const unlinkAsync = promisify(fs.unlink);
 
 const router = Router();
 const {
@@ -54,8 +59,19 @@ console.log('upload', upload);
 // upload.array('images', 12)  upload.array('image')
 router.post('/', authenticate, upload.array('files'), (req: any, res: Response) => {
   // console.log('req picture', req.files);
-  // console.log('req picture', req.file);
+  console.log('req picture', req.files);
+  // const uuid = uuidv4();
+  // res.setHeader('content-type', 'text/plain');
+  // res.send(uuid);
+  res.end();
+});
 
+router.delete('/', authenticate, async (req: any, res: Response) => {
+  console.log('req del picture', req.body);
+  console.log('req del picture', req);
+
+  // Delete the file like normal
+  // await unlinkAsync(req.file.path);
   res.end();
 });
 

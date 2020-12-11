@@ -40,26 +40,11 @@ const LoginForm = () => {
         ...values,
         email: values.email.trim(),
       };
-      console.log("res1");
-      // let res;
-      // try {
-      //   res = await login(formattedValues);
-      // } catch {
-      // } finally {
-      //   console.log("res2", res);
-      //   if (res?.data?.email) {
-      //     setAreCredentialsIncorrect(false);
-      //     setUser(res?.data);
-      //     console.log("res?.data", res?.data);
-      //   } else {
-      //     setAreCredentialsIncorrect(true);
-      //   }
-      //   console.log("res", res);
-      // }
+
       setIsLoading(true);
       login(formattedValues)
-        .then((userData) => {
-          const { data } = userData;
+        .then((res) => {
+          const { data } = res;
           if (data.email) {
             setAreCredentialsIncorrect(false);
             setUser(data);

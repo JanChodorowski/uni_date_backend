@@ -56,8 +56,8 @@ const RegisterForm = () => {
       // }
       setIsLoading(true);
       register(values)
-        .then((userData) => {
-          const { data } = userData;
+        .then((res) => {
+          const { data } = res;
           if (data.email) {
             setUser(data);
           }

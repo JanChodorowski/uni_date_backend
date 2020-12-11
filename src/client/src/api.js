@@ -117,6 +117,18 @@ export const deleteUser = () => {
   return axios.delete("api/users");
 };
 
-// export const uploadPicture = () => {
-//   return axios.post("api/pictures");
-// };
+export const uploadPictures = (pictures) => {
+  const formData = new FormData();
+  pictures.forEach((p, i) => {
+    formData.append('files',pictures[i]);
+  })
+
+
+  const config = {
+    headers: {
+      'Content-type': 'multipart/form-data'
+    }
+  };
+  console.log('uploadPictures', pictures)
+  return axios.post("api/pictures", formData, config);
+};
