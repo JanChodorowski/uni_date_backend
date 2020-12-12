@@ -1,7 +1,8 @@
 import { User } from '@entities/User';
 
 export interface IPicture {
-    pictureId: string;
+    fileName: string;
     order: number;
     user: User;
+    isAvatar: boolean;
 }

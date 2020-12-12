@@ -135,7 +135,6 @@ router.post('/login', async (req: Request, res: Response) => {
   if (!foundUser) {
     return res.status(UNAUTHORIZED).end();
   }
-  console.log('login foundUser', foundUser);
   const arePasswordsMatching = await bcrypt.compare(password, foundUser.passwordHash);
 
   if (!arePasswordsMatching) {
@@ -157,7 +156,6 @@ router.post('/login', async (req: Request, res: Response) => {
   resUser.ageFromFilter = foundUser.ageFromFilter;
   resUser.ageToFilter = foundUser.ageToFilter;
   resUser.genderFilter = foundUser.genderFilter;
-  console.log('resUser.genderFilter', resUser.genderFilter);
   res.cookie('token', token, cookieOptions)
     .json(resUser)
     .end();
@@ -206,7 +204,6 @@ router.post('/refresh', authenticate, (req, res) => {
   // 30 seconds of expiry. Otherwise, return a bad request status
   // const nowUnixSeconds = Math.round(Number(new Date()) / 1000);
   // if (payload.exp - nowUnixSeconds > 30) {
-  //   console.log('token too young');
   //   return res.status(BAD_REQUEST).end();
   // }
 

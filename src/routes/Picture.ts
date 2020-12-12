@@ -1,4 +1,5 @@
 import express, {
+  NextFunction,
   Request, Response, Router,
 } from 'express';
 
@@ -45,7 +46,6 @@ const storage = multer.diskStorage({
     cb(null, `${mainDirName}/uploads`);
   },
   filename: (req:any, file:any, cb:any) => {
-    console.log(file);
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
@@ -60,7 +60,6 @@ const fileFilter = (req:any, file:any, cb:any) => {
   }
 };
 export const upload = multer({ storage, fileFilter });
-console.log('upload', upload);
 // upload.array('images', 12)  upload.array('image')
 router.post('/', upload.array('files'), authenticate, async (req: any, res: Response) => {
   try {
@@ -70,17 +69,15 @@ router.post('/', upload.array('files'), authenticate, async (req: any, res: Resp
         console.error(err);
         res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
       });
-    // console.log('req picture', req.files);
-    console.log('req picture', req.files, foundUser, req?.body?.payload?.id);
     if (foundUser) {
       const newPictures: IPicture[] = req.files.map((f: any, i: number) => {
         const newPicture = new Picture();
         newPicture.order = i;
-        newPicture.pictureId = f.filename.split('.')[0];
+        newPicture.fileName = f.filename;
         newPicture.user = foundUser!;
+        newPicture.isAvatar = false;
         return newPicture;
       });
-      console.log('HEJ', newPictures);
       const pictureDao = new PictureDao();
       await pictureDao.add(newPictures);
     } else {
@@ -92,10 +89,27 @@ router.post('/', upload.array('files'), authenticate, async (req: any, res: Resp
   res.end();
 });
 
-router.delete('/', authenticate, async (req: any, res: Response) => {
-  console.log('req del picture', req.body);
-  console.log('req del picture', req);
+router.post('/getone', authenticate, async (req: any, res: Response, next:NextFunction) => {
+  const options = {
+    root: path.join(__dirname, '/../uploads'),
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true,
+    },
+  };
 
+  const { fileName } = req.body;
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      next(err);
+    } else {
+      console.log('Sent:', fileName);
+    }
+  });
+});
+
+router.delete('/', authenticate, async (req: any, res: Response) => {
   // Delete the file like normal
   // await unlinkAsync(req.file.path);
   res.end();

@@ -25,7 +25,6 @@ const cors = require('cors');
 const readDir = util.promisify(fs.readdir);
 
 // export const upload = multer({ dest: './images/' });
-// console.log('upload', upload);
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
@@ -34,23 +33,7 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
  *                              Set basic express settings
  ********************************************************************************** */
 
-// app.post('/upload', authenticate, upload.single('image'), (req, res, next) => {
-//   try {
-//     return res.status(201).json({
-//       message: 'File uploded successfully',
-//     });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
-
-// async function getImageList(dir: any) {
-//   try {
-//     return await readDir(path.join(__dirname, 'public', dir));
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+// Do usuniecia?
 app.use(cors());
 
 app.use(express.json());

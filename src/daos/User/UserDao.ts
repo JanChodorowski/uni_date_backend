@@ -30,7 +30,7 @@ class UserDao implements IUserDao {
     'user.ageFromFilter',
     'user.ageToFilter',
     'user.genderFilter',
-    'picture.pictureId',
+    'picture.fileName',
   ]
 
   /**

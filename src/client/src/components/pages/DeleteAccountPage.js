@@ -44,7 +44,7 @@ const DeleteAccountPage = () => {
     <>
       <CenterPaperHOC>
         <Typography>Are you sure you want to delete your account?</Typography>
-        <br/>
+        <br />
         <Button
           color="secondary"
           variant="contained"
@@ -54,7 +54,7 @@ const DeleteAccountPage = () => {
         >
           YES
         </Button>
-        <br/>
+        <br /><br />
         <Button
           color="primary"
           variant="contained"

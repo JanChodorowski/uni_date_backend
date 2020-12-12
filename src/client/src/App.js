@@ -14,7 +14,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
-import { login, secret, refresh, register, getUserData } from "./api";
+import {login, secret, refresh, register, getUserData, getPicture} from "./api";
 import {
   APP_THEME,
   emptyUser,
@@ -54,6 +54,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
   const [path, setPath] = useState(window.location.pathname.replace(/\//g, ""));
+  const [testImage, setTestImage] = useState([]);
+
 
   useEffect(() => {
     let mounted = true;
@@ -63,9 +65,27 @@ function App() {
     getUserData()
       .then((res) => {
         const { data } = res;
-        console.log("userdata", data);
         if (data && mounted) {
           setUser(data);
+          console.log('my data', res)
+          let promises = []
+          data.pictures.map(p => {
+            promises.push(getPicture(p.fileName))
+          })
+          console.log('promises',promises)
+
+          Promise.all(promises).then(results => {
+            console.log('Promise.all',results)
+            const blobs = results.map(r => {
+              return r.data
+            })
+
+            console.log('pictures to save',blobs)
+
+            setTestImage(blobs)
+            console.log('pictures',testImage)
+
+          })
         }
       })
       .catch((e) => {})
@@ -81,6 +101,7 @@ function App() {
   let chosenTheme = createMuiTheme(isDark ? APP_THEME.dark : APP_THEME.light);
   chosenTheme = responsiveFontSizes(chosenTheme);
   const { chat, filter, match, profile, settings, deleteaccount } = NAVIGATION;
+
   return (
     <ThemeProvider theme={chosenTheme}>
       <ColorContext.Provider value={[isDark, setIsDark]}>
@@ -92,6 +113,8 @@ function App() {
               <PathContext.Provider value={[path, setPath]}>
                 <CssBaseline />
                 <ProgressShower></ProgressShower>
+                {/*{testImage && <img src={URL.createObjectURL(testImage[2])}/>}*/}
+                {/*<Button onClick={() => console.log(testImage)}>testImage</Button>*/}
                 <Switch>
                   <Route
                     path={`/${chat}`}
@@ -123,13 +146,13 @@ function App() {
                     component={user.email ? DeleteAccountPage : LandingPage}
                     exact
                   />
-                  <Route path="/">
-                    {user.email ? (
-                      <Redirect to={`/${profile}`} />
-                    ) : (
-                      <LandingPage />
-                    )}
-                  </Route>
+                    <Route path="/">
+                      {user.email ? (
+                        <Redirect to={`/${profile}`} />
+                      ) : (
+                        <LandingPage />
+                      )}
+                    </Route>
                 </Switch>
                 {user.email && <BtmNav />}
               </PathContext.Provider>

@@ -17,7 +17,6 @@ router.get('/:name', (req: Request, res: Response) => {
   const { name } = req.params;
   const newUniversity = new University();
   newUniversity.name = name;
-  console.log('fruitssssssssssssssssssssssssss', name);
   universityDao
     .add(newUniversity)
     .then((result) => res.status(OK).json({ czyDotarlo: result }));
@@ -59,14 +58,13 @@ router.post('/add', async (req: Request, res: Response) => {
   newUniversityAttendance.isGraduated = false;
   newUniversityAttendance.universityName2 = newUniversity;
   newUniversityAttendance.user = newUser;
-  console.log('elo', name);
 
   await getConnection().transaction(async (entityManager) => {
     await entityManager.save(newUniversity);
     await entityManager.save(newUser);
     await entityManager.save(newUniversityAttendance);
   });
-  res.status(OK).json({ czyDotarlo: 'no pewnie mordo' });
+  res.end();
 });
 
 /** ****************************************************************************
