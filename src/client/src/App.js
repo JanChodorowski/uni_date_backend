@@ -90,7 +90,7 @@ function App() {
             });
             userData = {
               ...userData,
-              pictures: blobs,
+              blobs,
             };
           })
           .catch((e) => {

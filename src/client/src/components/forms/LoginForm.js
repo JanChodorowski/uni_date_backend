@@ -70,7 +70,7 @@ const LoginForm = () => {
                   });
                   userData = {
                     ...userData,
-                    pictures: blobs,
+                    blobs,
                   };
                 })
                 .catch((e) => {

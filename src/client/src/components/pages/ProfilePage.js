@@ -5,17 +5,51 @@ import { LoadingContext } from "../../context/loadingContext";
 import { login, uploadPictures } from "../../api";
 import Gallery from "../other/Gallery";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
-import { Grid, Paper } from "@material-ui/core";
+import {Avatar, Grid, Paper} from "@material-ui/core";
 import CenterHOC from "../hocs/CenterHOC";
+import { makeStyles } from '@material-ui/core/styles';
+
 import { UserContext } from "../../context/userContext";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+}));
+
+const handleAvatarChange = () => {
+  // let picturesData = user.pictures.map(p => {
+  //   return {
+  //     p.
+  //   }
+  // })
+  // let modifiedUser = user
+  // modifiedUser.picturesData.forEach(pd => {
+  //   pd.isAvatar = false;
+  // })
+  // modifiedUser.picturesData[""]
+  // setUser()
+}
 
 const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
+  const [user, setUser] = useContext(UserContext);
 
   const handlePictureChange = (newPictures) => {
     setPictures(newPictures);
   };
+  const classes = useStyles();
 
   const handleUpload = () => {
     setIsLoading(true);
@@ -26,16 +60,15 @@ const ProfilePage = () => {
         const { data } = res;
         if (data.isUploaded) {
           setIsUploaded(true);
-          window.location.reload();
         } else {
           setIsUploaded(false);
         }
         window.location.reload();
       })
       .catch((e) => {
-        setIsUploaded(false);
+
       })
-      .finally(() => {
+      .finally(() => {setIsUploaded(false);
         setIsLoading(false);
       });
   };
@@ -95,6 +128,24 @@ const ProfilePage = () => {
                   </CenterHOC>
                   <br />
                 </>
+              </Grid>
+              <Grid
+                  item
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="center"
+              >
+                <Grid item style={{padding: '1rem'}}>
+                <Avatar alt="Remy Sharp" src={URL.createObjectURL(user.blobs[0])} className={classes.large} /></Grid> <Grid item>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    onClick={handleAvatarChange}
+                >
+                  CHOOSE THE PICTURE ABOVE FOR AVATAR
+                </Button></Grid>
               </Grid>
             </Grid>
           </Paper>

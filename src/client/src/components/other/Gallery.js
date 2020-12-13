@@ -48,10 +48,11 @@ function Gallery() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+
   console.log("user", user);
   return (
     <>
-      {maxSteps ? (
+      {maxSteps ? (<>
         <div className={classes.root}>
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -59,7 +60,7 @@ function Gallery() {
             onChangeIndex={handleStepChange}
             enableMouseEvents
           >
-            {user.pictures.map((p, index) => (
+            {user.blobs.map((p, index) => (
               <div key={p + index}>
                 {Math.abs(activeStep - index) <= 2 ? (
                   <img
@@ -78,7 +79,9 @@ function Gallery() {
             activeStep={activeStep}
             nextButton={
               <Button
-                size="small"
+                  size="small"
+                  color="primary"
+                  variant="contained"
                 onClick={handleNext}
                 disabled={activeStep === maxSteps - 1}
               >
@@ -93,6 +96,8 @@ function Gallery() {
             backButton={
               <Button
                 size="small"
+                color="primary"
+                variant="contained"
                 onClick={handleBack}
                 disabled={activeStep === 0}
               >
@@ -106,6 +111,8 @@ function Gallery() {
             }
           />
         </div>
+
+          </>
       ) : null}
     </>
   );
