@@ -75,7 +75,7 @@ function App() {
         const { data } = res;
         if (!(data && mounted)) {
           handleLoading(false);
-          return
+          return;
         }
         let userData = data;
         let promises = data.pictures.map((p) => {
@@ -125,46 +125,36 @@ function App() {
                 <ProgressShower></ProgressShower>
                 {/*{testImage && <img src={URL.createObjectURL(testImage[2])}/>}*/}
                 {/*<Button onClick={() => console.log(testImage)}>testImage</Button>*/}
-                <Switch>
-                  <Route
-                    path={`/${chat}`}
-                    component={user.email ? ChatPage : LandingPage}
-                    exact
-                  />
-                  <Route
-                    path={`/${match}`}
-                    component={user.email ? MatchPage : LandingPage}
-                    exact
-                  />
-                  <Route
-                    path={`/${filter}`}
-                    component={user.email ? FilterPage : LandingPage}
-                    exact
-                  />
-                  <Route
-                    path={`/${settings}`}
-                    component={user.email ? SettingsPage : LandingPage}
-                    exact
-                  />
-                  <Route
-                    path={`/${profile}`}
-                    component={user.email ? ProfilePage : LandingPage}
-                    exact
-                  />
-                  <Route
-                    path={`/${settings}/${deleteaccount}`}
-                    component={user.email ? DeleteAccountPage : LandingPage}
-                    exact
-                  />
-                  <Route path="/">
-                    {user.email ? (
-                      <Redirect to={`/${profile}`} />
-                    ) : (
-                      <LandingPage />
-                    )}
-                  </Route>
-                </Switch>
-                {user.email && <BtmNav />}
+                {user.email ? (
+                  <>
+                    <Switch>
+                      <Route path={`/${chat}`} component={ChatPage} exact />
+                      <Route path={`/${match}`} component={MatchPage} exact />
+                      <Route path={`/${filter}`} component={FilterPage} exact />
+                      <Route
+                        path={`/${settings}`}
+                        component={SettingsPage}
+                        exact
+                      />
+                      <Route
+                        path={`/${profile}`}
+                        component={ProfilePage}
+                        exact
+                      />
+                      <Route
+                        path={`/${settings}/${deleteaccount}`}
+                        component={DeleteAccountPage}
+                        exact
+                      />
+                      <Route path="/">
+                        <Redirect to={`/${profile}`} />
+                      </Route>
+                    </Switch>
+                    <BtmNav />
+                  </>
+                ) : (
+                  <LandingPage></LandingPage>
+                )}
               </PathContext.Provider>
             </LoadingUserDataContext.Provider>
           </LoadingContext.Provider>
