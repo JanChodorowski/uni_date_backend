@@ -32,8 +32,9 @@ const ProfilePage = () => {
   const [isUploaded, setIsUploaded] = useState(false);
   const [chosenPicture, setChosenPicture] = useState(PlaceHolder);
   const [chosenPictureIdx, setChosenPictureIdx] = useState(null);
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const [user, setUser] = useContext(UserContext);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const handlePictureChange = (newPictures) => {
     setPictures(newPictures);
@@ -59,16 +60,16 @@ const ProfilePage = () => {
         } else {
           setIsUploaded(false);
         }
-        window.location.reload();
+
       })
       .catch((e) => {})
       .finally(() => {
         setIsUploaded(false);
         setIsLoading(false);
+        window.location.reload();
       });
   };
 
-  const [isLoading, setIsLoading] = useContext(LoadingContext);
   console.log("user frendo", user);
   return (
     <>
@@ -127,7 +128,8 @@ const ProfilePage = () => {
                   <br />
                 </>
               </Grid>
-              <Grid
+              {!user?.pictures?.length ||
+              user?.pictures?.length > 0 && <Grid
                 item
                 container
                 direction="row"
@@ -140,7 +142,7 @@ const ProfilePage = () => {
                     src={chosenPicture}
                     className={classes.large}
                   />
-                </Grid>{" "}
+                </Grid>
                 <Grid item>
                   <Button
                     color="primary"
@@ -148,15 +150,14 @@ const ProfilePage = () => {
                     type="submit"
                     onClick={handleAvatarChange}
                     disabled={
-                      !user?.pictures?.length ||
-                      user?.pictures?.length === 0 ||
-                      chosenPictureIdx === activeStep
+
+                      (chosenPictureIdx === activeStep && chosenPicture !== PlaceHolder)
                     }
                   >
                     CHOOSE THE PICTURE ABOVE FOR AVATAR
                   </Button>
                 </Grid>
-              </Grid>
+              </Grid>}
             </Grid>
           </Paper>
         </Grid>
