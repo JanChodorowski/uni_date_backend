@@ -66,7 +66,7 @@ function Gallery() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const [user, setUser] = useContext(UserContext);
-  const maxSteps = user.pictures.length;
+  const maxSteps = user?.pictures?.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -80,11 +80,9 @@ function Gallery() {
     setActiveStep(step);
   };
 console.log('user', user)
-  return (
+  return (<>
+      {maxSteps ? (
     <div className={classes.root}>
-      {/*<Paper square elevation={0} className={classes.header}>*/}
-      {/*    <Typography>{tutorialSteps[activeStep].label}</Typography>*/}
-      {/*</Paper>*/}
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
@@ -133,7 +131,7 @@ console.log('user', user)
           </Button>
         }
       />
-    </div>
+    </div>) : null}</>
   );
 }
 
