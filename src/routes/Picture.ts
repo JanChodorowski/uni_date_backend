@@ -46,7 +46,7 @@ const storage = multer.diskStorage({
     cb(null, `${mainDirName}/uploads`);
   },
   filename: (req:any, file:any, cb:any) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, uuidv4() + path.extname(file.originalname));
   },
 });
 const fileFilter = (req:any, file:any, cb:any) => {

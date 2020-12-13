@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Paper from "@material-ui/core/Paper";
@@ -8,6 +8,7 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
+import {UserContext} from "../../context/userContext";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -64,7 +65,8 @@ function Gallery() {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tutorialSteps.length;
+  const [user, setUser] = useContext(UserContext);
+  const maxSteps = user.pictures.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -77,7 +79,7 @@ function Gallery() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
+console.log('user', user)
   return (
     <div className={classes.root}>
       {/*<Paper square elevation={0} className={classes.header}>*/}
@@ -89,13 +91,13 @@ function Gallery() {
         onChangeIndex={handleStepChange}
         enableMouseEvents
       >
-        {tutorialSteps.map((step, index) => (
-          <div key={step.label}>
+        {user.pictures.map((p, index) => (
+          <div key={p + index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <img
                 className={classes.img}
-                src={step.imgPath}
-                alt={step.label}
+                src={URL.createObjectURL(p)}
+                alt={p}
               />
             ) : null}
           </div>

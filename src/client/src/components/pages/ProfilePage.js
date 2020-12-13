@@ -7,10 +7,12 @@ import Gallery from "../other/Gallery";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { Grid, Paper } from "@material-ui/core";
 import CenterHOC from "../hocs/CenterHOC";
+import {UserContext} from "../../context/userContext";
 
 const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
+
 
   const handlePictureChange = (newPictures) => {
     setPictures(newPictures);
