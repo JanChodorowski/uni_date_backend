@@ -14,7 +14,14 @@ import {
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
-import {login, secret, refresh, register, getUserData, getPicture} from "./api";
+import {
+  login,
+  secret,
+  refresh,
+  register,
+  getUserData,
+  getPicture,
+} from "./api";
 import {
   APP_THEME,
   emptyUser,
@@ -54,43 +61,47 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
   const [path, setPath] = useState(window.location.pathname.replace(/\//g, ""));
-  const [testImage, setTestImage] = useState([]);
-
+  const handleLoading = (status) => {
+    setIsLoading(status);
+    setIsLoadingUserData(status);
+  };
 
   useEffect(() => {
     let mounted = true;
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
-    setIsLoading(true);
-    setIsLoadingUserData(true);
+    handleLoading(true);
     getUserData()
       .then((res) => {
         const { data } = res;
-        if (data && mounted) {
-          setUser(data);
-          console.log('my data', res)
-          let promises = data.pictures.map(p => {
-            return getPicture(p.fileName)
-          })
-          console.log('promises',promises)
-
-          Promise.all(promises).then(results => {
-            console.log('Promise.all',results)
-            const blobs = results.map(r => {
-              return r.data
-            })
-
-            console.log('pictures to save',blobs)
-
-            setTestImage(blobs)
-            console.log('pictures',testImage)
-
-          }).catch((e) => {})
+        if (!(data && mounted)) {
+          handleLoading(false);
+          return
         }
+        let userData = data;
+        let promises = data.pictures.map((p) => {
+          return getPicture(p.fileName);
+        });
+
+        Promise.all(promises)
+          .then((results) => {
+            const blobs = results.map((r) => {
+              return r.data;
+            });
+            userData = {
+              ...userData,
+              pictures: blobs,
+            };
+          })
+          .catch((e) => {
+            handleLoading(false);
+          })
+          .finally(() => {
+            setUser(userData);
+            handleLoading(false);
+          });
       })
-      .catch((e) => {})
-      .finally(() => {
-        setIsLoading(false);
-        setIsLoadingUserData(false);
+      .catch((e) => {
+        handleLoading(false);
       });
     return () => {
       mounted = false;
@@ -145,13 +156,13 @@ function App() {
                     component={user.email ? DeleteAccountPage : LandingPage}
                     exact
                   />
-                    <Route path="/">
-                      {user.email ? (
-                        <Redirect to={`/${profile}`} />
-                      ) : (
-                        <LandingPage />
-                      )}
-                    </Route>
+                  <Route path="/">
+                    {user.email ? (
+                      <Redirect to={`/${profile}`} />
+                    ) : (
+                      <LandingPage />
+                    )}
+                  </Route>
                 </Switch>
                 {user.email && <BtmNav />}
               </PathContext.Provider>

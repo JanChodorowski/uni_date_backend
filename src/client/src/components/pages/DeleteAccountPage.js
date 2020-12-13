@@ -54,7 +54,8 @@ const DeleteAccountPage = () => {
         >
           YES
         </Button>
-        <br /><br />
+        <br />
+        <br />
         <Button
           color="primary"
           variant="contained"

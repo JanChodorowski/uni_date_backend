@@ -8,14 +8,11 @@ export const login = ({ email, password }) => {
 };
 
 export const secret = () => {
-  axios
-    .post("/api/auth/secret")
+  axios.post("/api/auth/secret");
 };
 
 export const refresh = () => {
-  axios
-    .post("/api/auth/refresh")
-
+  axios.post("/api/auth/refresh");
 };
 
 export const register = ({ email, password, passwordConfirmation }) => {
@@ -49,8 +46,9 @@ export const uploadPictures = (pictures) => {
 };
 
 export const getPicture = (fileName) => {
-  return axios.post("/api/pictures/getone",{fileName}, {responseType: 'blob'});
-}
-
-
-
+  return axios.post(
+    "/api/pictures/getone",
+    { fileName },
+    { responseType: "blob" }
+  );
+};

@@ -62,7 +62,12 @@ const ProfilePage = () => {
                     maxFileSize={5242880}
                     withPreview
                     label=""
-                    buttonStyles={{backgroundColor: "red", fontWeight: 'bold', padding: '1rem', margin: '1rem'}}
+                    buttonStyles={{
+                      backgroundColor: "red",
+                      fontWeight: "bold",
+                      padding: "1rem",
+                      margin: "1rem",
+                    }}
                   />
                 </>
               </Grid>
