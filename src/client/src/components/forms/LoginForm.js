@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { login } from "../../api";
+import { getPicture, getUserData, login } from "../../api";
 import { Grid, IconButton, Input, InputAdornment } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -18,7 +18,7 @@ const validationSchema = yup.object(basicValidation);
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [areCredentialsIncorrect, setAreCredentialsIncorrect] = useState(false);
+  const [areCredentialsCorrect, setAreCredentialsCorrect] = useState(true);
 
   const handleClickShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -29,6 +29,12 @@ const LoginForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleCredentials = (status) => {
+    setIsLoading(status);
+    setAreCredentialsCorrect(status);
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "karmazyn@gmail.com",
@@ -36,25 +42,51 @@ const LoginForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
+      handleCredentials(true);
+
       const formattedValues = {
         ...values,
         email: values.email.trim(),
       };
 
-      setIsLoading(true);
       login(formattedValues)
-        .then((res) => {
-          const { data } = res;
-          if (data.email) {
-            setAreCredentialsIncorrect(false);
-            setUser(data);
-          }
+        .then(() => {
+          getUserData()
+            .then((res) => {
+              const { data } = res;
+              if (!data.email) {
+                handleCredentials(false);
+                return;
+              }
+              let userData = data;
+              let promises = data.pictures.map((p) => {
+                return getPicture(p.fileName);
+              });
+
+              Promise.all(promises)
+                .then((results) => {
+                  const blobs = results.map((r) => {
+                    return r.data;
+                  });
+                  userData = {
+                    ...userData,
+                    pictures: blobs,
+                  };
+                })
+                .catch((e) => {
+                  setAreCredentialsCorrect(false);
+                })
+                .finally(() => {
+                  setUser(userData);
+                  setIsLoading(false);
+                });
+            })
+            .catch((e) => {
+              handleCredentials(false);
+            });
         })
         .catch((e) => {
-          setAreCredentialsIncorrect(true);
-        })
-        .finally(() => {
-          setIsLoading(false);
+          handleCredentials(false);
         });
     },
   });
@@ -103,7 +135,7 @@ const LoginForm = () => {
           </Grid>
         </Grid>
         <br />
-        {areCredentialsIncorrect && !isLoading && (
+        {!areCredentialsCorrect && !isLoading && (
           <>
             <p style={{ color: "rgb(204,0,0)" }}>
               No user with this email and password

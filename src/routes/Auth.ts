@@ -146,18 +146,18 @@ router.post('/login', async (req: Request, res: Response) => {
     expiresIn: jwtExpirySeconds,
   });
 
-  const resUser = new UserDto();
-  resUser.userName = foundUser.userName;
-  resUser.dateOfBirth = foundUser.dateOfBirth;
-  resUser.gender = foundUser.gender;
-  resUser.description = foundUser.description;
-  resUser.email = foundUser.email;
-  resUser.maxSearchDistanceFilter = foundUser.maxSearchDistanceFilter;
-  resUser.ageFromFilter = foundUser.ageFromFilter;
-  resUser.ageToFilter = foundUser.ageToFilter;
-  resUser.genderFilter = foundUser.genderFilter;
+  // const resUser = new UserDto();
+  // resUser.userName = foundUser.userName;
+  // resUser.dateOfBirth = foundUser.dateOfBirth;
+  // resUser.gender = foundUser.gender;
+  // resUser.description = foundUser.description;
+  // resUser.email = foundUser.email;
+  // resUser.maxSearchDistanceFilter = foundUser.maxSearchDistanceFilter;
+  // resUser.ageFromFilter = foundUser.ageFromFilter;
+  // resUser.ageToFilter = foundUser.ageToFilter;
+  // resUser.genderFilter = foundUser.genderFilter;
   res.cookie('token', token, cookieOptions)
-    .json(resUser)
+    // .json(resUser)
     .end();
 });
 

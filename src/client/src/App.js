@@ -70,6 +70,7 @@ function App() {
     let mounted = true;
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
     handleLoading(true);
+
     getUserData()
       .then((res) => {
         const { data } = res;
