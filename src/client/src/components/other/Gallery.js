@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   img: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     display: "block",
     overflow: "hidden",
   },
 }));
 
-function Gallery() {
+function Gallery({ activeStep, setActiveStep }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+
   const [user, setUser] = useContext(UserContext);
   const maxSteps = user?.pictures?.length;
 
@@ -52,67 +52,67 @@ function Gallery() {
   console.log("user", user);
   return (
     <>
-      {maxSteps ? (<>
-        <div className={classes.root}>
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={activeStep}
-            onChangeIndex={handleStepChange}
-            enableMouseEvents
-          >
-            {user.blobs.map((p, index) => (
-              <div key={p + index}>
-                {Math.abs(activeStep - index) <= 2 ? (
-                  <img
-                    className={classes.img}
-                    src={URL.createObjectURL(p)}
-                    alt={p}
-                  />
-                ) : null}
-              </div>
-            ))}
-          </SwipeableViews>
-          <MobileStepper
-            steps={maxSteps}
-            position="static"
-            variant="text"
-            activeStep={activeStep}
-            nextButton={
-              <Button
+      {maxSteps ? (
+        <>
+          <div className={classes.root}>
+            <SwipeableViews
+              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+              index={activeStep}
+              onChangeIndex={handleStepChange}
+              enableMouseEvents
+            >
+              {user.blobs.map((p, index) => (
+                <div key={p + index}>
+                  {Math.abs(activeStep - index) <= 2 ? (
+                    <img
+                      className={classes.img}
+                      src={URL.createObjectURL(p)}
+                      alt={p}
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </SwipeableViews>
+            <MobileStepper
+              steps={maxSteps}
+              position="static"
+              variant="text"
+              activeStep={activeStep}
+              nextButton={
+                <Button
                   size="small"
                   color="primary"
                   variant="contained"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}
-              >
-                Next
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            }
-            backButton={
-              <Button
-                size="small"
-                color="primary"
-                variant="contained"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              >
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
-                Back
-              </Button>
-            }
-          />
-        </div>
-
-          </>
+                  onClick={handleNext}
+                  disabled={activeStep === maxSteps - 1}
+                >
+                  Next
+                  {theme.direction === "rtl" ? (
+                    <KeyboardArrowLeft />
+                  ) : (
+                    <KeyboardArrowRight />
+                  )}
+                </Button>
+              }
+              backButton={
+                <Button
+                  size="small"
+                  color="primary"
+                  variant="contained"
+                  onClick={handleBack}
+                  disabled={activeStep === 0}
+                >
+                  {theme.direction === "rtl" ? (
+                    <KeyboardArrowRight />
+                  ) : (
+                    <KeyboardArrowLeft />
+                  )}
+                  Back
+                </Button>
+              }
+            />
+          </div>
+        </>
       ) : null}
     </>
   );

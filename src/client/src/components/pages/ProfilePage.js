@@ -5,15 +5,15 @@ import { LoadingContext } from "../../context/loadingContext";
 import { login, uploadPictures } from "../../api";
 import Gallery from "../other/Gallery";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
-import {Avatar, Grid, Paper} from "@material-ui/core";
+import { Avatar, Grid, Paper } from "@material-ui/core";
 import CenterHOC from "../hocs/CenterHOC";
-import { makeStyles } from '@material-ui/core/styles';
-
+import { makeStyles } from "@material-ui/core/styles";
+import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    '& > *': {
+    display: "flex",
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
@@ -27,29 +27,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const handleAvatarChange = () => {
-  // let picturesData = user.pictures.map(p => {
-  //   return {
-  //     p.
-  //   }
-  // })
-  // let modifiedUser = user
-  // modifiedUser.picturesData.forEach(pd => {
-  //   pd.isAvatar = false;
-  // })
-  // modifiedUser.picturesData[""]
-  // setUser()
-}
-
 const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
+  const [chosenPicture, setChosenPicture] = useState(PlaceHolder);
+  const [chosenPictureIdx, setChosenPictureIdx] = useState(null);
+  const [activeStep, setActiveStep] = React.useState(0);
   const [user, setUser] = useContext(UserContext);
 
   const handlePictureChange = (newPictures) => {
     setPictures(newPictures);
   };
   const classes = useStyles();
+
+  const handleAvatarChange = () => {
+    user.pictures.forEach((p) => (p.isAvatar = false));
+    user.pictures[activeStep].isAvatar = true;
+    setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
+    setChosenPictureIdx(activeStep);
+  };
 
   const handleUpload = () => {
     setIsLoading(true);
@@ -65,16 +61,15 @@ const ProfilePage = () => {
         }
         window.location.reload();
       })
-      .catch((e) => {
-
-      })
-      .finally(() => {setIsUploaded(false);
+      .catch((e) => {})
+      .finally(() => {
+        setIsUploaded(false);
         setIsLoading(false);
       });
   };
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-
+  console.log("user frendo", user);
   return (
     <>
       <Grid container direction="row" alignItems="center" justify="center">
@@ -124,28 +119,43 @@ const ProfilePage = () => {
               <Grid item>
                 <>
                   <CenterHOC minHeight="0">
-                    <Gallery></Gallery>
+                    <Gallery
+                      activeStep={activeStep}
+                      setActiveStep={setActiveStep}
+                    ></Gallery>
                   </CenterHOC>
                   <br />
                 </>
               </Grid>
               <Grid
-                  item
-                  container
-                  direction="row"
-                  alignItems="center"
-                  justify="center"
+                item
+                container
+                direction="row"
+                alignItems="center"
+                justify="center"
               >
-                <Grid item style={{padding: '1rem'}}>
-                <Avatar alt="Remy Sharp" src={URL.createObjectURL(user.blobs[0])} className={classes.large} /></Grid> <Grid item>
-                <Button
+                <Grid item style={{ padding: "1rem" }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={chosenPicture}
+                    className={classes.large}
+                  />
+                </Grid>{" "}
+                <Grid item>
+                  <Button
                     color="primary"
                     variant="contained"
                     type="submit"
                     onClick={handleAvatarChange}
-                >
-                  CHOOSE THE PICTURE ABOVE FOR AVATAR
-                </Button></Grid>
+                    disabled={
+                      !user?.pictures?.length ||
+                      user?.pictures?.length === 0 ||
+                      chosenPictureIdx === activeStep
+                    }
+                  >
+                    CHOOSE THE PICTURE ABOVE FOR AVATAR
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
           </Paper>
