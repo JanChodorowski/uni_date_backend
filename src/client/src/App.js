@@ -68,9 +68,8 @@ function App() {
         if (data && mounted) {
           setUser(data);
           console.log('my data', res)
-          let promises = []
-          data.pictures.map(p => {
-            promises.push(getPicture(p.fileName))
+          let promises = data.pictures.map(p => {
+            return getPicture(p.fileName)
           })
           console.log('promises',promises)
 
@@ -85,7 +84,7 @@ function App() {
             setTestImage(blobs)
             console.log('pictures',testImage)
 
-          })
+          }).catch((e) => {})
         }
       })
       .catch((e) => {})

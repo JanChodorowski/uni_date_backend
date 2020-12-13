@@ -55,13 +55,14 @@ const ProfilePage = () => {
               <Grid item>
                 <>
                   <ImageUploader
-                    withIcon={true}
-                    buttonText="Choose pictures"
+                    withIcon={false}
+                    buttonText="CHOOSE PICTURES TO UPLOAD"
                     onChange={handlePictureChange}
                     imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
                     maxFileSize={5242880}
                     withPreview
                     label=""
+                    buttonStyles={{backgroundColor: "red", fontWeight: 'bold', padding: '1rem', margin: '1rem'}}
                   />
                 </>
               </Grid>
