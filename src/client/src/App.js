@@ -19,7 +19,7 @@ import {
   secret,
   refresh,
   register,
-  getUserData,
+  getUser,
   getPicture,
 } from "./api";
 import {
@@ -71,12 +71,11 @@ function App() {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
     handleLoading(true);
 
-    getUserData()
+    getUser()
       .then((res) => {
         const { data } = res;
         if (!(data && mounted)) {
-          handleLoading(false);
-          return;
+          throw new Error();
         }
         let userData = data;
         let promises = data.pictures.map((p) => {

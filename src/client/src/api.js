@@ -7,10 +7,6 @@ export const login = ({ email, password }) => {
   });
 };
 
-export const secret = () => {
-  axios.post("/api/auth/secret");
-};
-
 export const refresh = () => {
   axios.post("/api/auth/refresh");
 };
@@ -23,8 +19,8 @@ export const register = ({ email, password, passwordConfirmation }) => {
   });
 };
 
-export const getUserData = () => {
-  return axios.get("/api/users/data");
+export const getUser = () => {
+  return axios.get("/api/users");
 };
 
 export const deleteUser = () => {
@@ -52,3 +48,19 @@ export const getPicture = (fileName) => {
     { responseType: "blob" }
   );
 };
+
+export const updateUser = (user) => {
+  console.log("updateUser",user)
+  return axios.put(
+      "api/users",
+      {user}
+  )
+}
+
+export const updatePictures = (pictures) => {
+  console.log("updatePictures",pictures)
+  return axios.put(
+      "api/pictures",
+      {pictures}
+  )
+}

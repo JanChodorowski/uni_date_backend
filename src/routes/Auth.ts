@@ -146,40 +146,8 @@ router.post('/login', async (req: Request, res: Response) => {
     expiresIn: jwtExpirySeconds,
   });
 
-  // const resUser = new UserDto();
-  // resUser.userName = foundUser.userName;
-  // resUser.dateOfBirth = foundUser.dateOfBirth;
-  // resUser.gender = foundUser.gender;
-  // resUser.description = foundUser.description;
-  // resUser.email = foundUser.email;
-  // resUser.maxSearchDistanceFilter = foundUser.maxSearchDistanceFilter;
-  // resUser.ageFromFilter = foundUser.ageFromFilter;
-  // resUser.ageToFilter = foundUser.ageToFilter;
-  // resUser.genderFilter = foundUser.genderFilter;
   res.cookie('token', token, cookieOptions)
-    // .json(resUser)
     .end();
-});
-
-router.post('/secret', authenticate, (req: Request, res: Response) => {
-  // const { token } = req.cookies;
-  //
-  // if (!token) {
-  //   return res.status(UNAUTHORIZED)
-  //     .end();
-  // }
-  //
-  // let payload : any;
-  // try {
-  //   payload = jwt.verify(token, TOKEN_SECRET!);
-  // } catch (e) {
-  //   if (e instanceof jwt.JsonWebTokenError) {
-  //     return res.status(UNAUTHORIZED).end();
-  //   }
-  //   return res.status(BAD_REQUEST).end();
-  // }
-
-  res.send('Welcome!');
 });
 
 router.post('/refresh', authenticate, (req, res) => {

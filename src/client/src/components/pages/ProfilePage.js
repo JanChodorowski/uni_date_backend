@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import ImageUploader from "react-images-upload";
 import Button from "@material-ui/core/Button";
 import { LoadingContext } from "../../context/loadingContext";
-import { login, uploadPictures } from "../../api";
+import {login, updateUser, uploadPictures} from "../../api";
 import Gallery from "../other/Gallery";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { Avatar, Grid, Paper } from "@material-ui/core";
@@ -44,8 +44,15 @@ const ProfilePage = () => {
   const handleAvatarChange = () => {
     user.pictures.forEach((p) => (p.isAvatar = false));
     user.pictures[activeStep].isAvatar = true;
-    setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
-    setChosenPictureIdx(activeStep);
+    setIsLoading(true)
+    updateUser(user).then(() => {
+          setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
+          setChosenPictureIdx(activeStep);
+        }
+
+    ).catch(setIsLoading(false)).finally(setIsLoading(false))
+
+
   };
 
   const handleUpload = () => {
@@ -73,6 +80,7 @@ const ProfilePage = () => {
   console.log("user frendo", user);
   return (
     <>
+      order pictures, remove pictures
       <Grid container direction="row" alignItems="center" justify="center">
         <Grid item>
           <Paper style={{ padding: "1rem" }}>

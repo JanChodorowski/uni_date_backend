@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { getPicture, getUserData, login } from "../../api";
+import { getPicture, getUser, login } from "../../api";
 import { Grid, IconButton, Input, InputAdornment } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -51,12 +51,11 @@ const LoginForm = () => {
 
       login(formattedValues)
         .then(() => {
-          getUserData()
+          getUser()
             .then((res) => {
               const { data } = res;
               if (!data.email) {
-                handleCredentials(false);
-                return;
+                throw new Error();
               }
               let userData = data;
               let promises = data.pictures.map((p) => {
