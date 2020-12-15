@@ -15,7 +15,6 @@ export interface IRequestWithPayload extends Request {
             id : string
         }
     }
-
 }
 //
 // export interface IRequestWithFiles extends Request {
@@ -29,3 +28,5 @@ export enum gender {
     female,
     other,
 }
+
+export const PASSWORD_MIN_CHARS = 8;

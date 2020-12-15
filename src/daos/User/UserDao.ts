@@ -11,7 +11,7 @@ export interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
   getAll: () => Promise<IUser[]>;
   add: (user: IUser) => Promise<IUser>;
-  update: (user: IUser) => Promise<void>;
+  update: (newUserPart: IUser, id: string) => Promise<void>;
   delete: (id: number) => Promise<void>;
   findOneByEmail: (email: string) => Promise<IUser | undefined>;
   findOneById: (id: string) => Promise<IUser | undefined>;
@@ -122,11 +122,17 @@ class UserDao implements IUserDao {
 
   /**
      *
-     * @param user
+     * @param newUserPart
      */
-  public async update(user: IUser): Promise<void> {
-    // TODO
-    return Promise.resolve(undefined);
+  public async update(newUserPart: IUser, id: string): Promise<void> {
+    await getConnection()
+      .createQueryBuilder()
+      .update(User)
+      .set(
+        newUserPart,
+      )
+      .where('id = :id', { id })
+      .execute();
   }
 
   /**

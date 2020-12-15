@@ -10,7 +10,7 @@ import { User } from '@entities/User';
 import { IUniversityAttendance } from '@interfaces/IUniversityAttendance';
 import { IUser } from '@interfaces/IUser';
 import {
-  IRequest, paramMissingError, gender,
+  IRequest, paramMissingError, gender, PASSWORD_MIN_CHARS,
 } from '@shared/constants';
 import StatusCodes from 'http-status-codes';
 import * as yup from 'yup';
@@ -37,7 +37,7 @@ const userDao = new UserDao();
 
 const basicValidation = {
   email: yup.string().email().required(),
-  password: yup.string().min(8).required(),
+  password: yup.string().min(PASSWORD_MIN_CHARS).required(),
 };
 
 router.post('/register', async (req: Request, res: Response) => {

@@ -57,10 +57,10 @@ export const updateUser = (user) => {
   )
 }
 
-export const updatePictures = (pictures) => {
-  console.log("updatePictures",pictures)
+export const updateAvatar = (fileName) => {
+  console.log("updatePictures",fileName)
   return axios.put(
-      "api/pictures",
-      {pictures}
+      "api/pictures/avatar",
+      {fileName}
   )
 }

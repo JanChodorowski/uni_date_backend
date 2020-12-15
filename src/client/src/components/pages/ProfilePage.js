@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import ImageUploader from "react-images-upload";
 import Button from "@material-ui/core/Button";
 import { LoadingContext } from "../../context/loadingContext";
-import {login, updateUser, uploadPictures} from "../../api";
+import {login, updateAvatar, updateUser, uploadPictures} from "../../api";
 import Gallery from "../other/Gallery";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { Avatar, Grid, Paper } from "@material-ui/core";
@@ -30,10 +30,14 @@ const useStyles = makeStyles((theme) => ({
 const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
-  const [chosenPicture, setChosenPicture] = useState(PlaceHolder);
+  const [user] = useContext(UserContext);
+
+  const [chosenPicture, setChosenPicture] = useState(
+      URL.createObjectURL(user.blobs[user.pictures.findIndex(p => p.isAvatar)])
+      || PlaceHolder
+  );
   const [chosenPictureIdx, setChosenPictureIdx] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
-  const [user, setUser] = useContext(UserContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const handlePictureChange = (newPictures) => {
@@ -45,8 +49,8 @@ const ProfilePage = () => {
     user.pictures.forEach((p) => (p.isAvatar = false));
     user.pictures[activeStep].isAvatar = true;
     setIsLoading(true)
-    updateUser(user).then(() => {
-          setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
+    updateAvatar(user.pictures[activeStep].fileName).then(() => {
+            setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
           setChosenPictureIdx(activeStep);
         }
 

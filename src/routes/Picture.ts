@@ -16,6 +16,10 @@ import { IPicture } from '@interfaces/IPicture';
 import { Picture } from '@entities/Picture';
 import { IUser } from '@interfaces/IUser';
 import PictureDao from '@daos/Picture/PictureDao';
+import * as yup from 'yup';
+import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
+import { getConnection } from 'typeorm';
+import { User } from '@entities/User';
 
 const { promisify } = require('util');
 const fs = require('fs');
@@ -26,6 +30,72 @@ const router = Router();
 const {
   BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,
 } = StatusCodes;
+
+const fileNameSchema = yup.object().shape({ fileName: yup.string().required() });
+
+router.post('/getone', authenticate, async (req: any, res: Response, next:NextFunction) => {
+  const options = {
+    root: path.join(__dirname, '/../uploads'),
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true,
+    },
+  };
+  const { fileName } = req.body;
+
+  const isValid = await fileNameSchema.isValid({ fileName });
+
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      next(err);
+    } else {
+      console.log('Sent:', fileName);
+    }
+  });
+});
+
+router.put('/avatar', authenticate, async (req: Request, res: Response) => {
+  const trimmedFileName = removeWhiteSpaces(req?.body?.fileName);
+  const isValid = await fileNameSchema.isValid({ fileName: trimmedFileName });
+  console.log('before', isValid, trimmedFileName);
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+  console.log('after', trimmedFileName);
+
+  await getConnection().transaction(async (entityManager) => {
+    await entityManager
+      .createQueryBuilder()
+      .update(Picture)
+      .set(
+        { isAvatar: false },
+      )
+      .where('fileName != :fileName', { fileName: trimmedFileName })
+      .execute();
+
+    await entityManager
+      .createQueryBuilder()
+      .update(Picture)
+      .set(
+        { isAvatar: true },
+      )
+      .where('fileName = :fileName', { fileName: trimmedFileName })
+      .execute();
+  });
+
+  res.end();
+});
+
+router.delete('/', authenticate, async (req: any, res: Response) => {
+  // Delete the file like normal
+  // await unlinkAsync(req.file.path);
+  res.end();
+});
+
 const multer = require('multer');
 
 const {
@@ -60,7 +130,6 @@ const fileFilter = (req:any, file:any, cb:any) => {
   }
 };
 export const upload = multer({ storage, fileFilter });
-// upload.array('images', 12)  upload.array('image')
 router.post('/', upload.array('files'), authenticate, async (req: any, res: Response) => {
   try {
     const userDao = new UserDao();
@@ -86,32 +155,6 @@ router.post('/', upload.array('files'), authenticate, async (req: any, res: Resp
   } catch (e) {
     console.log(`error${e}`);
   }
-  res.end();
-});
-
-router.post('/getone', authenticate, async (req: any, res: Response, next:NextFunction) => {
-  const options = {
-    root: path.join(__dirname, '/../uploads'),
-    dotfiles: 'deny',
-    headers: {
-      'x-timestamp': Date.now(),
-      'x-sent': true,
-    },
-  };
-
-  const { fileName } = req.body;
-  res.sendFile(fileName, options, (err) => {
-    if (err) {
-      next(err);
-    } else {
-      console.log('Sent:', fileName);
-    }
-  });
-});
-
-router.delete('/', authenticate, async (req: any, res: Response) => {
-  // Delete the file like normal
-  // await unlinkAsync(req.file.path);
   res.end();
 });
 

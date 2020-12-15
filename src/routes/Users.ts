@@ -9,9 +9,10 @@ import StatusCodes from 'http-status-codes';
 import { getConnection } from 'typeorm';
 
 import { authenticate } from '@middleware/middleware';
-import { UserDto } from '@dto/UserDto';
 import { IUser } from '@interfaces/IUser';
-import { removeUndefinedFields } from '@shared/functions';
+import { UserDto } from '@dto/UserDto';
+import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
+import * as yup from 'yup';
 
 const router = Router();
 const {
@@ -35,18 +36,15 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.put('/', authenticate, async (req: Request, res: Response) => {
-  console.log('req.body.user', req.body.user);
-  const reqUser = { ...req.body.user };
-  console.log('reqUser', reqUser);
-  removeUndefinedFields(reqUser);
-  console.log('removeUndefinedFields reqUser', reqUser);
+  const userCopy = { ...req.body.user };
+  userCopy.email = removeWhiteSpaces(userCopy.email);
+  removeUndefinedFields(userCopy);
   const pickedUser : any = (({
     userName,
     gender,
     dateOfBirth,
     description,
     email,
-    createdAt,
     popularity,
     activityIntensity,
     localization,
@@ -60,7 +58,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     dateOfBirth,
     description,
     email,
-    createdAt,
     popularity,
     activityIntensity,
     localization,
@@ -68,20 +65,33 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     ageFromFilter,
     ageToFilter,
     genderFilter,
-  }))(reqUser);
-  console.log('removeUndefinedFields pickedUser', pickedUser);
-
+  }))(userCopy);
   removeUndefinedFields(pickedUser);
-  console.log('removeUndefinedFields pickedUser', pickedUser);
 
-  const dbResult = await getConnection()
-    .createQueryBuilder()
-    .update(User)
-    .set({
-      ...pickedUser,
-    })
-    .where('id = :id', { id: req?.body?.payload?.id })
-    .execute();
+  const schema = yup.object().shape(
+    {
+      email: yup.string().email(),
+      userName: yup.string(),
+      gender: yup.number(),
+      dateOfBirth: yup.string(),
+      description: yup.string(),
+      popularity: yup.number(),
+      activityIntensity: yup.number(),
+      localization: yup.number(),
+      maxSearchDistanceFilter: yup.number(),
+      ageFromFilter: yup.number(),
+      ageToFilter: yup.number(),
+      genderFilter: yup.number(),
+    },
+  );
+
+  const isValid = await schema.isValid(pickedUser);
+
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+
+  const dbResult = userDao.update(pickedUser, req?.body?.payload?.id);
 
   if (!dbResult) {
     res.sendStatus(BAD_REQUEST).end();
