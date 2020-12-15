@@ -14,14 +14,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
-import {
-  login,
-  secret,
-  refresh,
-  register,
-  getUser,
-  getPicture,
-} from "./api";
+import { login, secret, refresh, register, getUser, getPicture } from "./api";
 import {
   APP_THEME,
   emptyUser,

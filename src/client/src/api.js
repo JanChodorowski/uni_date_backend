@@ -50,17 +50,11 @@ export const getPicture = (fileName) => {
 };
 
 export const updateUser = (user) => {
-  console.log("updateUser",user)
-  return axios.put(
-      "api/users",
-      {user}
-  )
-}
+  console.log("updateUser", user);
+  return axios.put("api/users", { user });
+};
 
 export const updateAvatar = (fileName) => {
-  console.log("updatePictures",fileName)
-  return axios.put(
-      "api/pictures/avatar",
-      {fileName}
-  )
-}
+  console.log("updatePictures", fileName);
+  return axios.put("api/pictures/avatar", { fileName });
+};

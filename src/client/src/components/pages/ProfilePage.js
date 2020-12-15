@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import ImageUploader from "react-images-upload";
 import Button from "@material-ui/core/Button";
 import { LoadingContext } from "../../context/loadingContext";
-import {login, updateAvatar, updateUser, uploadPictures} from "../../api";
+import { login, updateAvatar, updateUser, uploadPictures } from "../../api";
 import Gallery from "../other/Gallery";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { Avatar, Grid, Paper } from "@material-ui/core";
@@ -33,11 +33,13 @@ const ProfilePage = () => {
   const [user] = useContext(UserContext);
 
   const [chosenPicture, setChosenPicture] = useState(
-      URL.createObjectURL(user.blobs[user.pictures.findIndex(p => p.isAvatar)])
-      || PlaceHolder
+    URL.createObjectURL(
+      user.blobs[user.pictures.findIndex((p) => p.isAvatar)]
+    ) || PlaceHolder
   );
-  const [chosenPictureIdx, setChosenPictureIdx] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
+  const [chosenPictureIdx, setChosenPictureIdx] = useState(0);
+
   const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const handlePictureChange = (newPictures) => {
@@ -48,15 +50,14 @@ const ProfilePage = () => {
   const handleAvatarChange = () => {
     user.pictures.forEach((p) => (p.isAvatar = false));
     user.pictures[activeStep].isAvatar = true;
-    setIsLoading(true)
-    updateAvatar(user.pictures[activeStep].fileName).then(() => {
-            setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
-          setChosenPictureIdx(activeStep);
-        }
-
-    ).catch(setIsLoading(false)).finally(setIsLoading(false))
-
-
+    setIsLoading(true);
+    updateAvatar(user.pictures[activeStep].fileName)
+      .then(() => {
+        setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
+        setChosenPictureIdx(activeStep);
+      })
+      .catch(setIsLoading(false))
+      .finally(setIsLoading(false));
   };
 
   const handleUpload = () => {
@@ -71,7 +72,6 @@ const ProfilePage = () => {
         } else {
           setIsUploaded(false);
         }
-
       })
       .catch((e) => {})
       .finally(() => {
@@ -141,35 +141,38 @@ const ProfilePage = () => {
                 </>
               </Grid>
               {!user?.pictures?.length ||
-              user?.pictures?.length > 0 && <Grid
-                item
-                container
-                direction="row"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item style={{ padding: "1rem" }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={chosenPicture}
-                    className={classes.large}
-                  />
-                </Grid>
-                <Grid item>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                    onClick={handleAvatarChange}
-                    disabled={
-
-                      (chosenPictureIdx === activeStep && chosenPicture !== PlaceHolder)
-                    }
+                (user?.pictures?.length > 0 && (
+                  <Grid
+                    item
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justify="center"
                   >
-                    CHOOSE THE PICTURE ABOVE FOR AVATAR
-                  </Button>
-                </Grid>
-              </Grid>}
+                    <Grid item style={{ padding: "1rem" }}>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src={chosenPicture}
+                        className={classes.large}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        onClick={handleAvatarChange}
+                        disabled={
+                          (chosenPictureIdx === activeStep &&
+                            chosenPicture !== PlaceHolder) ||
+                          isLoading
+                        }
+                      >
+                        CHOOSE THE PICTURE ABOVE FOR AVATAR
+                      </Button>
+                    </Grid>
+                  </Grid>
+                ))}
             </Grid>
           </Paper>
         </Grid>
