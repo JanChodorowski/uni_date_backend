@@ -13,78 +13,75 @@ import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { basicValidation } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
-import {Autocomplete} from "@material-ui/lab";
-import {allUniversities} from "../../allUniversities";
+import { Autocomplete } from "@material-ui/lab";
+import { allUniversities } from "../../allUniversities";
 
 const validationSchema = yup.object(basicValidation);
 
 const LoginForm = () => {
+  const [user, setUser] = useContext(UserContext);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
 
-    const [user, setUser] = useContext(UserContext);
-    const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+  const formik = useFormik({
+    initialValues: {
+      userName: user.userName || "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values, { setSubmitting }) => {},
+  });
 
-    const formik = useFormik({
-        initialValues: {
-            userName: user.userName || "",
-        },
-        validationSchema: validationSchema,
-        onSubmit: async (values, { setSubmitting }) => {
+  return (
+    <div>
+      <form onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          id="userName"
+          name="userName"
+          label="Name"
+          value={formik.values.userName}
+          onChange={formik.handleChange}
+          error={formik.touched.userName && Boolean(formik.errors.userName)}
+          helperText={formik.touched.userName && formik.errors.userName}
+        />
+        <br />
+        <br />
 
-        },
-    });
+        <Autocomplete
+          freeSolo
+          id="free-solo-2-demo"
+          disableClearable
+          options={allUniversities.map((option) => option.name)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Search input"
+              margin="normal"
+              variant="outlined"
+              InputProps={{ ...params.InputProps, type: "search" }}
+            />
+          )}
+        />
+        {/*<UniversityAutoComplete></UniversityAutoComplete>*/}
+        <br />
 
-    return (
-        <div>
-            <form onSubmit={formik.handleSubmit}>
-                <TextField
-                    fullWidth
-                    id="userName"
-                    name="userName"
-                    label="Name"
-                    value={formik.values.userName}
-                    onChange={formik.handleChange}
-                    error={formik.touched.userName && Boolean(formik.errors.userName)}
-                    helperText={formik.touched.userName && formik.errors.userName}
-                />
-                <br />
-                <br />
+        <br />
 
-                <Autocomplete
-                    freeSolo
-                    id="free-solo-2-demo"
-                    disableClearable
-                    options={allUniversities.map((option) => option.name)}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Search input"
-                            margin="normal"
-                            variant="outlined"
-                            InputProps={{ ...params.InputProps, type: 'search' }}
-                        />
-                    )}
-                />
-               {/*<UniversityAutoComplete></UniversityAutoComplete>*/}
-                <br />
-
-                <br />
-
-                <Button
-                    color="primary"
-                    variant="contained"
-                    fullWidth
-                    type="submit"
-                    disabled={formik.isSubmitting}
-                >
-                    UPDATE
-                </Button>
-            </form>
-        </div>
-    );
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+          disabled={formik.isSubmitting}
+        >
+          UPDATE
+        </Button>
+      </form>
+    </div>
+  );
 };
 
 export default LoginForm;

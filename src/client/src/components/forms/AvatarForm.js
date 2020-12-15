@@ -33,9 +33,15 @@ const ProfilePage = () => {
   const [user] = useContext(UserContext);
 
   const [chosenPicture, setChosenPicture] = useState(
-    URL.createObjectURL(
-      user.blobs[user.pictures.findIndex((p) => p.isAvatar)]
-    ) || PlaceHolder
+    (user.pictures &&
+      user.pictures.length > 0 &&
+      user.blobs &&
+      user.blobs.length === user.pictures.length &&
+      user.pictures.some((p) => p.isAvatar) &&
+      URL.createObjectURL(
+        user.blobs[user.pictures.findIndex((p) => p.isAvatar)]
+      )) ||
+      PlaceHolder
   );
   const [activeStep, setActiveStep] = useState(0);
   const [chosenPictureIdx, setChosenPictureIdx] = useState(0);

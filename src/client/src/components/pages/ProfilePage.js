@@ -13,20 +13,15 @@ import { UserContext } from "../../context/userContext";
 import AvatarForm from "../forms/AvatarForm";
 import UserForm from "../forms/UserForm";
 
-
 const ProfilePage = () => {
-
-
-
-
   return (
     <>
       <Grid container direction="row" alignItems="center" justify="center">
-        <Grid item style={{padding: '1rem'}}>
+        <Grid item style={{ padding: "1rem" }}>
           <AvatarForm></AvatarForm>
         </Grid>
-        <Grid item style={{padding: '1rem'}}>
-<UserForm></UserForm>
+        <Grid item style={{ padding: "1rem" }}>
+          <UserForm></UserForm>
         </Grid>
       </Grid>
     </>
