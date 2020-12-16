@@ -64,24 +64,25 @@ const LoginForm = () => {
               });
 
               Promise.all(promises)
-                  .then((results) => {
-                    const picturesDataWithBlobs = results
-                        .map((r) => {
-                          const fileName = r.headers.filename;
-                          return {
-                            blob: r.data,
-                            fileName,
-                            isAvatar: data.pictures.find((p) => p.fileName === fileName)
-                                .isAvatar,
-                          };
-                        })
-                        .sort(compareFileNames);
+                .then((results) => {
+                  const picturesDataWithBlobs = results
+                    .map((r) => {
+                      const fileName = r.headers.filename;
+                      return {
+                        blob: r.data,
+                        fileName,
+                        isAvatar: data.pictures.find(
+                          (p) => p.fileName === fileName
+                        ).isAvatar,
+                      };
+                    })
+                    .sort(compareFileNames);
 
-                    userData = {
-                      ...userData,
-                      pictures: picturesDataWithBlobs,
-                    };
-                  })
+                  userData = {
+                    ...userData,
+                    pictures: picturesDataWithBlobs,
+                  };
+                })
                 .catch((e) => {
                   setAreCredentialsCorrect(false);
                 })

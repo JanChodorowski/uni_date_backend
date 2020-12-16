@@ -31,7 +31,12 @@ const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
   const [user] = useContext(UserContext);
-  const [chosenFileName, setChosenFileName] = useState((user?.pictures && user?.pictures.length > 0 && user.pictures[0].fileName) || "");
+  const [chosenFileName, setChosenFileName] = useState(
+    (user?.pictures &&
+      user?.pictures.length > 0 &&
+      user.pictures[0].fileName) ||
+      ""
+  );
   const [avatarPicture, setAvatarPicture] = useState(
     (user.pictures &&
       user.pictures.length > 0 &&
@@ -49,8 +54,9 @@ const ProfilePage = () => {
 
   const handleAvatarChange = () => {
     user.pictures.forEach((img) => (img.isAvatar = false));
-
-    user.pictures.find((img) => img.fileName === chosenFileName).isAvatar = true;
+    user.pictures.find(
+      (img) => img.fileName === chosenFileName
+    ).isAvatar = true;
     setIsLoading(true);
     updateAvatar(chosenFileName)
       .then(() => {
@@ -131,7 +137,7 @@ const ProfilePage = () => {
             <br />
           </>
         </Grid>
-        {!user?.pictures?.length ||
+        {!user?.pictures ||
           (user?.pictures?.length > 0 && (
             <Grid
               item

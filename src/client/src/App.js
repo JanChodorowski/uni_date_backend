@@ -53,7 +53,11 @@ function App() {
   const [user, setUser] = useState(emptyUser);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
-  const [path, setPath] = useState((window?.location?.pathname && window?.location?.pathname?.replace(/\//g, "")) || "");
+  const [path, setPath] = useState(
+    (window?.location?.pathname &&
+      window?.location?.pathname?.replace(/\//g, "")) ||
+      ""
+  );
   const handleLoading = (status) => {
     setIsLoading(status);
     setIsLoadingUserData(status);
