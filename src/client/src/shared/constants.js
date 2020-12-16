@@ -16,24 +16,55 @@ const secondaryColor = green;
 
 const APP_THEME_EXTENDED = {
   primary: {
-    main: primaryColor["900"],
+    main: primaryColor["500"],
   },
   secondary: {
     main: secondaryColor["900"],
   },
+
 };
+
+const lightBackgroundColor = 'rgba(255, 255, 255, 0.6)'
+const darkBackgroundColor = 'rgba(38, 50, 56, 0.7)'
+
 
 export const APP_THEME = {
   light: {
     palette: {
       type: THEME_NAMES.light,
+
       ...APP_THEME_EXTENDED,
     },
+    overrides: {
+      MuiPaper: {
+        root: {
+          backgroundColor: lightBackgroundColor
+        },
+      },
+      MuiBottomNavigation: {
+        root: {
+          backgroundColor: lightBackgroundColor
+        }
+      }
+    },
+
   },
   dark: {
     palette: {
       type: THEME_NAMES.dark,
       ...APP_THEME_EXTENDED,
+    },
+    overrides: {
+      MuiPaper: {
+        root: {
+          backgroundColor: darkBackgroundColor
+        },
+      },
+      MuiBottomNavigation: {
+        root: {
+          backgroundColor: darkBackgroundColor
+        }
+      }
     },
   },
 };

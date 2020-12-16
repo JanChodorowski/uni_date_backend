@@ -1,7 +1,22 @@
 * {
   font-family: Roboto, sans-serif;
 }
+body, html {
+  height: 100%;
+  margin: 0;
+}
+body {
+  /* The image used */
+  background-image: url(./images/sky.jpg);
 
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 /*body {*/
 /*  margin: 0;*/
 /*  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/

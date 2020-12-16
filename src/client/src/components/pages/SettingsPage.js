@@ -33,14 +33,14 @@ const SettingsPage = () => {
     <>
       change password, change email, need password for both
       <ColorBtnCorner></ColorBtnCorner>
-      <CenterPaperHOC>
         <Grid container direction="column" alignItems="center" justify="center">
           {/*<Grid item>*/}
           {/*  <ColorBtn></ColorBtn>*/}
           {/*</Grid>*/}
           <Grid item>
-            <>
-              <Button
+            <>            <Paper style={{padding: '1rem'}}>
+
+            <Button
                 color="primary"
                 variant="contained"
                 fullWidth
@@ -49,12 +49,14 @@ const SettingsPage = () => {
               >
                 LOG OUT
               </Button>
+            </Paper>
               <br />
               <br />
               <br />
             </>
           </Grid>
           <Grid item>
+                       <Paper style={{padding: '1rem'}}>
             <Button
               color="primary"
               variant="contained"
@@ -64,9 +66,9 @@ const SettingsPage = () => {
             >
               DELETE ACCOUNT
             </Button>
+            </Paper>
           </Grid>
         </Grid>
-      </CenterPaperHOC>
     </>
   );
 };

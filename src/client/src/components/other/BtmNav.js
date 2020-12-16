@@ -17,6 +17,8 @@ import { NAVIGATION } from "../../shared/constants";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import { PathContext } from "../../context/pathContext";
+import Dialog from "@material-ui/core/Dialog";
+import {ColorContext} from "../../context/colorContext";
 
 const useStyles = makeStyles({
   root: {
@@ -44,6 +46,7 @@ function BtmNav() {
   const handleChangeOnSmallView = (name) => () => {
     redirect(name);
   };
+  const [isDark] = useContext(ColorContext);
 
   return (
     <>
@@ -55,6 +58,7 @@ function BtmNav() {
           value={path}
           onChange={handleChange}
           className={classes.root}
+
         >
           <BottomNavigationAction
             label="CHAT"
