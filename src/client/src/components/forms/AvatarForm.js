@@ -31,13 +31,13 @@ const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
   const [user] = useContext(UserContext);
-  const [chosenFileName, setChosenFileName] = useState(user.images[0].fileName);
-  console.log("test", user.images.find((img) => img.isAvatar).blob);
+  const [chosenFileName, setChosenFileName] = useState(user.pictures[0].fileName);
+  console.log("test", user.pictures.find((img) => img.isAvatar).blob);
   const [avatarPicture, setAvatarPicture] = useState(
-    (user.images &&
-      user.images.length > 0 &&
-      user.images.some((img) => img.isAvatar) &&
-      URL.createObjectURL(user.images.find((img) => img.isAvatar).blob)) ||
+    (user.pictures &&
+      user.pictures.length > 0 &&
+      user.pictures.some((img) => img.isAvatar) &&
+      URL.createObjectURL(user.pictures.find((img) => img.isAvatar).blob)) ||
       PlaceHolder
   );
 
@@ -49,15 +49,15 @@ const ProfilePage = () => {
   const classes = useStyles();
 
   const handleAvatarChange = () => {
-    user.images.forEach((img) => (img.isAvatar = false));
-    user.images.find((img) => img.fileName === chosenFileName).isAvatar = true;
+    user.pictures.forEach((img) => (img.isAvatar = false));
+    user.pictures.find((img) => img.fileName === chosenFileName).isAvatar = true;
     setIsLoading(true);
     console.log("chosenFileName", chosenFileName);
     updateAvatar(chosenFileName)
       .then(() => {
         setAvatarPicture(
           URL.createObjectURL(
-            user.images.find((img) => img.fileName === chosenFileName).blob
+            user.pictures.find((img) => img.fileName === chosenFileName).blob
           )
         );
       })
@@ -132,8 +132,8 @@ const ProfilePage = () => {
             <br />
           </>
         </Grid>
-        {!user?.images?.length ||
-          (user?.images?.length > 0 && (
+        {!user?.pictures?.length ||
+          (user?.pictures?.length > 0 && (
             <Grid
               item
               container

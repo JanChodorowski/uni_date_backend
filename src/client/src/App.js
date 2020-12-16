@@ -77,7 +77,7 @@ function App() {
 
         Promise.all(promises)
           .then((results) => {
-            const images = results
+            const picturesDataWithBlobs = results
               .map((r) => {
                 const fileName = r.headers.filename;
                 return {
@@ -91,7 +91,7 @@ function App() {
 
             userData = {
               ...userData,
-              images,
+              pictures: picturesDataWithBlobs,
             };
           })
           .catch((e) => {

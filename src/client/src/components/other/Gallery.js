@@ -53,20 +53,20 @@ function Gallery({ setChosenFileName }) {
   const [activeStep, setActiveStep] = useState(0);
 
   const [user, setUser] = useContext(UserContext);
-  const maxSteps = user?.images?.length;
+  const maxSteps = user?.pictures?.length;
 
   const handleNext = () => {
-    setChosenFileName(user.images[activeStep + 1].fileName);
+    setChosenFileName(user.pictures[activeStep + 1].fileName);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setChosenFileName(user.images[activeStep - 1].fileName);
+    setChosenFileName(user.pictures[activeStep - 1].fileName);
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleStepChange = (step) => {
-    setChosenFileName(user.images[activeStep].fileName);
+    setChosenFileName(user.pictures[activeStep].fileName);
     setActiveStep(step);
   };
 
@@ -81,7 +81,7 @@ function Gallery({ setChosenFileName }) {
               onChangeIndex={handleStepChange}
               enableMouseEvents
             >
-              {user.images.map((img, index) => (
+              {user.pictures.map((img, index) => (
                 <div key={img.fileName}>
                   {Math.abs(activeStep - index) <= 2 ? (
                     <img
