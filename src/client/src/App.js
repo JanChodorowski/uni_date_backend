@@ -29,7 +29,7 @@ import BtmNav from "./components/other/BtmNav";
 import ColorBtn from "./components/buttons/ColorBtn";
 import { ColorContext } from "./context/colorContext";
 import { UserContext } from "./context/userContext";
-import { getItemByKey } from "./shared/functions";
+import { compareFileNames, getItemByKey } from "./shared/functions";
 import LandingPage from "./components/pages/LandingPage";
 import {
   BrowserRouter as Router,
@@ -77,12 +77,21 @@ function App() {
 
         Promise.all(promises)
           .then((results) => {
-            const blobs = results.map((r) => {
-              return r.data;
-            });
+            const images = results
+              .map((r) => {
+                const fileName = r.headers.filename;
+                return {
+                  blob: r.data,
+                  fileName,
+                  isAvatar: data.pictures.find((p) => p.fileName === fileName)
+                    .isAvatar,
+                };
+              })
+              .sort(compareFileNames);
+
             userData = {
               ...userData,
-              blobs,
+              images,
             };
           })
           .catch((e) => {
@@ -116,8 +125,6 @@ function App() {
               <PathContext.Provider value={[path, setPath]}>
                 <CssBaseline />
                 <ProgressShower></ProgressShower>
-                {/*{testImage && <img src={URL.createObjectURL(testImage[2])}/>}*/}
-                {/*<Button onClick={() => console.log(testImage)}>testImage</Button>*/}
                 {user.email ? (
                   <>
                     <Switch>

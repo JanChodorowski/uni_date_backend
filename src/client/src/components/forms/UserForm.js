@@ -1,87 +1,107 @@
-import React, { useContext, useState } from "react";
-import ReactDOM from "react-dom";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { getPicture, getUser, login } from "../../api";
-import { Grid, IconButton, Input, InputAdornment } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import Tooltip from "@material-ui/core/Tooltip";
-import Zoom from "@material-ui/core/Zoom";
-import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
-import { basicValidation } from "../../shared/constants";
-import { UserContext } from "../../context/userContext";
-import { LoadingContext } from "../../context/loadingContext";
-import { Autocomplete } from "@material-ui/lab";
-import { allUniversities } from "../../allUniversities";
-
-const validationSchema = yup.object(basicValidation);
-
-const LoginForm = () => {
-  const [user, setUser] = useContext(UserContext);
-  const [isLoading, setIsLoading] = useContext(LoadingContext);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      userName: user.userName || "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values, { setSubmitting }) => {},
-  });
-
-  return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
-          id="userName"
-          name="userName"
-          label="Name"
-          value={formik.values.userName}
-          onChange={formik.handleChange}
-          error={formik.touched.userName && Boolean(formik.errors.userName)}
-          helperText={formik.touched.userName && formik.errors.userName}
-        />
-        <br />
-        <br />
-
-        <Autocomplete
-          freeSolo
-          id="free-solo-2-demo"
-          disableClearable
-          options={allUniversities.map((option) => option.name)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search input"
-              margin="normal"
-              variant="outlined"
-              InputProps={{ ...params.InputProps, type: "search" }}
-            />
-          )}
-        />
-        {/*<UniversityAutoComplete></UniversityAutoComplete>*/}
-        <br />
-
-        <br />
-
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-          disabled={formik.isSubmitting}
-        >
-          UPDATE
-        </Button>
-      </form>
-    </div>
-  );
-};
-
-export default LoginForm;
+// import React from 'react'
+// import {Button, Grid} from '@material-ui/core'
+// import { Autocomplete } from '@material-ui/lab'
+// import { Formik, Form, Field } from 'formik'
+// import { TextField } from 'formik-material-ui'
+// import * as yup from 'yup'
+// import {allUniversities} from "../../allUniversities";
+// // import { nationality } from '../../constants/nationality'
+// // import Button from '../Button/Button'
+//
+// export default function ForeignAddress () {
+//
+//     let localStorageData = localStorage.getItem('foreignAddress'),
+//         retrivedData = JSON.parse(localStorageData)
+//
+//
+//     const handleNextClick = () => {
+//         console.log('clicked next')
+//     }
+//
+//     const handleBackClick = () => {
+//         console.log('clicked back')
+//     }
+//
+//     const validationSchema = yup.object({
+//         streetName: yup.string().required('Street name is required'),
+//         streetNumber: yup.string().required('Street number is required'),
+//         postalCode: yup.string().required('Postal code is required'),
+//         city: yup.string().required('City is required'),
+//         country: yup.string().required('Country is required'),
+//     })
+//
+//     console.log(retrivedData)
+//
+//     return (
+//         <React.Fragment>
+//             <div className="pages-wrapper address">
+//                 <Formik
+//                     initialValues={retrivedData ? retrivedData : {streetName: '', streetNumber: '', postalCode: '', city: '', coAddress: '', country: ''}}
+//                     onSubmit={(data) => {
+//                         console.log(data)
+//                         localStorage.setItem('foreignAddress', JSON.stringify(data))
+//                         handleNextClick()
+//                     }}
+//                     validationSchema={validationSchema}
+//                 >
+//                     {({setFieldValue,values}) => (
+//                         <Form>
+//                             <Grid container spacing={3}>
+//                                 <Grid item xs={12} md={8}>
+//                                     <Field component={TextField} name="streetName" label="Street Name" variant="outlined" fullWidth />
+//                                 </Grid>
+//                                 <Grid item xs={12} md={4}>
+//                                     <Field component={TextField} name="streetNumber" label="Street Number" variant="outlined" fullWidth />
+//                                 </Grid>
+//                                 <Grid item xs={12} md={4}>
+//                                     <Field component={TextField} name="postalCode" label="Postal Code" variant="outlined" fullWidth />
+//                                 </Grid>
+//                                 <Grid item xs={12} md={8}>
+//                                     <Field component={TextField} name="city" label="City" variant="outlined" fullWidth />
+//                                 </Grid>
+//                                 <Grid item xs={12} md={6}>
+//                                     <Field component={TextField} name="coAddress" label="C/O Address" variant="outlined" fullWidth />
+//                                 </Grid>
+//                                 <Grid item xs={12} md={6}>
+//                                     {/*<Autocomplete*/}
+//                                     {/*    id="foreignCountry"*/}
+//                                     {/*    className="country-select"*/}
+//                                     {/*    name="country"*/}
+//                                     {/*    options={nationality}*/}
+//                                     {/*    getOptionLabel={option => option.label}*/}
+//                                     {/*    onChange={(e, value) => {*/}
+//                                     {/*        console.log(value)*/}
+//                                     {/*        setFieldValue("country", value.code)*/}
+//                                     {/*    }}*/}
+//                                     {/*    renderInput={params => (*/}
+//                                     {/*        <Field component={TextField} {...params} name="country" label="Country" variant="outlined" fullWidth/>*/}
+//                                     {/*    )}*/}
+//                                     {/*/>*/}
+//                                     <Autocomplete
+//                                         id="foreignCountry"
+//                                         className="country-select"
+//                                         name="country"
+//                                         options={allUniversities}
+//                                         getOptionLabel={option => option.name}
+//                                         defaultValue={values.country}
+//                                         onChange={(e, value) => {
+//                                             console.log(value)
+//                                             setFieldValue("country", value)
+//                                         }}
+//                                         renderInput={params => (
+//                                             <Field component={TextField} {...params} name="country" label="Country" variant="outlined" fullWidth/>
+//                                         )}
+//                                     />
+//                                 </Grid>
+//                             </Grid>
+//                             <div className="button-wrapper">
+//                                 <Button label="Back" go="back" handleClick={handleBackClick}/>
+//                                 <Button label="Next" go="next" type="submit" />
+//                             </div>
+//                         </Form>
+//                     )}
+//                 </Formik>
+//             </div>
+//         </React.Fragment>
+//     )
+// }

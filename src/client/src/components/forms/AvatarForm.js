@@ -31,20 +31,15 @@ const ProfilePage = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
   const [user] = useContext(UserContext);
-
-  const [chosenPicture, setChosenPicture] = useState(
-    (user.pictures &&
-      user.pictures.length > 0 &&
-      user.blobs &&
-      user.blobs.length === user.pictures.length &&
-      user.pictures.some((p) => p.isAvatar) &&
-      URL.createObjectURL(
-        user.blobs[user.pictures.findIndex((p) => p.isAvatar)]
-      )) ||
+  const [chosenFileName, setChosenFileName] = useState(user.images[0].fileName);
+  console.log("test", user.images.find((img) => img.isAvatar).blob);
+  const [avatarPicture, setAvatarPicture] = useState(
+    (user.images &&
+      user.images.length > 0 &&
+      user.images.some((img) => img.isAvatar) &&
+      URL.createObjectURL(user.images.find((img) => img.isAvatar).blob)) ||
       PlaceHolder
   );
-  const [activeStep, setActiveStep] = useState(0);
-  const [chosenPictureIdx, setChosenPictureIdx] = useState(0);
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
 
@@ -54,13 +49,17 @@ const ProfilePage = () => {
   const classes = useStyles();
 
   const handleAvatarChange = () => {
-    user.pictures.forEach((p) => (p.isAvatar = false));
-    user.pictures[activeStep].isAvatar = true;
+    user.images.forEach((img) => (img.isAvatar = false));
+    user.images.find((img) => img.fileName === chosenFileName).isAvatar = true;
     setIsLoading(true);
-    updateAvatar(user.pictures[activeStep].fileName)
+    console.log("chosenFileName", chosenFileName);
+    updateAvatar(chosenFileName)
       .then(() => {
-        setChosenPicture(URL.createObjectURL(user.blobs[activeStep]));
-        setChosenPictureIdx(activeStep);
+        setAvatarPicture(
+          URL.createObjectURL(
+            user.images.find((img) => img.fileName === chosenFileName).blob
+          )
+        );
       })
       .catch(setIsLoading(false))
       .finally(setIsLoading(false));
@@ -87,7 +86,6 @@ const ProfilePage = () => {
       });
   };
 
-  console.log("user frendo", user);
   return (
     <Paper style={{ padding: "1rem" }}>
       <Grid container direction="column" alignItems="center" justify="center">
@@ -129,16 +127,13 @@ const ProfilePage = () => {
         <Grid item>
           <>
             <CenterHOC minHeight="0">
-              <Gallery
-                activeStep={activeStep}
-                setActiveStep={setActiveStep}
-              ></Gallery>
+              <Gallery setChosenFileName={setChosenFileName}></Gallery>
             </CenterHOC>
             <br />
           </>
         </Grid>
-        {!user?.pictures?.length ||
-          (user?.pictures?.length > 0 && (
+        {!user?.images?.length ||
+          (user?.images?.length > 0 && (
             <Grid
               item
               container
@@ -149,7 +144,7 @@ const ProfilePage = () => {
               <Grid item style={{ padding: "1rem" }}>
                 <Avatar
                   alt="Remy Sharp"
-                  src={chosenPicture}
+                  src={avatarPicture}
                   className={classes.large}
                 />
               </Grid>
@@ -160,8 +155,8 @@ const ProfilePage = () => {
                   type="submit"
                   onClick={handleAvatarChange}
                   disabled={
-                    (chosenPictureIdx === activeStep &&
-                      chosenPicture !== PlaceHolder) ||
+                    // (chosenPictureIdx === activeStep &&
+                    //   chosenFileName !== PlaceHolder) ||
                     isLoading
                   }
                 >

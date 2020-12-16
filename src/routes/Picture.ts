@@ -34,15 +34,17 @@ const {
 const fileNameSchema = yup.object().shape({ fileName: yup.string().required() });
 
 router.post('/getone', authenticate, async (req: any, res: Response, next:NextFunction) => {
+  const { fileName } = req.body;
+
   const options = {
     root: path.join(__dirname, '/../uploads'),
     dotfiles: 'deny',
     headers: {
       'x-timestamp': Date.now(),
       'x-sent': true,
+      fileName,
     },
   };
-  const { fileName } = req.body;
 
   const isValid = await fileNameSchema.isValid({ fileName });
 
@@ -61,11 +63,9 @@ router.post('/getone', authenticate, async (req: any, res: Response, next:NextFu
 router.put('/avatar', authenticate, async (req: Request, res: Response) => {
   const trimmedFileName = removeWhiteSpaces(req?.body?.fileName);
   const isValid = await fileNameSchema.isValid({ fileName: trimmedFileName });
-  console.log('before', isValid, trimmedFileName);
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
-  console.log('after', trimmedFileName);
 
   await getConnection().transaction(async (entityManager) => {
     await entityManager

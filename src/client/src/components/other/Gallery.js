@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useReducer, useRef, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Paper from "@material-ui/core/Paper";
@@ -30,26 +30,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Gallery({ activeStep, setActiveStep }) {
+function Gallery({ setChosenFileName }) {
+  //
+  // const initialState = {activeStep: 0};
+  //
+  // function reducer(state, action) {
+  //   switch (action.type) {
+  //     case 'increment':
+  //       return {count: state.count + 1};
+  //     case 'decrement':
+  //       return {count: state.count - 1};
+  //     default:
+  //       throw new Error();
+  //   }
+  // }
+  //
+  // const [state, dispatch] = useReducer(reducer, {count: 0});
+  //
+
   const classes = useStyles();
   const theme = useTheme();
+  const [activeStep, setActiveStep] = useState(0);
 
   const [user, setUser] = useContext(UserContext);
-  const maxSteps = user?.pictures?.length;
+  const maxSteps = user?.images?.length;
 
   const handleNext = () => {
+    setChosenFileName(user.images[activeStep + 1].fileName);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
+    setChosenFileName(user.images[activeStep - 1].fileName);
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleStepChange = (step) => {
+    setChosenFileName(user.images[activeStep].fileName);
     setActiveStep(step);
   };
 
-  console.log("user", user);
   return (
     <>
       {maxSteps ? (
@@ -61,13 +81,13 @@ function Gallery({ activeStep, setActiveStep }) {
               onChangeIndex={handleStepChange}
               enableMouseEvents
             >
-              {user.blobs.map((p, index) => (
-                <div key={p + index}>
+              {user.images.map((img, index) => (
+                <div key={img.fileName}>
                   {Math.abs(activeStep - index) <= 2 ? (
                     <img
                       className={classes.img}
-                      src={URL.createObjectURL(p)}
-                      alt={p}
+                      src={URL.createObjectURL(img.blob)}
+                      alt={img.blob}
                     />
                   ) : null}
                 </div>

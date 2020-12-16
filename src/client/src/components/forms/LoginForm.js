@@ -13,6 +13,7 @@ import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { basicValidation } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
+import { compareFileNames } from "../../shared/functions";
 
 const validationSchema = yup.object(basicValidation);
 
@@ -64,12 +65,22 @@ const LoginForm = () => {
 
               Promise.all(promises)
                 .then((results) => {
-                  const blobs = results.map((r) => {
-                    return r.data;
-                  });
+                  const images = results
+                    .map((r) => {
+                      const fileName = r.headers.filename;
+                      return {
+                        blob: r.data,
+                        fileName,
+                        isAvatar: data.pictures.find(
+                          (p) => p.fileName === fileName
+                        ).isAvatar,
+                      };
+                    })
+                    .sort(compareFileNames);
+
                   userData = {
                     ...userData,
-                    blobs,
+                    images,
                   };
                 })
                 .catch((e) => {
@@ -102,6 +113,7 @@ const LoginForm = () => {
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
+          autoFocus
         />
         <br />
         <br />

@@ -21,7 +21,7 @@ const ProfilePage = () => {
           <AvatarForm></AvatarForm>
         </Grid>
         <Grid item style={{ padding: "1rem" }}>
-          <UserForm></UserForm>
+          {/*<UserForm></UserForm>*/}
         </Grid>
       </Grid>
     </>
