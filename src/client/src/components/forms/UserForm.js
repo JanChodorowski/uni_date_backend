@@ -39,13 +39,14 @@ const UserForm = () => {
   }
   const [state, dispatch] = useReducer(reducer, initialState);
   const onChange = (e) => {
-    dispatch({ field: e.target.name, value: e.target.value });
+    const {name, value} = e.target
+    dispatch({ field: name, value: value });
   };
   const onDateChange = (value) => {
     dispatch({ field: "dateOfBirth", value });
   };
-  const onInterestsChange = (interests) => {
-    dispatch({ field: "interests", value: interests });
+  const onInterestsChange = (value) => {
+    dispatch({ field: "interests", value });
   }
   const {
     userName,
@@ -71,7 +72,7 @@ const UserForm = () => {
     console.log("submitted", state);
   };
 
-  var maxDate = new Date();
+  let maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
   return (
@@ -146,9 +147,11 @@ const UserForm = () => {
         <ChipInput
             fullWidth
             variant="filled"
+            name="interests"
             label="Interests"
             blurBehavior="add"
-            defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
+            // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
+            defaultValue={interests}
             onChange={onInterestsChange}
         /> <br />
         <br />

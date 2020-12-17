@@ -31,7 +31,6 @@ const SettingsPage = () => {
   };
   return (
     <>
-      change password, change email, need password for both
       <ColorBtnCorner></ColorBtnCorner>
         <Grid container direction="column" alignItems="center" justify="center">
           {/*<Grid item>*/}

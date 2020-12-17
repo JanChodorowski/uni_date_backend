@@ -22,11 +22,11 @@ export interface IRequestWithPayload extends Request {
 // }
 
 // to be continued...
-export enum gender {
-    none,
-    male,
-    female,
-    other,
-}
+// export enum gender {
+//     none,
+//     male,
+//     female,
+//     other,
+// }
 
 export const PASSWORD_MIN_CHARS = 8;

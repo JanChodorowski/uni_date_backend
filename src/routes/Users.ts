@@ -37,8 +37,13 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
 
 router.put('/', authenticate, async (req: Request, res: Response) => {
   const userCopy = { ...req.body.user };
+  console.log('userCopy 1', userCopy);
   userCopy.email = removeWhiteSpaces(userCopy.email);
+  console.log('userCopy 2', userCopy);
+
   removeUndefinedFields(userCopy);
+  console.log('userCopy 3', userCopy);
+
   const pickedUser : any = (({
     userName,
     gender,
@@ -67,6 +72,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     genderFilter,
   }))(userCopy);
   removeUndefinedFields(pickedUser);
+  console.log('pickedUser 4', pickedUser);
 
   const schema = yup.object().shape(
     {
@@ -86,7 +92,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   );
 
   const isValid = await schema.isValid(pickedUser);
-
+  console.log('isvalid 5', isValid);
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }

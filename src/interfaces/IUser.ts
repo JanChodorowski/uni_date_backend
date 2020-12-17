@@ -9,7 +9,7 @@ import { UniversityAttendance } from '@entities/UniversityAttendance';
 export interface IUser {
     id: string;
     userName: string;
-    gender: number;
+    gender: string;
     dateOfBirth: string;
     description: string;
     email: string;

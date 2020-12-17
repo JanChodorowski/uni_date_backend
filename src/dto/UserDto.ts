@@ -1,7 +1,7 @@
 export class UserDto {
     userName: string;
 
-    gender: number;
+    gender: string;
 
     dateOfBirth: string;
 

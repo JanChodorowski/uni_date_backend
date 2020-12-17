@@ -10,7 +10,7 @@ import { User } from '@entities/User';
 import { IUniversityAttendance } from '@interfaces/IUniversityAttendance';
 import { IUser } from '@interfaces/IUser';
 import {
-  IRequest, paramMissingError, gender, PASSWORD_MIN_CHARS,
+  IRequest, paramMissingError, PASSWORD_MIN_CHARS,
 } from '@shared/constants';
 import StatusCodes from 'http-status-codes';
 import * as yup from 'yup';
@@ -77,7 +77,7 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.id = uuidv4();
   newUser.userName = '';
   newUser.dateOfBirth = '1970-01-01';
-  newUser.gender = gender.none;
+  newUser.gender = '';
   newUser.description = '';
   newUser.email = trimmedEmail;
   newUser.passwordHash = passwordHash;

@@ -24,8 +24,8 @@ export class User {
   @Column("character varying", { name: "user_name", length: 450 })
   userName: string;
 
-  @Column("integer", { name: "gender" })
-  gender: number;
+  @Column("character varying", { name: "gender", length: 255 })
+  gender: string;
 
   @Column("date", { name: "date_of_birth" })
   dateOfBirth: string;

@@ -10,4 +10,4 @@ export const pErr = (err: Error) => {
 
 export const removeWhiteSpaces = (text: any) => String(text).replace(/\s/g, '');
 
-export const removeUndefinedFields = (obj: any) => Object.keys(obj).forEach((key) => (obj[key] == null) && delete obj[key]);
+export const removeUndefinedFields = (obj: any) => Object.keys(obj).forEach((key) => (obj[key] == null || obj[key] === 'undefined') && delete obj[key]);
