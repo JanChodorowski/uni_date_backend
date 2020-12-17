@@ -30,13 +30,12 @@ const genderEnum = {
 const UserForm = () => {
   const [user, setUser] = useContext(UserContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-
   const initialState = {
     userName: user.userName || "",
     university: user.university || "",
     description: user.description || "",
     gender: user.gender || "",
-    dateOfBirth: user.dateOfBirth || null,
+    dateOfBirth: (user.dateOfBirth !== '1970-01-01' && user.dateOfBirth) || null,
     city: user.city || "",
     interests: user.interests || [],
     fieldOfStudy: user.fieldOfStudy || "",

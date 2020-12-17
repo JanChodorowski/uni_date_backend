@@ -13,4 +13,7 @@ export class University {
 
   @OneToMany(() => User, (user) => user.universityFilter)
   users: User[];
+
+  @OneToMany(() => User, (user) => user.universityName)
+  users2: User[];
 }

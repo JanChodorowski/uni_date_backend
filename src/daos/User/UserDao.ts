@@ -7,6 +7,7 @@ import { University } from '@entities/University';
 import { User } from '@entities/User';
 import { UserDto } from '@dto/UserDto';
 import { City } from '@entities/City';
+import { Interest } from '@entities/Interest';
 
 export interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
@@ -126,7 +127,7 @@ class UserDao implements IUserDao {
    *
    * @param newUserPart
    */
-  public async update(newUserPart: IUser, newCity : City | null = null, newUniversity: University | null = null): Promise<void> {
+  public async update(newUserPart: IUser, newCity : City | null = null, newUniversity: University | null = null, newInterests: Interest[] | null = null): Promise<void> {
     await getConnection().transaction(async (entityManager) => {
       if (newCity) {
         // const foundCityId = await entityManager
@@ -141,6 +142,9 @@ class UserDao implements IUserDao {
       }
       if (newUniversity) {
         await entityManager.save(University, newUniversity);
+      }
+      if (newInterests) {
+        await entityManager.save(Interest, newInterests);
       }
       await entityManager.save(newUserPart);
       // await entityManager

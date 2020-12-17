@@ -25,12 +25,19 @@ const APP_THEME_EXTENDED = {
 
 const lightBackgroundColor = "rgba(255, 255, 255, 0.6)";
 const darkBackgroundColor = "rgba(38, 50, 56, 0.7)";
-
+const MuiCssBaseline = {
+  MuiCssBaseline: {
+    '@global': {
+      body: {
+        backgroundColor: "rgb(255, 191, 20)",
+      },
+    },
+  },
+}
 export const APP_THEME = {
   light: {
     palette: {
       type: THEME_NAMES.light,
-
       ...APP_THEME_EXTENDED,
     },
     overrides: {
@@ -44,6 +51,7 @@ export const APP_THEME = {
           backgroundColor: lightBackgroundColor,
         },
       },
+      ...MuiCssBaseline
     },
   },
   dark: {
@@ -62,6 +70,7 @@ export const APP_THEME = {
           backgroundColor: darkBackgroundColor,
         },
       },
+      ...MuiCssBaseline
     },
   },
 };

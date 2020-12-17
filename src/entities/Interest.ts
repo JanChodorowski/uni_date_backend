@@ -1,6 +1,12 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+} from "typeorm";
 import { User } from "./User";
-import { UserInterest } from "./UserInterest";
 
 @Index("interest_pk", ["interestName"], { unique: true })
 @Entity("interest", { schema: "public" })
@@ -15,6 +21,14 @@ export class Interest {
   @OneToMany(() => User, (user) => user.interestName)
   users: User[];
 
-  @OneToMany(() => UserInterest, (userInterest) => userInterest.interestName)
-  userInterests: UserInterest[];
+  @ManyToMany(() => User, (user) => user.interests)
+  @JoinTable({
+    name: "user_interest",
+    joinColumns: [
+      { name: "interest_name", referencedColumnName: "interestName" },
+    ],
+    inverseJoinColumns: [{ name: "user_id", referencedColumnName: "id" }],
+    schema: "public",
+  })
+  users2: User[];
 }

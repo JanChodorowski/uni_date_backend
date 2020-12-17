@@ -8,6 +8,7 @@ html {
 }
 body {
   /* The image used */
+  /*background-color: rgb(255, 191, 20);*/
   background-image: url(./images/sky.jpg);
 
   /* Full height */

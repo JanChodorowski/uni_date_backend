@@ -3,9 +3,9 @@ import {
   Entity,
   Index,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
-  OneToOne,
 } from "typeorm";
 import { GenderFilter } from "./GenderFilter";
 import { MatchedUsers } from "./MatchedUsers";
@@ -14,7 +14,6 @@ import { Picture } from "./Picture";
 import { City } from "./City";
 import { Interest } from "./Interest";
 import { University } from "./University";
-import { UserInterest } from "./UserInterest";
 
 @Index("user_pk", ["id"], { unique: true })
 @Entity("user", { schema: "public" })
@@ -105,6 +104,12 @@ export class User {
   ])
   universityFilter: University;
 
-  @OneToOne(() => UserInterest, (userInterest) => userInterest.user)
-  userInterest: UserInterest;
+  @ManyToOne(() => University, (university) => university.users2)
+  @JoinColumn([
+    { name: "university_name", referencedColumnName: "universityName" },
+  ])
+  universityName: University;
+
+  @ManyToMany(() => Interest, (interest) => interest.users2)
+  interests: Interest[];
 }

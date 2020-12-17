@@ -15,6 +15,7 @@ import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
 import * as yup from 'yup';
 import { City } from '@entities/City';
 import { University } from '@entities/University';
+import { Interest } from '@entities/Interest';
 
 const router = Router();
 const {
@@ -29,7 +30,7 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
-
+  console.log('userDto', userDto);
   if (!userDto) {
     res.sendStatus(BAD_REQUEST).end();
   }
@@ -54,6 +55,10 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       ageFromFilter: yup.number(),
       ageToFilter: yup.number(),
       genderFilter: yup.number(),
+      isGraduated: yup.bool(),
+      fieldOfStudy: yup.string(),
+      interests: yup.array(),
+
     },
   );
 
@@ -78,7 +83,10 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     university,
     city,
     interests,
+    isGraduated,
+    fieldOfStudy,
   } = reqUser;
+  console.log('university', university);
   const updatedUser = new User();
   updatedUser.id = req?.body?.payload?.id;
   updatedUser.userName = userName;
@@ -87,6 +95,8 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   updatedUser.description = description;
   updatedUser.email = email;
   updatedUser.popularity = popularity;
+  updatedUser.isGraduated = isGraduated;
+  updatedUser.fieldOfStudy = fieldOfStudy;
   updatedUser.activityIntensity = activityIntensity;
   updatedUser.localization = localization;
   updatedUser.maxSearchDistanceFilter = maxSearchDistanceFilter;
@@ -95,11 +105,21 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 
   const newOrUpdatedCity = new City();
   newOrUpdatedCity.cityName = city;
+  updatedUser.cityName = city;
 
   const newOrUpdatedUniversity = new University();
   newOrUpdatedUniversity.universityName = university;
+  updatedUser.universityName = university;
 
-  const dbResult = userDao.update(updatedUser, newOrUpdatedCity, newOrUpdatedUniversity);
+  const newOrUpdatedInterests = interests.map((interest: string) => {
+    const newInterest = new Interest();
+    newInterest.interestName = interest;
+    newInterest.users2 = [];
+    newInterest.users2.push(updatedUser);
+    return newInterest;
+  });
+
+  const dbResult = userDao.update(updatedUser, newOrUpdatedCity, newOrUpdatedUniversity, newOrUpdatedInterests);
 
   if (!dbResult) {
     res.sendStatus(BAD_REQUEST).end();
