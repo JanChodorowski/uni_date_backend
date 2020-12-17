@@ -1,15 +1,16 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { User } from "./User";
 
-@Index("city_pk", ["cityId"], { unique: true })
+@Index("city_pk", ["cityName"], { unique: true })
 @Entity("city", { schema: "public" })
 export class City {
-  @Column("integer", { primary: true, name: "city_id" })
-  cityId: number;
+  @Column("character varying", {
+    primary: true,
+    name: "city_name",
+    length: 255,
+  })
+  cityName: string;
 
-  @Column("character varying", { name: "name", length: 255 })
-  name: string;
-
-  @OneToMany(() => User, (user) => user.city)
+  @OneToMany(() => User, (user) => user.cityName)
   users: User[];
 }

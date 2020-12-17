@@ -32,14 +32,15 @@ const SettingsPage = () => {
   return (
     <>
       <ColorBtnCorner></ColorBtnCorner>
-        <Grid container direction="column" alignItems="center" justify="center">
-          {/*<Grid item>*/}
-          {/*  <ColorBtn></ColorBtn>*/}
-          {/*</Grid>*/}
-          <Grid item>
-            <>            <Paper style={{padding: '1rem'}}>
-
-            <Button
+      <Grid container direction="column" alignItems="center" justify="center">
+        {/*<Grid item>*/}
+        {/*  <ColorBtn></ColorBtn>*/}
+        {/*</Grid>*/}
+        <Grid item>
+          <>
+            {" "}
+            <Paper style={{ padding: "1rem" }}>
+              <Button
                 color="primary"
                 variant="contained"
                 fullWidth
@@ -49,13 +50,13 @@ const SettingsPage = () => {
                 LOG OUT
               </Button>
             </Paper>
-              <br />
-              <br />
-              <br />
-            </>
-          </Grid>
-          <Grid item>
-                       <Paper style={{padding: '1rem'}}>
+            <br />
+            <br />
+            <br />
+          </>
+        </Grid>
+        <Grid item>
+          <Paper style={{ padding: "1rem" }}>
             <Button
               color="primary"
               variant="contained"
@@ -65,9 +66,9 @@ const SettingsPage = () => {
             >
               DELETE ACCOUNT
             </Button>
-            </Paper>
-          </Grid>
+          </Paper>
         </Grid>
+      </Grid>
     </>
   );
 };

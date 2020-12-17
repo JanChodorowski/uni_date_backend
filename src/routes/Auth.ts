@@ -5,9 +5,7 @@ import jwt, { SignOptions } from 'jsonwebtoken';
 import UniversityDao, { IUniversityDao } from '@daos/University/UniversityDao';
 import UserDao from '@daos/User/UserDao';
 import { University } from '@entities/University';
-import { UniversityAttendance } from '@entities/UniversityAttendance';
 import { User } from '@entities/User';
-import { IUniversityAttendance } from '@interfaces/IUniversityAttendance';
 import { IUser } from '@interfaces/IUser';
 import {
   IRequest, paramMissingError, PASSWORD_MIN_CHARS,
@@ -82,13 +80,14 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.email = trimmedEmail;
   newUser.passwordHash = passwordHash;
   newUser.createdAt = new Date();
+  newUser.isGraduated = false;
+  newUser.fieldOfStudy = '';
   newUser.popularity = 0;
   newUser.activityIntensity = 0;
   newUser.localization = 0;
   newUser.maxSearchDistanceFilter = 0;
   newUser.ageFromFilter = 0;
   newUser.ageToFilter = 0;
-  newUser.genderFilter = 0;
 
   await userDao.add(newUser);
 
@@ -99,11 +98,12 @@ router.post('/register', async (req: Request, res: Response) => {
   resUser.dateOfBirth = newUser.dateOfBirth;
   resUser.gender = newUser.gender;
   resUser.description = newUser.description;
+  resUser.isGraduated = newUser.isGraduated;
+  resUser.fieldOfStudy = newUser.fieldOfStudy;
   resUser.email = newUser.email;
   resUser.maxSearchDistanceFilter = newUser.maxSearchDistanceFilter;
   resUser.ageFromFilter = newUser.ageFromFilter;
   resUser.ageToFilter = newUser.ageToFilter;
-  resUser.genderFilter = newUser.genderFilter;
 
   res
     .cookie('token', token, cookieOptions)
@@ -131,7 +131,6 @@ router.post('/login', async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
-
   if (!foundUser) {
     return res.status(UNAUTHORIZED).end();
   }

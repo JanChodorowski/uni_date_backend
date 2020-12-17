@@ -13,6 +13,8 @@ import { IUser } from '@interfaces/IUser';
 import { UserDto } from '@dto/UserDto';
 import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
 import * as yup from 'yup';
+import { City } from '@entities/City';
+import { University } from '@entities/University';
 
 const router = Router();
 const {
@@ -36,49 +38,13 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.put('/', authenticate, async (req: Request, res: Response) => {
-  const userCopy = { ...req.body.user };
-  console.log('userCopy 1', userCopy);
-  userCopy.email = removeWhiteSpaces(userCopy.email);
-  console.log('userCopy 2', userCopy);
-
-  removeUndefinedFields(userCopy);
-  console.log('userCopy 3', userCopy);
-
-  const pickedUser : any = (({
-    userName,
-    gender,
-    dateOfBirth,
-    description,
-    email,
-    popularity,
-    activityIntensity,
-    localization,
-    maxSearchDistanceFilter,
-    ageFromFilter,
-    ageToFilter,
-    genderFilter,
-  }) => ({
-    userName,
-    gender,
-    dateOfBirth,
-    description,
-    email,
-    popularity,
-    activityIntensity,
-    localization,
-    maxSearchDistanceFilter,
-    ageFromFilter,
-    ageToFilter,
-    genderFilter,
-  }))(userCopy);
-  removeUndefinedFields(pickedUser);
-  console.log('pickedUser 4', pickedUser);
+  const reqUser = req.body.user;
 
   const schema = yup.object().shape(
     {
       email: yup.string().email(),
       userName: yup.string(),
-      gender: yup.number(),
+      gender: yup.string(),
       dateOfBirth: yup.string(),
       description: yup.string(),
       popularity: yup.number(),
@@ -91,13 +57,49 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     },
   );
 
-  const isValid = await schema.isValid(pickedUser);
+  const isValid = await schema.isValid(reqUser);
   console.log('isvalid 5', isValid);
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
-  const dbResult = userDao.update(pickedUser, req?.body?.payload?.id);
+  const {
+    userName,
+    gender,
+    dateOfBirth,
+    description,
+    email,
+    popularity,
+    activityIntensity,
+    localization,
+    maxSearchDistanceFilter,
+    ageFromFilter,
+    ageToFilter,
+    university,
+    city,
+    interests,
+  } = reqUser;
+  const updatedUser = new User();
+  updatedUser.id = req?.body?.payload?.id;
+  updatedUser.userName = userName;
+  updatedUser.gender = gender;
+  updatedUser.dateOfBirth = dateOfBirth;
+  updatedUser.description = description;
+  updatedUser.email = email;
+  updatedUser.popularity = popularity;
+  updatedUser.activityIntensity = activityIntensity;
+  updatedUser.localization = localization;
+  updatedUser.maxSearchDistanceFilter = maxSearchDistanceFilter;
+  updatedUser.ageFromFilter = ageFromFilter;
+  updatedUser.ageToFilter = ageToFilter;
+
+  const newOrUpdatedCity = new City();
+  newOrUpdatedCity.cityName = city;
+
+  const newOrUpdatedUniversity = new University();
+  newOrUpdatedUniversity.universityName = university;
+
+  const dbResult = userDao.update(updatedUser, newOrUpdatedCity, newOrUpdatedUniversity);
 
   if (!dbResult) {
     res.sendStatus(BAD_REQUEST).end();

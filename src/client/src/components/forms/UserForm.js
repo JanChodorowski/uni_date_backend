@@ -1,4 +1,11 @@
-import { MenuItem, Paper, TextField } from "@material-ui/core";
+import {
+  FormControlLabel,
+  FormGroup,
+  MenuItem,
+  Paper,
+  Switch,
+  TextField,
+} from "@material-ui/core";
 
 import React, { useContext, useReducer } from "react";
 import Button from "@material-ui/core/Button";
@@ -32,6 +39,8 @@ const UserForm = () => {
     dateOfBirth: user.dateOfBirth || null,
     city: user.city || "",
     interests: user.interests || [],
+    fieldOfStudy: user.fieldOfStudy || "",
+    isGraduated: user.isGraduated || false,
   };
 
   function reducer(state, { field, value }) {
@@ -39,7 +48,7 @@ const UserForm = () => {
   }
   const [state, dispatch] = useReducer(reducer, initialState);
   const onChange = (e) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
     dispatch({ field: name, value: value });
   };
   const onDateChange = (value) => {
@@ -47,16 +56,21 @@ const UserForm = () => {
   };
   const onInterestsChange = (value) => {
     dispatch({ field: "interests", value });
-  }
-  const {
-    userName,
-    description,
-    gender,
-    university,
-    dateOfBirth,
-    city,
-    interests,
-  } = state;
+  }; const {
+        userName,
+        description,
+        gender,
+        university,
+        dateOfBirth,
+        city,
+        interests,
+        fieldOfStudy,
+        isGraduated,
+    } = state;
+    const onIsGraduatedChange = () => {
+        dispatch({ field: "isGraduated", value:!isGraduated });
+    };
+
   const onSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -76,8 +90,43 @@ const UserForm = () => {
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
   return (
-    <Paper style={{ padding: "1rem" }}>
-      <form noValidate autoComplete="off" onSubmit={onSubmit}>
+    <form noValidate autoComplete="off" onSubmit={onSubmit}>
+      <Paper style={{ padding: "1rem" }}>
+        <TextField
+          name="university"
+          value={university}
+          label="University"
+          fullWidth
+          onChange={onChange}
+        />
+          {university && <>
+          <br />
+          <br />
+        <TextField
+          name="fieldOfStudy"
+          value={fieldOfStudy}
+          label="Field of study"
+          fullWidth
+          onChange={onChange}
+        /><br />
+          <br />
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isGraduated}
+                onChange={onIsGraduatedChange}
+                name="isGraduated"
+                color="primary"
+              />
+            }
+            label="Already graduated?"
+          />
+        </FormGroup>
+          </>}
+      </Paper>
+      <br />
+      <Paper style={{ padding: "1rem" }}>
         <TextField
           name="userName"
           value={userName}
@@ -97,16 +146,6 @@ const UserForm = () => {
           onChange={onChange}
           variant="outlined"
         />
-        <br />
-        <br />
-        <TextField
-          name="university"
-          value={university}
-          label="University"
-          fullWidth
-          onChange={onChange}
-        />
-
         <br />
         <br />
         <TextField
@@ -139,31 +178,32 @@ const UserForm = () => {
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
-
           />
         </MuiPickersUtilsProvider>
         <br />
         <br />
         <ChipInput
-            fullWidth
-            variant="filled"
-            name="interests"
-            label="Interests"
-            blurBehavior="add"
-            // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
-            defaultValue={interests}
-            onChange={onInterestsChange}
-        /> <br />
+          fullWidth
+          variant="filled"
+          name="interests"
+          label="Interests"
+          blurBehavior="add"
+          // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
+          defaultValue={interests}
+          onChange={onInterestsChange}
+        />{" "}
+        <br />
         <br />
         <TextField
-            name="city"
-            value={city}
-            label="City"
-            fullWidth
-            onChange={onChange}
+          name="city"
+          value={city}
+          label="City"
+          fullWidth
+          onChange={onChange}
         />
-        <br />
-        <br />
+      </Paper>
+      <br />
+      <Paper style={{ padding: "1rem" }}>
         <Button
           color="primary"
           variant="contained"
@@ -173,8 +213,8 @@ const UserForm = () => {
         >
           UPDATE DATA
         </Button>
-      </form>
-    </Paper>
+      </Paper>
+    </form>
   );
 };
 

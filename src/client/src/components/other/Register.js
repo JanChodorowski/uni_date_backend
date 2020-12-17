@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,8 +8,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import RegisterForm from "../forms/RegisterForm";
 import Zoom from "@material-ui/core/Zoom";
-import {Grid, Paper} from "@material-ui/core";
-import {ColorContext} from "../../context/colorContext";
+import { Grid, Paper } from "@material-ui/core";
+import { ColorContext } from "../../context/colorContext";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -17,7 +17,7 @@ const Transition = React.forwardRef((props, ref) => (
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
-    const [isDark] = useContext(ColorContext);
+  const [isDark] = useContext(ColorContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,11 +43,12 @@ export default function Register() {
         aria-labelledby="form-dialog-title"
         TransitionComponent={Transition}
         PaperProps={{
-            style: {
-                backgroundColor: isDark ? 'rgba(38, 50, 56, 0.95)' : 'rgba(255, 255, 255, 0.95)'
-            },
+          style: {
+            backgroundColor: isDark
+              ? "rgba(38, 50, 56, 0.95)"
+              : "rgba(255, 255, 255, 0.95)",
+          },
         }}
-
       >
         <DialogTitle id="form-dialog-title">Create New Account</DialogTitle>
         <DialogContent>

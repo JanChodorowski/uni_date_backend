@@ -3,17 +3,18 @@ import {
   Entity,
   Index,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
 } from "typeorm";
+import { GenderFilter } from "./GenderFilter";
 import { MatchedUsers } from "./MatchedUsers";
 import { OneSidedRelation } from "./OneSidedRelation";
 import { Picture } from "./Picture";
-import { UniversityAttendance } from "./UniversityAttendance";
 import { City } from "./City";
 import { Interest } from "./Interest";
 import { University } from "./University";
+import { UserInterest } from "./UserInterest";
 
 @Index("user_pk", ["id"], { unique: true })
 @Entity("user", { schema: "public" })
@@ -51,6 +52,12 @@ export class User {
   @Column("integer", { name: "localization" })
   localization: number;
 
+  @Column("boolean", { name: "is_graduated" })
+  isGraduated: boolean;
+
+  @Column("character varying", { name: "field_of_study", length: 255 })
+  fieldOfStudy: string;
+
   @Column("integer", { name: "max_search_distance_filter" })
   maxSearchDistanceFilter: number;
 
@@ -60,8 +67,8 @@ export class User {
   @Column("integer", { name: "age_to_filter" })
   ageToFilter: number;
 
-  @Column("integer", { name: "gender_filter" })
-  genderFilter: number;
+  @OneToMany(() => GenderFilter, (genderFilter) => genderFilter.user)
+  genderFilters: GenderFilter[];
 
   @OneToMany(() => MatchedUsers, (matchedUsers) => matchedUsers.userId)
   matchedUsers: MatchedUsers[];
@@ -84,26 +91,20 @@ export class User {
   @OneToMany(() => Picture, (picture) => picture.user)
   pictures: Picture[];
 
-  @OneToMany(
-    () => UniversityAttendance,
-    (universityAttendance) => universityAttendance.user
-  )
-  universityAttendances: UniversityAttendance[];
-
   @ManyToOne(() => City, (city) => city.users)
-  @JoinColumn([{ name: "city_id", referencedColumnName: "cityId" }])
-  city: City;
+  @JoinColumn([{ name: "city_name", referencedColumnName: "cityName" }])
+  cityName: City;
 
   @ManyToOne(() => Interest, (interest) => interest.users)
-  @JoinColumn([
-    { name: "interest_id_filter", referencedColumnName: "interestId" },
-  ])
-  interestIdFilter: Interest;
+  @JoinColumn([{ name: "interest_name", referencedColumnName: "interestName" }])
+  interestName: Interest;
 
   @ManyToOne(() => University, (university) => university.users)
-  @JoinColumn([{ name: "university_id_filter", referencedColumnName: "name" }])
-  universityIdFilter: University;
+  @JoinColumn([
+    { name: "university_filter", referencedColumnName: "universityName" },
+  ])
+  universityFilter: University;
 
-  @ManyToMany(() => Interest, (interest) => interest.users2)
-  interests: Interest[];
+  @OneToOne(() => UserInterest, (userInterest) => userInterest.user)
+  userInterest: UserInterest;
 }

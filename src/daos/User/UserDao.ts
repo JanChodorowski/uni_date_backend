@@ -6,12 +6,13 @@ import { getConnection, getRepository } from 'typeorm';
 import { University } from '@entities/University';
 import { User } from '@entities/User';
 import { UserDto } from '@dto/UserDto';
+import { City } from '@entities/City';
 
 export interface IUserDao {
   getOne: (email: string) => Promise<IUser | null>;
   getAll: () => Promise<IUser[]>;
   add: (user: IUser) => Promise<IUser>;
-  update: (newUserPart: IUser, id: string) => Promise<void>;
+  // update: (newUserPart: IUser, id: string, newCity: City, newUniversity: University) => Promise<void>;
   delete: (id: number) => Promise<void>;
   findOneByEmail: (email: string) => Promise<IUser | undefined>;
   findOneById: (id: string) => Promise<IUser | undefined>;
@@ -29,14 +30,15 @@ class UserDao implements IUserDao {
     'user.maxSearchDistanceFilter',
     'user.ageFromFilter',
     'user.ageToFilter',
-    'user.genderFilter',
+    'user.isGraduated',
+    'user.fieldOfStudy',
     'picture.fileName',
     'picture.isAvatar',
   ]
 
   /**
-     * @param email
-     */
+   * @param email
+   */
   public findOneByEmail(email: string): Promise<IUser | undefined> {
     return getConnection()
       .createEntityManager()
@@ -95,25 +97,25 @@ class UserDao implements IUserDao {
   }
 
   /**
-     * @param email
-     */
+   * @param email
+   */
   public getOne(email: string): Promise<IUser | null> {
     // TODO
     return Promise.resolve(null);
   }
 
   /**
-     *
-     */
+   *
+   */
   public getAll(): Promise<IUser[]> {
     // TODO
     return Promise.resolve([]);
   }
 
   /**
-     *
-     * @param user
-     */
+   *
+   * @param user
+   */
   public async add(user: IUser): Promise<IUser> {
     return getConnection()
       .createEntityManager()
@@ -121,24 +123,41 @@ class UserDao implements IUserDao {
   }
 
   /**
-     *
-     * @param newUserPart
-     */
-  public async update(newUserPart: IUser, id: string): Promise<void> {
-    await getConnection()
-      .createQueryBuilder()
-      .update(User)
-      .set(
-        newUserPart,
-      )
-      .where('id = :id', { id })
-      .execute();
+   *
+   * @param newUserPart
+   */
+  public async update(newUserPart: IUser, newCity : City | null = null, newUniversity: University | null = null): Promise<void> {
+    await getConnection().transaction(async (entityManager) => {
+      if (newCity) {
+        // const foundCityId = await entityManager
+        //   .createQueryBuilder()
+        //   .select([
+        //     'city.cityName',
+        //   ])
+        //   .from(City, 'city')
+        //   .where('name = :name', { name: newCity.cityName })
+        //   .getOne();
+        await entityManager.save(City, newCity);
+      }
+      if (newUniversity) {
+        await entityManager.save(University, newUniversity);
+      }
+      await entityManager.save(newUserPart);
+      // await entityManager
+      //   .createQueryBuilder()
+      //   .update(User)
+      //   .set(
+      //     newUserPart,
+      //   )
+      //   .where('id = :id', { id: newUserPart })
+      //   .execute();
+    });
   }
 
   /**
-     *
-     * @param id
-     */
+   *
+   * @param id
+   */
   public async delete(id: number): Promise<void> {
     // TODO
     await getConnection()

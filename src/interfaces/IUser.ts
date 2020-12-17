@@ -1,10 +1,11 @@
-import { City } from '@entities/City';
-import { Interest } from '@entities/Interest';
 import { MatchedUsers } from '@entities/MatchedUsers';
+import { GenderFilter } from '@entities/GenderFilter';
 import { OneSidedRelation } from '@entities/OneSidedRelation';
 import { Picture } from '@entities/Picture';
+import { City } from '@entities/City';
+import { Interest } from '@entities/Interest';
 import { University } from '@entities/University';
-import { UniversityAttendance } from '@entities/UniversityAttendance';
+import { UserInterest } from '@entities/UserInterest';
 
 export interface IUser {
     id: string;
@@ -18,18 +19,19 @@ export interface IUser {
     popularity: number;
     activityIntensity: number;
     localization: number;
+    isGraduated: boolean;
+    fieldOfStudy: string;
     maxSearchDistanceFilter: number;
     ageFromFilter: number;
     ageToFilter: number;
-    genderFilter: number;
+    genderFilters: GenderFilter[];
     matchedUsers: MatchedUsers[];
     matchedUsers2: MatchedUsers[];
     oneSidedRelations: OneSidedRelation[];
     oneSidedRelations2: OneSidedRelation[];
     pictures: Picture[];
-    universityAttendances: UniversityAttendance[];
-    city: City;
-    interestIdFilter: Interest;
-    universityIdFilter: University;
-    interests: Interest[];
+    cityName: City;
+    interestName: Interest;
+    universityFilter: University;
+    userInterest: UserInterest;
 }

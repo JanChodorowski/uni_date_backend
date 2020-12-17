@@ -21,12 +21,10 @@ const APP_THEME_EXTENDED = {
   secondary: {
     main: secondaryColor["900"],
   },
-
 };
 
-const lightBackgroundColor = 'rgba(255, 255, 255, 0.6)'
-const darkBackgroundColor = 'rgba(38, 50, 56, 0.7)'
-
+const lightBackgroundColor = "rgba(255, 255, 255, 0.6)";
+const darkBackgroundColor = "rgba(38, 50, 56, 0.7)";
 
 export const APP_THEME = {
   light: {
@@ -38,16 +36,15 @@ export const APP_THEME = {
     overrides: {
       MuiPaper: {
         root: {
-          backgroundColor: lightBackgroundColor
+          backgroundColor: lightBackgroundColor,
         },
       },
       MuiBottomNavigation: {
         root: {
-          backgroundColor: lightBackgroundColor
-        }
-      }
+          backgroundColor: lightBackgroundColor,
+        },
+      },
     },
-
   },
   dark: {
     palette: {
@@ -57,14 +54,14 @@ export const APP_THEME = {
     overrides: {
       MuiPaper: {
         root: {
-          backgroundColor: darkBackgroundColor
+          backgroundColor: darkBackgroundColor,
         },
       },
       MuiBottomNavigation: {
         root: {
-          backgroundColor: darkBackgroundColor
-        }
-      }
+          backgroundColor: darkBackgroundColor,
+        },
+      },
     },
   },
 };

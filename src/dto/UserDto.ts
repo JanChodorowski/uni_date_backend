@@ -9,13 +9,15 @@ export class UserDto {
 
     email: string;
 
+    isGraduated: boolean;
+
+    fieldOfStudy: string;
+
     maxSearchDistanceFilter: number;
 
     ageFromFilter: number;
 
     ageToFilter: number;
-
-    genderFilter: number;
 
     pictures: any
 }
