@@ -23,6 +23,10 @@ export const getUser = () => {
   return axios.get("/api/users");
 };
 
+export const getProfiles = () => {
+  return axios.get("/api/users/profiles");
+};
+
 export const deleteUser = () => {
   return axios.delete("/api/users");
 };

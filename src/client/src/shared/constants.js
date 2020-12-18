@@ -23,8 +23,11 @@ const APP_THEME_EXTENDED = {
   },
 };
 
-const lightBackgroundColor = "rgba(255, 255, 255, 0.6)";
-const darkBackgroundColor = "rgba(38, 50, 56, 0.7)";
+const lightTransparent = "rgba(255, 255, 255, 0.6)";
+const darkTransparent = "rgba(38, 50, 56, 0.7)";
+const lightOpaque ='rgba(255, 255, 255, 0.98)'
+const darkOpaque = 'rgba(38, 50, 56, 0.98)'
+
 const MuiCssBaseline = {
   MuiCssBaseline: {
     '@global': {
@@ -43,12 +46,12 @@ export const APP_THEME = {
     overrides: {
       MuiPaper: {
         root: {
-          backgroundColor: lightBackgroundColor,
+          backgroundColor: lightOpaque,
         },
       },
       MuiBottomNavigation: {
         root: {
-          backgroundColor: lightBackgroundColor,
+          backgroundColor: lightTransparent,
         },
       },
       ...MuiCssBaseline
@@ -62,12 +65,12 @@ export const APP_THEME = {
     overrides: {
       MuiPaper: {
         root: {
-          backgroundColor: darkBackgroundColor,
+          backgroundColor: darkOpaque,
         },
       },
       MuiBottomNavigation: {
         root: {
-          backgroundColor: darkBackgroundColor,
+          backgroundColor: darkTransparent,
         },
       },
       ...MuiCssBaseline

@@ -21,6 +21,8 @@ import {
 import { register, updateUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import ChipInput from "material-ui-chip-input";
+import {makeStyles} from "@material-ui/core/styles";
+import {ColorContext} from "../../context/colorContext";
 const genderEnum = {
   Male: 1,
   Female: 2,
@@ -41,7 +43,16 @@ const UserForm = () => {
     fieldOfStudy: user.fieldOfStudy || "",
     isGraduated: user.isGraduated || false,
   };
-
+  const [isDark] = useContext(ColorContext);
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      padding: "1rem",
+      backgroundColor: isDark
+          ? "rgba(38, 50, 56, 0.7)"
+          : "rgba(255, 255, 255, 0.6)"
+    },
+  }));
+  const {paper} = useStyles()
   function reducer(state, { field, value }) {
     return { ...state, [field]: value };
   }
@@ -89,7 +100,7 @@ const UserForm = () => {
 
   return (
     <form noValidate autoComplete="off" onSubmit={onSubmit}>
-      <Paper style={{ padding: "1rem" }}>
+      <Paper className={paper}>
         <TextField
           name="university"
           value={university}
@@ -124,7 +135,7 @@ const UserForm = () => {
           </>}
       </Paper>
       <br />
-      <Paper style={{ padding: "1rem" }}>
+      <Paper className={paper}>
         <TextField
           name="userName"
           value={userName}
@@ -201,7 +212,7 @@ const UserForm = () => {
         />
       </Paper>
       <br />
-      <Paper style={{ padding: "1rem" }}>
+      <Paper className={paper}>
         <Button
           color="primary"
           variant="contained"

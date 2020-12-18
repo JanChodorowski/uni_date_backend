@@ -10,8 +10,8 @@ import { City } from '@entities/City';
 import { Interest } from '@entities/Interest';
 
 export interface IUserDao {
-  getOne: (email: string) => Promise<IUser | null>;
-  getAll: () => Promise<IUser[]>;
+  // getOne: (email: string) => Promise<IUser | null>;
+  // getAll: () => Promise<IUser[]>;
   add: (user: IUser) => Promise<IUser>;
   // update: (newUserPart: IUser, id: string, newCity: City, newUniversity: University) => Promise<void>;
   delete: (id: number) => Promise<void>;
@@ -117,19 +117,31 @@ class UserDao implements IUserDao {
   }
 
   /**
-   * @param email
-   */
-  public getOne(email: string): Promise<IUser | null> {
-    // TODO
-    return Promise.resolve(null);
-  }
-
-  /**
-   *
-   */
-  public getAll(): Promise<IUser[]> {
-    // TODO
-    return Promise.resolve([]);
+     * @param id
+     */
+  public findProfiles(id: string): Promise<any> {
+    return getRepository(User)
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.pictures', 'picture')
+      .leftJoinAndSelect('user.cityName', 'city')
+      .leftJoinAndSelect('user.universityName', 'university')
+      .leftJoinAndSelect('user.interests', 'interests')
+      .where('id != :id', { id })
+      .select([
+        'user.userName',
+        'user.gender',
+        'user.description',
+        'user.isGraduated',
+        'user.fieldOfStudy',
+        'user.dateOfBirth',
+        'picture.fileName',
+        'picture.isAvatar',
+        'city.cityName',
+        'university.universityName',
+        'interests.interestName',
+      ])
+      .limit(2)
+      .getMany();
   }
 
   /**
@@ -144,7 +156,7 @@ class UserDao implements IUserDao {
 
   /**
    *
-   * @param newOrUpdatedUser
+   * @param newOrUpdatedUser, newOrUpdatedCity
    */
   public async update(newOrUpdatedUser: IUser, newOrUpdatedCity : City | null = null, newOrUpdatedUniversity: University | null = null, newOrUpdatedInterests: Interest[] | null = null): Promise<void> {
     await getConnection().transaction(async (entityManager) => {

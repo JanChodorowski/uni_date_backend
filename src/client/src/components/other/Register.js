@@ -17,7 +17,6 @@ const Transition = React.forwardRef((props, ref) => (
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
-  const [isDark] = useContext(ColorContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,13 +41,7 @@ export default function Register() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         TransitionComponent={Transition}
-        PaperProps={{
-          style: {
-            backgroundColor: isDark
-              ? "rgba(38, 50, 56, 0.95)"
-              : "rgba(255, 255, 255, 0.95)",
-          },
-        }}
+
       >
         <DialogTitle id="form-dialog-title">Create New Account</DialogTitle>
         <DialogContent>

@@ -26,7 +26,16 @@ import { LoadingUserDataContext } from "../../context/loadingUserDataContex";
 
 const LandingPage = () => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);
-
+  const [isDark] = useContext(ColorContext);
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      padding: "1rem",
+      backgroundColor: isDark
+          ? "rgba(38, 50, 56, 0.7)"
+          : "rgba(255, 255, 255, 0.6)"
+    },
+  }));
+const {paper} = useStyles()
   return (
     <>
       {!isLoadingUserData && (
@@ -34,7 +43,7 @@ const LandingPage = () => {
           <ColorBtnCorner></ColorBtnCorner>
           <CenterHOC>
             <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
-              <Paper style={{ padding: "1rem", marginBottom: "1rem" }}>
+              <Paper className={paper} style={{ marginBottom: "1rem" }}>
                 <Grid
                   container
                   direction="row"
@@ -70,11 +79,11 @@ const LandingPage = () => {
               </Paper>
             </Grid>
             <Grid item>
-              <Paper style={{ padding: "1rem" }}>
+              <Paper className={paper}>
                 <LoginForm />
               </Paper>
               <br />
-              <Paper style={{ padding: "1rem" }}>
+              <Paper className={paper}>
                 <Register></Register>
               </Paper>
             </Grid>
