@@ -49,7 +49,7 @@ const LoginForm = () => {
         ...values,
         email: values.email.trim(),
       };
-
+      console.log('before login',values)
       login(formattedValues)
         .then(() => {
           getUser()
@@ -62,6 +62,7 @@ const LoginForm = () => {
               let promises = data.pictures.map((p) => {
                 return getPicture(p.fileName);
               });
+              console.log('res',res)
 
               Promise.all(promises)
                 .then((results) => {
@@ -82,6 +83,7 @@ const LoginForm = () => {
                     ...userData,
                     pictures: picturesDataWithBlobs,
                   };
+                  console.log('userData',userData)
                 })
                 .catch((e) => {
                   setAreCredentialsCorrect(false);

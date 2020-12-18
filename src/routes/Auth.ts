@@ -132,6 +132,8 @@ router.post('/login', async (req: Request, res: Response) => {
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
   if (!foundUser) {
+    console.log('!foundUser');
+
     return res.status(UNAUTHORIZED).end();
   }
   const arePasswordsMatching = await bcrypt.compare(password, foundUser.passwordHash);
@@ -139,6 +141,7 @@ router.post('/login', async (req: Request, res: Response) => {
   if (!arePasswordsMatching) {
     return res.status(UNAUTHORIZED).end();
   }
+  console.log('arePasswordsMatching');
 
   const token = jwt.sign({ id: foundUser.id }, TOKEN_SECRET!, {
     algorithm: 'HS256',

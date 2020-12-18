@@ -64,9 +64,9 @@ class UserDao implements IUserDao {
   public getUserViewDataByUserId(id: string): Promise<any> {
     return getRepository(User)
       .createQueryBuilder('user')
-      .innerJoinAndSelect('user.pictures', 'picture')
-      .innerJoinAndSelect('user.cityName', 'city')
-      .innerJoinAndSelect('user.universityName', 'university')
+      .leftJoinAndSelect('user.pictures', 'picture')
+      .leftJoinAndSelect('user.cityName', 'city')
+      .leftJoinAndSelect('user.universityName', 'university')
       .leftJoinAndSelect('user.interests', 'interests')
       .where({ id })
       .select([
@@ -79,7 +79,6 @@ class UserDao implements IUserDao {
         'user.ageToFilter',
         'user.isGraduated',
         'user.fieldOfStudy',
-        'user.dateOfBirth',
         'picture.fileName',
         'picture.isAvatar',
         'city.cityName',

@@ -30,19 +30,18 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
-
+  console.log('userViewData', userViewData);
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
-  const { cityName, universityName, interests } = userViewData;
 
   const userDto = {
     ...userViewData,
-    city: cityName.cityName,
-    university: universityName.universityName,
-    interests: interests.map((interest: any) => interest.interestName),
+    city: userViewData?.cityName?.cityName || '',
+    university: userViewData?.universityName?.universityName || '',
+    interests: userViewData?.interests && userViewData?.interests.length > 0 && userViewData?.interests.map((interest: any) => interest.interestName) || [],
   };
-
+  console.log('userDto', userDto);
   res.json(userDto).end();
 });
 
