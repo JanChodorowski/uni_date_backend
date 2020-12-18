@@ -1,3 +1,5 @@
+import { array } from 'yup';
+
 export class UserDto {
     userName: string;
 
@@ -19,5 +21,13 @@ export class UserDto {
 
     ageToFilter: number;
 
-    pictures: any
+    // universityFilter: string;
+
+    pictures: object[];
+
+    city: string;
+
+    university: string;
+
+    interests: string[]
 }

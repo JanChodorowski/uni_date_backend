@@ -23,22 +23,22 @@ export interface IUserDao {
 }
 
 class UserDao implements IUserDao {
-  user = [
-    'user.userName',
-    'user.gender',
-    'user.description',
-    'user.email',
-    'user.maxSearchDistanceFilter',
-    'user.ageFromFilter',
-    'user.ageToFilter',
-    'user.isGraduated',
-    'user.fieldOfStudy',
-    'picture.fileName',
-    'picture.isAvatar',
-    'city.cityName',
-    'university.universityName',
-    'interests.interestName',
-  ]
+  // user = [
+  //   'user.userName',
+  //   'user.gender',
+  //   'user.description',
+  //   'user.email',
+  //   'user.maxSearchDistanceFilter',
+  //   'user.ageFromFilter',
+  //   'user.ageToFilter',
+  //   'user.isGraduated',
+  //   'user.fieldOfStudy',
+  //   'picture.fileName',
+  //   'picture.isAvatar',
+  //   'city.cityName',
+  //   'university.universityName',
+  //   'interests.interestName',
+  // ]
 
   /**
    * @param email
@@ -69,7 +69,23 @@ class UserDao implements IUserDao {
       .innerJoinAndSelect('user.universityName', 'university')
       .leftJoinAndSelect('user.interests', 'interests')
       .where({ id })
-      .select(this.user)
+      .select([
+        'user.userName',
+        'user.gender',
+        'user.description',
+        'user.email',
+        'user.maxSearchDistanceFilter',
+        'user.ageFromFilter',
+        'user.ageToFilter',
+        'user.isGraduated',
+        'user.fieldOfStudy',
+        'user.dateOfBirth',
+        'picture.fileName',
+        'picture.isAvatar',
+        'city.cityName',
+        'university.universityName',
+        'interests.interestName',
+      ])
       .getOne();
   }
 
@@ -79,11 +95,8 @@ class UserDao implements IUserDao {
   public login(email: string): Promise<any> {
     return getRepository(User)
       .createQueryBuilder('user')
-      .leftJoinAndSelect('user.pictures', 'picture')
-
       .where({ email })
       .select([
-        ...this.user,
         'user.id',
         'user.passwordHash',
       ])
@@ -136,15 +149,6 @@ class UserDao implements IUserDao {
   public async update(newOrUpdatedUser: IUser, newOrUpdatedCity : City | null = null, newOrUpdatedUniversity: University | null = null, newOrUpdatedInterests: Interest[] | null = null): Promise<void> {
     await getConnection().transaction(async (entityManager) => {
       if (newOrUpdatedCity) {
-        // const foundCityId = await entityManager
-        //   .createQueryBuilder()
-        //   .select([
-        //     'city.cityName',
-        //   ])
-
-        //   .from(City, 'city')
-        //   .where('name = :name', { name: newCity.cityName })
-        //   .getOne();
         await entityManager.save(newOrUpdatedCity);
       }
       if (newOrUpdatedUniversity) {
@@ -152,16 +156,10 @@ class UserDao implements IUserDao {
       }
       if (newOrUpdatedInterests) {
         await entityManager.save(newOrUpdatedInterests);
+        newOrUpdatedUser.interests = newOrUpdatedInterests;
       }
+
       await entityManager.save(newOrUpdatedUser);
-      // await entityManager
-      //   .createQueryBuilder()
-      //   .update(User)
-      //   .set(
-      //     newUserPart,
-      //   )
-      //   .where('id = :id', { id: newUserPart })
-      //   .execute();
     });
   }
 
