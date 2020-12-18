@@ -35,6 +35,8 @@ class UserDao implements IUserDao {
     'user.fieldOfStudy',
     'picture.fileName',
     'picture.isAvatar',
+    'city.cityName',
+    'university.universityName',
   ]
 
   /**
@@ -61,7 +63,10 @@ class UserDao implements IUserDao {
   public getUserViewDataByUserId(id: string): Promise<any> {
     return getRepository(User)
       .createQueryBuilder('user')
-      .leftJoinAndSelect('user.pictures', 'picture')
+      .innerJoinAndSelect('user.pictures', 'picture')
+      .innerJoinAndSelect('user.cityName', 'city')
+      .innerJoinAndSelect('user.universityName', 'university')
+
       .where({ id })
       .select(this.user)
       .getOne();

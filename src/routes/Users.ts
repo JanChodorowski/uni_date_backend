@@ -40,7 +40,9 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
 
 router.put('/', authenticate, async (req: Request, res: Response) => {
   const reqUser = req.body.user;
-
+  if (!reqUser.dateOfBirth) {
+    reqUser.dateOfBirth = '1970-01-01';
+  }
   const schema = yup.object().shape(
     {
       email: yup.string().email(),
