@@ -37,6 +37,7 @@ class UserDao implements IUserDao {
     'picture.isAvatar',
     'city.cityName',
     'university.universityName',
+    'interests.interestName',
   ]
 
   /**
@@ -66,7 +67,7 @@ class UserDao implements IUserDao {
       .innerJoinAndSelect('user.pictures', 'picture')
       .innerJoinAndSelect('user.cityName', 'city')
       .innerJoinAndSelect('user.universityName', 'university')
-
+      .leftJoinAndSelect('user.interests', 'interests')
       .where({ id })
       .select(this.user)
       .getOne();
@@ -130,28 +131,29 @@ class UserDao implements IUserDao {
 
   /**
    *
-   * @param newUserPart
+   * @param newOrUpdatedUser
    */
-  public async update(newUserPart: IUser, newCity : City | null = null, newUniversity: University | null = null, newInterests: Interest[] | null = null): Promise<void> {
+  public async update(newOrUpdatedUser: IUser, newOrUpdatedCity : City | null = null, newOrUpdatedUniversity: University | null = null, newOrUpdatedInterests: Interest[] | null = null): Promise<void> {
     await getConnection().transaction(async (entityManager) => {
-      if (newCity) {
+      if (newOrUpdatedCity) {
         // const foundCityId = await entityManager
         //   .createQueryBuilder()
         //   .select([
         //     'city.cityName',
         //   ])
+
         //   .from(City, 'city')
         //   .where('name = :name', { name: newCity.cityName })
         //   .getOne();
-        await entityManager.save(City, newCity);
+        await entityManager.save(newOrUpdatedCity);
       }
-      if (newUniversity) {
-        await entityManager.save(University, newUniversity);
+      if (newOrUpdatedUniversity) {
+        await entityManager.save(newOrUpdatedUniversity);
       }
-      if (newInterests) {
-        await entityManager.save(Interest, newInterests);
+      if (newOrUpdatedInterests) {
+        await entityManager.save(newOrUpdatedInterests);
       }
-      await entityManager.save(newUserPart);
+      await entityManager.save(newOrUpdatedUser);
       // await entityManager
       //   .createQueryBuilder()
       //   .update(User)
