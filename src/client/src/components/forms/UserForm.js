@@ -82,7 +82,6 @@ const UserForm = () => {
         setIsLoading(false);
       });
 
-    console.log("submitted", state);
   };
 
   let maxDate = new Date();

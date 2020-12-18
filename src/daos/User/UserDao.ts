@@ -79,6 +79,7 @@ class UserDao implements IUserDao {
         'user.ageToFilter',
         'user.isGraduated',
         'user.fieldOfStudy',
+        'user.dateOfBirth',
         'picture.fileName',
         'picture.isAvatar',
         'city.cityName',

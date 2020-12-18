@@ -30,7 +30,6 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
-  console.log('userViewData', userViewData);
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
@@ -41,7 +40,6 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
     university: userViewData?.universityName?.universityName || '',
     interests: userViewData?.interests && userViewData?.interests.length > 0 && userViewData?.interests.map((interest: any) => interest.interestName) || [],
   };
-  console.log('userDto', userDto);
   res.json(userDto).end();
 });
 
@@ -72,7 +70,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   );
 
   const isValid = await schema.isValid(reqUser);
-  console.log('isvalid 5', isValid);
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
@@ -95,7 +92,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     isGraduated,
     fieldOfStudy,
   } = reqUser;
-  console.log('university', university);
   const updatedUser = new User();
   updatedUser.id = req?.body?.payload?.id;
   updatedUser.userName = userName;
