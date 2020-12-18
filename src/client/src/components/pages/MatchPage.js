@@ -1,62 +1,75 @@
-import React, {useEffect} from "react";
-import {compareFileNames, getItemByKey} from "../../shared/functions";
-import {LOCAL_STORAGE_KEY, THEME_NAMES} from "../../shared/constants";
-import {getPicture, getUser} from "../../api";
+import React, { useContext, useEffect } from "react";
+import { compareFileNames, getItemByKey } from "../../shared/functions";
+import { LOCAL_STORAGE_KEY, THEME_NAMES } from "../../shared/constants";
+import { getPicture, getProfiles, getUser } from "../../api";
+import { LoadingContext } from "../../context/loadingContext";
+import { ProfilesContext } from "../../context/profilesContext";
 
 const MatchPage = () => {
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const [profiles, setProfiles] = useContext(ProfilesContext);
+
   useEffect(() => {
     let mounted = true;
-    handleLoading(true);
+    setIsLoading(true);
 
-    getUser()
-        .then((res) => {
-          const { data } = res;
-          if (!(data && mounted)) {
-            throw new Error();
-          }
-          let userData = data;
-          let promises = data.pictures.map((p) => {
-            return getPicture(p.fileName);
+    getProfiles()
+      .then((res) => {
+        const { data } = res;
+        if (!(data && mounted)) {
+          throw new Error();
+        }
+        let profilesData = data;
+        console.log("profilesData", profilesData);
+        let promises = profilesData
+          .map((pd) => {
+
+            const picture = pd.pictures.find((p) => p.isAvatar);
+              console.log('picture',picture)
+            return picture && picture.fileName;
+          })
+          .filter((fileNameOrUndefined) => fileNameOrUndefined)
+          .map((fileName) => {
+              console.log('fileName',fileName)
+            // return getPicture(fileName);
           });
 
-          Promise.all(promises)
-              .then((results) => {
-                const picturesDataWithBlobs = results
-                    .map((r) => {
-                      const fileName = r.headers.filename;
-                      return {
-                        blob: r.data,
-                        fileName,
-                        isAvatar: data.pictures.find((p) => p.fileName === fileName)
-                            .isAvatar,
-                      };
-                    })
-                    .sort(compareFileNames);
-
-                userData = {
-                  ...userData,
-                  pictures: picturesDataWithBlobs,
-                };
-              })
-              .catch((e) => {
-                handleLoading(false);
-              })
-              .finally(() => {
-                setUser(userData);
-                handleLoading(false);
-              });
-        })
-        .catch((e) => {
-          handleLoading(false);
-        });
+        // Promise.all(promises)
+        //   .then((results) => {
+        //     const picturesDataWithBlobs = results
+        //       .map((r) => {
+        //         const fileName = r.headers.filename;
+        //         return {
+        //           blob: r.data,
+        //           fileName,
+        //           isAvatar: data.pictures.find((p) => p.fileName === fileName)
+        //             .isAvatar,
+        //         };
+        //       })
+        //       .sort(compareFileNames);
+        //
+        //     profilesData = {
+        //       ...profilesData,
+        //       pictures: picturesDataWithBlobs,
+        //     };
+        //   })
+        //   .catch((e) => {
+        //     setIsLoading(false);
+        //   })
+        //   .finally(() => {
+        //     setProfiles(profilesData);
+        //     setIsLoading(false);
+        //   });
+      })
+      .catch((e) => {
+          console.log('err', e)
+        setIsLoading(false);
+      });
     return () => {
       mounted = false;
     };
   }, []);
-  return <>
-
-
-  </>;
+  return <></>;
 };
 
 export default MatchPage;

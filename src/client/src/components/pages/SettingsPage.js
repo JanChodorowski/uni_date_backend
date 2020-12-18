@@ -10,8 +10,8 @@ import CenterHOC from "../hocs/CenterHOC";
 import ColorBtnCorner from "../other/ColorBtnCorner";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { PathContext } from "../../context/pathContext";
-import {ColorContext} from "../../context/colorContext";
-import {makeStyles} from "@material-ui/core/styles";
+import { ColorContext } from "../../context/colorContext";
+import { makeStyles } from "@material-ui/core/styles";
 
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
@@ -21,11 +21,11 @@ const SettingsPage = () => {
     paper: {
       padding: "1rem",
       backgroundColor: isDark
-          ? "rgba(38, 50, 56, 0.7)"
-          : "rgba(255, 255, 255, 0.6)"
+        ? "rgba(38, 50, 56, 0.7)"
+        : "rgba(255, 255, 255, 0.6)",
     },
   }));
-  const {paper} = useStyles()
+  const { paper } = useStyles();
   const history = useHistory();
   const { profile, settings } = NAVIGATION;
 

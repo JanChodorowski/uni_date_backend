@@ -41,7 +41,6 @@ export default function Register() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         TransitionComponent={Transition}
-
       >
         <DialogTitle id="form-dialog-title">Create New Account</DialogTitle>
         <DialogContent>

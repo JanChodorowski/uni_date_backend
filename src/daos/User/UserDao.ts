@@ -140,7 +140,7 @@ class UserDao implements IUserDao {
         'university.universityName',
         'interests.interestName',
       ])
-      .limit(2)
+      // .limit(2)
       .getMany();
   }
 
@@ -156,9 +156,15 @@ class UserDao implements IUserDao {
 
   /**
    *
-   * @param newOrUpdatedUser, newOrUpdatedCity
+   * @param newOrUpdatedUser
+   * @param newOrUpdatedCity
+   * @param newOrUpdatedUniversity
+   * @param newOrUpdatedInterests
    */
-  public async update(newOrUpdatedUser: IUser, newOrUpdatedCity : City | null = null, newOrUpdatedUniversity: University | null = null, newOrUpdatedInterests: Interest[] | null = null): Promise<void> {
+  public async update(newOrUpdatedUser: IUser,
+    newOrUpdatedCity : City | null = null,
+    newOrUpdatedUniversity: University | null = null,
+    newOrUpdatedInterests: Interest[] | null = null): Promise<void> {
     await getConnection().transaction(async (entityManager) => {
       if (newOrUpdatedCity) {
         await entityManager.save(newOrUpdatedCity);

@@ -25,18 +25,18 @@ const APP_THEME_EXTENDED = {
 
 const lightTransparent = "rgba(255, 255, 255, 0.6)";
 const darkTransparent = "rgba(38, 50, 56, 0.7)";
-const lightOpaque ='rgba(255, 255, 255, 0.98)'
-const darkOpaque = 'rgba(38, 50, 56, 0.98)'
+const lightOpaque = "rgba(255, 255, 255, 0.98)";
+const darkOpaque = "rgba(38, 50, 56, 0.98)";
 
 const MuiCssBaseline = {
   MuiCssBaseline: {
-    '@global': {
+    "@global": {
       body: {
         backgroundColor: "rgb(255, 191, 20)",
       },
     },
   },
-}
+};
 export const APP_THEME = {
   light: {
     palette: {
@@ -54,7 +54,7 @@ export const APP_THEME = {
           backgroundColor: lightTransparent,
         },
       },
-      ...MuiCssBaseline
+      ...MuiCssBaseline,
     },
   },
   dark: {
@@ -73,7 +73,7 @@ export const APP_THEME = {
           backgroundColor: darkTransparent,
         },
       },
-      ...MuiCssBaseline
+      ...MuiCssBaseline,
     },
   },
 };

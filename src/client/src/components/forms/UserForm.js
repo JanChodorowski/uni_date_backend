@@ -21,8 +21,8 @@ import {
 import { register, updateUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import ChipInput from "material-ui-chip-input";
-import {makeStyles} from "@material-ui/core/styles";
-import {ColorContext} from "../../context/colorContext";
+import { makeStyles } from "@material-ui/core/styles";
+import { ColorContext } from "../../context/colorContext";
 const genderEnum = {
   Male: 1,
   Female: 2,
@@ -37,7 +37,8 @@ const UserForm = () => {
     university: user.university || "",
     description: user.description || "",
     gender: user.gender || "",
-    dateOfBirth: (user.dateOfBirth !== '1970-01-01' && user.dateOfBirth) || null,
+    dateOfBirth:
+      (user.dateOfBirth !== "1970-01-01" && user.dateOfBirth) || null,
     city: user.city || "",
     interests: user.interests || [],
     fieldOfStudy: user.fieldOfStudy || "",
@@ -48,11 +49,11 @@ const UserForm = () => {
     paper: {
       padding: "1rem",
       backgroundColor: isDark
-          ? "rgba(38, 50, 56, 0.7)"
-          : "rgba(255, 255, 255, 0.6)"
+        ? "rgba(38, 50, 56, 0.7)"
+        : "rgba(255, 255, 255, 0.6)",
     },
   }));
-  const {paper} = useStyles()
+  const { paper } = useStyles();
   function reducer(state, { field, value }) {
     return { ...state, [field]: value };
   }
@@ -66,20 +67,21 @@ const UserForm = () => {
   };
   const onInterestsChange = (value) => {
     dispatch({ field: "interests", value });
-  }; const {
-        userName,
-        description,
-        gender,
-        university,
-        dateOfBirth,
-        city,
-        interests,
-        fieldOfStudy,
-        isGraduated,
-    } = state;
-    const onIsGraduatedChange = () => {
-        dispatch({ field: "isGraduated", value:!isGraduated });
-    };
+  };
+  const {
+    userName,
+    description,
+    gender,
+    university,
+    dateOfBirth,
+    city,
+    interests,
+    fieldOfStudy,
+    isGraduated,
+  } = state;
+  const onIsGraduatedChange = () => {
+    dispatch({ field: "isGraduated", value: !isGraduated });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -92,7 +94,6 @@ const UserForm = () => {
       .finally(() => {
         setIsLoading(false);
       });
-
   };
 
   let maxDate = new Date();
@@ -108,31 +109,34 @@ const UserForm = () => {
           fullWidth
           onChange={onChange}
         />
-          {university && <>
-          <br />
-          <br />
-        <TextField
-          name="fieldOfStudy"
-          value={fieldOfStudy}
-          label="Field of study"
-          fullWidth
-          onChange={onChange}
-        /><br />
-          <br />
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isGraduated}
-                onChange={onIsGraduatedChange}
-                name="isGraduated"
-                color="primary"
+        {university && (
+          <>
+            <br />
+            <br />
+            <TextField
+              name="fieldOfStudy"
+              value={fieldOfStudy}
+              label="Field of study"
+              fullWidth
+              onChange={onChange}
+            />
+            <br />
+            <br />
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isGraduated}
+                    onChange={onIsGraduatedChange}
+                    name="isGraduated"
+                    color="primary"
+                  />
+                }
+                label="Already graduated?"
               />
-            }
-            label="Already graduated?"
-          />
-        </FormGroup>
-          </>}
+            </FormGroup>
+          </>
+        )}
       </Paper>
       <br />
       <Paper className={paper}>

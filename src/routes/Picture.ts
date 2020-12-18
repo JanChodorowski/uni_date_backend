@@ -62,6 +62,7 @@ router.post('/getone', authenticate, async (req: any, res: Response, next:NextFu
 
 router.put('/avatar', authenticate, async (req: Request, res: Response) => {
   const trimmedFileName = removeWhiteSpaces(req?.body?.fileName);
+  const userId = req?.body?.payload?.id;
   const isValid = await fileNameSchema.isValid({ fileName: trimmedFileName });
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
@@ -75,6 +76,7 @@ router.put('/avatar', authenticate, async (req: Request, res: Response) => {
         { isAvatar: false },
       )
       .where('fileName != :fileName', { fileName: trimmedFileName })
+      .andWhere('user.id = :id', { id: userId })
       .execute();
 
     await entityManager
@@ -84,6 +86,8 @@ router.put('/avatar', authenticate, async (req: Request, res: Response) => {
         { isAvatar: true },
       )
       .where('fileName = :fileName', { fileName: trimmedFileName })
+      .andWhere('user.id = :id', { id: userId })
+
       .execute();
   });
 

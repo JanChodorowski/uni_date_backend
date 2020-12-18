@@ -38,9 +38,35 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
     ...userViewData,
     city: userViewData?.cityName?.cityName || '',
     university: userViewData?.universityName?.universityName || '',
-    interests: userViewData?.interests && userViewData?.interests.length > 0 && userViewData?.interests.map((interest: any) => interest.interestName) || [],
+    interests: (userViewData?.interests && userViewData?.interests.length > 0 && userViewData?.interests.map((interest: any) => interest.interestName)) || [],
   };
+  delete userDto.cityName;
+  delete userDto.universityName;
   res.json(userDto).end();
+});
+
+router.get('/profiles', authenticate, async (req: Request, res: Response) => {
+  const profilesData = await userDao.findProfiles(req?.body?.payload?.id)
+    .catch((err) => {
+      console.error(err);
+      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+    });
+  if (!profilesData) {
+    res.sendStatus(BAD_REQUEST).end();
+  }
+  const profilesDto = profilesData.map((pd: any) => ({
+    ...pd,
+    city: pd?.cityName?.cityName || '',
+    university: pd?.universityName?.universityName || '',
+    interests: (pd?.interests
+        && pd?.interests.length > 0
+        && pd?.interests.map((interest: any) => interest.interestName))
+        || [],
+  }));
+
+  profilesDto.forEach((pd: any) => { delete pd.cityName; delete pd.universityName; });
+
+  res.json(profilesDto).end();
 });
 
 router.put('/', authenticate, async (req: Request, res: Response) => {
@@ -92,6 +118,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     isGraduated,
     fieldOfStudy,
   } = reqUser;
+
   const updatedUser = new User();
   updatedUser.id = req?.body?.payload?.id;
   updatedUser.userName = userName;

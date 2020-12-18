@@ -31,11 +31,11 @@ const LandingPage = () => {
     paper: {
       padding: "1rem",
       backgroundColor: isDark
-          ? "rgba(38, 50, 56, 0.7)"
-          : "rgba(255, 255, 255, 0.6)"
+        ? "rgba(38, 50, 56, 0.7)"
+        : "rgba(255, 255, 255, 0.6)",
     },
   }));
-const {paper} = useStyles()
+  const { paper } = useStyles();
   return (
     <>
       {!isLoadingUserData && (

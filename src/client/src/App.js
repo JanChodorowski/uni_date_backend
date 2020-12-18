@@ -48,11 +48,14 @@ import ProgressShower from "./components/other/ProgressShower";
 import { LoadingUserDataContext } from "./context/loadingUserDataContex";
 import DeleteAccountPage from "./components/pages/DeleteAccountPage";
 import { PathContext } from "./context/pathContext";
+import { ProfilesContext } from "./context/profilesContext";
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [user, setUser] = useState(emptyUser);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
+  const [profiles, setProfiles] = useState([]);
+
   const [path, setPath] = useState(
     (window?.location?.pathname &&
       window?.location?.pathname?.replace(/\//g, "")) ||
@@ -126,40 +129,46 @@ function App() {
             <LoadingUserDataContext.Provider
               value={[isLoadingUserData, setIsLoadingUserData]}
             >
-              <PathContext.Provider value={[path, setPath]}>
-                <CssBaseline />
-                <ProgressShower></ProgressShower>
-                {user.email ? (
-                  <>
-                    <Switch>
-                      <Route path={`/${chat}`} component={ChatPage} exact />
-                      <Route path={`/${match}`} component={MatchPage} exact />
-                      <Route path={`/${filter}`} component={FilterPage} exact />
-                      <Route
-                        path={`/${settings}`}
-                        component={SettingsPage}
-                        exact
-                      />
-                      <Route
-                        path={`/${profile}`}
-                        component={ProfilePage}
-                        exact
-                      />
-                      <Route
-                        path={`/${settings}/${deleteaccount}`}
-                        component={DeleteAccountPage}
-                        exact
-                      />
-                      <Route path="/">
-                        <Redirect to={`/${profile}`} />
-                      </Route>
-                    </Switch>
-                    <BtmNav />
-                  </>
-                ) : (
-                  <LandingPage></LandingPage>
-                )}
-              </PathContext.Provider>
+              <ProfilesContext.Provider value={[profiles, setProfiles]}>
+                <PathContext.Provider value={[path, setPath]}>
+                  <CssBaseline />
+                  <ProgressShower></ProgressShower>
+                  {user.email ? (
+                    <>
+                      <Switch>
+                        <Route path={`/${chat}`} component={ChatPage} exact />
+                        <Route path={`/${match}`} component={MatchPage} exact />
+                        <Route
+                          path={`/${filter}`}
+                          component={FilterPage}
+                          exact
+                        />
+                        <Route
+                          path={`/${settings}`}
+                          component={SettingsPage}
+                          exact
+                        />
+                        <Route
+                          path={`/${profile}`}
+                          component={ProfilePage}
+                          exact
+                        />
+                        <Route
+                          path={`/${settings}/${deleteaccount}`}
+                          component={DeleteAccountPage}
+                          exact
+                        />
+                        <Route path="/">
+                          <Redirect to={`/${profile}`} />
+                        </Route>
+                      </Switch>
+                      <BtmNav />
+                    </>
+                  ) : (
+                    <LandingPage></LandingPage>
+                  )}
+                </PathContext.Provider>
+              </ProfilesContext.Provider>
             </LoadingUserDataContext.Provider>
           </LoadingContext.Provider>
         </UserContext.Provider>
