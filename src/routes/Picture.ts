@@ -124,7 +124,11 @@ router.post('/', authenticate, async (req: any, res: Response) => {
       }
 
       const pictureDao = new PictureDao();
-      await pictureDao.add(newPictureOrPictures);
+
+      await pictureDao.add(newPictureOrPictures).catch((err) => {
+        console.error(err);
+        res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+      });
     } else {
       res.status(INTERNAL_SERVER_ERROR).end();
     }

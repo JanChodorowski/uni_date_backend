@@ -89,7 +89,10 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.ageFromFilter = 0;
   newUser.ageToFilter = 0;
 
-  await userDao.add(newUser);
+  await userDao.add(newUser).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
 
   const token = jwt.sign({ id: newUser.id }, TOKEN_SECRET!, signOptions);
 

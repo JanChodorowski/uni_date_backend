@@ -155,7 +155,10 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     return newInterest;
   });
 
-  const dbResult = userDao.update(updatedUser, newOrUpdatedCity, newOrUpdatedUniversity, newOrUpdatedInterests);
+  const dbResult = userDao.update(updatedUser, newOrUpdatedCity, newOrUpdatedUniversity, newOrUpdatedInterests).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
 
   if (!dbResult) {
     res.sendStatus(BAD_REQUEST).end();
@@ -165,7 +168,10 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.delete('/', authenticate, async (req: Request, res: Response) => {
-  await userDao.delete(req?.body?.payload?.id);
+  await userDao.delete(req?.body?.payload?.id).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
   res.end();
 });
 
