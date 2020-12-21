@@ -121,6 +121,8 @@ const ProfilePage = () => {
                 padding: "1rem",
                 margin: "1rem",
               }}
+              style={{                marginBottom: "2rem"
+              }}
             />
           </>
         </Grid>
