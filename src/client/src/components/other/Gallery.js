@@ -10,7 +10,7 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { UserContext } from "../../context/userContext";
 
-const imgSize = '400px'
+const imgSize = "400px";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: imgSize,
     display: "block",
     overflow: "hidden",
-  objectFit: 'cover'
+    objectFit: "cover",
   },
 }));
 

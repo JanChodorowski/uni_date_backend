@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
+import { avatarSize } from "../../shared/constants";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -23,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
   },
   large: {
-    width: '50rem',
-    height: '50rem',
+    width: "50rem",
+    height: "50rem",
   },
 }));
 
@@ -102,98 +103,100 @@ const AvatarForm = () => {
       });
   };
 
-  const avatarSize = '100px'
-
-  return (<>
-    <Paper className={paper}>
-      <Grid container direction="column" alignItems="center" justify="center">
-        <Grid item>
-          <>
-            <ImageUploader
-              withIcon={false}
-              buttonText="CHOOSE PICTURES TO UPLOAD"
-              onChange={handlePictureChange}
-              imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
-              maxFileSize={5242880}
-              withPreview
-              label=""
-              buttonStyles={{
-                backgroundColor: "red",
-                fontWeight: "bold",
-                padding: "1rem",
-                margin: "1rem",
-              }}
-              style={{                marginBottom: "2rem"
-              }}
-            />
-          </>
+  return (
+    <>
+      <Paper className={paper}>
+        <Grid container direction="column" alignItems="center" justify="center">
+          <Grid item>
+            <>
+              <ImageUploader
+                withIcon={false}
+                buttonText="CHOOSE PICTURES TO UPLOAD"
+                onChange={handlePictureChange}
+                imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
+                maxFileSize={5242880}
+                withPreview
+                label=""
+                buttonStyles={{
+                  backgroundColor: "blue",
+                  fontWeight: "bold",
+                  padding: "1rem",
+                  margin: "1rem",
+                }}
+                style={{ marginBottom: "2rem" }}
+              />
+            </>
+          </Grid>
+          <Grid item>
+            <>
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                type="submit"
+                disabled={isLoading || pictures.length === 0}
+                onClick={handleUpload}
+              >
+                Upload pictures
+              </Button>
+              <br />
+              <br />
+            </>
+          </Grid>
         </Grid>
-        <Grid item>
-          <>
-            <Button
-              color="primary"
-              variant="contained"
-              fullWidth
-              type="submit"
-              disabled={isLoading || pictures.length === 0}
-              onClick={handleUpload}
-            >
-              Upload pictures
-            </Button>
-            <br />
-            <br />
-          </>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
 
-
-    {!user?.pictures ||
-    (user?.pictures?.length > 0 && (
-
-  <Paper className={paper} style={{marginTop: '1rem'}}>
-    <Grid container direction="column" alignItems="center" justify="center">
-      <Grid item>
-        <>
-          <CenterHOC minHeight="0">
-            <Gallery setChosenFileName={setChosenFileName}></Gallery>
-          </CenterHOC>
-          <br />
-        </>
-      </Grid>
+      {!user?.pictures ||
+        (user?.pictures?.length > 0 && (
+          <Paper className={paper} style={{ marginTop: "1rem" }}>
             <Grid
-              item
               container
-              direction="row"
+              direction="column"
               alignItems="center"
               justify="center"
             >
-              <Grid item style={{ padding: "1rem" }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={avatarPicture}
-                  style={{ height: avatarSize, width: avatarSize }}
-                />
-              </Grid>
               <Grid item>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                  onClick={handleAvatarChange}
-                  disabled={
-                    // (chosenPictureIdx === activeStep &&
-                    //   chosenFileName !== PlaceHolder) ||
-                    isLoading
-                  }
-                >
-                  CHOOSE THE PICTURE ABOVE FOR AVATAR
-                </Button>
+                <>
+                  <CenterHOC minHeight="0">
+                    <Gallery setChosenFileName={setChosenFileName}></Gallery>
+                  </CenterHOC>
+                  <br />
+                </>
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                alignItems="center"
+                justify="center"
+              >
+                <Grid item style={{ padding: "1rem" }}>
+                  <Avatar
+                    alt={user.userName}
+                    src={avatarPicture}
+                    style={{ height: avatarSize, width: avatarSize }}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    onClick={handleAvatarChange}
+                    disabled={
+                      // (chosenPictureIdx === activeStep &&
+                      //   chosenFileName !== PlaceHolder) ||
+                      isLoading
+                    }
+                  >
+                    CHOOSE THE PICTURE ABOVE FOR AVATAR
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-
-      </Grid>
-    </Paper> ))}</>
+          </Paper>
+        ))}
+    </>
   );
 };
 

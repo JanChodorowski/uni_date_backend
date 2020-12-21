@@ -1,4 +1,4 @@
-import red from "@material-ui/core/colors/red";
+import blue from "@material-ui/core/colors/blue";
 import green from "@material-ui/core/colors/green";
 import * as yup from "yup";
 
@@ -11,7 +11,7 @@ export const THEME_NAMES = {
   dark: "dark",
 };
 
-const primaryColor = red;
+export const primaryColor = blue;
 const secondaryColor = green;
 
 const APP_THEME_EXTENDED = {
@@ -32,7 +32,7 @@ const MuiCssBaseline = {
   MuiCssBaseline: {
     "@global": {
       body: {
-        backgroundColor: "red",//rgb(255, 191, 20)
+        backgroundColor: "lightblue", //rgb(255, 191, 20)
       },
     },
   },
@@ -99,3 +99,5 @@ export const basicValidation = {
 };
 
 export const emptyUser = {};
+
+export const avatarSize = "100px";

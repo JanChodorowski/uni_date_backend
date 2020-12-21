@@ -10,8 +10,8 @@ body {
   /* The image used */
   /*background-color: rgb(255, 191, 20);*/
   /*background-image: url(./images/sky.jpg);*/
-  background-color: yellow; /* For browsers that do not support gradients */
-  background-image: linear-gradient(yellow, red);
+  background-color: lightblue; /* For browsers that do not support gradients */
+  background-image: linear-gradient(blue, lightblue);
 
   /* Full height */
   height: 100%;

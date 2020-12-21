@@ -1,9 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { compareFileNames, getItemByKey } from "../../shared/functions";
-import { LOCAL_STORAGE_KEY, THEME_NAMES } from "../../shared/constants";
+import {
+  avatarSize,
+  LOCAL_STORAGE_KEY,
+  THEME_NAMES,
+} from "../../shared/constants";
 import { getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
+import { Avatar, Grid, Typography } from "@material-ui/core";
+import PlaceHolder from "../../images/Missing_avatar.svg";
+import CenterPaperHOC from "../hocs/CenterPaperHOC";
 
 const MatchPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
@@ -38,10 +45,11 @@ const MatchPage = () => {
         Promise.all(usersAvatarsPromises)
           .then((results) => {
             console.log("results", results);
-            results
-              .forEach((r) => {
-                  profilesData.find(pd => pd.pictures.find(p => p.fileName === r.headers.filename)).avatar = r.data
-              })
+            results.forEach((r) => {
+              profilesData.find((pd) =>
+                pd.pictures.find((p) => p.fileName === r.headers.filename)
+              ).avatar = r.data;
+            });
 
             // profilesData = {
             //   ...profilesData,
@@ -50,7 +58,7 @@ const MatchPage = () => {
             console.log("profilesData", profilesData);
           })
           .catch((e) => {
-              console.log('e',e)
+            console.log("e", e);
             setIsLoading(false);
           })
           .finally(() => {
@@ -66,7 +74,47 @@ const MatchPage = () => {
       mounted = false;
     };
   }, []);
-  return <></>;
+  return (
+    <>
+        <CenterPaperHOC>
+
+      <Grid item container direction="row" alignItems="center" justify="center" >
+        {profiles &&
+          profiles.map((p,i) => (
+            <Grid item style={{ padding: "1rem" }} key={i} xs={3}>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                justify="center"
+              >
+                <Grid item>
+                    {p.avatar ?
+                  <Avatar
+                    alt={p.userName}
+                    src={URL.createObjectURL(p.avatar)}
+                    style={{ height: avatarSize, width: avatarSize }}
+                  /> :
+                        <Avatar
+                            alt={p.userName}
+                            src={ PlaceHolder}
+                            style={{ height: avatarSize, width: avatarSize }}
+                        /> }
+                        </Grid>
+                <Grid item>
+                  <Typography
+                    style={{ fontWeight: "bold" }}
+                    paragraph
+                  >
+                    {p.userName}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          ))}
+      </Grid>
+        </CenterPaperHOC></>
+  );
 };
 
 export default MatchPage;
