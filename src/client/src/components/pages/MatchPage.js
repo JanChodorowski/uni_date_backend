@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { compareFileNames, getItemByKey } from "../../shared/functions";
 import {
-  avatarSize,
+  AVATAR_SIZE,
   LOCAL_STORAGE_KEY,
   THEME_NAMES,
 } from "../../shared/constants";
@@ -76,44 +76,49 @@ const MatchPage = () => {
   }, []);
   return (
     <>
-        <CenterPaperHOC>
-
-      <Grid item container direction="row" alignItems="center" justify="center" >
-        {profiles &&
-          profiles.map((p,i) => (
-            <Grid item style={{ padding: "1rem" }} key={i} xs={3}>
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item>
-                    {p.avatar ?
-                  <Avatar
-                    alt={p.userName}
-                    src={URL.createObjectURL(p.avatar)}
-                    style={{ height: avatarSize, width: avatarSize }}
-                  /> :
-                        <Avatar
-                            alt={p.userName}
-                            src={ PlaceHolder}
-                            style={{ height: avatarSize, width: avatarSize }}
-                        /> }
-                        </Grid>
-                <Grid item>
-                  <Typography
-                    style={{ fontWeight: "bold" }}
-                    paragraph
-                  >
-                    {p.userName}
-                  </Typography>
+      <CenterPaperHOC>
+        <Grid
+          item
+          container
+          direction="row"
+          alignItems="center"
+          justify="center"
+        >
+          {profiles &&
+            profiles.map((p, i) => (
+              <Grid item style={{ padding: "1rem" }} key={i} xs={3}>
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid item>
+                    {p.avatar ? (
+                      <Avatar
+                        alt={p.userName}
+                        src={URL.createObjectURL(p.avatar)}
+                        style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
+                      />
+                    ) : (
+                      <Avatar
+                        alt={p.userName}
+                        src={PlaceHolder}
+                        style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
+                      />
+                    )}
+                  </Grid>
+                  <Grid item>
+                    <Typography style={{ fontWeight: "bold" }} paragraph>
+                      {p.userName}
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          ))}
-      </Grid>
-        </CenterPaperHOC></>
+            ))}
+        </Grid>
+      </CenterPaperHOC>
+    </>
   );
 };
 

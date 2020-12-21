@@ -17,7 +17,7 @@ import {
 import { login, secret, refresh, register, getUser, getPicture } from "./api";
 import {
   APP_THEME,
-  emptyUser,
+  EMPTY_USER,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
   THEME_NAMES,
@@ -49,9 +49,10 @@ import { LoadingUserDataContext } from "./context/loadingUserDataContex";
 import DeleteAccountPage from "./components/pages/DeleteAccountPage";
 import { PathContext } from "./context/pathContext";
 import { ProfilesContext } from "./context/profilesContext";
+import Logo from "./components/other/Logo";
 function App() {
   const [isDark, setIsDark] = useState(true);
-  const [user, setUser] = useState(emptyUser);
+  const [user, setUser] = useState(EMPTY_USER);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
   const [profiles, setProfiles] = useState([]);
@@ -147,6 +148,7 @@ function App() {
                   {/*/>}*/}
                   {user.email ? (
                     <>
+                      <Logo></Logo>
                       <Switch>
                         <Route path={`/${chat}`} component={ChatPage} exact />
                         <Route path={`/${match}`} component={MatchPage} exact />

@@ -13,7 +13,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
-import heart from "../../images/heart-rate.png";
+import logo from "../../images/the-eiger.svg";
 import LoginForm from "../forms/LoginForm";
 import Register from "../other/Register";
 import ColorBtn from "../buttons/ColorBtn";
@@ -23,6 +23,7 @@ import ColorBtnCorner from "../other/ColorBtnCorner";
 import { ColorContext } from "../../context/colorContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { LoadingUserDataContext } from "../../context/loadingUserDataContex";
+import { APP_NAME } from "../../shared/constants";
 
 const LandingPage = () => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);
@@ -52,7 +53,7 @@ const LandingPage = () => {
                 >
                   <Grid item>
                     <img
-                      src={heart}
+                      src={logo}
                       style={{ width: "10rem", height: "10rem" }}
                     />
                   </Grid>
@@ -64,8 +65,12 @@ const LandingPage = () => {
                       justify="center"
                     >
                       <Grid item>
-                        <Typography variant="h1" style={{ lineHeight: "80%" }}>
-                          UNI DATE
+                        <Typography
+                          variant="h1"
+                          style={{ lineHeight: "80%" }}
+                          color={"primary"}
+                        >
+                          {APP_NAME}
                         </Typography>
                       </Grid>
                       <Grid item style={{ padding: "1rem" }}>

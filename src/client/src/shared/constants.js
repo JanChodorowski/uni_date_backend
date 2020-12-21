@@ -11,7 +11,7 @@ export const THEME_NAMES = {
   dark: "dark",
 };
 
-export const primaryColor = blue;
+const primaryColor = blue;
 const secondaryColor = green;
 
 const APP_THEME_EXTENDED = {
@@ -98,6 +98,8 @@ export const basicValidation = {
     .required("Password is required"),
 };
 
-export const emptyUser = {};
+export const EMPTY_USER = {};
 
-export const avatarSize = "100px";
+export const AVATAR_SIZE = "100px";
+
+export const APP_NAME = "UNI DATE";

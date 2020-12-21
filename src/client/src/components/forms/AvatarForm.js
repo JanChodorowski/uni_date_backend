@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
-import { avatarSize } from "../../shared/constants";
+import { AVATAR_SIZE } from "../../shared/constants";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -174,7 +174,7 @@ const AvatarForm = () => {
                   <Avatar
                     alt={user.userName}
                     src={avatarPicture}
-                    style={{ height: avatarSize, width: avatarSize }}
+                    style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
                   />
                 </Grid>
                 <Grid item>

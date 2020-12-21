@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { emptyUser, NAVIGATION } from "../../shared/constants";
+import { EMPTY_USER, NAVIGATION } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { deleteUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
@@ -31,7 +31,7 @@ const DeleteAccountPage = () => {
       .then(() => {
         const cookies = new Cookies();
         cookies.remove("token");
-        setUser(emptyUser);
+        setUser(EMPTY_USER);
         redirectToHomePage();
       })
       .catch((e) => {})
