@@ -10,10 +10,11 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { UserContext } from "../../context/userContext";
 
+const imgSize = '400px'
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
     flexGrow: 1,
+    maxWidth: imgSize,
   },
   header: {
     display: "flex",
@@ -24,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     width: "100%",
-    height: "100%",
+    maxHeight: imgSize,
     display: "block",
     overflow: "hidden",
+  objectFit: 'cover'
   },
 }));
 
@@ -79,7 +81,6 @@ function Gallery({ setChosenFileName }) {
             <MobileStepper
               steps={maxSteps}
               position="static"
-              variant="text"
               activeStep={activeStep}
               nextButton={
                 <Button
