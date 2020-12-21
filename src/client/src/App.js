@@ -69,6 +69,13 @@ function App() {
   useEffect(() => {
     let mounted = true;
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
     handleLoading(true);
 
     getUser()
