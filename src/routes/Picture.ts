@@ -102,9 +102,9 @@ router.post('/', authenticate, async (req: any, res: Response) => {
       });
     if (foundUser) {
       let newPictureOrPictures: IPicture[] | IPicture;
-
-      if (Array.isArray(req.files)) {
-        newPictureOrPictures = req.files.files.map((f: any, i: number) => {
+      const { files } = req.files;
+      if (Array.isArray(files)) {
+        newPictureOrPictures = files.map((f: any, i: number) => {
           const newPicture = new Picture();
           newPicture.order = i;
           newPicture.fileName = uuidv4();
@@ -119,7 +119,7 @@ router.post('/', authenticate, async (req: any, res: Response) => {
         newPicture.fileName = uuidv4();
         newPicture.user = foundUser!;
         newPicture.isAvatar = false;
-        newPicture.blob = req.files.files.data;
+        newPicture.blob = files.data;
         newPictureOrPictures = newPicture;
       }
 

@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
   },
   large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: '50rem',
+    height: '50rem',
   },
 }));
 
-const ProfilePage = () => {
+const AvatarForm = () => {
   const [pictures, setPictures] = useState([]);
   const [isUploaded, setIsUploaded] = useState(false);
   const [user] = useContext(UserContext);
@@ -102,7 +102,9 @@ const ProfilePage = () => {
       });
   };
 
-  return (
+  const avatarSize = '100px'
+
+  return (<>
     <Paper className={paper}>
       <Grid container direction="column" alignItems="center" justify="center">
         <Grid item>
@@ -142,16 +144,23 @@ const ProfilePage = () => {
             <br />
           </>
         </Grid>
-        <Grid item>
-          <>
-            <CenterHOC minHeight="0">
-              <Gallery setChosenFileName={setChosenFileName}></Gallery>
-            </CenterHOC>
-            <br />
-          </>
-        </Grid>
-        {!user?.pictures ||
-          (user?.pictures?.length > 0 && (
+      </Grid>
+    </Paper>
+
+
+    {!user?.pictures ||
+    (user?.pictures?.length > 0 && (
+
+  <Paper className={paper} style={{marginTop: '1rem'}}>
+    <Grid container direction="column" alignItems="center" justify="center">
+      <Grid item>
+        <>
+          <CenterHOC minHeight="0">
+            <Gallery setChosenFileName={setChosenFileName}></Gallery>
+          </CenterHOC>
+          <br />
+        </>
+      </Grid>
             <Grid
               item
               container
@@ -163,7 +172,7 @@ const ProfilePage = () => {
                 <Avatar
                   alt="Remy Sharp"
                   src={avatarPicture}
-                  className={classes.large}
+                  style={{ height: avatarSize, width: avatarSize }}
                 />
               </Grid>
               <Grid item>
@@ -182,10 +191,10 @@ const ProfilePage = () => {
                 </Button>
               </Grid>
             </Grid>
-          ))}
+
       </Grid>
-    </Paper>
+    </Paper> ))}</>
   );
 };
 
-export default ProfilePage;
+export default AvatarForm;
