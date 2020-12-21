@@ -68,13 +68,12 @@ const LandingPage = () => {
                         <Typography
                           variant="h1"
                           style={{ lineHeight: "80%" }}
-                          color={"primary"}
                         >
                           {APP_NAME}
                         </Typography>
                       </Grid>
                       <Grid item style={{ padding: "1rem" }}>
-                        <Typography style={{ fontSize: "1.1rem" }}>
+                        <Typography style={{ fontSize: "1.3rem" }}>
                           Dating app for universities students & graduates
                         </Typography>
                       </Grid>

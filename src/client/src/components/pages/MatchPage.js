@@ -86,7 +86,7 @@ const MatchPage = () => {
         >
           {profiles &&
             profiles.map((p, i) => (
-              <Grid item style={{ padding: "1rem" }} key={i} xs={3}>
+              <Grid item style={{ padding: "1rem" }} key={i} xs={12} sm={4} md={3} >
                 <Grid
                   container
                   direction="column"

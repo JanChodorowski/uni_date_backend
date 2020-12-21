@@ -102,4 +102,4 @@ export const EMPTY_USER = {};
 
 export const AVATAR_SIZE = "100px";
 
-export const APP_NAME = "UNI DATE";
+export const APP_NAME = "BERG DATE";

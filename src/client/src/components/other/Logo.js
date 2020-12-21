@@ -36,7 +36,7 @@ const Logo = () => {
           <img src={logo} style={{ width: logoSize, height: logoSize }} />{" "}
         </Grid>
         <Grid item>
-          <Typography variant="h4" noWrap color="primary">
+          <Typography variant="h4" noWrap >
             {APP_NAME}
           </Typography>
         </Grid>
