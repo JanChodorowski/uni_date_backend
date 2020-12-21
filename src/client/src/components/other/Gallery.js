@@ -90,7 +90,6 @@ function Gallery({ setChosenFileName }) {
                   onClick={handleNext}
                   disabled={activeStep === maxSteps - 1}
                 >
-                  Next
                   {theme.direction === "rtl" ? (
                     <KeyboardArrowLeft />
                   ) : (
@@ -111,7 +110,6 @@ function Gallery({ setChosenFileName }) {
                   ) : (
                     <KeyboardArrowLeft />
                   )}
-                  Back
                 </Button>
               }
             />
