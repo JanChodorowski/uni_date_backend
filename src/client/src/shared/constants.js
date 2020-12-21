@@ -32,7 +32,7 @@ const MuiCssBaseline = {
   MuiCssBaseline: {
     "@global": {
       body: {
-        backgroundColor: "yellow",//rgb(255, 191, 20)
+        backgroundColor: "red",//rgb(255, 191, 20)
       },
     },
   },
