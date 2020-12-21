@@ -91,12 +91,18 @@ export class User {
   pictures: Picture[];
 
   @ManyToOne(() => City, (city) => city.users)
+  @JoinColumn([{ name: "city_filter", referencedColumnName: "cityName" }])
+  cityFilter: City;
+
+  @ManyToOne(() => City, (city) => city.users2)
   @JoinColumn([{ name: "city_name", referencedColumnName: "cityName" }])
   cityName: City;
 
   @ManyToOne(() => Interest, (interest) => interest.users)
-  @JoinColumn([{ name: "interest_name", referencedColumnName: "interestName" }])
-  interestName: Interest;
+  @JoinColumn([
+    { name: "interest_filter", referencedColumnName: "interestName" },
+  ])
+  interestFilter: Interest;
 
   @ManyToOne(() => University, (university) => university.users)
   @JoinColumn([

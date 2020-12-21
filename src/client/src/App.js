@@ -73,12 +73,13 @@ function App() {
 
     getUser()
       .then((res) => {
-        const { data } = res;
-        if (!(data && mounted)) {
+        let userData = res.data;
+
+        if (!(userData && mounted)) {
           throw new Error();
         }
-        let userData = data;
-        let promises = data.pictures.map((p) => {
+
+        let promises = userData.pictures.map((p) => {
           return getPicture(p.fileName);
         });
 
@@ -86,12 +87,11 @@ function App() {
           .then((results) => {
             const picturesDataWithBlobs = results
               .map((r) => {
-                const fileName = r.headers.filename;
                 return {
+                  ...userData.pictures.find(
+                    (p) => p.fileName === r.headers.filename
+                  ),
                   blob: r.data,
-                  fileName,
-                  isAvatar: data.pictures.find((p) => p.fileName === fileName)
-                    .isAvatar,
                 };
               })
               .sort(compareFileNames);
@@ -133,6 +133,10 @@ function App() {
                 <PathContext.Provider value={[path, setPath]}>
                   <CssBaseline />
                   <ProgressShower></ProgressShower>
+
+                  {/*{user.email && user?.pictures[0].blob && <img*/}
+                  {/*    src={URL.createObjectURL(user.pictures[0].blob)}*/}
+                  {/*/>}*/}
                   {user.email ? (
                     <>
                       <Switch>

@@ -18,7 +18,7 @@ export class Interest {
   })
   interestName: string;
 
-  @OneToMany(() => User, (user) => user.interestName)
+  @OneToMany(() => User, (user) => user.interestFilter)
   users: User[];
 
   @ManyToMany(() => User, (user) => user.interests)

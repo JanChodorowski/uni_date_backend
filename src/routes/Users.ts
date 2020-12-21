@@ -11,11 +11,15 @@ import { getConnection } from 'typeorm';
 import { authenticate } from '@middleware/middleware';
 import { IUser } from '@interfaces/IUser';
 import { UserDto } from '@dto/UserDto';
-import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
 import * as yup from 'yup';
 import { City } from '@entities/City';
 import { University } from '@entities/University';
 import { Interest } from '@entities/Interest';
+
+global.Blob = require('node-blob');
+const CrossBlob = require('cross-blob');
+
+const streamToBlob = require('stream-to-blob');
 
 const router = Router();
 const {

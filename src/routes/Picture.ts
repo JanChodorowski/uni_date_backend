@@ -5,7 +5,6 @@ import express, {
 
 import StatusCodes from 'http-status-codes';
 import { authenticate } from '@middleware/middleware';
-import { IRequestWithPayload } from '@shared/constants';
 import path from 'path';
 import app from '@server';
 import morgan from 'morgan';
@@ -17,9 +16,11 @@ import { Picture } from '@entities/Picture';
 import { IUser } from '@interfaces/IUser';
 import PictureDao from '@daos/Picture/PictureDao';
 import * as yup from 'yup';
-import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
+import { getByteArray, removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
 import { getConnection } from 'typeorm';
 import { User } from '@entities/User';
+
+const fileUpload = require('express-fileupload');
 
 const { promisify } = require('util');
 const fs = require('fs');
@@ -32,36 +33,25 @@ const {
 } = StatusCodes;
 
 const fileNameSchema = yup.object().shape({ fileName: yup.string().required() });
+const userDao = new UserDao();
+const pictureDao = new PictureDao();
 
 router.post('/getone', authenticate, async (req: any, res: Response, next:NextFunction) => {
-  const { fileName } = req.body;
-
-  const options = {
-    root: path.join(__dirname, '/../uploads'),
-    dotfiles: 'deny',
-    headers: {
-      'x-timestamp': Date.now(),
-      'x-sent': true,
-      fileName,
-    },
-  };
-
-  const isValid = await fileNameSchema.isValid({ fileName });
-
-  if (!isValid) {
-    return res.status(BAD_REQUEST).end();
-  }
-  res.sendFile(fileName, options, (err) => {
-    if (err) {
-      next(err);
-    } else {
-      console.log('Sent:', fileName);
-    }
+  const blobHolder = await pictureDao.findBlobByFileName(req?.body?.fileName).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
+
+  if (!blobHolder) {
+    res.sendStatus(BAD_REQUEST).end();
+  }
+  res.setHeader('filename', req?.body?.fileName);
+  res.end(blobHolder.blob);
 });
 
 router.put('/avatar', authenticate, async (req: Request, res: Response) => {
   const trimmedFileName = removeWhiteSpaces(req?.body?.fileName);
+
   const userId = req?.body?.payload?.id;
   const isValid = await fileNameSchema.isValid({ fileName: trimmedFileName });
   if (!isValid) {
@@ -100,41 +90,9 @@ router.delete('/', authenticate, async (req: any, res: Response) => {
   res.end();
 });
 
-const multer = require('multer');
+router.use(fileUpload());
 
-const {
-  NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL, TOKEN_SECRET,
-} = process.env;
-
-let mainDirName: string;
-
-if (NODE_ENV === 'development') {
-  // Show routes called in console during development
-  mainDirName = 'src';
-} else if (NODE_ENV === 'production') {
-  mainDirName = 'dist';
-}
-
-const storage = multer.diskStorage({
-  destination: (req:any, file:any, cb:any) => {
-    cb(null, `${mainDirName}/uploads`);
-  },
-  filename: (req:any, file:any, cb:any) => {
-    cb(null, uuidv4() + path.extname(file.originalname));
-  },
-});
-const fileFilter = (req:any, file:any, cb:any) => {
-  if (file.mimetype === 'image/jpeg'
-      || file.mimetype === 'image/jpg'
-      || file.mimetype === 'image/gif'
-      || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-export const upload = multer({ storage, fileFilter });
-router.post('/', upload.array('files'), authenticate, async (req: any, res: Response) => {
+router.post('/', authenticate, async (req: any, res: Response) => {
   try {
     const userDao = new UserDao();
     const foundUser = await userDao.findOneById(req?.body?.payload?.id)
@@ -143,14 +101,16 @@ router.post('/', upload.array('files'), authenticate, async (req: any, res: Resp
         res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
       });
     if (foundUser) {
-      const newPictures: IPicture[] = req.files.map((f: any, i: number) => {
+      const newPictures: IPicture[] = req.files.files.map((f: any, i: number) => {
         const newPicture = new Picture();
         newPicture.order = i;
-        newPicture.fileName = f.filename;
+        newPicture.fileName = uuidv4();
         newPicture.user = foundUser!;
         newPicture.isAvatar = false;
+        newPicture.blob = f.data;
         return newPicture;
       });
+
       const pictureDao = new PictureDao();
       await pictureDao.add(newPictures);
     } else {

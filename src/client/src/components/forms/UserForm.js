@@ -32,6 +32,19 @@ const genderEnum = {
 const UserForm = () => {
   const [user, setUser] = useContext(UserContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const [isDark] = useContext(ColorContext);
+
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      padding: "1rem",
+      backgroundColor: isDark
+        ? "rgba(38, 50, 56, 0.7)"
+        : "rgba(255, 255, 255, 0.6)",
+    },
+  }));
+
+  const { paper } = useStyles();
+
   const initialState = {
     userName: user.userName || "",
     university: user.university || "",
@@ -44,30 +57,26 @@ const UserForm = () => {
     fieldOfStudy: user.fieldOfStudy || "",
     isGraduated: user.isGraduated || false,
   };
-  const [isDark] = useContext(ColorContext);
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      padding: "1rem",
-      backgroundColor: isDark
-        ? "rgba(38, 50, 56, 0.7)"
-        : "rgba(255, 255, 255, 0.6)",
-    },
-  }));
-  const { paper } = useStyles();
+
   function reducer(state, { field, value }) {
     return { ...state, [field]: value };
   }
+
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const onChange = (e) => {
     const { name, value } = e.target;
-    dispatch({ field: name, value: value });
+    dispatch({ field: name, value });
   };
+
   const onDateChange = (value) => {
     dispatch({ field: "dateOfBirth", value });
   };
+
   const onInterestsChange = (value) => {
     dispatch({ field: "interests", value });
   };
+
   const {
     userName,
     description,
@@ -79,13 +88,16 @@ const UserForm = () => {
     fieldOfStudy,
     isGraduated,
   } = state;
+
   const onIsGraduatedChange = () => {
     dispatch({ field: "isGraduated", value: !isGraduated });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     setIsLoading(true);
+
     updateUser(state)
       .then((res) => {
         setUser({ ...user, ...state });

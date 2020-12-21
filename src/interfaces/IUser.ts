@@ -29,8 +29,9 @@ export interface IUser {
     oneSidedRelations: OneSidedRelation[];
     oneSidedRelations2: OneSidedRelation[];
     pictures: Picture[];
+    cityFilter: City;
     cityName: City;
-    interestName: Interest;
+    interestFilter: Interest;
     universityFilter: University;
     universityName: University;
     interests: Interest[];

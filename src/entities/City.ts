@@ -11,6 +11,9 @@ export class City {
   })
   cityName: string;
 
-  @OneToMany(() => User, (user) => user.cityName)
+  @OneToMany(() => User, (user) => user.cityFilter)
   users: User[];
+
+  @OneToMany(() => User, (user) => user.cityName)
+  users2: User[];
 }

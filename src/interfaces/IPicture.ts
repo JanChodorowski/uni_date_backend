@@ -5,4 +5,5 @@ export interface IPicture {
     order: number;
     user: User;
     isAvatar: boolean;
+    blob: Buffer;
 }

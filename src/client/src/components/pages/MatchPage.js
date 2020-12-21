@@ -20,17 +20,13 @@ const MatchPage = () => {
           throw new Error();
         }
         let profilesData = data;
-        console.log("profilesData", profilesData);
         let promises = profilesData
           .map((pd) => {
-
             const picture = pd.pictures.find((p) => p.isAvatar);
-              console.log('picture',picture)
             return picture && picture.fileName;
           })
           .filter((fileNameOrUndefined) => fileNameOrUndefined)
           .map((fileName) => {
-              console.log('fileName',fileName)
             // return getPicture(fileName);
           });
 
@@ -62,7 +58,7 @@ const MatchPage = () => {
         //   });
       })
       .catch((e) => {
-          console.log('err', e)
+        console.log("err", e);
         setIsLoading(false);
       });
     return () => {

@@ -82,6 +82,7 @@ class UserDao implements IUserDao {
         'user.dateOfBirth',
         'picture.fileName',
         'picture.isAvatar',
+        'picture.blob',
         'city.cityName',
         'university.universityName',
         'interests.interestName',

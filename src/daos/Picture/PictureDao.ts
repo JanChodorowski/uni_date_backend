@@ -3,7 +3,9 @@
 import { Picture } from '@entities/Picture';
 import { IPicture } from '@interfaces/IPicture';
 
-import { getConnection } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
+import { IUser } from '@interfaces/IUser';
+import { User } from '@entities/User';
 
 export interface IPictureDao {
     // getOne: (email: string) => Promise<IUser | null>;
@@ -21,6 +23,20 @@ class PictureDao implements IPictureDao {
     // TODO
     // return Promise.resolve([]);
     return getConnection().manager.find(Picture);
+  }
+
+  /**
+     *
+     * @param fileName
+     */
+  public findBlobByFileName(fileName: string): Promise<any> {
+    return getRepository(Picture)
+      .createQueryBuilder('picture')
+      .where({ fileName })
+      .select([
+        'picture.blob',
+      ])
+      .getOne();
   }
 
   /**
