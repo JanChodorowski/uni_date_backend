@@ -20,7 +20,7 @@ const ProfilePage = () => {
         <Grid item style={{ padding: "1rem" }}>
           <AvatarForm></AvatarForm>
         </Grid>
-        <Grid item style={{ padding: "1rem" }}>
+        <Grid item style={{ padding: "1rem", maxWidth: "600px" }}>
           <UserForm></UserForm>
         </Grid>
       </Grid>

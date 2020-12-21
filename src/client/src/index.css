@@ -9,7 +9,9 @@ html {
 body {
   /* The image used */
   /*background-color: rgb(255, 191, 20);*/
-  background-image: url(./images/sky.jpg);
+  /*background-image: url(./images/sky.jpg);*/
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(red, yellow);
 
   /* Full height */
   height: 100%;
