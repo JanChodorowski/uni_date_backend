@@ -101,18 +101,30 @@ router.post('/', authenticate, async (req: any, res: Response) => {
         res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
       });
     if (foundUser) {
-      const newPictures: IPicture[] = req.files.files.map((f: any, i: number) => {
+      let newPictureOrPictures: IPicture[] | IPicture;
+
+      if (Array.isArray(req.files)) {
+        newPictureOrPictures = req.files.files.map((f: any, i: number) => {
+          const newPicture = new Picture();
+          newPicture.order = i;
+          newPicture.fileName = uuidv4();
+          newPicture.user = foundUser!;
+          newPicture.isAvatar = false;
+          newPicture.blob = f.data;
+          return newPicture;
+        });
+      } else {
         const newPicture = new Picture();
-        newPicture.order = i;
+        newPicture.order = -1;
         newPicture.fileName = uuidv4();
         newPicture.user = foundUser!;
         newPicture.isAvatar = false;
-        newPicture.blob = f.data;
-        return newPicture;
-      });
+        newPicture.blob = req.files.files.data;
+        newPictureOrPictures = newPicture;
+      }
 
       const pictureDao = new PictureDao();
-      await pictureDao.add(newPictures);
+      await pictureDao.add(newPictureOrPictures);
     } else {
       res.status(INTERNAL_SERVER_ERROR).end();
     }

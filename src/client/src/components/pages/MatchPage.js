@@ -15,47 +15,48 @@ const MatchPage = () => {
 
     getProfiles()
       .then((res) => {
-        const { data } = res;
-        if (!(data && mounted)) {
+        let profilesData = res.data;
+
+        if (!(profilesData && mounted)) {
           throw new Error();
         }
-        let profilesData = data;
-        let promises = profilesData
+
+        let usersAvatarsPromises = profilesData
           .map((pd) => {
             const picture = pd.pictures.find((p) => p.isAvatar);
-            return picture && picture.fileName;
+            if (picture) {
+              return picture.fileName;
+            }
+            return null;
           })
           .filter((fileNameOrUndefined) => fileNameOrUndefined)
           .map((fileName) => {
-            // return getPicture(fileName);
+            return getPicture(fileName);
           });
 
-        // Promise.all(promises)
-        //   .then((results) => {
-        //     const picturesDataWithBlobs = results
-        //       .map((r) => {
-        //         const fileName = r.headers.filename;
-        //         return {
-        //           blob: r.data,
-        //           fileName,
-        //           isAvatar: data.pictures.find((p) => p.fileName === fileName)
-        //             .isAvatar,
-        //         };
-        //       })
-        //       .sort(compareFileNames);
-        //
-        //     profilesData = {
-        //       ...profilesData,
-        //       pictures: picturesDataWithBlobs,
-        //     };
-        //   })
-        //   .catch((e) => {
-        //     setIsLoading(false);
-        //   })
-        //   .finally(() => {
-        //     setProfiles(profilesData);
-        //     setIsLoading(false);
-        //   });
+        console.log("profilesData 0 ", profilesData, usersAvatarsPromises);
+        Promise.all(usersAvatarsPromises)
+          .then((results) => {
+            console.log("results", results);
+            results
+              .forEach((r) => {
+                  profilesData.find(pd => pd.pictures.find(p => p.fileName === r.headers.filename)).avatar = r.data
+              })
+
+            // profilesData = {
+            //   ...profilesData,
+            //   pictures: picturesDataWithBlobs,
+            // };
+            console.log("profilesData", profilesData);
+          })
+          .catch((e) => {
+              console.log('e',e)
+            setIsLoading(false);
+          })
+          .finally(() => {
+            setProfiles(profilesData);
+            setIsLoading(false);
+          });
       })
       .catch((e) => {
         console.log("err", e);

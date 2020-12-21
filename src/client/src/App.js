@@ -86,11 +86,11 @@ function App() {
           throw new Error();
         }
 
-        let promises = userData.pictures.map((p) => {
+        let userBlobsPromises = userData.pictures.map((p) => {
           return getPicture(p.fileName);
         });
 
-        Promise.all(promises)
+        Promise.all(userBlobsPromises)
           .then((results) => {
             const picturesDataWithBlobs = results
               .map((r) => {
@@ -107,6 +107,7 @@ function App() {
               ...userData,
               pictures: picturesDataWithBlobs,
             };
+            console.log("userData", userData);
           })
           .catch((e) => {
             handleLoading(false);
