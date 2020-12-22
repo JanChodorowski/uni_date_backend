@@ -8,10 +8,9 @@ import {
 import { getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
-import {Avatar, Grid, Paper, Typography} from "@material-ui/core";
+import { Avatar, Grid, Typography } from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
-import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 
 const MatchPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
@@ -76,15 +75,38 @@ const MatchPage = () => {
     };
   }, []);
 
-    const  paper  = useTransparentPaperStyle();
+  const decideSm = () => {
+    let autoLayout = 12;
+    if (profiles.length === 2) {
+      autoLayout = 6;
+    } else if (profiles.length > 2) {
+      autoLayout = 4;
+    }
+    return autoLayout;
+  };
 
+  const decideMd = () => {
+    let autoLayout = 12;
+    if (profiles.length === 2) {
+      autoLayout = 6;
+    } else if (profiles.length === 3) {
+      autoLayout = 4;
+    } else if (profiles.length > 3) {
+      autoLayout = 3;
+    }
+    return autoLayout;
+  };
 
-    return (
+  return (
     <>
       {profiles && profiles.length > 0 && (
         <>
-<Paper className={paper}>            <Grid
-                container
+          <br />
+          <br />
+          <br />
+          <CenterPaperHOC>
+            <Grid
+              container
               direction="row"
               alignItems="center"
               justify="center"
@@ -92,18 +114,20 @@ const MatchPage = () => {
               {profiles &&
                 profiles.map((p, i) => (
                   <Grid
+                    container
                     item
                     style={{ padding: "1rem" }}
                     key={i}
                     xs={12}
-                    sm={4}
-                    md={3}
+                    sm={decideSm()}
+                    md={decideMd()}
                   >
                     <Grid
                       container
                       direction="column"
                       alignItems="center"
                       justify="center"
+                      style={{ padding: "2rem" }}
                     >
                       <Grid item>
                         {p.avatar ? (
@@ -129,7 +153,8 @@ const MatchPage = () => {
                   </Grid>
                 ))}
             </Grid>
-</Paper>        </>
+          </CenterPaperHOC>
+        </>
       )}
     </>
   );

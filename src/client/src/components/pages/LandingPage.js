@@ -29,7 +29,7 @@ import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 const LandingPage = () => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);
 
-  const  paper  = useTransparentPaperStyle();
+  const paper = useTransparentPaperStyle();
   return (
     <>
       {!isLoadingUserData && (

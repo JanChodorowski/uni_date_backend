@@ -34,9 +34,7 @@ const UserForm = () => {
   const [user, setUser] = useContext(UserContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
 
-
-
-  const  paper  = useTransparentPaperStyle();
+  const paper = useTransparentPaperStyle();
 
   const initialState = {
     userName: user.userName || "",

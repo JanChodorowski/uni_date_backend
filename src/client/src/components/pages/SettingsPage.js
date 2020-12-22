@@ -18,7 +18,7 @@ const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [path, setPath] = useContext(PathContext);
 
-  const  paper  = useTransparentPaperStyle();
+  const paper = useTransparentPaperStyle();
   const history = useHistory();
   const { profile, settings } = NAVIGATION;
 

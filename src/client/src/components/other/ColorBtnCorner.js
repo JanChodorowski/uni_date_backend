@@ -1,5 +1,5 @@
 import { Paper } from "@material-ui/core";
-import classNames from 'classnames';
+import classNames from "classnames";
 
 import { makeStyles } from "@material-ui/core/styles";
 

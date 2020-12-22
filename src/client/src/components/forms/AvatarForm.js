@@ -41,7 +41,7 @@ const AvatarForm = () => {
       ""
   );
 
-  const  paper  = useTransparentPaperStyle();
+  const paper = useTransparentPaperStyle();
   const [avatarPicture, setAvatarPicture] = useState(
     (user.pictures &&
       user.pictures.length > 0 &&

@@ -6,8 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 
 const CenterPaperHOC = ({ children, minHeight }) => {
-
-  const  paper  = useTransparentPaperStyle();
+  const paper = useTransparentPaperStyle();
   return (
     <>
       <CenterHOC minHeight={minHeight}>
