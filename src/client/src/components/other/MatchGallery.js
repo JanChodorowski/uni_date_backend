@@ -51,8 +51,14 @@ function Gallery({ profileId }) {
   const [profiles, setProfiles] = useContext(ProfilesContext);
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-
+  const maxSteps = profiles
+      .find((p) => p.id === profileId)
+      .pictures.filter((p) => p.hasOwnProperty("blob")).length;
   useEffect(() => {
+    if (maxSteps) {
+      return;
+    }
+
     let mounted = true;
     setIsLoading(true);
 
@@ -95,9 +101,7 @@ function Gallery({ profileId }) {
     };
   }, []);
 
-  const maxSteps = profiles
-    .find((p) => p.id === profileId)
-    .pictures.filter((p) => p.hasOwnProperty("blob")).length;
+
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
