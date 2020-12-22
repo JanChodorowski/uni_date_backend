@@ -44,27 +44,8 @@ export default function Register() {
       >
         <DialogTitle id="form-dialog-title">Create New Account</DialogTitle>
         <DialogContent>
-          {/*<DialogContentText>*/}
-          {/*    Create New Account*/}
-          {/*</DialogContentText>*/}
-          {/*<TextField*/}
-          {/*    autoFocus*/}
-          {/*    margin="dense"*/}
-          {/*    id="name"*/}
-          {/*    label="Email Address"*/}
-          {/*    type="email"*/}
-          {/*    fullWidth*/}
-          {/*/>*/}
           <RegisterForm></RegisterForm>
         </DialogContent>
-        {/*<DialogActions>*/}
-        {/*    <Button onClick={handleClose} color="primary">*/}
-        {/*        Cancel*/}
-        {/*    </Button>*/}
-        {/*    <Button onClick={handleClose} color="primary">*/}
-        {/*        Subscribe*/}
-        {/*    </Button>*/}
-        {/*</DialogActions>*/}
       </Dialog>
     </div>
   );

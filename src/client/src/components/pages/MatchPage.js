@@ -1,23 +1,38 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { compareFileNames, getItemByKey } from "../../shared/functions";
 import {
-  AVATAR_SIZE,
-  LOCAL_STORAGE_KEY,
-  THEME_NAMES,
+    AVATAR_SIZE, EMPTY_USER,
+    LOCAL_STORAGE_KEY,
+    THEME_NAMES,
 } from "../../shared/constants";
 import { getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
-import {Avatar, Card, Grid, IconButton, Typography} from "@material-ui/core";
+import { Avatar, Card, Grid, IconButton, Typography } from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
+import Zoom from "@material-ui/core/Zoom";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import RegisterForm from "../forms/RegisterForm";
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+const Transition = React.forwardRef((props, ref) => (
+  <Zoom ref={ref} {...props} />
+));
 
 const MatchPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
+  const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null)
 
   useEffect(() => {
+  if(profiles && profiles.length > 0){
+      return;
+  }
+
     let mounted = true;
+
     setIsLoading(true);
 
     getProfiles()
@@ -68,9 +83,9 @@ const MatchPage = () => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [areMoreProfilesNeeded]);
 
-  const defaultLayout = 12
+  const defaultLayout = 12;
 
   const decideSm = () => {
     let autoLayout = defaultLayout;
@@ -92,6 +107,18 @@ const MatchPage = () => {
       autoLayout = 3;
     }
     return autoLayout;
+  };
+
+  const [open, setOpen] = useState(false);
+    const [chosenProfile, setChosenProfile] = useState(EMPTY_USER);
+
+  const handleClickOpen = (profile) => {
+      setChosenProfile(profile)
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -121,42 +148,61 @@ const MatchPage = () => {
                     sm={decideSm()}
                     md={decideMd()}
                   >
-                      <Grid item>
-                      <IconButton>
-                    <Grid
-                      container
-                      direction="column"
-                      alignItems="center"
-                      justify="center"
-                      style={{ padding: "2rem" }}
-                    >
-                      <Grid item>
-                        {p.avatar ? (
-                          <Avatar
-                            alt={p.userName}
-                            src={URL.createObjectURL(p.avatar)}
-                            style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
-                          />
-                        ) : (
-                          <Avatar
-                            alt={p.userName}
-                            src={PlaceHolder}
-                            style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
-                          />
-                        )}
-                      </Grid>
-                      <Grid item>
-                        <Typography  style={{ fontSize: '1.5rem', fontWeight: "bold" }} paragraph>
-                          {p.userName}
-                        </Typography>
-                      </Grid>
-                    </Grid></IconButton></Grid>
+                    <Grid item>
+                      <IconButton onClick={(p) => handleClickOpen(p)}>
+                        <Grid
+                          container
+                          direction="column"
+                          alignItems="center"
+                          justify="center"
+                          style={{ padding: "2rem" }}
+                        >
+                          <Grid item>
+                            {p.avatar ? (
+                              <Avatar
+                                alt={p.userName}
+                                src={URL.createObjectURL(p.avatar)}
+                                style={{
+                                  height: AVATAR_SIZE,
+                                  width: AVATAR_SIZE,
+                                }}
+                              />
+                            ) : (
+                              <Avatar
+                                alt={p.userName}
+                                src={PlaceHolder}
+                                style={{
+                                  height: AVATAR_SIZE,
+                                  width: AVATAR_SIZE,
+                                }}
+                              />
+                            )}
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                              paragraph
+                            >
+                              {p.userName}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </IconButton>
+                    </Grid>
                   </Grid>
                 ))}
             </Grid>
           </CenterPaperHOC>
         </>
       )}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="choose profile"
+        TransitionComponent={Transition}
+      >
+        <DialogContent>test</DialogContent>
+      </Dialog>
     </>
   );
 };
