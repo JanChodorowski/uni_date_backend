@@ -1,9 +1,10 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { compareFileNames, getItemByKey } from "../../shared/functions";
 import {
-    AVATAR_SIZE, EMPTY_USER,
-    LOCAL_STORAGE_KEY,
-    THEME_NAMES,
+  AVATAR_SIZE,
+  EMPTY_USER,
+  LOCAL_STORAGE_KEY,
+  THEME_NAMES,
 } from "../../shared/constants";
 import { getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
@@ -17,6 +18,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import RegisterForm from "../forms/RegisterForm";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
+import MatchGallery from "../other/MatchGallery";
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
@@ -24,12 +26,14 @@ const Transition = React.forwardRef((props, ref) => (
 const MatchPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
-  const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null)
+  const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null);
+
+  const checkIfProfilesAlreadyFetched = () => profiles && profiles.length > 0;
 
   useEffect(() => {
-  if(profiles && profiles.length > 0){
+    if (checkIfProfilesAlreadyFetched()) {
       return;
-  }
+    }
 
     let mounted = true;
 
@@ -110,10 +114,10 @@ const MatchPage = () => {
   };
 
   const [open, setOpen] = useState(false);
-    const [chosenProfile, setChosenProfile] = useState(EMPTY_USER);
+  const [chosenProfile, setChosenProfile] = useState(EMPTY_USER);
 
-  const handleClickOpen = (profile) => {
-      setChosenProfile(profile)
+  const handleClickOpen = (profileId) => {
+    setChosenProfile(profileId);
     setOpen(true);
   };
 
@@ -123,7 +127,7 @@ const MatchPage = () => {
 
   return (
     <>
-      {profiles && profiles.length > 0 && (
+      {checkIfProfilesAlreadyFetched() && (
         <>
           <br />
           <br />
@@ -149,7 +153,7 @@ const MatchPage = () => {
                     md={decideMd()}
                   >
                     <Grid item>
-                      <IconButton onClick={(p) => handleClickOpen(p)}>
+                      <IconButton onClick={() => handleClickOpen(p.id)}>
                         <Grid
                           container
                           direction="column"
@@ -201,7 +205,9 @@ const MatchPage = () => {
         aria-labelledby="choose profile"
         TransitionComponent={Transition}
       >
-        <DialogContent>test</DialogContent>
+        <DialogContent>
+          <MatchGallery profileId={chosenProfile}></MatchGallery>
+        </DialogContent>
       </Dialog>
     </>
   );

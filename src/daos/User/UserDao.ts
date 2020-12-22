@@ -129,6 +129,7 @@ class UserDao implements IUserDao {
       .leftJoinAndSelect('user.interests', 'interests')
       .where('id != :id', { id })
       .select([
+        'user.id',
         'user.userName',
         'user.gender',
         'user.description',

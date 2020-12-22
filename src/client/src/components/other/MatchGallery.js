@@ -1,4 +1,10 @@
-import React, { useContext, useReducer, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +15,10 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { UserContext } from "../../context/userContext";
+import { getPicture, getUser } from "../../api";
+import { compareFileNames } from "../../shared/functions";
+import { ProfilesContext } from "../../context/profilesContext";
+import {LoadingContext} from "../../context/loadingContext";
 
 const imgSize = "400px";
 const useStyles = makeStyles((theme) => ({
@@ -32,13 +42,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Gallery() {
+function Gallery({ profileId }) {
+
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
+  // const [user, setUser] = useContext(UserContext);
 
-  const [user, setUser] = useContext(UserContext);
-  const maxSteps = user?.pictures?.length;
+  const [profiles, setProfiles] = useContext(ProfilesContext);
+
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
+
+  useEffect(() => {
+    let mounted = true;
+    setIsLoading(true);
+
+    let profileBlobsPromises = profiles.find(p => p.id === profileId).pictures.map((p) => {
+      return getPicture(p.fileName);
+    });
+    console.log('profileBlobsPromises',profileBlobsPromises)
+
+    Promise.all(profileBlobsPromises)
+      .then((results) => {
+        const picturesDataWithBlobs = results
+          .map((r) => {
+            return {
+              ...profiles.find(p => p.id === profileId).pictures.find(
+                (p) => p.fileName === r.headers.filename
+              ),
+              blob: r.data,
+            };
+          })
+          .sort(compareFileNames);
+        console.log('picturesDataWithBlobs',picturesDataWithBlobs)
+        const index = profiles.findIndex(p => p.id === profileId)
+        profiles[index].pictures = picturesDataWithBlobs
+            // .picutres = picturesDataWithBlobs
+        console.log('profilesWithBlobs',profiles)
+
+        setProfiles(profiles);
+      })
+      .catch((e) => {
+        setIsLoading(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const maxSteps = profiles.find(p => p.id === profileId).pictures.filter(p => p.hasOwnProperty('blob')).length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -63,7 +119,7 @@ function Gallery() {
               onChangeIndex={handleStepChange}
               enableMouseEvents
             >
-              {user.pictures.map((img, index) => (
+              {profiles.find(p => p.id === profileId).pictures.map((img, index) => (
                 <div key={img.fileName}>
                   {Math.abs(activeStep - index) <= 2 ? (
                     <img
