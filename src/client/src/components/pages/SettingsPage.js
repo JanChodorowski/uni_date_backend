@@ -50,6 +50,7 @@ const SettingsPage = () => {
                 fullWidth
                 type="submit"
                 onClick={handleLogOut}
+                size="small"
               >
                 LOG OUT
               </Button>
@@ -67,6 +68,7 @@ const SettingsPage = () => {
               fullWidth
               type="submit"
               onClick={handleDeleteAccount}
+              size="small"
             >
               DELETE ACCOUNT
             </Button>

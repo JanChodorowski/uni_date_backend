@@ -113,6 +113,7 @@ const LoginForm = () => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           autoFocus
+          size="small"
         />
         <br />
         <br />
@@ -134,6 +135,7 @@ const LoginForm = () => {
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+              size="small"
             />
           </Grid>
           <Grid item>
@@ -158,6 +160,7 @@ const LoginForm = () => {
           fullWidth
           type="submit"
           disabled={formik.isSubmitting}
+          size="small"
         >
           Log In
         </Button>

@@ -83,6 +83,7 @@ const RegisterForm = () => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           autoFocus
+          size="small"
         />
         <br />
         <br />
@@ -104,6 +105,7 @@ const RegisterForm = () => {
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+              size="small"
             />
           </Grid>
           <Grid item>
@@ -131,6 +133,7 @@ const RegisterForm = () => {
             formik.touched.passwordConfirmation &&
             formik.errors.passwordConfirmation
           }
+          size="small"
         />
         <br />
         <br />
@@ -148,6 +151,7 @@ const RegisterForm = () => {
           fullWidth
           type="submit"
           disabled={formik.isSubmitting}
+          size="small"
         >
           CREATE NEW ACCOUNT
         </Button>

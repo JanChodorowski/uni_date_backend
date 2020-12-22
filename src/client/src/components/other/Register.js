@@ -33,6 +33,7 @@ export default function Register() {
         variant="contained"
         fullWidth
         onClick={handleClickOpen}
+        size="small"
       >
         Create New Account
       </Button>

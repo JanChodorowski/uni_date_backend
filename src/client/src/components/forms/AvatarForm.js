@@ -122,6 +122,7 @@ const AvatarForm = () => {
                   margin: "1rem",
                 }}
                 style={{ marginBottom: "2rem" }}
+
               />
             </>
           </Grid>
@@ -134,6 +135,7 @@ const AvatarForm = () => {
                 type="submit"
                 disabled={isLoading || pictures.length === 0}
                 onClick={handleUpload}
+                size="small"
               >
                 Upload pictures
               </Button>
@@ -186,6 +188,7 @@ const AvatarForm = () => {
                       //   chosenFileName !== PlaceHolder) ||
                       isLoading
                     }
+                    size="small"
                   >
                     CHOOSE THE PICTURE ABOVE FOR AVATAR
                   </Button>

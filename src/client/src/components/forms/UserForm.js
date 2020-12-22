@@ -111,6 +111,7 @@ const UserForm = () => {
           label="University"
           fullWidth
           onChange={onChange}
+          size="small"
         />
         {university && (
           <>
@@ -122,6 +123,7 @@ const UserForm = () => {
               label="Field of study"
               fullWidth
               onChange={onChange}
+              size="small"
             />
             <br />
             <br />
@@ -133,6 +135,7 @@ const UserForm = () => {
                     onChange={onIsGraduatedChange}
                     name="isGraduated"
                     color="primary"
+                    size="small"
                   />
                 }
                 label="Already graduated?"
@@ -149,6 +152,7 @@ const UserForm = () => {
           label="Name"
           fullWidth
           onChange={onChange}
+          size="small"
         />
         <br />
         <br />
@@ -161,6 +165,7 @@ const UserForm = () => {
           value={description}
           onChange={onChange}
           variant="outlined"
+          size="small"
         />
         <br />
         <br />
@@ -171,6 +176,7 @@ const UserForm = () => {
           fullWidth
           value={gender}
           onChange={onChange}
+          size="small"
         >
           {Object.entries(genderEnum).map(([k, v]) => (
             <MenuItem key={v} value={k}>
@@ -194,6 +200,7 @@ const UserForm = () => {
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
+            size="small"
           />
         </MuiPickersUtilsProvider>
         <br />
@@ -207,7 +214,8 @@ const UserForm = () => {
           // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
           defaultValue={interests}
           onChange={onInterestsChange}
-        />{" "}
+          size="small"
+        />
         <br />
         <br />
         <TextField
@@ -216,6 +224,7 @@ const UserForm = () => {
           label="City"
           fullWidth
           onChange={onChange}
+          size="small"
         />
       </Paper>
       <br />
@@ -226,6 +235,7 @@ const UserForm = () => {
           fullWidth
           type="submit"
           // disabled={formik.isSubmitting}
+          size="small"
         >
           UPDATE DATA
         </Button>
