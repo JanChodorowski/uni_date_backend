@@ -12,6 +12,7 @@ import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
 import { AVATAR_SIZE } from "../../shared/constants";
+import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -39,16 +40,8 @@ const AvatarForm = () => {
       user.pictures[0].fileName) ||
       ""
   );
-  const [isDark] = useContext(ColorContext);
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      padding: "1rem",
-      backgroundColor: isDark
-        ? "rgba(38, 50, 56, 0.7)"
-        : "rgba(255, 255, 255, 0.6)",
-    },
-  }));
-  const { paper } = useStyles();
+
+  const  paper  = useTransparentPaperStyle();
   const [avatarPicture, setAvatarPicture] = useState(
     (user.pictures &&
       user.pictures.length > 0 &&

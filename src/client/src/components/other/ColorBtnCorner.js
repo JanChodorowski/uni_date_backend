@@ -1,4 +1,5 @@
 import { Paper } from "@material-ui/core";
+import classNames from 'classnames';
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -11,7 +12,7 @@ const ColorBtnCorner = () => {
   const [isDark] = useContext(ColorContext);
 
   const useStyles = makeStyles((theme) => ({
-    paper: {
+    root: {
       backgroundColor: isDark
         ? "rgba(38, 50, 56, 0.7)"
         : "rgba(255, 255, 255, 0.6)",
@@ -22,10 +23,10 @@ const ColorBtnCorner = () => {
       zIndex: "1100",
     },
   }));
-  const { paper } = useStyles();
+  const { root } = useStyles();
 
   return (
-    <Paper elevation={0} className={paper} variant="outlined">
+    <Paper elevation={0} className={root} variant="outlined">
       <ColorBtn></ColorBtn>
     </Paper>
   );

@@ -8,9 +8,10 @@ import {
 import { getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
-import { Avatar, Grid, Typography } from "@material-ui/core";
+import {Avatar, Grid, Paper, Typography} from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
+import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 
 const MatchPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
@@ -74,14 +75,16 @@ const MatchPage = () => {
       mounted = false;
     };
   }, []);
-  return (
+
+    const  paper  = useTransparentPaperStyle();
+
+
+    return (
     <>
       {profiles && profiles.length > 0 && (
         <>
-          <CenterPaperHOC>
-            <Grid
-              item
-              container
+<Paper className={paper}>            <Grid
+                container
               direction="row"
               alignItems="center"
               justify="center"
@@ -126,8 +129,7 @@ const MatchPage = () => {
                   </Grid>
                 ))}
             </Grid>
-          </CenterPaperHOC>
-        </>
+</Paper>        </>
       )}
     </>
   );

@@ -24,19 +24,12 @@ import { ColorContext } from "../../context/colorContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { LoadingUserDataContext } from "../../context/loadingUserDataContex";
 import { APP_NAME } from "../../shared/constants";
+import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 
 const LandingPage = () => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);
-  const [isDark] = useContext(ColorContext);
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      padding: "1rem",
-      backgroundColor: isDark
-        ? "rgba(38, 50, 56, 0.7)"
-        : "rgba(255, 255, 255, 0.6)",
-    },
-  }));
-  const { paper } = useStyles();
+
+  const  paper  = useTransparentPaperStyle();
   return (
     <>
       {!isLoadingUserData && (

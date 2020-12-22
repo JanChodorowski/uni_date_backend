@@ -12,20 +12,13 @@ import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { PathContext } from "../../context/pathContext";
 import { ColorContext } from "../../context/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
+import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [path, setPath] = useContext(PathContext);
-  const [isDark] = useContext(ColorContext);
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      padding: "1rem",
-      backgroundColor: isDark
-        ? "rgba(38, 50, 56, 0.7)"
-        : "rgba(255, 255, 255, 0.6)",
-    },
-  }));
-  const { paper } = useStyles();
+
+  const  paper  = useTransparentPaperStyle();
   const history = useHistory();
   const { profile, settings } = NAVIGATION;
 

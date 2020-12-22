@@ -23,6 +23,7 @@ import { LoadingContext } from "../../context/loadingContext";
 import ChipInput from "material-ui-chip-input";
 import { makeStyles } from "@material-ui/core/styles";
 import { ColorContext } from "../../context/colorContext";
+import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 const genderEnum = {
   Male: 1,
   Female: 2,
@@ -32,18 +33,10 @@ const genderEnum = {
 const UserForm = () => {
   const [user, setUser] = useContext(UserContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-  const [isDark] = useContext(ColorContext);
 
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      padding: "1rem",
-      backgroundColor: isDark
-        ? "rgba(38, 50, 56, 0.7)"
-        : "rgba(255, 255, 255, 0.6)",
-    },
-  }));
 
-  const { paper } = useStyles();
+
+  const  paper  = useTransparentPaperStyle();
 
   const initialState = {
     userName: user.userName || "",
