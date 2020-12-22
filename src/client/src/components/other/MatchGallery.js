@@ -18,7 +18,7 @@ import { UserContext } from "../../context/userContext";
 import { getPicture, getUser } from "../../api";
 import { compareFileNames } from "../../shared/functions";
 import { ProfilesContext } from "../../context/profilesContext";
-import {LoadingContext} from "../../context/loadingContext";
+import { LoadingContext } from "../../context/loadingContext";
 
 const imgSize = "400px";
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Gallery({ profileId }) {
-
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
@@ -57,28 +56,30 @@ function Gallery({ profileId }) {
     let mounted = true;
     setIsLoading(true);
 
-    let profileBlobsPromises = profiles.find(p => p.id === profileId).pictures.map((p) => {
-      return getPicture(p.fileName);
-    });
-    console.log('profileBlobsPromises',profileBlobsPromises)
+    let profileBlobsPromises = profiles
+      .find((p) => p.id === profileId)
+      .pictures.map((p) => {
+        return getPicture(p.fileName);
+      });
+    console.log("profileBlobsPromises", profileBlobsPromises);
 
     Promise.all(profileBlobsPromises)
       .then((results) => {
         const picturesDataWithBlobs = results
           .map((r) => {
             return {
-              ...profiles.find(p => p.id === profileId).pictures.find(
-                (p) => p.fileName === r.headers.filename
-              ),
+              ...profiles
+                .find((p) => p.id === profileId)
+                .pictures.find((p) => p.fileName === r.headers.filename),
               blob: r.data,
             };
           })
           .sort(compareFileNames);
-        console.log('picturesDataWithBlobs',picturesDataWithBlobs)
-        const index = profiles.findIndex(p => p.id === profileId)
-        profiles[index].pictures = picturesDataWithBlobs
-            // .picutres = picturesDataWithBlobs
-        console.log('profilesWithBlobs',profiles)
+        console.log("picturesDataWithBlobs", picturesDataWithBlobs);
+        const index = profiles.findIndex((p) => p.id === profileId);
+        profiles[index].pictures = picturesDataWithBlobs;
+        // .picutres = picturesDataWithBlobs
+        console.log("profilesWithBlobs", profiles);
 
         setProfiles(profiles);
       })
@@ -94,7 +95,9 @@ function Gallery({ profileId }) {
     };
   }, []);
 
-  const maxSteps = profiles.find(p => p.id === profileId).pictures.filter(p => p.hasOwnProperty('blob')).length;
+  const maxSteps = profiles
+    .find((p) => p.id === profileId)
+    .pictures.filter((p) => p.hasOwnProperty("blob")).length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -119,17 +122,19 @@ function Gallery({ profileId }) {
               onChangeIndex={handleStepChange}
               enableMouseEvents
             >
-              {profiles.find(p => p.id === profileId).pictures.map((img, index) => (
-                <div key={img.fileName}>
-                  {Math.abs(activeStep - index) <= 2 ? (
-                    <img
-                      className={classes.img}
-                      src={URL.createObjectURL(img.blob)}
-                      alt={img.blob}
-                    />
-                  ) : null}
-                </div>
-              ))}
+              {profiles
+                .find((p) => p.id === profileId)
+                .pictures.map((img, index) => (
+                  <div key={img.fileName}>
+                    {Math.abs(activeStep - index) <= 2 ? (
+                      <img
+                        className={classes.img}
+                        src={URL.createObjectURL(img.blob)}
+                        alt={img.blob}
+                      />
+                    ) : null}
+                  </div>
+                ))}
             </SwipeableViews>
             <MobileStepper
               steps={maxSteps}
