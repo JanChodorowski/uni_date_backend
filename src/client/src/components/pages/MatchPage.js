@@ -19,7 +19,7 @@ import RegisterForm from "../forms/RegisterForm";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import MatchGallery from "../other/MatchGallery";
-import {blue, pink} from "@material-ui/core/colors";
+import { blue, pink } from "@material-ui/core/colors";
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
@@ -127,13 +127,13 @@ const MatchPage = () => {
   };
 
   const getGenderColor = (gender) => {
-    const genderLowerCase = gender.toLocaleLowerCase()
-    if(genderLowerCase === 'male'){
+    const genderLowerCase = gender.toLocaleLowerCase();
+    if (genderLowerCase === "male") {
       return blue["500"];
-    } else if (genderLowerCase === 'female'){
-      return pink["400"]
+    } else if (genderLowerCase === "female") {
+      return pink["400"];
     }
-  }
+  };
 
   return (
     <>
@@ -194,7 +194,11 @@ const MatchPage = () => {
                           </Grid>
                           <Grid item>
                             <Typography
-                              style={{ fontSize: "1.5rem", fontWeight: "bold", color: getGenderColor(p.gender)  }}
+                              style={{
+                                fontSize: "1.5rem",
+                                fontWeight: "bold",
+                                color: getGenderColor(p.gender),
+                              }}
                               paragraph
                             >
                               {p.userName}

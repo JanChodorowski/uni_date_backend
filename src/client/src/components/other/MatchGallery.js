@@ -52,8 +52,8 @@ function Gallery({ profileId }) {
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const maxSteps = profiles
-      .find((p) => p.id === profileId)
-      .pictures.filter((p) => p.hasOwnProperty("blob")).length;
+    .find((p) => p.id === profileId)
+    .pictures.filter((p) => p.hasOwnProperty("blob")).length;
   useEffect(() => {
     if (maxSteps) {
       return;
@@ -100,8 +100,6 @@ function Gallery({ profileId }) {
       mounted = false;
     };
   }, []);
-
-
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

@@ -13,14 +13,13 @@ import { PathContext } from "../../context/pathContext";
 import { ColorContext } from "../../context/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
-import {ProfilesContext} from "../../context/profilesContext";
+import { ProfilesContext } from "../../context/profilesContext";
 
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
 
   const [path, setPath] = useContext(PathContext);
-
 
   const paper = useTransparentPaperStyle();
   const history = useHistory();
@@ -30,7 +29,7 @@ const SettingsPage = () => {
     const cookies = new Cookies();
     cookies.remove("token");
     setUser(EMPTY_USER);
-    setProfiles(null)
+    setProfiles(null);
     setPath(profile);
     history.push(`/`);
   };

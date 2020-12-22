@@ -112,8 +112,8 @@ const AvatarForm = () => {
                 label=""
                 fileContainerStyle={{
                   backgroundColor: isDark
-                      ? "rgba(38, 50, 56, 0.7)"
-                      : "rgba(255, 255, 255, 0.6)",
+                    ? "rgba(38, 50, 56, 0.7)"
+                    : "rgba(255, 255, 255, 0.6)",
                 }}
                 buttonStyles={{
                   backgroundColor: "#03a9f4",
