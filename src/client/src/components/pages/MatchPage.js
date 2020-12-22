@@ -145,7 +145,7 @@ const MatchPage = () => {
                         )}
                       </Grid>
                       <Grid item>
-                        <Typography style={{ fontWeight: "bold" }} paragraph>
+                        <Typography  style={{ fontSize: '1.5rem', fontWeight: "bold" }} paragraph>
                           {p.userName}
                         </Typography>
                       </Grid>
