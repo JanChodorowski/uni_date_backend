@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { compareFileNames, getItemByKey } from "../../shared/functions";
+import {capitalizeFirstLetter, compareFileNames, getItemByKey} from "../../shared/functions";
 import {
   AVATAR_SIZE,
   EMPTY_USER,
@@ -201,7 +201,7 @@ const MatchPage = () => {
                               }}
                               paragraph
                             >
-                              {p.userName}
+                              {capitalizeFirstLetter(p.userName)}
                             </Typography>
                           </Grid>
                         </Grid>
