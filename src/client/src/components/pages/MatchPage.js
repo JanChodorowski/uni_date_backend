@@ -8,7 +8,7 @@ import {
 import { getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
-import { Avatar, Grid, Typography } from "@material-ui/core";
+import {Avatar, Card, Grid, IconButton, Typography} from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 
@@ -50,11 +50,6 @@ const MatchPage = () => {
                 pd.pictures.find((p) => p.fileName === r.headers.filename)
               ).avatar = r.data;
             });
-
-            // profilesData = {
-            //   ...profilesData,
-            //   pictures: picturesDataWithBlobs,
-            // };
             console.log("profilesData", profilesData);
           })
           .catch((e) => {
@@ -75,8 +70,10 @@ const MatchPage = () => {
     };
   }, []);
 
+  const defaultLayout = 12
+
   const decideSm = () => {
-    let autoLayout = 12;
+    let autoLayout = defaultLayout;
     if (profiles.length === 2) {
       autoLayout = 6;
     } else if (profiles.length > 2) {
@@ -86,7 +83,7 @@ const MatchPage = () => {
   };
 
   const decideMd = () => {
-    let autoLayout = 12;
+    let autoLayout = defaultLayout;
     if (profiles.length === 2) {
       autoLayout = 6;
     } else if (profiles.length === 3) {
@@ -116,12 +113,16 @@ const MatchPage = () => {
                   <Grid
                     container
                     item
+                    alignItems="center"
+                    justify="center"
                     style={{ padding: "1rem" }}
                     key={i}
                     xs={12}
                     sm={decideSm()}
                     md={decideMd()}
                   >
+                      <Grid item>
+                      <IconButton>
                     <Grid
                       container
                       direction="column"
@@ -149,7 +150,7 @@ const MatchPage = () => {
                           {p.userName}
                         </Typography>
                       </Grid>
-                    </Grid>
+                    </Grid></IconButton></Grid>
                   </Grid>
                 ))}
             </Grid>
