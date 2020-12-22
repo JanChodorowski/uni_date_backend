@@ -65,10 +65,7 @@ const LandingPage = () => {
                       justify="center"
                     >
                       <Grid item>
-                        <Typography
-                          variant="h1"
-                          style={{ lineHeight: "80%" }}
-                        >
+                        <Typography variant="h1" style={{ lineHeight: "80%" }}>
                           {APP_NAME}
                         </Typography>
                       </Grid>
