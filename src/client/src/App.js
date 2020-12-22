@@ -128,6 +128,7 @@ function App() {
 
   let chosenTheme = createMuiTheme(isDark ? APP_THEME.dark : APP_THEME.light);
   chosenTheme = responsiveFontSizes(chosenTheme);
+
   const { chat, filter, match, profile, settings, deleteaccount } = NAVIGATION;
 
   return (
@@ -142,10 +143,6 @@ function App() {
                 <PathContext.Provider value={[path, setPath]}>
                   <CssBaseline />
                   <ProgressShower></ProgressShower>
-
-                  {/*{user.email && user?.pictures[0].blob && <img*/}
-                  {/*    src={URL.createObjectURL(user.pictures[0].blob)}*/}
-                  {/*/>}*/}
                   {user.email ? (
                     <>
                       <Logo></Logo>

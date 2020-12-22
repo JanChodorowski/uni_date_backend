@@ -4,6 +4,7 @@ import * as yup from "yup";
 
 export const LOCAL_STORAGE_KEY = {
   theme: "theme-ui-color-mode",
+  jwtToken: "token"
 };
 
 export const THEME_NAMES = {
@@ -103,3 +104,4 @@ export const EMPTY_USER = {};
 export const AVATAR_SIZE = "100px";
 
 export const APP_NAME = "BERG DATE";
+

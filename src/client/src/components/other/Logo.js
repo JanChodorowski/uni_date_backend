@@ -22,7 +22,7 @@ const Logo = () => {
   }));
 
   const { logoPaper } = useStyles();
-  const logoSize = "3rem";
+  const logoSize = "2rem";
   return (
     <Paper className={logoPaper} elevation={0} variant="outlined">
       <Grid
@@ -36,7 +36,7 @@ const Logo = () => {
           <img src={logo} style={{ width: logoSize, height: logoSize }} />{" "}
         </Grid>
         <Grid item>
-          <Typography variant="h4" noWrap>
+          <Typography variant="h6" noWrap>
             {APP_NAME}
           </Typography>
         </Grid>
