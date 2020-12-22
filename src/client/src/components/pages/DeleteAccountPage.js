@@ -10,6 +10,7 @@ import { UserContext } from "../../context/userContext";
 import { deleteUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { PathContext } from "../../context/pathContext";
+import {ProfilesContext} from "../../context/profilesContext";
 
 const DeleteAccountPage = () => {
   const history = useHistory();
@@ -17,6 +18,8 @@ const DeleteAccountPage = () => {
   const { profile } = NAVIGATION;
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [path, setPath] = useContext(PathContext);
+  const [profiles, setProfiles] = useContext(ProfilesContext);
+
   const redirectToHomePage = () => {
     history.push(`/${profile}`);
     setPath(profile);
@@ -32,6 +35,7 @@ const DeleteAccountPage = () => {
         const cookies = new Cookies();
         cookies.remove("token");
         setUser(EMPTY_USER);
+        setProfiles(null)
         redirectToHomePage();
       })
       .catch((e) => {})

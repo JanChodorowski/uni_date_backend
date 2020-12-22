@@ -16,11 +16,11 @@ import UserForm from "../forms/UserForm";
 const ProfilePage = () => {
   return (
     <>
-      <Grid container direction="row" alignItems="center" justify="center">
-        <Grid item style={{ padding: "1rem" }}>
+      <Grid container direction="row" alignItems="center" justify="space-evenly" >
+        <Grid item style={{ marginTop: '3rem' }}>
           <AvatarForm></AvatarForm>
         </Grid>
-        <Grid item style={{ padding: "1rem", maxWidth: "400px" }}>
+        <Grid item style={{  maxWidth: "400px",marginTop: '3rem' }}>
           <UserForm></UserForm>
         </Grid>
       </Grid>

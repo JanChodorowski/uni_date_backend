@@ -40,6 +40,7 @@ const AvatarForm = () => {
       user.pictures[0].fileName) ||
       ""
   );
+  const [isDark] = useContext(ColorContext);
 
   const paper = useTransparentPaperStyle();
   const [avatarPicture, setAvatarPicture] = useState(
@@ -55,7 +56,6 @@ const AvatarForm = () => {
   const handlePictureChange = (newPictures) => {
     setPictures(newPictures);
   };
-  const classes = useStyles();
 
   const handleAvatarChange = () => {
     user.pictures.forEach((img) => (img.isAvatar = false));
@@ -110,8 +110,13 @@ const AvatarForm = () => {
                 maxFileSize={5242880}
                 withPreview
                 label=""
+                fileContainerStyle={{
+                  backgroundColor: isDark
+                      ? "rgba(38, 50, 56, 0.7)"
+                      : "rgba(255, 255, 255, 0.6)",
+                }}
                 buttonStyles={{
-                  backgroundColor: "blue",
+                  backgroundColor: "#03a9f4",
                   fontWeight: "bold",
                   padding: "1rem",
                   margin: "1rem",
