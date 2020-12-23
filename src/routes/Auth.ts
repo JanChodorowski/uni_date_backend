@@ -8,7 +8,7 @@ import { University } from '@entities/University';
 import { User } from '@entities/User';
 import { IUser } from '@interfaces/IUser';
 import {
-  IRequest, paramMissingError, PASSWORD_MIN_CHARS,
+  IRequest, PARAM_MISSING_ERROR, PASSWORD_MIN_CHARS,
 } from '@shared/constants';
 import StatusCodes from 'http-status-codes';
 import * as yup from 'yup';

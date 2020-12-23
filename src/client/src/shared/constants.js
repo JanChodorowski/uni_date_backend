@@ -88,7 +88,7 @@ export const NAVIGATION = {
   deleteaccount: "deleteaccount",
 };
 
-export const basicValidation = {
+export const BASIC_VALIDATION = {
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")

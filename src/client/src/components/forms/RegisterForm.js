@@ -15,12 +15,12 @@ import {
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import red from "@material-ui/core/colors/red";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
-import { basicValidation, DEFAULT_PADDING } from "../../shared/constants";
+import { BASIC_VALIDATION, DEFAULT_PADDING } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 
 const validationSchema = yup.object({
-  ...basicValidation,
+  ...BASIC_VALIDATION,
   passwordConfirmation: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),

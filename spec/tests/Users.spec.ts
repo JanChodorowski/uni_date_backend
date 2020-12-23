@@ -5,7 +5,7 @@ import app from '@server';
 import UserDao from '@daos/User/UserDao.mock';
 import User, { IUser } from '@entities/User';
 import { pErr } from '@shared/functions';
-import { paramMissingError } from '@shared/constants';
+import { PARAM_MISSING_ERROR } from '@shared/constants';
 import { IReqBody, IResponse } from '../support/types';
 
 describe('Users Routes', () => {
@@ -83,14 +83,14 @@ describe('Users Routes', () => {
         });
     });
 
-    it(`should return a JSON object with an error message of "${paramMissingError}" and a status
+    it(`should return a JSON object with an error message of "${PARAM_MISSING_ERROR}" and a status
             code of "${BAD_REQUEST}" if the user param was missing.`, (done) => {
       // Call API
       callApi({})
         .end((err: Error, res: IResponse) => {
           pErr(err);
           expect(res.status).toBe(BAD_REQUEST);
-          expect(res.body.error).toBe(paramMissingError);
+          expect(res.body.error).toBe(PARAM_MISSING_ERROR);
           done();
         });
     });
@@ -131,14 +131,14 @@ describe('Users Routes', () => {
         });
     });
 
-    it(`should return a JSON object with an error message of "${paramMissingError}" and a
+    it(`should return a JSON object with an error message of "${PARAM_MISSING_ERROR}" and a
             status code of "${BAD_REQUEST}" if the user param was missing.`, (done) => {
       // Call api
       callApi({})
         .end((err: Error, res: IResponse) => {
           pErr(err);
           expect(res.status).toBe(BAD_REQUEST);
-          expect(res.body.error).toBe(paramMissingError);
+          expect(res.body.error).toBe(PARAM_MISSING_ERROR);
           done();
         });
     });

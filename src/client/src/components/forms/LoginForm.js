@@ -10,12 +10,12 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
-import { basicValidation, DEFAULT_PADDING } from "../../shared/constants";
+import { BASIC_VALIDATION, DEFAULT_PADDING } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { compareFileNames } from "../../shared/functions";
 
-const validationSchema = yup.object(basicValidation);
+const validationSchema = yup.object(BASIC_VALIDATION);
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
