@@ -121,7 +121,6 @@ const AvatarForm = () => {
                   padding: DEFAULT_PADDING,
                   margin: DEFAULT_PADDING,
                 }}
-                style={{ marginBottom: DEFAULT_PADDING }}
               />
             </>
           </Grid>

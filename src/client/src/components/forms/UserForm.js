@@ -40,14 +40,14 @@ const UserForm = () => {
   const paper = useTransparentPaperStyle();
 
   const initialState = {
-    userName: capitalizeFirstLetter(user.userName) || "",
+    userName: (user.userName && capitalizeFirstLetter(user.userName)) || "",
     dateOfBirth:
       (user.dateOfBirth !== "1970-01-01" && user.dateOfBirth) || null,
     description: user.description || "",
-    university: capitalizeFirstLetter(user.university) || "",
-    city: capitalizeFirstLetter(user.city) || "",
+    university: (user.university && capitalizeFirstLetter(user.university)) || "",
+    city: (user.city && capitalizeFirstLetter(user.city)) || "",
     interests: user.interests || [],
-    fieldOfStudy: capitalizeFirstLetter(user.fieldOfStudy) || "",
+    fieldOfStudy: (user.fieldOfStudy && capitalizeFirstLetter(user.fieldOfStudy)) || "",
     gender: user.gender || "",
     isGraduated: user.isGraduated || false,
   };
