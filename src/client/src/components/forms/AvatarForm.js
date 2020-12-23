@@ -11,24 +11,24 @@ import { makeStyles } from "@material-ui/core/styles";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
-import { AVATAR_SIZE } from "../../shared/constants";
+import {AVATAR_SIZE, DEFAULT_PADDING} from "../../shared/constants";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  large: {
-    width: "50rem",
-    height: "50rem",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: "flex",
+//     "& > *": {
+//       margin: theme.spacing(1),
+//     },
+//   },
+//   small: {
+//     width: theme.spacing(3),
+//     height: theme.spacing(3),
+//   },
+//   large: {
+//     width: "50rem",
+//     height: "50rem",
+//   },
+// }));
 
 const AvatarForm = () => {
   const [pictures, setPictures] = useState([]);
@@ -118,10 +118,10 @@ const AvatarForm = () => {
                 buttonStyles={{
                   backgroundColor: "#03a9f4",
                   fontWeight: "bold",
-                  padding: "1rem",
-                  margin: "1rem",
+                  padding: DEFAULT_PADDING,
+                  margin: DEFAULT_PADDING,
                 }}
-                style={{ marginBottom: "2rem" }}
+                style={{ marginBottom: DEFAULT_PADDING}}
 
               />
             </>
@@ -139,8 +139,8 @@ const AvatarForm = () => {
               >
                 Upload pictures
               </Button>
-              <br />
-              <br />
+
+
             </>
           </Grid>
         </Grid>
@@ -148,7 +148,7 @@ const AvatarForm = () => {
 
       {!user?.pictures ||
         (user?.pictures?.length > 0 && (
-          <Paper className={paper} style={{ marginTop: "1rem" }}>
+          <Paper className={paper} style={{ marginTop: DEFAULT_PADDING }}>
             <Grid
               container
               direction="column"
@@ -160,7 +160,7 @@ const AvatarForm = () => {
                   <CenterHOC minHeight="0">
                     <Gallery setChosenFileName={setChosenFileName}></Gallery>
                   </CenterHOC>
-                  <br />
+
                 </>
               </Grid>
               <Grid
@@ -170,7 +170,7 @@ const AvatarForm = () => {
                 alignItems="center"
                 justify="center"
               >
-                <Grid item style={{ padding: "1rem" }}>
+                <Grid item style={{ padding: DEFAULT_PADDING }}>
                   <Avatar
                     alt={user.userName}
                     src={avatarPicture}

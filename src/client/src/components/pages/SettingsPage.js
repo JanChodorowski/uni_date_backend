@@ -55,9 +55,7 @@ const SettingsPage = () => {
                 LOG OUT
               </Button>
             </Paper>
-            <br />
-            <br />
-            <br />
+
           </>
         </Grid>
         <Grid item>

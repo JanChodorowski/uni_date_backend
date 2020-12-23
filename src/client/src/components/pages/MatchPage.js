@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {capitalizeFirstLetter, compareFileNames, getItemByKey} from "../../shared/functions";
 import {
-  AVATAR_SIZE,
+  AVATAR_SIZE, DEFAULT_PADDING,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   THEME_NAMES,
@@ -139,9 +139,6 @@ const MatchPage = () => {
     <>
       {checkIfProfilesAlreadyFetched() && (
         <>
-          <br />
-          <br />
-          <br />
           <CenterPaperHOC>
             <Grid
               container
@@ -156,7 +153,7 @@ const MatchPage = () => {
                     item
                     alignItems="center"
                     justify="center"
-                    style={{ padding: "1rem" }}
+                    style={{ padding: DEFAULT_PADDING }}
                     key={i}
                     xs={12}
                     sm={decideSm()}

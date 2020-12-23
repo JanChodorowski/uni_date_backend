@@ -24,6 +24,9 @@ import ChipInput from "material-ui-chip-input";
 import { makeStyles } from "@material-ui/core/styles";
 import { ColorContext } from "../../context/colorContext";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
+import {capitalizeFirstLetter} from "../../shared/functions";
+import {DEFAULT_PADDING} from "../../shared/constants";
+
 const genderEnum = {
   Male: 1,
   Female: 2,
@@ -37,15 +40,15 @@ const UserForm = () => {
   const paper = useTransparentPaperStyle();
 
   const initialState = {
-    userName: user.userName || "",
-    university: user.university || "",
-    description: user.description || "",
-    gender: user.gender || "",
+    userName: capitalizeFirstLetter(user.userName) || "",
     dateOfBirth:
-      (user.dateOfBirth !== "1970-01-01" && user.dateOfBirth) || null,
-    city: user.city || "",
+        (user.dateOfBirth !== "1970-01-01" && user.dateOfBirth) || null,
+    description: user.description || "",
+    university: capitalizeFirstLetter(user.university) || "",
+    city: capitalizeFirstLetter(user.city) || "",
     interests: user.interests || [],
-    fieldOfStudy: user.fieldOfStudy || "",
+    fieldOfStudy: capitalizeFirstLetter(user.fieldOfStudy) || "",
+    gender: user.gender || "",
     isGraduated: user.isGraduated || false,
   };
 
@@ -104,7 +107,8 @@ const UserForm = () => {
 
   return (
     <form noValidate autoComplete="off" onSubmit={onSubmit}>
-      <Paper className={paper}>
+      <Paper className={paper}         style={{marginBottom: DEFAULT_PADDING}}
+      >
         <TextField
           name="university"
           value={university}
@@ -112,11 +116,13 @@ const UserForm = () => {
           fullWidth
           onChange={onChange}
           size="small"
+          style={{marginBottom: DEFAULT_PADDING}}
+
         />
         {university && (
           <>
-            <br />
-            <br />
+
+
             <TextField
               name="fieldOfStudy"
               value={fieldOfStudy}
@@ -124,9 +130,11 @@ const UserForm = () => {
               fullWidth
               onChange={onChange}
               size="small"
+              style={{marginBottom: DEFAULT_PADDING}}
+
             />
-            <br />
-            <br />
+
+
             <FormGroup row>
               <FormControlLabel
                 control={
@@ -136,6 +144,7 @@ const UserForm = () => {
                     name="isGraduated"
                     color="primary"
                     size="small"
+
                   />
                 }
                 label="Already graduated?"
@@ -144,8 +153,9 @@ const UserForm = () => {
           </>
         )}
       </Paper>
-      <br />
-      <Paper className={paper}>
+
+      <Paper className={paper}         style={{marginBottom: DEFAULT_PADDING}}
+      >
         <TextField
           name="userName"
           value={userName}
@@ -153,9 +163,11 @@ const UserForm = () => {
           fullWidth
           onChange={onChange}
           size="small"
+          style={{marginBottom: '1rem'}}
+
         />
-        <br />
-        <br />
+
+
         <TextField
           name="description"
           label="Description"
@@ -166,9 +178,11 @@ const UserForm = () => {
           onChange={onChange}
           variant="outlined"
           size="small"
+          style={{marginBottom: DEFAULT_PADDING}}
+
         />
-        <br />
-        <br />
+
+
         <TextField
           name="gender"
           select
@@ -184,8 +198,8 @@ const UserForm = () => {
             </MenuItem>
           ))}
         </TextField>
-        <br />
-        <br />
+
+
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             name="dateOfBirth"
@@ -203,8 +217,8 @@ const UserForm = () => {
             size="small"
           />
         </MuiPickersUtilsProvider>
-        <br />
-        <br />
+
+
         <ChipInput
           fullWidth
           variant="filled"
@@ -215,9 +229,11 @@ const UserForm = () => {
           defaultValue={interests}
           onChange={onInterestsChange}
           size="small"
+          style={{marginBottom: DEFAULT_PADDING}}
+
         />
-        <br />
-        <br />
+
+
         <TextField
           name="city"
           value={city}
@@ -227,7 +243,7 @@ const UserForm = () => {
           size="small"
         />
       </Paper>
-      <br />
+
       <Paper className={paper}>
         <Button
           color="primary"

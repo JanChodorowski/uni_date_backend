@@ -10,7 +10,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
-import { basicValidation } from "../../shared/constants";
+import {basicValidation, DEFAULT_PADDING} from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { compareFileNames } from "../../shared/functions";
@@ -114,15 +114,18 @@ const LoginForm = () => {
           helperText={formik.touched.email && formik.errors.email}
           autoFocus
           size="small"
+          style={{marginBottom: DEFAULT_PADDING}}
         />
-        <br />
-        <br />
+
+
         <Grid
           container
           direction="row"
           alignItems="center"
           justify="center"
           wrap="nowrap"
+          style={{marginBottom: DEFAULT_PADDING}}
+
         >
           <Grid item>
             <TextField
@@ -136,6 +139,7 @@ const LoginForm = () => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               size="small"
+
             />
           </Grid>
           <Grid item>
@@ -146,7 +150,7 @@ const LoginForm = () => {
             ></PasswordVisibilityBtn>
           </Grid>
         </Grid>
-        <br />
+
         {!areCredentialsCorrect && !isLoading && (
           <>
             <p style={{ color: "rgb(204,0,0)" }}>

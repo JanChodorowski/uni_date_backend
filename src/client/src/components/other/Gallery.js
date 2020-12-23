@@ -9,12 +9,12 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { UserContext } from "../../context/userContext";
+import {DEFAULT_IMAGE_SIZE} from "../../shared/constants";
 
-const imgSize = "400px";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    maxWidth: imgSize,
+    maxWidth: DEFAULT_IMAGE_SIZE,
   },
   header: {
     display: "flex",
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     width: "100%",
-    maxHeight: imgSize,
+    maxHeight: DEFAULT_IMAGE_SIZE,
     display: "block",
     overflow: "hidden",
     objectFit: "cover",

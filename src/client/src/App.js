@@ -146,7 +146,7 @@ function App() {
                   {user.email ? (
                     <>
                       <Logo></Logo>
-                      <Switch>
+                      <Switch >
                         <Route path={`/${chat}`} component={ChatPage} exact />
                         <Route path={`/${match}`} component={MatchPage} exact />
                         <Route
@@ -173,6 +173,7 @@ function App() {
                           <Redirect to={`/${profile}`} />
                         </Route>
                       </Switch>
+
                       <BtmNav />
                     </>
                   ) : (

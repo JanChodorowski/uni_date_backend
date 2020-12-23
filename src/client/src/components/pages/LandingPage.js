@@ -23,8 +23,9 @@ import ColorBtnCorner from "../other/ColorBtnCorner";
 import { ColorContext } from "../../context/colorContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { LoadingUserDataContext } from "../../context/loadingUserDataContex";
-import { APP_NAME } from "../../shared/constants";
+import {APP_NAME, DEFAULT_PADDING} from "../../shared/constants";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
+import TextField from "@material-ui/core/TextField";
 
 const LandingPage = () => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);
@@ -36,8 +37,8 @@ const LandingPage = () => {
         <>
           <ColorBtnCorner></ColorBtnCorner>
           <CenterHOC>
-            <Grid item style={{ marginRight: "1rem", marginLeft: "1rem" }}>
-              <Paper className={paper} style={{ marginBottom: "1rem" }}>
+            <Grid item style={{ marginRight: DEFAULT_PADDING, marginLeft: DEFAULT_PADDING }}>
+              <Paper className={paper} style={{ marginBottom: DEFAULT_PADDING }}>
                 <Grid
                   container
                   direction="row"
@@ -50,7 +51,7 @@ const LandingPage = () => {
                       style={{ width: "10rem", height: "10rem" }}
                     />
                   </Grid>
-                  <Grid item style={{ padding: "1rem" }}>
+                  <Grid item style={{ padding: DEFAULT_PADDING }}>
                     <Grid
                       container
                       direction="column"
@@ -62,7 +63,7 @@ const LandingPage = () => {
                           {APP_NAME}
                         </Typography>
                       </Grid>
-                      <Grid item style={{ padding: "1rem" }}>
+                      <Grid item style={{ padding: DEFAULT_PADDING }}>
                         <Typography style={{ fontSize: "1.3rem" }}>
                           Dating app for universities students & graduates
                         </Typography>
@@ -73,10 +74,10 @@ const LandingPage = () => {
               </Paper>
             </Grid>
             <Grid item>
-              <Paper className={paper}>
+              <Paper className={paper}           style={{marginBottom: DEFAULT_PADDING}}
+              >
                 <LoginForm />
               </Paper>
-              <br />
               <Paper className={paper}>
                 <Register></Register>
               </Paper>

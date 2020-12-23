@@ -22,10 +22,10 @@ const ProfilePage = () => {
         alignItems="center"
         justify="space-evenly"
       >
-        <Grid item style={{ marginTop: "3rem" }}>
+        <Grid item>
           <AvatarForm></AvatarForm>
         </Grid>
-        <Grid item style={{ maxWidth: "400px", marginTop: "3rem" }}>
+        <Grid item style={{ maxWidth: "250px" }}>
           <UserForm></UserForm>
         </Grid>
       </Grid>
