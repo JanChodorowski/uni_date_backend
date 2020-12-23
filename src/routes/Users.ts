@@ -15,6 +15,7 @@ import * as yup from 'yup';
 import { City } from '@entities/City';
 import { University } from '@entities/University';
 import { Interest } from '@entities/Interest';
+import { capitalizeFirstLetter } from '@shared/functions';
 
 global.Blob = require('node-blob');
 const CrossBlob = require('cross-blob');
@@ -42,7 +43,9 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
     ...userViewData,
     city: userViewData?.cityName?.cityName || '',
     university: userViewData?.universityName?.universityName || '',
-    interests: (userViewData?.interests && userViewData?.interests.length > 0 && userViewData?.interests.map((interest: any) => interest.interestName)) || [],
+    interests: (userViewData?.interests
+        && userViewData?.interests.length > 0
+        && userViewData?.interests.map((interest: any) => interest.interestName)) || [],
   };
   delete userDto.cityName;
   delete userDto.universityName;
@@ -125,14 +128,14 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 
   const updatedUser = new User();
   updatedUser.id = req?.body?.payload?.id;
-  updatedUser.userName = userName;
+  updatedUser.userName = capitalizeFirstLetter(userName);
   updatedUser.gender = gender;
   updatedUser.dateOfBirth = dateOfBirth;
   updatedUser.description = description;
   updatedUser.email = email;
   updatedUser.popularity = popularity;
   updatedUser.isGraduated = isGraduated;
-  updatedUser.fieldOfStudy = fieldOfStudy;
+  updatedUser.fieldOfStudy = capitalizeFirstLetter(fieldOfStudy);
   updatedUser.activityIntensity = activityIntensity;
   updatedUser.localization = localization;
   updatedUser.maxSearchDistanceFilter = maxSearchDistanceFilter;
@@ -140,12 +143,14 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   updatedUser.ageToFilter = ageToFilter;
 
   const newOrUpdatedCity = new City();
-  newOrUpdatedCity.cityName = city;
-  updatedUser.cityName = city;
+  const capitalizedCity = capitalizeFirstLetter(city);
+  newOrUpdatedCity.cityName = capitalizedCity;
+  updatedUser.cityName = capitalizedCity;
 
   const newOrUpdatedUniversity = new University();
-  newOrUpdatedUniversity.universityName = university;
-  updatedUser.universityName = university;
+  const capitalizedUniversity = capitalizeFirstLetter(university);
+  newOrUpdatedUniversity.universityName = capitalizedUniversity;
+  updatedUser.universityName = capitalizedUniversity;
 
   const newOrUpdatedInterests = interests.map((interest: string) => {
     const newInterest = new Interest();
@@ -155,7 +160,12 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     return newInterest;
   });
 
-  const dbResult = userDao.update(updatedUser, newOrUpdatedCity, newOrUpdatedUniversity, newOrUpdatedInterests).catch((err) => {
+  const dbResult = userDao.update(
+    updatedUser,
+    newOrUpdatedCity,
+    newOrUpdatedUniversity,
+    newOrUpdatedInterests,
+  ).catch((err) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
