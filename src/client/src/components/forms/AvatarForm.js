@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
-import {AVATAR_SIZE, DEFAULT_PADDING} from "../../shared/constants";
+import { AVATAR_SIZE, DEFAULT_PADDING } from "../../shared/constants";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -121,8 +121,7 @@ const AvatarForm = () => {
                   padding: DEFAULT_PADDING,
                   margin: DEFAULT_PADDING,
                 }}
-                style={{ marginBottom: DEFAULT_PADDING}}
-
+                style={{ marginBottom: DEFAULT_PADDING }}
               />
             </>
           </Grid>
@@ -139,8 +138,6 @@ const AvatarForm = () => {
               >
                 Upload pictures
               </Button>
-
-
             </>
           </Grid>
         </Grid>
@@ -160,7 +157,6 @@ const AvatarForm = () => {
                   <CenterHOC minHeight="0">
                     <Gallery setChosenFileName={setChosenFileName}></Gallery>
                   </CenterHOC>
-
                 </>
               </Grid>
               <Grid

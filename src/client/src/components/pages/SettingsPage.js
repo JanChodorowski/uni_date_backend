@@ -2,7 +2,11 @@ import React, { useContext } from "react";
 import Cookies from "universal-cookie";
 import Button from "@material-ui/core/Button";
 import { UserContext } from "../../context/userContext";
-import {EMPTY_USER, LOCAL_STORAGE_KEY, NAVIGATION} from "../../shared/constants";
+import {
+  EMPTY_USER,
+  LOCAL_STORAGE_KEY,
+  NAVIGATION,
+} from "../../shared/constants";
 import { useHistory } from "react-router-dom";
 import { Grid, Paper } from "@material-ui/core";
 import ColorBtn from "../buttons/ColorBtn";
@@ -55,7 +59,6 @@ const SettingsPage = () => {
                 LOG OUT
               </Button>
             </Paper>
-
           </>
         </Grid>
         <Grid item>

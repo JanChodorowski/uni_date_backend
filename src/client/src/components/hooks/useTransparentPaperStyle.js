@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { ColorContext } from "../../context/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
-import {DEFAULT_PADDING} from "../../shared/constants";
+import { DEFAULT_PADDING } from "../../shared/constants";
 
 const useTransparentPaperStyle = () => {
   const [isDark] = useContext(ColorContext);

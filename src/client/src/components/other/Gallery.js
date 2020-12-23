@@ -9,7 +9,7 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { UserContext } from "../../context/userContext";
-import {DEFAULT_IMAGE_SIZE} from "../../shared/constants";
+import { DEFAULT_IMAGE_SIZE } from "../../shared/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {

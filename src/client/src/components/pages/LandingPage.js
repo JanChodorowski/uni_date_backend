@@ -23,7 +23,7 @@ import ColorBtnCorner from "../other/ColorBtnCorner";
 import { ColorContext } from "../../context/colorContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { LoadingUserDataContext } from "../../context/loadingUserDataContex";
-import {APP_NAME, DEFAULT_PADDING} from "../../shared/constants";
+import { APP_NAME, DEFAULT_PADDING } from "../../shared/constants";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import TextField from "@material-ui/core/TextField";
 
@@ -37,8 +37,17 @@ const LandingPage = () => {
         <>
           <ColorBtnCorner></ColorBtnCorner>
           <CenterHOC>
-            <Grid item style={{ marginRight: DEFAULT_PADDING, marginLeft: DEFAULT_PADDING }}>
-              <Paper className={paper} style={{ marginBottom: DEFAULT_PADDING }}>
+            <Grid
+              item
+              style={{
+                marginRight: DEFAULT_PADDING,
+                marginLeft: DEFAULT_PADDING,
+              }}
+            >
+              <Paper
+                className={paper}
+                style={{ marginBottom: DEFAULT_PADDING }}
+              >
                 <Grid
                   container
                   direction="row"
@@ -74,7 +83,9 @@ const LandingPage = () => {
               </Paper>
             </Grid>
             <Grid item>
-              <Paper className={paper}           style={{marginBottom: DEFAULT_PADDING}}
+              <Paper
+                className={paper}
+                style={{ marginBottom: DEFAULT_PADDING }}
               >
                 <LoginForm />
               </Paper>

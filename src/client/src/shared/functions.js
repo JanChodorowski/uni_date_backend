@@ -16,5 +16,8 @@ export function compareFileNames(a, b) {
   return 0;
 }
 
-export const capitalizeFirstLetter = ([ first, ...rest ], locale = navigator.language) =>
-    first && first.toLocaleUpperCase(locale) + rest.join('').toLocaleLowerCase()
+export const capitalizeFirstLetter = (
+  [first, ...rest],
+  locale = navigator.language
+) =>
+  first && first.toLocaleUpperCase(locale) + rest.join("").toLocaleLowerCase();

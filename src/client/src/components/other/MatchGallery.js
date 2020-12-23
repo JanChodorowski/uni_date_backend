@@ -19,7 +19,7 @@ import { getPicture, getUser } from "../../api";
 import { compareFileNames } from "../../shared/functions";
 import { ProfilesContext } from "../../context/profilesContext";
 import { LoadingContext } from "../../context/loadingContext";
-import {DEFAULT_IMAGE_SIZE} from "../../shared/constants";
+import { DEFAULT_IMAGE_SIZE } from "../../shared/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {

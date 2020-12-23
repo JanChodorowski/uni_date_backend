@@ -15,7 +15,7 @@ import {
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import red from "@material-ui/core/colors/red";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
-import {basicValidation, DEFAULT_PADDING} from "../../shared/constants";
+import { basicValidation, DEFAULT_PADDING } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 
@@ -84,8 +84,7 @@ const RegisterForm = () => {
           helperText={formik.touched.email && formik.errors.email}
           autoFocus
           size="small"
-          style={{marginBottom: DEFAULT_PADDING}}
-
+          style={{ marginBottom: DEFAULT_PADDING }}
         />
 
         <Grid
@@ -94,8 +93,7 @@ const RegisterForm = () => {
           alignItems="center"
           justify="center"
           wrap="nowrap"
-          style={{marginBottom: DEFAULT_PADDING}}
-
+          style={{ marginBottom: DEFAULT_PADDING }}
         >
           <Grid item>
             <TextField
@@ -136,14 +134,13 @@ const RegisterForm = () => {
             formik.errors.passwordConfirmation
           }
           size="small"
-          style={{marginBottom: DEFAULT_PADDING}}
-
+          style={{ marginBottom: DEFAULT_PADDING }}
         />
 
         <br />
         {isUserExisting && !isLoading && (
           <>
-            <p style={{ color: "rgb(204,0,0)",marginBottom: DEFAULT_PADDING }}>
+            <p style={{ color: "rgb(204,0,0)", marginBottom: DEFAULT_PADDING }}>
               User with this email already exists
             </p>
           </>

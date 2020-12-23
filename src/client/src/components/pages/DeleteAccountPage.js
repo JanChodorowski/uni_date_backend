@@ -5,7 +5,11 @@ import Button from "@material-ui/core/Button";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
-import {EMPTY_USER, LOCAL_STORAGE_KEY, NAVIGATION} from "../../shared/constants";
+import {
+  EMPTY_USER,
+  LOCAL_STORAGE_KEY,
+  NAVIGATION,
+} from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { deleteUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
@@ -57,7 +61,6 @@ const DeleteAccountPage = () => {
         >
           YES
         </Button>
-
 
         <Button
           color="primary"

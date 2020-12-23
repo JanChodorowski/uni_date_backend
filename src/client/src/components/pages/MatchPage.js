@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import {capitalizeFirstLetter, compareFileNames, getItemByKey} from "../../shared/functions";
 import {
-  AVATAR_SIZE, DEFAULT_PADDING,
+  capitalizeFirstLetter,
+  compareFileNames,
+  getItemByKey,
+} from "../../shared/functions";
+import {
+  AVATAR_SIZE,
+  DEFAULT_PADDING,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   THEME_NAMES,
