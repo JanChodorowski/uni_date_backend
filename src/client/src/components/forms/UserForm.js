@@ -115,7 +115,6 @@ const UserForm = () => {
           fullWidth
           onChange={onChange}
           size="small"
-          style={{ marginBottom: DEFAULT_PADDING }}
         />
         {university && (
           <>
