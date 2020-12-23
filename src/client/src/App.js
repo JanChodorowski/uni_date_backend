@@ -108,7 +108,6 @@ function App() {
               ...userData,
               pictures: picturesDataWithBlobs,
             };
-            console.log("userData", userData);
           })
           .catch((e) => {
             handleLoading(false);

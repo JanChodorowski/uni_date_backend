@@ -67,7 +67,6 @@ function Gallery({ profileId }) {
       .pictures.map((p) => {
         return getPicture(p.fileName);
       });
-    console.log("profileBlobsPromises", profileBlobsPromises);
 
     Promise.all(profileBlobsPromises)
       .then((results) => {
@@ -81,11 +80,8 @@ function Gallery({ profileId }) {
             };
           })
           .sort(compareFileNames);
-        console.log("picturesDataWithBlobs", picturesDataWithBlobs);
         const index = profiles.findIndex((p) => p.id === profileId);
         profiles[index].pictures = picturesDataWithBlobs;
-        // .picutres = picturesDataWithBlobs
-        console.log("profilesWithBlobs", profiles);
 
         setProfiles(profiles);
       })

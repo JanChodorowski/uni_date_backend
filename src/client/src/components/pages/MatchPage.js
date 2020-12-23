@@ -66,19 +66,15 @@ const MatchPage = () => {
             return getPicture(fileName);
           });
 
-        console.log("profilesData 0 ", profilesData, usersAvatarsPromises);
         Promise.all(usersAvatarsPromises)
           .then((results) => {
-            console.log("results", results);
             results.forEach((r) => {
               profilesData.find((pd) =>
                 pd.pictures.find((p) => p.fileName === r.headers.filename)
               ).avatar = r.data;
             });
-            console.log("profilesData", profilesData);
           })
           .catch((e) => {
-            console.log("e", e);
             setIsLoading(false);
           })
           .finally(() => {
@@ -87,7 +83,6 @@ const MatchPage = () => {
           });
       })
       .catch((e) => {
-        console.log("err", e);
         setIsLoading(false);
       });
     return () => {
@@ -95,35 +90,12 @@ const MatchPage = () => {
     };
   }, [areMoreProfilesNeeded]);
 
-  const defaultLayout = 12;
-
-  const decideSm = () => {
-    let autoLayout = defaultLayout;
-    if (profiles.length === 2) {
-      autoLayout = 6;
-    } else if (profiles.length > 2) {
-      autoLayout = 4;
-    }
-    return autoLayout;
-  };
-
-  const decideMd = () => {
-    let autoLayout = defaultLayout;
-    if (profiles.length === 2) {
-      autoLayout = 6;
-    } else if (profiles.length === 3) {
-      autoLayout = 4;
-    } else if (profiles.length > 3) {
-      autoLayout = 3;
-    }
-    return autoLayout;
-  };
 
   const [open, setOpen] = useState(false);
-  const [chosenProfile, setChosenProfile] = useState(EMPTY_USER);
+  const [chosenProfilesId, setChosenProfilesId] = useState("");
 
   const handleClickOpen = (profileId) => {
-    setChosenProfile(profileId);
+    setChosenProfilesId(profileId);
     setOpen(true);
   };
 
@@ -150,19 +122,16 @@ const MatchPage = () => {
               direction="row"
               alignItems="center"
               justify="center"
+
             >
               {profiles &&
                 profiles.map((p, i) => (
                   <Grid
-                    container
                     item
-                    alignItems="center"
-                    justify="center"
+
                     style={{ padding: DEFAULT_PADDING }}
                     key={i}
-                    xs={12}
-                    sm={decideSm()}
-                    md={decideMd()}
+
                   >
                     <Grid item>
                       <IconButton onClick={() => handleClickOpen(p.id)}>
@@ -222,8 +191,11 @@ const MatchPage = () => {
         TransitionComponent={Transition}
       >
         <DialogContent>
-          <MatchGallery profileId={chosenProfile}></MatchGallery>
-        </DialogContent>
+
+          <MatchGallery profileId={chosenProfilesId}></MatchGallery>
+          <Typography>{profiles.find(p => p.id === chosenProfilesId)?.userName || ""}</Typography>
+          <Typography>{profiles.find(p => p.id === chosenProfilesId)?.userName || ""}</Typography>
+      </DialogContent>
       </Dialog>
     </>
   );
