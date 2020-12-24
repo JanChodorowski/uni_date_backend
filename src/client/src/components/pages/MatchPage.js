@@ -116,8 +116,8 @@ const MatchPage = () => {
   };
 
   const getGenderColor = (gender) => {
-    if(!gender){
-      return
+    if (!gender) {
+      return;
     }
     const genderLowerCase = gender.toLocaleLowerCase();
     if (genderLowerCase === "male") {
@@ -200,50 +200,84 @@ const MatchPage = () => {
       >
         <DialogContent>
           <MatchGallery profileId={chosenProfilesId}></MatchGallery>
-          {profiles.find((p) => p.id === chosenProfilesId)?.userName &&(<>
-          <Typography
-
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                fontWeight: "bold",
-                padding: DEFAULT_SPACE,
-                color: getGenderColor(profiles.find((p) => p.id === chosenProfilesId)?.gender)
-              }}
-          >
-            {`${profiles.find((p) => p.id === chosenProfilesId)?.userName} ` || ""}
-            {calculateAge(profiles.find((p) => p.id === chosenProfilesId)?.dateOfBirth) || ""}
-          </Typography>
-            <Divider></Divider>
-          </>  ) }
-
-          {profiles.find((p) => p.id === chosenProfilesId)?.description && (<>
-              <Typography  style={{ padding: DEFAULT_SPACE }}>
-                {profiles.find((p) => p.id === chosenProfilesId)?.description || ""}
-              </Typography>
-            <Divider></Divider></>
-          )}
-
-          {profiles.find((p) => p.id === chosenProfilesId) && profiles.find((p) => p.id === chosenProfilesId).university && (
+          {profiles.find((p) => p.id === chosenProfilesId)?.userName && (
             <>
-              <LabelValuePrinter  label="University" value={profiles.find((p) => p.id === chosenProfilesId)
-                      ?.university || ""}></LabelValuePrinter>
-              <LabelValuePrinter label="Filed of study" value={profiles.find((p) => p.id === chosenProfilesId)
-                  ?.fieldOfStudy || ""}></LabelValuePrinter>
-              <LabelValuePrinter label="Already graduated?" value={profiles.find((p) => p.id === chosenProfilesId)?.isGraduated
-                  ? "yes"
-                  : "no"}></LabelValuePrinter>
-
+              <Typography
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  padding: DEFAULT_SPACE,
+                  color: getGenderColor(
+                    profiles.find((p) => p.id === chosenProfilesId)?.gender
+                  ),
+                }}
+              >
+                {`${
+                  profiles.find((p) => p.id === chosenProfilesId)?.userName
+                } ` || ""}
+                {calculateAge(
+                  profiles.find((p) => p.id === chosenProfilesId)?.dateOfBirth
+                ) || ""}
+              </Typography>
               <Divider></Divider>
             </>
           )}
-          <LabelValuePrinter label="City" value={profiles.find((p) => p.id === chosenProfilesId)?.city || ""}></LabelValuePrinter>
-          <Divider></Divider>
-          <LabelValuePrinter label="Interests" value={profiles.find((p) => p.id === chosenProfilesId)?.interests || ""}></LabelValuePrinter>
 
-        {/*  {profiles.find((p) => p.id === chosenProfilesId)?.interests.map(interest => {*/}
-        {/* return <Typography key={interest}>{interest} </Typography>*/}
-        {/*})}*/}
+          {profiles.find((p) => p.id === chosenProfilesId)?.description && (
+            <>
+              <Typography style={{ padding: DEFAULT_SPACE }}>
+                {profiles.find((p) => p.id === chosenProfilesId)?.description ||
+                  ""}
+              </Typography>
+              <Divider></Divider>
+            </>
+          )}
+
+          {profiles.find((p) => p.id === chosenProfilesId) &&
+            profiles.find((p) => p.id === chosenProfilesId).university && (
+              <>
+                <LabelValuePrinter
+                  label="University"
+                  value={
+                    profiles.find((p) => p.id === chosenProfilesId)
+                      ?.university || ""
+                  }
+                ></LabelValuePrinter>
+                <LabelValuePrinter
+                  label="Filed of study"
+                  value={
+                    profiles.find((p) => p.id === chosenProfilesId)
+                      ?.fieldOfStudy || ""
+                  }
+                ></LabelValuePrinter>
+                <LabelValuePrinter
+                  label="Already graduated?"
+                  value={
+                    profiles.find((p) => p.id === chosenProfilesId)?.isGraduated
+                      ? "yes"
+                      : "no"
+                  }
+                ></LabelValuePrinter>
+
+                <Divider></Divider>
+              </>
+            )}
+          <LabelValuePrinter
+            label="City"
+            value={profiles.find((p) => p.id === chosenProfilesId)?.city || ""}
+          ></LabelValuePrinter>
+          <Divider></Divider>
+          <LabelValuePrinter
+            label="Interests"
+            value={
+              profiles.find((p) => p.id === chosenProfilesId)?.interests || ""
+            }
+          ></LabelValuePrinter>
+
+          {/*  {profiles.find((p) => p.id === chosenProfilesId)?.interests.map(interest => {*/}
+          {/* return <Typography key={interest}>{interest} </Typography>*/}
+          {/*})}*/}
         </DialogContent>
       </Dialog>
     </>
