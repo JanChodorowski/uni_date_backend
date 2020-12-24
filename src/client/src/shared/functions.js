@@ -23,15 +23,9 @@ export const capitalizeFirstLetter = (
   first && first.toLocaleUpperCase(locale) + rest.join("").toLocaleLowerCase();
 
 export const calculateAge = (birthday) => {
-  // birthday is a date
-  console.log("birthday", birthday);
   birthday = new Date(birthday);
   let ageDifMs = Date.now() - birthday;
-  let ageDate = new Date(ageDifMs); // miliseconds from epoch
-  console.log(
-    "Math.abs(ageDate.getUTCFullYear() - 1970)",
-    Math.abs(ageDate.getUTCFullYear() - 1970)
-  );
+  let ageDate = new Date(ageDifMs);
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };

@@ -104,10 +104,6 @@ const MatchPage = () => {
 
   const handleClickOpen = (profileId) => {
     setPassiveSideUserId(profileId);
-    console.log(
-      "chosenOne",
-      profiles.find((p) => p.id === profileId)
-    );
     setOpen(true);
   };
 
@@ -131,8 +127,9 @@ const MatchPage = () => {
     setIsLoading(true);
     createRelation(passiveSideUserId, isLiking)
       .then(() => {
+        setOpen(false)
         setProfiles(
-          profiles.filter((p) => p.passiveSideUserId !== passiveSideUserId)
+          profiles.filter((p) => p.id !== passiveSideUserId)
         );
       })
       .catch()

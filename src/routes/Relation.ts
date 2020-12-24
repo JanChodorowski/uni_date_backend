@@ -21,7 +21,6 @@ const {
 const relationDao = new RelationDao();
 
 router.post('/', authenticate, async (req: Request, res: Response) => {
-  console.log('post relation', req.body);
   const reqBody = req.body;
   const schema = yup.object().shape(
     {

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Gallery({ profileId }) {
+function MatchGallery({ profileId }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
@@ -51,9 +51,10 @@ function Gallery({ profileId }) {
   const [profiles, setProfiles] = useContext(ProfilesContext);
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-  const maxSteps = profiles
-    .find((p) => p.id === profileId)
-    .pictures.filter((p) => p.hasOwnProperty("blob")).length;
+  const maxSteps = (profiles && profiles && profiles
+      .find((p) => p.id === profileId) &&
+      profiles.find((p) => p.id === profileId)
+    .pictures.filter((p) => p.hasOwnProperty("blob")).length) || 0;
   useEffect(() => {
     if (maxSteps) {
       return;
@@ -176,4 +177,4 @@ function Gallery({ profileId }) {
   );
 }
 
-export default Gallery;
+export default MatchGallery;
