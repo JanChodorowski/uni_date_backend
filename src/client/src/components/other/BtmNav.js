@@ -49,7 +49,7 @@ function BtmNav() {
   const [isDark] = useContext(ColorContext);
 
   return (
-    <>
+    <><br/><br/><br/>
       {isSmallView ? (
         <BottomNavigation
           value={path}

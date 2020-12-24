@@ -12,6 +12,7 @@ import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 import AvatarForm from "../forms/AvatarForm";
 import UserForm from "../forms/UserForm";
+import {DEFAULT_PADDING} from "../../shared/constants";
 
 const ProfilePage = () => {
   return (
@@ -22,7 +23,7 @@ const ProfilePage = () => {
         alignItems="center"
         justify="space-evenly"
       >
-        <Grid item>
+        <Grid item style={{ marginBottom: DEFAULT_PADDING }}>
           <AvatarForm></AvatarForm>
         </Grid>
         <Grid item style={{ maxWidth: "250px" }}>

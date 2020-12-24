@@ -172,7 +172,6 @@ function App() {
                           <Redirect to={`/${profile}`} />
                         </Route>
                       </Switch>
-
                       <BtmNav />
                     </>
                   ) : (

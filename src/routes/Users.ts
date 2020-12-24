@@ -98,7 +98,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       isGraduated: yup.bool(),
       fieldOfStudy: yup.string(),
       interests: yup.array(),
-
     },
   );
 
