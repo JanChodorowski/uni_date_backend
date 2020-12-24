@@ -127,19 +127,6 @@ const MatchPage = () => {
     }
   };
 
-  // const handleDislikeClick = (passiveSideUserId) => {
-  //   setIsLoading(true);
-  //   createRelation(passiveSideUserId, false).then(() => {
-  //     setProfiles(profiles.filter(p => p.passiveSideUserId !== passiveSideUserId))
-  //   }).catch().finally(setIsLoading(false))  }
-  //
-  // const handleLikeClick = (passiveSideUserId) => {
-  //   setIsLoading(true);
-  //   createRelation(passiveSideUserId, true).then(() => {
-  //     setProfiles(profiles.filter(p => p.passiveSideUserId !== passiveSideUserId))
-  //   }).catch().finally(setIsLoading(false))
-  // }
-
   const handleRelationClick = (isLiking) => {
     setIsLoading(true);
     createRelation(passiveSideUserId, isLiking)
