@@ -51,7 +51,7 @@ import { PathContext } from "./context/pathContext";
 import { ProfilesContext } from "./context/profilesContext";
 import Logo from "./components/other/Logo";
 function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [user, setUser] = useState(EMPTY_USER);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
@@ -69,7 +69,7 @@ function App() {
 
   useEffect(() => {
     let mounted = true;
-    setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) !== THEME_NAMES.light);
+    setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) === THEME_NAMES.dark);
     return () => {
       mounted = false;
     };

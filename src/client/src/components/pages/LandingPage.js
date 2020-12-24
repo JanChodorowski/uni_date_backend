@@ -35,7 +35,6 @@ const LandingPage = () => {
     <>
       {!isLoadingUserData && (
         <>
-          <ColorBtnCorner></ColorBtnCorner>
           <CenterHOC>
             <Grid
               item

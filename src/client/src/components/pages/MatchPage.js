@@ -20,7 +20,7 @@ import {
   Card,
   Divider,
   Grid,
-  IconButton,
+  IconButton, Paper,
   Typography,
 } from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
@@ -32,8 +32,10 @@ import RegisterForm from "../forms/RegisterForm";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import MatchGallery from "../other/MatchGallery";
-import { blue, pink } from "@material-ui/core/colors";
+import {blue, grey, pink} from "@material-ui/core/colors";
 import LabelValuePrinter from "../other/LabelValuePrinter";
+import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
+
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
@@ -120,6 +122,8 @@ const MatchPage = () => {
       return blue["500"];
     } else if (genderLowerCase === "female") {
       return pink["400"];
+    } else {
+      return grey["900"];
     }
   };
 
@@ -135,12 +139,12 @@ const MatchPage = () => {
       .catch()
       .finally(setIsLoading(false));
   };
+  const paper = useTransparentPaperStyle();
 
   return (
     <>
       {checkIfProfilesAlreadyFetched() && (
         <>
-          <CenterPaperHOC>
             <Grid
               container
               direction="row"
@@ -149,8 +153,10 @@ const MatchPage = () => {
             >
               {profiles &&
                 profiles.map((p, i) => (
-                  <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
+
+                  <Grid item style={{ padding: DEFAULT_SPACE }} key={i} >
                     <Grid item>
+
                       <IconButton onClick={() => handleClickOpen(p.id)}>
                         <Grid
                           container
@@ -198,7 +204,6 @@ const MatchPage = () => {
                   </Grid>
                 ))}
             </Grid>
-          </CenterPaperHOC>
         </>
       )}
       <Dialog

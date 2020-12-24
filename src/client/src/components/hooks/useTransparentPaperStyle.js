@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { ColorContext } from "../../context/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
-import { DEFAULT_SPACE } from "../../shared/constants";
+import {DARK_TRANSPARENT, DEFAULT_SPACE, LIGHT_TRANSPARENT} from "../../shared/constants";
 
 const useTransparentPaperStyle = () => {
   const [isDark] = useContext(ColorContext);
@@ -9,8 +9,8 @@ const useTransparentPaperStyle = () => {
     paper: {
       padding: DEFAULT_SPACE,
       backgroundColor: isDark
-        ? "rgba(38, 50, 56, 0.7)"
-        : "rgba(255, 255, 255, 0.6)",
+        ? DARK_TRANSPARENT
+        : LIGHT_TRANSPARENT,
     },
   }));
 
