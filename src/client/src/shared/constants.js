@@ -105,6 +105,6 @@ export const AVATAR_SIZE = "80px";
 
 export const APP_NAME = "BERG DATE";
 
-export const DEFAULT_PADDING = "0.5rem";
+export const DEFAULT_SPACE = "0.5rem";
 
 export const DEFAULT_IMAGE_SIZE = "375px";

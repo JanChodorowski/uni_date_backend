@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
-import { AVATAR_SIZE, DEFAULT_PADDING } from "../../shared/constants";
+import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -118,8 +118,8 @@ const AvatarForm = () => {
                 buttonStyles={{
                   backgroundColor: "#03a9f4",
                   fontWeight: "bold",
-                  padding: DEFAULT_PADDING,
-                  margin: DEFAULT_PADDING,
+                  padding: DEFAULT_SPACE,
+                  margin: DEFAULT_SPACE,
                 }}
               />
             </>
@@ -144,7 +144,7 @@ const AvatarForm = () => {
 
       {!user?.pictures ||
         (user?.pictures?.length > 0 && (
-          <Paper className={paper} style={{ marginTop: DEFAULT_PADDING }}>
+          <Paper className={paper} style={{ marginTop: DEFAULT_SPACE }}>
             <Grid
               container
               direction="column"
@@ -165,7 +165,7 @@ const AvatarForm = () => {
                 alignItems="center"
                 justify="center"
               >
-                <Grid item style={{ padding: DEFAULT_PADDING }}>
+                <Grid item style={{ padding: DEFAULT_SPACE }}>
                   <Avatar
                     alt={user.userName}
                     src={avatarPicture}

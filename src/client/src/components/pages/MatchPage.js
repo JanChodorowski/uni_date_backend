@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
+  calculateAge,
   capitalizeFirstLetter,
   compareFileNames,
   getItemByKey,
 } from "../../shared/functions";
 import {
   AVATAR_SIZE,
-  DEFAULT_PADDING,
+  DEFAULT_SPACE,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   THEME_NAMES,
@@ -14,7 +15,14 @@ import {
 import { getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
-import { Avatar, Card, Grid, IconButton, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Card,
+  Divider,
+  Grid,
+  IconButton,
+  Typography,
+} from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
 import CenterPaperHOC from "../hocs/CenterPaperHOC";
 import Zoom from "@material-ui/core/Zoom";
@@ -25,6 +33,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import MatchGallery from "../other/MatchGallery";
 import { blue, pink } from "@material-ui/core/colors";
+import LabelValuePrinter from "../other/LabelValuePrinter";
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
@@ -90,12 +99,15 @@ const MatchPage = () => {
     };
   }, [areMoreProfilesNeeded]);
 
-
   const [open, setOpen] = useState(false);
   const [chosenProfilesId, setChosenProfilesId] = useState("");
 
   const handleClickOpen = (profileId) => {
     setChosenProfilesId(profileId);
+    console.log(
+      "chosenOne",
+      profiles.find((p) => p.id === profileId)
+    );
     setOpen(true);
   };
 
@@ -104,6 +116,9 @@ const MatchPage = () => {
   };
 
   const getGenderColor = (gender) => {
+    if(!gender){
+      return
+    }
     const genderLowerCase = gender.toLocaleLowerCase();
     if (genderLowerCase === "male") {
       return blue["500"];
@@ -122,17 +137,10 @@ const MatchPage = () => {
               direction="row"
               alignItems="center"
               justify="center"
-
             >
               {profiles &&
                 profiles.map((p, i) => (
-                  <Grid
-                    item
-
-                    style={{ padding: DEFAULT_PADDING }}
-                    key={i}
-
-                  >
+                  <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
                     <Grid item>
                       <IconButton onClick={() => handleClickOpen(p.id)}>
                         <Grid
@@ -191,11 +199,52 @@ const MatchPage = () => {
         TransitionComponent={Transition}
       >
         <DialogContent>
-
           <MatchGallery profileId={chosenProfilesId}></MatchGallery>
-          <Typography>{profiles.find(p => p.id === chosenProfilesId)?.userName || ""}</Typography>
-          <Typography>{profiles.find(p => p.id === chosenProfilesId)?.userName || ""}</Typography>
-      </DialogContent>
+          {profiles.find((p) => p.id === chosenProfilesId)?.userName &&(<>
+          <Typography
+
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                fontWeight: "bold",
+                padding: DEFAULT_SPACE,
+                color: getGenderColor(profiles.find((p) => p.id === chosenProfilesId)?.gender)
+              }}
+          >
+            {`${profiles.find((p) => p.id === chosenProfilesId)?.userName} ` || ""}
+            {calculateAge(profiles.find((p) => p.id === chosenProfilesId)?.dateOfBirth) || ""}
+          </Typography>
+            <Divider></Divider>
+          </>  ) }
+
+          {profiles.find((p) => p.id === chosenProfilesId)?.description && (<>
+              <Typography  style={{ padding: DEFAULT_SPACE }}>
+                {profiles.find((p) => p.id === chosenProfilesId)?.description || ""}
+              </Typography>
+            <Divider></Divider></>
+          )}
+
+          {profiles.find((p) => p.id === chosenProfilesId) && profiles.find((p) => p.id === chosenProfilesId).university && (
+            <>
+              <LabelValuePrinter  label="University" value={profiles.find((p) => p.id === chosenProfilesId)
+                      ?.university || ""}></LabelValuePrinter>
+              <LabelValuePrinter label="Filed of study" value={profiles.find((p) => p.id === chosenProfilesId)
+                  ?.fieldOfStudy || ""}></LabelValuePrinter>
+              <LabelValuePrinter label="Already graduated?" value={profiles.find((p) => p.id === chosenProfilesId)?.isGraduated
+                  ? "yes"
+                  : "no"}></LabelValuePrinter>
+
+              <Divider></Divider>
+            </>
+          )}
+          <LabelValuePrinter label="City" value={profiles.find((p) => p.id === chosenProfilesId)?.city || ""}></LabelValuePrinter>
+          <Divider></Divider>
+          <LabelValuePrinter label="Interests" value={profiles.find((p) => p.id === chosenProfilesId)?.interests || ""}></LabelValuePrinter>
+
+        {/*  {profiles.find((p) => p.id === chosenProfilesId)?.interests.map(interest => {*/}
+        {/* return <Typography key={interest}>{interest} </Typography>*/}
+        {/*})}*/}
+        </DialogContent>
       </Dialog>
     </>
   );

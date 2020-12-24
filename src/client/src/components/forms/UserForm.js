@@ -25,7 +25,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ColorContext } from "../../context/colorContext";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { capitalizeFirstLetter } from "../../shared/functions";
-import { DEFAULT_PADDING } from "../../shared/constants";
+import { DEFAULT_SPACE } from "../../shared/constants";
 
 const genderEnum = {
   Male: 1,
@@ -44,10 +44,12 @@ const UserForm = () => {
     dateOfBirth:
       (user.dateOfBirth !== "1970-01-01" && user.dateOfBirth) || null,
     description: user.description || "",
-    university: (user.university && capitalizeFirstLetter(user.university)) || "",
+    university:
+      (user.university && capitalizeFirstLetter(user.university)) || "",
     city: (user.city && capitalizeFirstLetter(user.city)) || "",
     interests: user.interests || [],
-    fieldOfStudy: (user.fieldOfStudy && capitalizeFirstLetter(user.fieldOfStudy)) || "",
+    fieldOfStudy:
+      (user.fieldOfStudy && capitalizeFirstLetter(user.fieldOfStudy)) || "",
     gender: user.gender || "",
     isGraduated: user.isGraduated || false,
   };
@@ -107,7 +109,7 @@ const UserForm = () => {
 
   return (
     <form noValidate autoComplete="off" onSubmit={onSubmit}>
-      <Paper className={paper} style={{ marginBottom: DEFAULT_PADDING }}>
+      <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
         <TextField
           name="university"
           value={university}
@@ -125,7 +127,7 @@ const UserForm = () => {
               fullWidth
               onChange={onChange}
               size="small"
-              style={{ marginBottom: DEFAULT_PADDING }}
+              style={{ marginBottom: DEFAULT_SPACE }}
             />
 
             <FormGroup row>
@@ -146,7 +148,7 @@ const UserForm = () => {
         )}
       </Paper>
 
-      <Paper className={paper} style={{ marginBottom: DEFAULT_PADDING }}>
+      <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
         <TextField
           name="userName"
           value={userName}
@@ -167,7 +169,7 @@ const UserForm = () => {
           onChange={onChange}
           variant="outlined"
           size="small"
-          style={{ marginBottom: DEFAULT_PADDING }}
+          style={{ marginBottom: DEFAULT_SPACE }}
         />
 
         <TextField
@@ -214,7 +216,7 @@ const UserForm = () => {
           defaultValue={interests}
           onChange={onInterestsChange}
           size="small"
-          style={{ marginBottom: DEFAULT_PADDING }}
+          style={{ marginBottom: DEFAULT_SPACE }}
         />
 
         <TextField

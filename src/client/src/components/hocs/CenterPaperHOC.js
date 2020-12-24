@@ -4,7 +4,7 @@ import CenterHOC from "./CenterHOC";
 import { ColorContext } from "../../context/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
-import { DEFAULT_PADDING } from "../../shared/constants";
+import { DEFAULT_SPACE } from "../../shared/constants";
 
 const CenterPaperHOC = ({ children, minHeight }) => {
   const paper = useTransparentPaperStyle();
@@ -13,11 +13,11 @@ const CenterPaperHOC = ({ children, minHeight }) => {
       <CenterHOC minHeight={minHeight}>
         <Grid
           item
-          style={{ marginRight: DEFAULT_PADDING, marginLeft: DEFAULT_PADDING }}
+          style={{ marginRight: DEFAULT_SPACE, marginLeft: DEFAULT_SPACE }}
         >
           <Paper
             className={paper}
-            style={{ padding: DEFAULT_PADDING, marginBottom: DEFAULT_PADDING }}
+            style={{ padding: DEFAULT_SPACE, marginBottom: DEFAULT_SPACE }}
           >
             {children}
           </Paper>
