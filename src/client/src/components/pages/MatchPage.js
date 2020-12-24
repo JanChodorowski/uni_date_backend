@@ -12,7 +12,7 @@ import {
   LOCAL_STORAGE_KEY,
   THEME_NAMES,
 } from "../../shared/constants";
-import { getPicture, getProfiles, getUser } from "../../api";
+import {createRelation, getPicture, getProfiles, getUser} from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import {
@@ -100,10 +100,10 @@ const MatchPage = () => {
   }, [areMoreProfilesNeeded]);
 
   const [open, setOpen] = useState(false);
-  const [chosenProfilesId, setChosenProfilesId] = useState("");
+  const [passiveSideUserId, setPassiveSideUserId] = useState("");
 
   const handleClickOpen = (profileId) => {
-    setChosenProfilesId(profileId);
+    setPassiveSideUserId(profileId);
     console.log(
       "chosenOne",
       profiles.find((p) => p.id === profileId)
@@ -126,6 +126,26 @@ const MatchPage = () => {
       return pink["400"];
     }
   };
+
+  // const handleDislikeClick = (passiveSideUserId) => {
+  //   setIsLoading(true);
+  //   createRelation(passiveSideUserId, false).then(() => {
+  //     setProfiles(profiles.filter(p => p.passiveSideUserId !== passiveSideUserId))
+  //   }).catch().finally(setIsLoading(false))  }
+  //
+  // const handleLikeClick = (passiveSideUserId) => {
+  //   setIsLoading(true);
+  //   createRelation(passiveSideUserId, true).then(() => {
+  //     setProfiles(profiles.filter(p => p.passiveSideUserId !== passiveSideUserId))
+  //   }).catch().finally(setIsLoading(false))
+  // }
+
+  const handleRelationClick = (isLiking) => {
+    setIsLoading(true);
+    createRelation(passiveSideUserId, isLiking).then(() => {
+      setProfiles(profiles.filter(p => p.passiveSideUserId !== passiveSideUserId))
+    }).catch().finally(setIsLoading(false))
+  }
 
   return (
     <>
@@ -199,8 +219,8 @@ const MatchPage = () => {
         TransitionComponent={Transition}
       >
         <DialogContent>
-          <MatchGallery profileId={chosenProfilesId}></MatchGallery>
-          {profiles.find((p) => p.id === chosenProfilesId)?.userName && (
+          <MatchGallery profileId={passiveSideUserId}></MatchGallery>
+          {profiles.find((p) => p.id === passiveSideUserId)?.userName && (
             <>
               <Typography
                 style={{
@@ -209,52 +229,52 @@ const MatchPage = () => {
                   fontWeight: "bold",
                   padding: DEFAULT_SPACE,
                   color: getGenderColor(
-                    profiles.find((p) => p.id === chosenProfilesId)?.gender
+                    profiles.find((p) => p.id === passiveSideUserId)?.gender
                   ),
                 }}
               >
                 {`${
-                  profiles.find((p) => p.id === chosenProfilesId)?.userName
+                  profiles.find((p) => p.id === passiveSideUserId)?.userName
                 } ` || ""}
                 {calculateAge(
-                  profiles.find((p) => p.id === chosenProfilesId)?.dateOfBirth
+                  profiles.find((p) => p.id === passiveSideUserId)?.dateOfBirth
                 ) || ""}
               </Typography>
               <Divider></Divider>
             </>
           )}
 
-          {profiles.find((p) => p.id === chosenProfilesId)?.description && (
+          {profiles.find((p) => p.id === passiveSideUserId)?.description && (
             <>
               <Typography style={{ padding: DEFAULT_SPACE }}>
-                {profiles.find((p) => p.id === chosenProfilesId)?.description ||
+                {profiles.find((p) => p.id === passiveSideUserId)?.description ||
                   ""}
               </Typography>
               <Divider></Divider>
             </>
           )}
 
-          {profiles.find((p) => p.id === chosenProfilesId) &&
-            profiles.find((p) => p.id === chosenProfilesId).university && (
+          {profiles.find((p) => p.id === passiveSideUserId) &&
+            profiles.find((p) => p.id === passiveSideUserId).university && (
               <>
                 <LabelValuePrinter
                   label="University"
                   value={
-                    profiles.find((p) => p.id === chosenProfilesId)
+                    profiles.find((p) => p.id === passiveSideUserId)
                       ?.university || ""
                   }
                 ></LabelValuePrinter>
                 <LabelValuePrinter
                   label="Filed of study"
                   value={
-                    profiles.find((p) => p.id === chosenProfilesId)
+                    profiles.find((p) => p.id === passiveSideUserId)
                       ?.fieldOfStudy || ""
                   }
                 ></LabelValuePrinter>
                 <LabelValuePrinter
                   label="Already graduated?"
                   value={
-                    profiles.find((p) => p.id === chosenProfilesId)?.isGraduated
+                    profiles.find((p) => p.id === passiveSideUserId)?.isGraduated
                       ? "yes"
                       : "no"
                   }
@@ -265,19 +285,43 @@ const MatchPage = () => {
             )}
           <LabelValuePrinter
             label="City"
-            value={profiles.find((p) => p.id === chosenProfilesId)?.city || ""}
+            value={profiles.find((p) => p.id === passiveSideUserId)?.city || ""}
           ></LabelValuePrinter>
           <Divider></Divider>
           <LabelValuePrinter
             label="Interests"
             value={
-              profiles.find((p) => p.id === chosenProfilesId)?.interests || ""
+              profiles.find((p) => p.id === passiveSideUserId)?.interests || []
             }
           ></LabelValuePrinter>
-
-          {/*  {profiles.find((p) => p.id === chosenProfilesId)?.interests.map(interest => {*/}
-          {/* return <Typography key={interest}>{interest} </Typography>*/}
-          {/*})}*/}
+          <Grid
+              container
+              direction="row"
+              justify="space-between"
+              style={{ padding: DEFAULT_SPACE }}
+          >
+            <Grid item>
+              <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  size="large"
+                  onClick={() => handleRelationClick(false)}
+              >
+                DISLIKE
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  size="large"
+                  onClick={() => handleRelationClick(true)}              >
+                LIKE
+              </Button>
+            </Grid>
+          </Grid>
         </DialogContent>
       </Dialog>
     </>

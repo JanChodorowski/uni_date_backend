@@ -25,15 +25,12 @@ const fileUpload = require('express-fileupload');
 const { promisify } = require('util');
 const fs = require('fs');
 
-const unlinkAsync = promisify(fs.unlink);
-
 const router = Router();
 const {
   BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,
 } = StatusCodes;
 
 const fileNameSchema = yup.object().shape({ fileName: yup.string().required() });
-const userDao = new UserDao();
 const pictureDao = new PictureDao();
 
 router.post('/getone', authenticate, async (req: any, res: Response, next:NextFunction) => {
@@ -51,34 +48,16 @@ router.post('/getone', authenticate, async (req: any, res: Response, next:NextFu
 
 router.put('/avatar', authenticate, async (req: Request, res: Response) => {
   const trimmedFileName = removeWhiteSpaces(req?.body?.fileName);
-
   const userId = req?.body?.payload?.id;
+
   const isValid = await fileNameSchema.isValid({ fileName: trimmedFileName });
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
-  await getConnection().transaction(async (entityManager) => {
-    await entityManager
-      .createQueryBuilder()
-      .update(Picture)
-      .set(
-        { isAvatar: false },
-      )
-      .where('fileName != :fileName', { fileName: trimmedFileName })
-      .andWhere('user.id = :id', { id: userId })
-      .execute();
-
-    await entityManager
-      .createQueryBuilder()
-      .update(Picture)
-      .set(
-        { isAvatar: true },
-      )
-      .where('fileName = :fileName', { fileName: trimmedFileName })
-      .andWhere('user.id = :id', { id: userId })
-
-      .execute();
+  await pictureDao.chooseAvatar(userId, trimmedFileName).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
 
   res.end();

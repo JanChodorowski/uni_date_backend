@@ -60,3 +60,10 @@ export const updateUser = (user) => {
 export const updateAvatar = (fileName) => {
   return axios.put("api/pictures/avatar", { fileName });
 };
+
+export const createRelation = (passiveSideUserId, isLiking) => {
+  return axios.post("/api/relation", {
+    passiveSideUserId,
+    isLiking,
+  });
+};

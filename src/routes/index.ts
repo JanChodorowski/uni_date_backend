@@ -4,6 +4,7 @@ import { Router } from 'express';
 import UsersRouter from './Users';
 import AuthRouter from './Auth';
 import PictureRouter from './Picture';
+import Relation from './Relation';
 
 // Init router and path
 const router = Router();
@@ -14,6 +15,7 @@ const router = Router();
 router.use('/users', UsersRouter);
 router.use('/auth', AuthRouter);
 router.use('/pictures', PictureRouter);
+router.use('/relation', Relation);
 
 // Export the base-router
 export default router;

@@ -13,6 +13,8 @@ export interface IPictureDao {
     add: (user: IPicture) => Promise<IPicture>;
     // update: (user: IUser) => Promise<void>;
     // delete: (id: number) => Promise<void>;
+    chooseAvatar: (userId: string, trimmedFileName: string) => Promise<any>;
+
 }
 
 class PictureDao implements IPictureDao {
@@ -43,8 +45,38 @@ class PictureDao implements IPictureDao {
      *
      * @param newPicture
      */
-  public async add(newPictureOrPictures: any): Promise<any> {
+  public add(newPictureOrPictures: any): Promise<any> {
     return getConnection().manager.save(newPictureOrPictures);
+  }
+
+  /**
+   *
+   * @param userId
+   * @param trimmedFileName
+   */
+  public async chooseAvatar(userId: string, trimmedFileName: string): Promise<any> {
+    return getConnection().transaction(async (entityManager) => {
+      await entityManager
+        .createQueryBuilder()
+        .update(Picture)
+        .set(
+          { isAvatar: false },
+        )
+        .where('fileName != :fileName', { fileName: trimmedFileName })
+        .andWhere('user.id = :id', { id: userId })
+        .execute();
+
+      await entityManager
+        .createQueryBuilder()
+        .update(Picture)
+        .set(
+          { isAvatar: true },
+        )
+        .where('fileName = :fileName', { fileName: trimmedFileName })
+        .andWhere('user.id = :id', { id: userId })
+
+        .execute();
+    });
   }
 
 //   /**
