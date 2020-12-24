@@ -12,7 +12,7 @@ import {
   LOCAL_STORAGE_KEY,
   THEME_NAMES,
 } from "../../shared/constants";
-import {createRelation, getPicture, getProfiles, getUser} from "../../api";
+import { createRelation, getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import {
@@ -142,10 +142,15 @@ const MatchPage = () => {
 
   const handleRelationClick = (isLiking) => {
     setIsLoading(true);
-    createRelation(passiveSideUserId, isLiking).then(() => {
-      setProfiles(profiles.filter(p => p.passiveSideUserId !== passiveSideUserId))
-    }).catch().finally(setIsLoading(false))
-  }
+    createRelation(passiveSideUserId, isLiking)
+      .then(() => {
+        setProfiles(
+          profiles.filter((p) => p.passiveSideUserId !== passiveSideUserId)
+        );
+      })
+      .catch()
+      .finally(setIsLoading(false));
+  };
 
   return (
     <>
@@ -247,8 +252,8 @@ const MatchPage = () => {
           {profiles.find((p) => p.id === passiveSideUserId)?.description && (
             <>
               <Typography style={{ padding: DEFAULT_SPACE }}>
-                {profiles.find((p) => p.id === passiveSideUserId)?.description ||
-                  ""}
+                {profiles.find((p) => p.id === passiveSideUserId)
+                  ?.description || ""}
               </Typography>
               <Divider></Divider>
             </>
@@ -274,7 +279,8 @@ const MatchPage = () => {
                 <LabelValuePrinter
                   label="Already graduated?"
                   value={
-                    profiles.find((p) => p.id === passiveSideUserId)?.isGraduated
+                    profiles.find((p) => p.id === passiveSideUserId)
+                      ?.isGraduated
                       ? "yes"
                       : "no"
                   }
@@ -295,29 +301,30 @@ const MatchPage = () => {
             }
           ></LabelValuePrinter>
           <Grid
-              container
-              direction="row"
-              justify="space-between"
-              style={{ padding: DEFAULT_SPACE }}
+            container
+            direction="row"
+            justify="space-between"
+            style={{ padding: DEFAULT_SPACE }}
           >
             <Grid item>
               <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  size="large"
-                  onClick={() => handleRelationClick(false)}
+                color="primary"
+                variant="contained"
+                fullWidth
+                size="large"
+                onClick={() => handleRelationClick(false)}
               >
                 DISLIKE
               </Button>
             </Grid>
             <Grid item>
               <Button
-                  color="primary"
-                  variant="contained"
-                  fullWidth
-                  size="large"
-                  onClick={() => handleRelationClick(true)}              >
+                color="primary"
+                variant="contained"
+                fullWidth
+                size="large"
+                onClick={() => handleRelationClick(true)}
+              >
                 LIKE
               </Button>
             </Grid>
