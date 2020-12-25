@@ -84,7 +84,7 @@ const FilterPage = () => {
     setYearsFilter(newYears);
   };
 
-  const maxDistanceLimit = 1000;
+  const maxDistanceLimit = 200;
   const [maxDistance, setMaxDistance] = useState( maxDistanceLimit);
 
 
@@ -120,9 +120,9 @@ console.log('user',user)
         genderFilters,
         yearsFilter,
       };
-      updateUser(genderFilters)
+      updateUser(extendedValues)
           .then((res) => {
-            setUser({ ...user, ...genderFilters });
+            setUser({ ...user, ...extendedValues });
           })
           .catch((e) => {})
           .finally(() => {

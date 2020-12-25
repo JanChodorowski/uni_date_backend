@@ -124,40 +124,76 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     isGraduated,
     fieldOfStudy,
   } = reqUser;
-
+  console.log('reqUser', reqUser);
   const updatedUser = new User();
   updatedUser.id = req?.body?.payload?.id;
-  updatedUser.userName = capitalizeFirstLetter(userName);
-  updatedUser.gender = gender;
-  updatedUser.dateOfBirth = dateOfBirth;
-  updatedUser.description = description;
-  updatedUser.email = email;
-  updatedUser.popularity = popularity;
-  updatedUser.isGraduated = isGraduated;
-  updatedUser.fieldOfStudy = capitalizeFirstLetter(fieldOfStudy);
-  updatedUser.activityIntensity = activityIntensity;
-  updatedUser.localization = localization;
-  updatedUser.maxSearchDistanceFilter = maxSearchDistanceFilter;
-  updatedUser.ageFromFilter = ageFromFilter;
-  updatedUser.ageToFilter = ageToFilter;
+  if (userName) {
+    updatedUser.userName = capitalizeFirstLetter(userName);
+  }
+  if (gender) {
+    updatedUser.gender = gender;
+  }
+  if (dateOfBirth) {
+    updatedUser.dateOfBirth = dateOfBirth;
+  }
+  if (description) {
+    updatedUser.description = description;
+  }
+  if (email) {
+    updatedUser.email = email;
+  }
+  if (popularity) {
+    updatedUser.popularity = popularity;
+  }
+  if (isGraduated) {
+    updatedUser.isGraduated = isGraduated;
+  }
+  if (fieldOfStudy) {
+    updatedUser.fieldOfStudy = capitalizeFirstLetter(fieldOfStudy);
+  }
+  if (activityIntensity) {
+    updatedUser.activityIntensity = activityIntensity;
+  }
+  if (localization) {
+    updatedUser.localization = localization;
+  }
+  if (maxSearchDistanceFilter) {
+    updatedUser.maxSearchDistanceFilter = maxSearchDistanceFilter;
+  }
+  if (ageFromFilter) {
+    updatedUser.ageFromFilter = ageFromFilter;
+  }
+  if (ageToFilter) {
+    updatedUser.ageToFilter = ageToFilter;
+  }
 
-  const newOrUpdatedCity = new City();
-  const capitalizedCity = capitalizeFirstLetter(city);
-  newOrUpdatedCity.cityName = capitalizedCity;
-  updatedUser.cityName = capitalizedCity;
+  let newOrUpdatedCity = null;
+  if (city) {
+    newOrUpdatedCity = new City();
+    const capitalizedCity = capitalizeFirstLetter(city);
+    newOrUpdatedCity.cityName = capitalizedCity;
+    updatedUser.cityName = capitalizedCity;
+  }
 
-  const newOrUpdatedUniversity = new University();
-  const capitalizedUniversity = capitalizeFirstLetter(university);
-  newOrUpdatedUniversity.universityName = capitalizedUniversity;
-  updatedUser.universityName = capitalizedUniversity;
+  let newOrUpdatedUniversity = null;
+  if (university) {
+    newOrUpdatedUniversity = new University();
 
-  const newOrUpdatedInterests = interests.map((interest: string) => {
-    const newInterest = new Interest();
-    newInterest.interestName = interest;
-    newInterest.users2 = [];
-    newInterest.users2.push(updatedUser);
-    return newInterest;
-  });
+    const capitalizedUniversity = capitalizeFirstLetter(university);
+    newOrUpdatedUniversity.universityName = capitalizedUniversity;
+    updatedUser.universityName = capitalizedUniversity;
+  }
+
+  let newOrUpdatedInterests = null;
+  if (interests) {
+    newOrUpdatedInterests = interests.map((interest: string) => {
+      const newInterest = new Interest();
+      newInterest.interestName = interest;
+      newInterest.users2 = [];
+      newInterest.users2.push(updatedUser);
+      return newInterest;
+    });
+  }
 
   const dbResult = userDao.update(
     updatedUser,
