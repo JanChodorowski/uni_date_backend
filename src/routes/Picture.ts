@@ -16,7 +16,7 @@ import { Picture } from '@entities/Picture';
 import { IUser } from '@interfaces/IUser';
 import PictureDao from '@daos/Picture/PictureDao';
 import * as yup from 'yup';
-import { getByteArray, removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
+import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
 import { getConnection } from 'typeorm';
 import { User } from '@entities/User';
 

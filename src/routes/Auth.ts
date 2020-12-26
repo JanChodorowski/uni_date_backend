@@ -134,9 +134,11 @@ router.post('/login', async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
+
   if (!foundUser) {
     return res.status(UNAUTHORIZED).end();
   }
+
   const arePasswordsMatching = await bcrypt.compare(password, foundUser.passwordHash);
 
   if (!arePasswordsMatching) {

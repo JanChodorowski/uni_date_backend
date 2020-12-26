@@ -1,12 +1,12 @@
 import fs from 'fs';
 import logger from './Logger';
 
-export const getByteArray = (filePath: string) => {
-  const fileData = fs.readFileSync(filePath).toString('hex');
-  const result = [];
-  for (let i = 0; i < fileData.length; i += 2) result.push(`0x${fileData[i]}${fileData[i + 1]}`);
-  return result;
-};
+// export const getByteArray = (filePath: string) => {
+//   const fileData = fs.readFileSync(filePath).toString('hex');
+//   const result = [];
+//   for (let i = 0; i < fileData.length; i += 2) result.push(`0x${fileData[i]}${fileData[i + 1]}`);
+//   return result;
+// };
 export const pErr = (err: Error) => {
   if (err) {
     logger.err(err);

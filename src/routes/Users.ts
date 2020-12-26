@@ -39,6 +39,7 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
+  console.log('userViewData', userViewData);
 
   const userDto = {
     ...userViewData,
@@ -94,8 +95,8 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       activityIntensity: yup.number(),
       localization: yup.number(),
       maxSearchDistanceFilter: yup.number(),
-      ageFromFilter: yup.number(),
-      ageToFilter: yup.number(),
+      // ageFromFilter: yup.number(),
+      // ageToFilter: yup.number(),
       genderFilter: yup.number(),
       isGraduated: yup.bool(),
       fieldOfStudy: yup.string(),
@@ -104,6 +105,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       interestFilter: yup.string(),
       cityFilter: yup.string(),
       genderFilters: yup.object(),
+      yearsFilter: yup.array(),
     },
   );
 
@@ -122,8 +124,8 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     activityIntensity,
     localization,
     maxSearchDistanceFilter,
-    ageFromFilter,
-    ageToFilter,
+    // ageFromFilter,
+    // ageToFilter,
     university,
     city,
     interests,
@@ -133,6 +135,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     interestFilter,
     cityFilter,
     genderFilters,
+    yearsFilter,
   } = user;
   // if (genderFilters) {
   //   genderFilters.hasOwnProperty()
@@ -174,11 +177,11 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   if (maxSearchDistanceFilter) {
     updatedUser.maxSearchDistanceFilter = maxSearchDistanceFilter;
   }
-  if (ageFromFilter) {
-    updatedUser.ageFromFilter = ageFromFilter;
+  if (yearsFilter) {
+    updatedUser.ageFromFilter = Math.min(...yearsFilter);
   }
-  if (ageToFilter) {
-    updatedUser.ageToFilter = ageToFilter;
+  if (yearsFilter) {
+    updatedUser.ageToFilter = Math.max(...yearsFilter);
   }
 
   let newOrExistingUniversity = null;

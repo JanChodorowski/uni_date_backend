@@ -22,7 +22,13 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
-import {BASIC_VALIDATION, DARK_TRANSPARENT, DEFAULT_SPACE, LIGHT_TRANSPARENT} from "../../shared/constants";
+import {
+  BASIC_VALIDATION,
+  DARK_TRANSPARENT,
+  DEFAULT_SPACE,
+  EMPTY_PROFILES,
+  LIGHT_TRANSPARENT
+} from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 import {capitalizeFirstLetter, compareFileNames} from "../../shared/functions";
@@ -31,6 +37,7 @@ import AvatarForm from "../forms/AvatarForm";
 import UserForm from "../forms/UserForm";
 import {grey} from "@material-ui/core/colors";
 import {ColorContext} from "../../context/colorContext";
+import {ProfilesContext} from "../../context/profilesContext";
 
 // const validationSchema = yup.object(BASIC_VALIDATION);
 
@@ -39,7 +46,7 @@ const FilterPage = () => {
   const [areCredentialsCorrect, setAreCredentialsCorrect] = useState(true);
 
   const [isDark] = useContext(ColorContext);
-
+  const [profiles, setProfiles] = useContext(ProfilesContext);
   const [user, setUser] = useContext(UserContext);
   const [isLoading, setIsLoading] = useContext(LoadingContext);
 
@@ -124,6 +131,7 @@ console.log('user',user)
       };
       updateUser(extendedValues)
           .then((res) => {
+            setProfiles(EMPTY_PROFILES);
             setUser({ ...user, ...extendedValues });
           })
           .catch((e) => {})
@@ -252,58 +260,6 @@ const paperPadding = '1.5rem'
                   onChange={handleMaxDistanceChange}
               />
             </div>
-            {/*<TextField*/}
-            {/*    fullWidth*/}
-            {/*    id="genderFilters"*/}
-            {/*    name="genderFilters"*/}
-            {/*    label="Gender filter"*/}
-            {/*    value={formik.values.universityFilter}*/}
-            {/*    onChange={formik.handleChange}*/}
-            {/*    error={formik.touched.universityFilter && Boolean(formik.errors.universityFilter)}*/}
-            {/*    helperText={formik.touched.universityFilter && formik.errors.universityFilter}*/}
-            {/*    size="small"*/}
-            {/*    style={{ marginBottom: DEFAULT_SPACE }}*/}
-            {/*/>*/}
-
-            {/*<FormControl className={classes.formControl}>*/}
-            {/*  <InputLabel id="demo-mutiple-chip-label">Interests</InputLabel>*/}
-            {/*  <Select*/}
-            {/*      labelId="demo-mutiple-chip-label"*/}
-            {/*      id="demo-mutiple-chip"*/}
-            {/*      multiple*/}
-            {/*      value={interestFilters}*/}
-            {/*      onChange={handleInterestsChange}*/}
-            {/*      input={<Input id="select-multiple-chip" />}*/}
-            {/*      renderValue={(selected) => (*/}
-            {/*          <div className={classes.chips}>*/}
-            {/*            {selected.map((value) => (*/}
-            {/*                <Chip key={value} label={value} className={classes.chip} />*/}
-            {/*            ))}*/}
-            {/*          </div>*/}
-            {/*      )}*/}
-            {/*      MenuProps={MenuProps}*/}
-            {/*  >*/}
-            {/*    {names.map((name) => (*/}
-            {/*        <MenuItem key={name} value={name}>*/}
-            {/*          {name}*/}
-            {/*        </MenuItem>*/}
-            {/*    ))}*/}
-            {/*  </Select>*/}
-            {/*</FormControl>*/}
-          {/*<TextField*/}
-          {/*    fullWidth*/}
-          {/*    id="universityFilter"*/}
-          {/*    name="universityFilter"*/}
-          {/*    label="universityFilter"*/}
-          {/*    value={formik.values.universityFilter}*/}
-          {/*    onChange={formik.handleChange}*/}
-          {/*    error={formik.touched.universityFilter && Boolean(formik.errors.universityFilter)}*/}
-          {/*    helperText={formik.touched.universityFilter && formik.errors.universityFilter}*/}
-          {/*    autoFocus*/}
-          {/*    size="small"*/}
-          {/*    style={{ marginBottom: DEFAULT_SPACE }}*/}
-          {/*/>*/}
-
 
           {!areCredentialsCorrect && !isLoading && (
               <>

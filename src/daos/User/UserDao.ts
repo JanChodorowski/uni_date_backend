@@ -133,7 +133,7 @@ class UserDao implements IUserDao {
   /**
      * @param id
      */
-  public findProfiles(id: string): Promise<any> {
+  public findProfiles(id: string, cityFilter: string | null = null): Promise<any> {
     return getRepository(User)
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.pictures', 'picture')
@@ -141,6 +141,7 @@ class UserDao implements IUserDao {
       .leftJoinAndSelect('user.universityName', 'university')
       .leftJoinAndSelect('user.interests', 'interests')
       .where('id != :id', { id })
+      .andWhere(cityFilter ? 'cityFilter = :cityFilter' : '1=1', { cityFilter })
       .select([
         'user.id',
         'user.userName',
