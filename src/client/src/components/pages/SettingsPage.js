@@ -3,6 +3,7 @@ import Cookies from "universal-cookie";
 import Button from "@material-ui/core/Button";
 import { UserContext } from "../../context/userContext";
 import {
+  EMPTY_PROFILES,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
@@ -33,7 +34,7 @@ const SettingsPage = () => {
     const cookies = new Cookies();
     cookies.remove(LOCAL_STORAGE_KEY.jwtToken);
     setUser(EMPTY_USER);
-    setProfiles(null);
+    setProfiles(EMPTY_PROFILES);
     setPath(profile);
     history.push(`/`);
   };

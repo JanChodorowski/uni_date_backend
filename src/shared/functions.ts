@@ -16,8 +16,7 @@ export const pErr = (err: Error) => {
 export const capitalizeFirstLetter = (
   // @ts-ignore
   [first, ...rest],
-  locale = navigator.language,
-) => first && first.toLocaleUpperCase(locale) + rest.join('').toLocaleLowerCase();
+) => first && first.toLocaleUpperCase() + rest.join('').toLocaleLowerCase();
 
 // export const bytesBufferToBase64 = (buffer: any) => {
 //   let binary = '';

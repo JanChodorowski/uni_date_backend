@@ -214,7 +214,9 @@ const MatchPage = () => {
       >
         <DialogContent>
           <MatchGallery profileId={passiveSideUserId}></MatchGallery>
-          {profiles && profiles.find((p) => p.id === passiveSideUserId)?.userName && (
+          {console.log('profiles',profiles)}
+          {profiles.length > 0  && console.log('jeste nullem')}
+          {profiles && Array.isArray(profiles) && profiles.length > 0  && profiles.find((p) => p.id === passiveSideUserId) && profiles.find((p) => p.id === passiveSideUserId)?.userName && (
             <>
               <Typography
                 style={{

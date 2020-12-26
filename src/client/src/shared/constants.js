@@ -101,6 +101,8 @@ export const BASIC_VALIDATION = {
 
 export const EMPTY_USER = {};
 
+export const EMPTY_PROFILES = [];
+
 export const AVATAR_SIZE = "80px";
 
 export const APP_NAME = "BERG DATE";
