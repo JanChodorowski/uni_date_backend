@@ -192,19 +192,12 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 
   let newOrUpdatedGenderFilters = null;
   if (genderFilters) {
-    // newOrUpdatedGenderFilters = Object.entries(genderFilters).map((gf: string) => {
-    //   const newGF = new GenderFilter();
-    //   newGF.userId = id;
-    //   newGF.genderFilter = gf;
-    //   return newGF;
-    // });
-
     newOrUpdatedGenderFilters = Object.keys(genderFilters)
-      .filter((key: string) => genderFilters[key])
       .map((key) => {
         const newGF = new GenderFilter();
         newGF.userId = id;
         newGF.genderFilter = key;
+        newGF.isLiking = genderFilters[key];
         return newGF;
       });
   }
