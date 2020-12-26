@@ -180,14 +180,26 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   if (ageToFilter) {
     updatedUser.ageToFilter = ageToFilter;
   }
+
+  let newOrExistingUniversity = null;
   if (universityFilter) {
     updatedUser.universityFilter = universityFilter;
+    newOrExistingUniversity = new University();
+    newOrExistingUniversity.universityName = universityFilter;
   }
+
+  let newOrExistingInterest = null;
   if (interestFilter) {
     updatedUser.interestFilter = interestFilter;
+    newOrExistingInterest = new Interest();
+    newOrExistingInterest.interestName = interestFilter;
   }
+
+  let newOrExistingCity = null;
   if (cityFilter) {
     updatedUser.cityFilter = cityFilter;
+    newOrExistingCity = new City();
+    newOrExistingCity.cityName = cityFilter;
   }
 
   let newOrUpdatedGenderFilters = null;
@@ -236,6 +248,9 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     newOrUpdatedUniversity,
     newOrUpdatedInterests,
     newOrUpdatedGenderFilters,
+    newOrExistingCity,
+    newOrExistingInterest,
+    newOrExistingUniversity,
   ).catch((err) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);

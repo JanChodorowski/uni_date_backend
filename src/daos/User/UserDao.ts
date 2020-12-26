@@ -25,7 +25,10 @@ export interface IUserDao {
              newOrUpdatedCity : City | null,
              newOrUpdatedUniversity: University | null,
              newOrUpdatedInterests: Interest[] | null,
-             newOrUpdatedGenderFilters: GenderFilter[] | null
+             newOrUpdatedGenderFilters: GenderFilter[] | null,
+             newOrExistingCity : City | null,
+             newOrExistingInterest: Interest | null,
+             newOrExistingUniversity: University | null
   ) => Promise<void>
 }
 
@@ -84,6 +87,9 @@ class UserDao implements IUserDao {
         'user.maxSearchDistanceFilter',
         'user.ageFromFilter',
         'user.ageToFilter',
+        'user.universityFilter',
+        'user.cityFilter',
+        'user.interestFilter',
         'user.isGraduated',
         'user.fieldOfStudy',
         'user.dateOfBirth',
@@ -170,12 +176,18 @@ class UserDao implements IUserDao {
    * @param newOrUpdatedUniversity
    * @param newOrUpdatedInterests
    * @param newOrUpdatedGenderFilters
+   * @param newOrExistingCity
+   * @param newOrExistingInterest
+   * @param newOrExistingUniversity
    */
   public async update(newOrUpdatedUser: IUser,
     newOrUpdatedCity : City | null = null,
     newOrUpdatedUniversity: University | null = null,
     newOrUpdatedInterests: Interest[] | null = null,
-    newOrUpdatedGenderFilters: GenderFilter[] | null = null): Promise<void> {
+    newOrUpdatedGenderFilters: GenderFilter[] | null = null,
+    newOrExistingCity : City | null = null,
+    newOrExistingInterest: Interest | null = null,
+    newOrExistingUniversity: University | null = null): Promise<void> {
     await getConnection().transaction(async (entityManager) => {
       if (newOrUpdatedCity) {
         await entityManager.save(newOrUpdatedCity);
@@ -190,6 +202,15 @@ class UserDao implements IUserDao {
       if (newOrUpdatedGenderFilters) {
         await entityManager.save(newOrUpdatedGenderFilters);
         newOrUpdatedUser.genderFilters = newOrUpdatedGenderFilters;
+      }
+      if (newOrExistingCity) {
+        await entityManager.save(newOrExistingCity);
+      }
+      if (newOrExistingInterest) {
+        await entityManager.save(newOrExistingInterest);
+      }
+      if (newOrExistingUniversity) {
+        await entityManager.save(newOrExistingUniversity);
       }
 
       await entityManager.save(newOrUpdatedUser);
