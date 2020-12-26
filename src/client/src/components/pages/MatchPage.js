@@ -20,7 +20,8 @@ import {
   Card,
   Divider,
   Grid,
-  IconButton, Paper,
+  IconButton,
+  Paper,
   Typography,
 } from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
@@ -32,7 +33,7 @@ import RegisterForm from "../forms/RegisterForm";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import MatchGallery from "../other/MatchGallery";
-import {blue, grey, pink} from "@material-ui/core/colors";
+import { blue, grey, pink } from "@material-ui/core/colors";
 import LabelValuePrinter from "../other/LabelValuePrinter";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 
@@ -131,10 +132,8 @@ const MatchPage = () => {
     setIsLoading(true);
     createRelation(passiveSideUserId, isLiking)
       .then(() => {
-        setOpen(false)
-        setProfiles(
-          profiles.filter((p) => p.id !== passiveSideUserId)
-        );
+        setOpen(false);
+        setProfiles(profiles.filter((p) => p.id !== passiveSideUserId));
       })
       .catch()
       .finally(setIsLoading(false));
@@ -145,65 +144,58 @@ const MatchPage = () => {
     <>
       {checkIfProfilesAlreadyFetched() && (
         <>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="center"
-            >
-              {profiles &&
-                profiles.map((p, i) => (
-
-                  <Grid item style={{ padding: DEFAULT_SPACE }} key={i} >
-                    <Grid item>
-
-                      <IconButton onClick={() => handleClickOpen(p.id)}>
-                        <Grid
-                          container
-                          direction="column"
-                          alignItems="center"
-                          justify="center"
-                          style={{ padding: "2rem" }}
-                        >
-                          <Grid item>
-                            {p.avatar ? (
-                              <Avatar
-                                alt={p.userName}
-                                src={URL.createObjectURL(p.avatar)}
-                                style={{
-                                  height: AVATAR_SIZE,
-                                  width: AVATAR_SIZE,
-                                }}
-                              />
-                            ) : (
-                              <Avatar
-                                alt={p.userName}
-                                src={PlaceHolder}
-                                style={{
-                                  height: AVATAR_SIZE,
-                                  width: AVATAR_SIZE,
-                                }}
-                              />
-                            )}
-                          </Grid>
-                          <Grid item>
-                            <Typography
+          <Grid container direction="row" alignItems="center" justify="center">
+            {profiles &&
+              profiles.map((p, i) => (
+                <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
+                  <Grid item>
+                    <IconButton onClick={() => handleClickOpen(p.id)}>
+                      <Grid
+                        container
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        style={{ padding: "2rem" }}
+                      >
+                        <Grid item>
+                          {p.avatar ? (
+                            <Avatar
+                              alt={p.userName}
+                              src={URL.createObjectURL(p.avatar)}
                               style={{
-                                fontSize: "1.5rem",
-                                fontWeight: "bold",
-                                color: getGenderColor(p.gender),
+                                height: AVATAR_SIZE,
+                                width: AVATAR_SIZE,
                               }}
-                              paragraph
-                            >
-                              {capitalizeFirstLetter(p.userName)}
-                            </Typography>
-                          </Grid>
+                            />
+                          ) : (
+                            <Avatar
+                              alt={p.userName}
+                              src={PlaceHolder}
+                              style={{
+                                height: AVATAR_SIZE,
+                                width: AVATAR_SIZE,
+                              }}
+                            />
+                          )}
                         </Grid>
-                      </IconButton>
-                    </Grid>
+                        <Grid item>
+                          <Typography
+                            style={{
+                              fontSize: "1.5rem",
+                              fontWeight: "bold",
+                              color: getGenderColor(p.gender),
+                            }}
+                            paragraph
+                          >
+                            {capitalizeFirstLetter(p.userName)}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </IconButton>
                   </Grid>
-                ))}
-            </Grid>
+                </Grid>
+              ))}
+          </Grid>
         </>
       )}
       <Dialog
@@ -214,31 +206,36 @@ const MatchPage = () => {
       >
         <DialogContent>
           <MatchGallery profileId={passiveSideUserId}></MatchGallery>
-          {console.log('profiles',profiles)}
-          {profiles.length > 0  && console.log('jeste nullem')}
-          {profiles && Array.isArray(profiles) && profiles.length > 0  && profiles.find((p) => p.id === passiveSideUserId) && profiles.find((p) => p.id === passiveSideUserId)?.userName && (
-            <>
-              <Typography
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  fontWeight: "bold",
-                  padding: DEFAULT_SPACE,
-                  color: getGenderColor(
-                    profiles.find((p) => p.id === passiveSideUserId)?.gender
-                  ),
-                }}
-              >
-                {`${
-                  profiles.find((p) => p.id === passiveSideUserId)?.userName
-                } ` || ""}
-                {calculateAge(
-                  profiles.find((p) => p.id === passiveSideUserId)?.dateOfBirth
-                ) || ""}
-              </Typography>
-              <Divider></Divider>
-            </>
-          )}
+          {console.log("profiles", profiles)}
+          {profiles.length > 0 && console.log("jeste nullem")}
+          {profiles &&
+            Array.isArray(profiles) &&
+            profiles.length > 0 &&
+            profiles.find((p) => p.id === passiveSideUserId) &&
+            profiles.find((p) => p.id === passiveSideUserId)?.userName && (
+              <>
+                <Typography
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "bold",
+                    padding: DEFAULT_SPACE,
+                    color: getGenderColor(
+                      profiles.find((p) => p.id === passiveSideUserId)?.gender
+                    ),
+                  }}
+                >
+                  {`${
+                    profiles.find((p) => p.id === passiveSideUserId)?.userName
+                  } ` || ""}
+                  {calculateAge(
+                    profiles.find((p) => p.id === passiveSideUserId)
+                      ?.dateOfBirth
+                  ) || ""}
+                </Typography>
+                <Divider></Divider>
+              </>
+            )}
 
           {profiles.find((p) => p.id === passiveSideUserId)?.description && (
             <>

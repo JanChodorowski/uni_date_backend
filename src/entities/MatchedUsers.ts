@@ -29,11 +29,11 @@ export class MatchedUsers {
   @Column("timestamp without time zone", { name: "created_at" })
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.matchedUsers)
+  @ManyToOne(() => User, (user) => user.matchedUsers, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_id_1", referencedColumnName: "id" }])
   userId: User;
 
-  @ManyToOne(() => User, (user) => user.matchedUsers2)
+  @ManyToOne(() => User, (user) => user.matchedUsers2, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_id_2", referencedColumnName: "id" }])
   userId_3: User;
 

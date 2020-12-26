@@ -26,11 +26,15 @@ export class OneSidedRelation {
   @Column("timestamp without time zone", { name: "created_at" })
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.oneSidedRelations)
+  @ManyToOne(() => User, (user) => user.oneSidedRelations, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn([{ name: "active_side_user_id", referencedColumnName: "id" }])
   activeSideUser: User;
 
-  @ManyToOne(() => User, (user) => user.oneSidedRelations2)
+  @ManyToOne(() => User, (user) => user.oneSidedRelations2, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn([{ name: "passive_side_user_id", referencedColumnName: "id" }])
   passiveSideUser: User;
 }

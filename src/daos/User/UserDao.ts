@@ -8,6 +8,7 @@ import { User } from '@entities/User';
 import { UserDto } from '@dto/UserDto';
 import { City } from '@entities/City';
 import { Interest } from '@entities/Interest';
+import { GenderFilter } from '@entities/GenderFilter';
 
 export interface IUserDao {
   // getOne: (email: string) => Promise<IUser | null>;
@@ -19,7 +20,13 @@ export interface IUserDao {
   findOneById: (id: string) => Promise<IUser | undefined>;
   getUserViewDataByUserId: (id: string) => Promise<any>
   login: (email: string) => Promise<any>
-  register: (email: string) => Promise<any>
+  register: (email: string) => Promise<any>;
+  update: (newOrUpdatedUser: IUser,
+             newOrUpdatedCity : City | null,
+             newOrUpdatedUniversity: University | null,
+             newOrUpdatedInterests: Interest[] | null,
+             newOrUpdatedGenderFilters: GenderFilter[] | null
+  ) => Promise<void>
 }
 
 class UserDao implements IUserDao {
@@ -162,11 +169,13 @@ class UserDao implements IUserDao {
    * @param newOrUpdatedCity
    * @param newOrUpdatedUniversity
    * @param newOrUpdatedInterests
+   * @param newOrUpdatedGenderFilters
    */
   public async update(newOrUpdatedUser: IUser,
     newOrUpdatedCity : City | null = null,
     newOrUpdatedUniversity: University | null = null,
-    newOrUpdatedInterests: Interest[] | null = null): Promise<void> {
+    newOrUpdatedInterests: Interest[] | null = null,
+    newOrUpdatedGenderFilters: GenderFilter[] | null = null): Promise<void> {
     await getConnection().transaction(async (entityManager) => {
       if (newOrUpdatedCity) {
         await entityManager.save(newOrUpdatedCity);
@@ -177,6 +186,10 @@ class UserDao implements IUserDao {
       if (newOrUpdatedInterests) {
         await entityManager.save(newOrUpdatedInterests);
         newOrUpdatedUser.interests = newOrUpdatedInterests;
+      }
+      if (newOrUpdatedGenderFilters) {
+        await entityManager.save(newOrUpdatedGenderFilters);
+        newOrUpdatedUser.genderFilters = newOrUpdatedGenderFilters;
       }
 
       await entityManager.save(newOrUpdatedUser);

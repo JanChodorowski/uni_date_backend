@@ -51,10 +51,14 @@ function MatchGallery({ profileId }) {
   const [profiles, setProfiles] = useContext(ProfilesContext);
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-  const maxSteps = (profiles && profiles && profiles
-      .find((p) => p.id === profileId) &&
-      profiles.find((p) => p.id === profileId)
-    .pictures.filter((p) => p.hasOwnProperty("blob")).length) || 0;
+  const maxSteps =
+    (profiles &&
+      profiles &&
+      profiles.find((p) => p.id === profileId) &&
+      profiles
+        .find((p) => p.id === profileId)
+        .pictures.filter((p) => p.hasOwnProperty("blob")).length) ||
+    0;
   useEffect(() => {
     if (maxSteps) {
       return;

@@ -30,7 +30,9 @@ export class Message {
   @Column("timestamp without time zone", { name: "created_at" })
   createdAt: Date;
 
-  @ManyToOne(() => MatchedUsers, (matchedUsers) => matchedUsers.messages)
+  @ManyToOne(() => MatchedUsers, (matchedUsers) => matchedUsers.messages, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn([
     { name: "user_id_1", referencedColumnName: "userId_1" },
     { name: "user_id_2", referencedColumnName: "userId_2" },

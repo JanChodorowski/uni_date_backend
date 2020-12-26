@@ -14,7 +14,10 @@ export class GenderFilter {
   @Column("character varying", { primary: true, name: "user_id", length: 450 })
   userId: string;
 
-  @ManyToOne(() => User, (user) => user.genderFilters)
+  @Column("boolean", { name: "is_liking" })
+  isLiking: boolean;
+
+  @ManyToOne(() => User, (user) => user.genderFilters, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
   user: User;
 }

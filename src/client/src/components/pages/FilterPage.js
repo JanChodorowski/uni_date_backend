@@ -85,11 +85,12 @@ const FilterPage = () => {
   };
 
   const maxDistanceLimit = 200;
-  const [maxDistance, setMaxDistance] = useState( maxDistanceLimit);
+  const [maxSearchDistanceFilter, setMaxSearchDistanceFilter] = useState( maxDistanceLimit);
+
 
 
   const handleMaxDistanceChange = (event, newMaxDistance) => {
-    setMaxDistance(newMaxDistance);
+    setMaxSearchDistanceFilter(newMaxDistance);
   };
 
   // const [genderFilters, setGenderFilters] = React.useState([user.ageFromFilter || 18, user.ageToFilter || 100]);
@@ -119,6 +120,7 @@ console.log('user',user)
         cityFilter: values.cityFilter.trim(),
         genderFilters,
         yearsFilter,
+        maxSearchDistanceFilter
       };
       updateUser(extendedValues)
           .then((res) => {
@@ -246,7 +248,7 @@ const paperPadding = '1.5rem'
                   min={0}
                   max={maxDistanceLimit}
                   valueLabelDisplay="on"
-                  value={maxDistance}
+                  value={maxSearchDistanceFilter}
                   onChange={handleMaxDistanceChange}
               />
             </div>

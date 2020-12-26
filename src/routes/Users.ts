@@ -16,6 +16,7 @@ import { City } from '@entities/City';
 import { University } from '@entities/University';
 import { Interest } from '@entities/Interest';
 import { capitalizeFirstLetter } from '@shared/functions';
+import { GenderFilter } from '@entities/GenderFilter';
 
 global.Blob = require('node-blob');
 const CrossBlob = require('cross-blob');
@@ -77,16 +78,17 @@ router.get('/profiles', authenticate, async (req: Request, res: Response) => {
 });
 
 router.put('/', authenticate, async (req: Request, res: Response) => {
-  const reqUser = req.body.user;
-  if (!reqUser.dateOfBirth) {
-    reqUser.dateOfBirth = '1970-01-01';
-  }
+  const { user } = req.body;
+  const { id } = req.body.payload;
+  // if (!reqUser.dateOfBirth) {
+  //   reqUser.dateOfBirth = '1970-01-01';
+  // }
   const schema = yup.object().shape(
     {
       email: yup.string().email(),
       userName: yup.string(),
       gender: yup.string(),
-      dateOfBirth: yup.string(),
+      dateOfBirth: yup.string().nullable(),
       description: yup.string(),
       popularity: yup.number(),
       activityIntensity: yup.number(),
@@ -98,10 +100,14 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       isGraduated: yup.bool(),
       fieldOfStudy: yup.string(),
       interests: yup.array(),
+      universityFilter: yup.string(),
+      interestFilter: yup.string(),
+      cityFilter: yup.string(),
+      genderFilters: yup.object(),
     },
   );
 
-  const isValid = await schema.isValid(reqUser);
+  const isValid = await schema.isValid(user);
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
@@ -123,10 +129,18 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     interests,
     isGraduated,
     fieldOfStudy,
-  } = reqUser;
-  console.log('reqUser', reqUser);
+    universityFilter,
+    interestFilter,
+    cityFilter,
+    genderFilters,
+  } = user;
+  // if (genderFilters) {
+  //   genderFilters.hasOwnProperty()
+  // }
+
+  console.log('reqUser', user);
   const updatedUser = new User();
-  updatedUser.id = req?.body?.payload?.id;
+  updatedUser.id = id;
   if (userName) {
     updatedUser.userName = capitalizeFirstLetter(userName);
   }
@@ -166,6 +180,34 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   if (ageToFilter) {
     updatedUser.ageToFilter = ageToFilter;
   }
+  if (universityFilter) {
+    updatedUser.universityFilter = universityFilter;
+  }
+  if (interestFilter) {
+    updatedUser.interestFilter = interestFilter;
+  }
+  if (cityFilter) {
+    updatedUser.cityFilter = cityFilter;
+  }
+
+  let newOrUpdatedGenderFilters = null;
+  if (genderFilters) {
+    // newOrUpdatedGenderFilters = Object.entries(genderFilters).map((gf: string) => {
+    //   const newGF = new GenderFilter();
+    //   newGF.userId = id;
+    //   newGF.genderFilter = gf;
+    //   return newGF;
+    // });
+
+    newOrUpdatedGenderFilters = Object.keys(genderFilters)
+      .filter((key: string) => genderFilters[key])
+      .map((key) => {
+        const newGF = new GenderFilter();
+        newGF.userId = id;
+        newGF.genderFilter = key;
+        return newGF;
+      });
+  }
 
   let newOrUpdatedCity = null;
   if (city) {
@@ -200,6 +242,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     newOrUpdatedCity,
     newOrUpdatedUniversity,
     newOrUpdatedInterests,
+    newOrUpdatedGenderFilters,
   ).catch((err) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);

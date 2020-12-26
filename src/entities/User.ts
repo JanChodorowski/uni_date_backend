@@ -90,27 +90,33 @@ export class User {
   @OneToMany(() => Picture, (picture) => picture.user)
   pictures: Picture[];
 
-  @ManyToOne(() => City, (city) => city.users)
+  @ManyToOne(() => City, (city) => city.users, { onDelete: "SET NULL" })
   @JoinColumn([{ name: "city_filter", referencedColumnName: "cityName" }])
   cityFilter: City;
 
-  @ManyToOne(() => City, (city) => city.users2)
+  @ManyToOne(() => City, (city) => city.users2, { onDelete: "SET NULL" })
   @JoinColumn([{ name: "city_name", referencedColumnName: "cityName" }])
   cityName: City;
 
-  @ManyToOne(() => Interest, (interest) => interest.users)
+  @ManyToOne(() => Interest, (interest) => interest.users, {
+    onDelete: "SET NULL",
+  })
   @JoinColumn([
     { name: "interest_filter", referencedColumnName: "interestName" },
   ])
   interestFilter: Interest;
 
-  @ManyToOne(() => University, (university) => university.users)
+  @ManyToOne(() => University, (university) => university.users, {
+    onDelete: "SET NULL",
+  })
   @JoinColumn([
     { name: "university_filter", referencedColumnName: "universityName" },
   ])
   universityFilter: University;
 
-  @ManyToOne(() => University, (university) => university.users2)
+  @ManyToOne(() => University, (university) => university.users2, {
+    onDelete: "SET NULL",
+  })
   @JoinColumn([
     { name: "university_name", referencedColumnName: "universityName" },
   ])

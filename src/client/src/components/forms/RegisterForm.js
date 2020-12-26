@@ -57,14 +57,14 @@ const RegisterForm = () => {
       setIsLoading(true);
       register(values)
         .then((res) => {
+          setIsLoading(false);
           const { data } = res;
-          if (data.email) {
+          if (data?.email) {
             setUser(data);
           }
           setIsUserExisting(!!data?.isUserExisting);
         })
-        .catch((e) => {})
-        .finally(() => {
+        .catch((e) => {
           setIsLoading(false);
         });
     },

@@ -145,7 +145,8 @@ function App() {
                   {user.email ? (
                     <>
                       <Logo></Logo>
-                      <br/><br/>
+                      <br />
+                      <br />
                       <Switch>
                         <Route path={`/${chat}`} component={ChatPage} exact />
                         <Route path={`/${match}`} component={MatchPage} exact />
