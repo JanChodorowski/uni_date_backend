@@ -2,12 +2,13 @@ import {
   FormControlLabel,
   FormGroup,
   MenuItem,
-  Paper, Snackbar,
+  Paper,
+  Snackbar,
   Switch,
   TextField,
 } from "@material-ui/core";
 
-import React, {useContext, useReducer, useState} from "react";
+import React, { useContext, useReducer, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { UserContext } from "../../context/userContext";
 import "date-fns";
@@ -25,10 +26,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ColorContext } from "../../context/colorContext";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { capitalizeFirstLetter } from "../../shared/functions";
-import {AUTO_HIDE_DURATION, DATA_NOT_UPDATED, DATA_UPDATED, DEFAULT_SPACE} from "../../shared/constants";
-import {Alert} from "@material-ui/lab";
-import Slide from '@material-ui/core/Slide';
-
+import {
+  AUTO_HIDE_DURATION,
+  DATA_NOT_UPDATED,
+  DATA_UPDATED,
+  DEFAULT_SPACE,
+} from "../../shared/constants";
+import { Alert } from "@material-ui/lab";
+import Slide from "@material-ui/core/Slide";
 
 const genderEnum = {
   Male: 1,
@@ -96,7 +101,7 @@ const UserForm = () => {
   const [isUpdatedCorrectly, setIsUpdatedCorrectly] = useState(false);
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -111,9 +116,10 @@ const UserForm = () => {
     updateUser(state)
       .then((res) => {
         setUser({ ...user, ...state });
-        setIsUpdatedCorrectly(true)
+        setIsUpdatedCorrectly(true);
       })
-      .catch((e) => {        setIsUpdatedCorrectly(false)
+      .catch((e) => {
+        setIsUpdatedCorrectly(false);
       })
       .finally(() => {
         setIsLoading(false);
@@ -124,152 +130,159 @@ const UserForm = () => {
   let maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
-
-
   return (
-      <>
-    <form noValidate autoComplete="off" onSubmit={onSubmit}>
-      <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
-        <TextField
-          name="university"
-          value={university}
-          label="University"
-          fullWidth
-          onChange={onChange}
-          size="small"
-        />
-        {university && (
-          <>
-            <TextField
-              name="fieldOfStudy"
-              value={fieldOfStudy}
-              label="Field of study"
-              fullWidth
-              onChange={onChange}
-              size="small"
-              style={{ marginBottom: DEFAULT_SPACE }}
-            />
-
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={isGraduated}
-                    onChange={onIsGraduatedChange}
-                    name="isGraduated"
-                    color="primary"
-                    size="small"
-                  />
-                }
-                label="Already graduated?"
-              />
-            </FormGroup>
-          </>
-        )}
-      </Paper>
-
-      <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
-        <TextField
-          name="userName"
-          value={userName}
-          label="Name"
-          fullWidth
-          onChange={onChange}
-          size="small"
-          style={{ marginBottom: "1rem" }}
-        />
-
-        <TextField
-          name="description"
-          label="Description"
-          multiline
-          fullWidth
-          rows={6}
-          value={description}
-          onChange={onChange}
-          variant="outlined"
-          size="small"
-          style={{ marginBottom: DEFAULT_SPACE }}
-        />
-
-        <TextField
-          name="gender"
-          select
-          label="Gender"
-          fullWidth
-          value={gender}
-          onChange={onChange}
-          size="small"
-        >
-          {Object.entries(genderEnum).map(([k, v]) => (
-            <MenuItem key={v} value={k}>
-              {k}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardDatePicker
-            name="dateOfBirth"
-            variant="inline"
-            format="dd/MM/yyyy"
-            margin="normal"
-            label="Date of birth"
-            value={dateOfBirth}
-            onChange={onDateChange}
+    <>
+      <form noValidate autoComplete="off" onSubmit={onSubmit}>
+        <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
+          <TextField
+            name="university"
+            value={university}
+            label="University"
             fullWidth
-            maxDate={maxDate}
-            KeyboardButtonProps={{
-              "aria-label": "change date",
-            }}
+            onChange={onChange}
             size="small"
           />
-        </MuiPickersUtilsProvider>
+          {university && (
+            <>
+              <TextField
+                name="fieldOfStudy"
+                value={fieldOfStudy}
+                label="Field of study"
+                fullWidth
+                onChange={onChange}
+                size="small"
+                style={{ marginBottom: DEFAULT_SPACE }}
+              />
 
-        <ChipInput
-          fullWidth
-          variant="filled"
-          name="interests"
-          label="Interests"
-          blurBehavior="add"
-          // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
-          defaultValue={interests}
-          onChange={onInterestsChange}
-          size="small"
-          style={{ marginBottom: DEFAULT_SPACE }}
-        />
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isGraduated}
+                      onChange={onIsGraduatedChange}
+                      name="isGraduated"
+                      color="primary"
+                      size="small"
+                    />
+                  }
+                  label="Already graduated?"
+                />
+              </FormGroup>
+            </>
+          )}
+        </Paper>
 
-        <TextField
-          name="city"
-          value={city}
-          label="City"
-          fullWidth
-          onChange={onChange}
-          size="small"
-        />
-      </Paper>
+        <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
+          <TextField
+            name="userName"
+            value={userName}
+            label="Name"
+            fullWidth
+            onChange={onChange}
+            size="small"
+            style={{ marginBottom: "1rem" }}
+          />
 
-      <Paper className={paper}>
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-          // disabled={formik.isSubmitting}
-          size="small"
+          <TextField
+            name="description"
+            label="Description"
+            multiline
+            fullWidth
+            rows={6}
+            value={description}
+            onChange={onChange}
+            variant="outlined"
+            size="small"
+            style={{ marginBottom: DEFAULT_SPACE }}
+          />
+
+          <TextField
+            name="gender"
+            select
+            label="Gender"
+            fullWidth
+            value={gender}
+            onChange={onChange}
+            size="small"
+          >
+            {Object.entries(genderEnum).map(([k, v]) => (
+              <MenuItem key={v} value={k}>
+                {k}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              name="dateOfBirth"
+              variant="inline"
+              format="dd/MM/yyyy"
+              margin="normal"
+              label="Date of birth"
+              value={dateOfBirth}
+              onChange={onDateChange}
+              fullWidth
+              maxDate={maxDate}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+              size="small"
+            />
+          </MuiPickersUtilsProvider>
+
+          <ChipInput
+            fullWidth
+            variant="filled"
+            name="interests"
+            label="Interests"
+            blurBehavior="add"
+            // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
+            defaultValue={interests}
+            onChange={onInterestsChange}
+            size="small"
+            style={{ marginBottom: DEFAULT_SPACE }}
+          />
+
+          <TextField
+            name="city"
+            value={city}
+            label="City"
+            fullWidth
+            onChange={onChange}
+            size="small"
+          />
+        </Paper>
+
+        <Paper className={paper}>
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+            // disabled={formik.isSubmitting}
+            size="small"
+          >
+            UPDATE DATA
+          </Button>
+        </Paper>
+      </form>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={AUTO_HIDE_DURATION}
+        onClose={handleSnackbarClose}
+        TransitionComponent={Slide}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={isUpdatedCorrectly ? "success" : "error"}
         >
-          UPDATE DATA
-        </Button>
-      </Paper>
-    </form>
-  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} onClose={handleSnackbarClose}         TransitionComponent={Slide}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  >
-    <Alert onClose={handleSnackbarClose} severity={isUpdatedCorrectly ? 'success' : 'error'}>
-      {isUpdatedCorrectly ? 'PROFILE DATA UPDATED' : 'PROFILE DATA NOT UPDATED'}
-    </Alert>
-  </Snackbar>
-  </>
+          {isUpdatedCorrectly
+            ? "PROFILE DATA UPDATED"
+            : "PROFILE DATA NOT UPDATED"}
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
 

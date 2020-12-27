@@ -21,7 +21,8 @@ import {
   Divider,
   Grid,
   IconButton,
-  Paper, Snackbar,
+  Paper,
+  Snackbar,
   Typography,
 } from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
@@ -36,8 +37,8 @@ import MatchGallery from "../other/MatchGallery";
 import { blue, grey, pink } from "@material-ui/core/colors";
 import LabelValuePrinter from "../other/LabelValuePrinter";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
-import {UserContext} from "../../context/userContext";
-import {Alert} from "@material-ui/lab";
+import { UserContext } from "../../context/userContext";
+import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
 
 const Transition = React.forwardRef((props, ref) => (
@@ -144,8 +145,8 @@ const MatchPage = () => {
       })
       .catch()
       .finally(() => {
-        setIsLoading(false)
-        setIsLiking(isLiking)
+        setIsLoading(false);
+        setIsLiking(isLiking);
         setSnackbarOpen(true);
       });
   };
@@ -155,7 +156,7 @@ const MatchPage = () => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -339,7 +340,12 @@ const MatchPage = () => {
           </Grid>
         </DialogContent>
       </Dialog>
-      <Snackbar open={snackbarOpen} autoHideDuration={2000} onClose={handleSnackbarClose} TransitionComponent={Slide}  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        TransitionComponent={Slide}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert onClose={handleSnackbarClose} severity="info">
           {isLiking ? "LIKE" : "DISLIKE"}

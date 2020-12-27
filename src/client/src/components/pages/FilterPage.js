@@ -21,7 +21,8 @@ import {
   MenuItem,
   Paper,
   Select,
-  Slider, Snackbar,
+  Slider,
+  Snackbar,
   Typography,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -45,7 +46,7 @@ import { grey } from "@material-ui/core/colors";
 import { ColorContext } from "../../context/colorContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import { capitalizeFirstLetter } from "../../shared/functions";
-import {Alert} from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
 
 // const validationSchema = yup.object(BASIC_VALIDATION);
@@ -101,7 +102,7 @@ const FilterPage = () => {
 
   const maxDistanceLimit = 200;
   const [maxSearchDistanceFilter, setMaxSearchDistanceFilter] = useState(
-      user.maxSearchDistanceFilter || maxDistanceLimit
+    user.maxSearchDistanceFilter || maxDistanceLimit
   );
 
   const handleMaxDistanceChange = (event, newMaxDistance) => {
@@ -124,7 +125,7 @@ const FilterPage = () => {
   const [isUpdatedCorrectly, setIsUpdatedCorrectly] = useState(false);
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -159,10 +160,12 @@ const FilterPage = () => {
         .then((res) => {
           setProfiles(EMPTY_PROFILES);
           setUser({ ...user, ...extendedValues });
-          setIsUpdatedCorrectly(true)
-          setSnackbarOpen(true)
+          setIsUpdatedCorrectly(true);
+          setSnackbarOpen(true);
         })
-        .catch((e) => {setIsUpdatedCorrectly(false)})
+        .catch((e) => {
+          setIsUpdatedCorrectly(false);
+        })
         .finally(() => {
           setIsLoading(false);
         });
@@ -193,177 +196,187 @@ const FilterPage = () => {
   const { Male, Female, Other } = genderFilters;
 
   return (
-      <>
-    <Grid container direction="row" alignItems="center" justify="center">
-      <Grid
-        item
-        style={{ marginBottom: DEFAULT_SPACE, maxWidth: 400, flexGrow: 1 }}
-      >
-        <form onSubmit={formik.handleSubmit}>
-          <Paper
-            className={paper}
-            style={{ paddingLeft: paperPadding, paddingRight: paperPadding }}
-          >
-            <TextField
-              fullWidth
-              id="universityFilter"
-              name="universityFilter"
-              label="University filter"
-              value={formik.values.universityFilter}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.universityFilter &&
-                Boolean(formik.errors.universityFilter)
-              }
-              helperText={
-                formik.touched.universityFilter &&
-                formik.errors.universityFilter
-              }
-              size="small"
-              style={{ marginBottom: DEFAULT_SPACE }}
-            />
-            <div style={{ marginBottom: DEFAULT_SPACE }}>
-              <Typography
-                id="years-filter-range-slider"
-                gutterBottom
-                className={classes.sliderLabel}
-              >
-                Years filter
-              </Typography>
-              <Slider
-                id="yearsFilter"
-                name="yearsFilter"
-                value={yearsFilter}
-                onChange={handleYearsChange}
-                valueLabelDisplay="on"
-                aria-labelledby="years-filter-range-slider"
-                min={minYears}
-
-                // getAriaValueText={valuetext}
-              />
-            </div>
-            <FormControl
-              component="fieldset"
-              className={classes.formControl}
-              style={{ marginBottom: DEFAULT_SPACE }}
+    <>
+      <Grid container direction="row" alignItems="center" justify="center">
+        <Grid
+          item
+          style={{ marginBottom: DEFAULT_SPACE, maxWidth: 400, flexGrow: 1 }}
+        >
+          <form onSubmit={formik.handleSubmit}>
+            <Paper
+              className={paper}
+              style={{ paddingLeft: paperPadding, paddingRight: paperPadding }}
             >
-              <FormLabel component="legend">Gender filter</FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color={"primary"}
-                      checked={Male}
-                      onChange={handleChange}
-                      name="Male"
-                    />
-                  }
-                  label="Male"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color={"primary"}
-                      checked={Female}
-                      onChange={handleChange}
-                      name="Female"
-                    />
-                  }
-                  label="Female"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color={"primary"}
-                      checked={Other}
-                      onChange={handleChange}
-                      name="Other"
-                    />
-                  }
-                  label="Other"
-                />
-              </FormGroup>
-            </FormControl>
-            <TextField
-              fullWidth
-              id="interestFilter"
-              name="interestFilter"
-              label="Interest filter"
-              value={formik.values.interestFilter}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.interestFilter &&
-                Boolean(formik.errors.interestFilter)
-              }
-              helperText={
-                formik.touched.interestFilter && formik.errors.interestFilter
-              }
-              size="small"
-              style={{ marginBottom: DEFAULT_SPACE }}
-            />
-            <TextField
-              fullWidth
-              id="cityFilter"
-              name="cityFilter"
-              label="City filter"
-              value={formik.values.cityFilter}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.cityFilter && Boolean(formik.errors.cityFilter)
-              }
-              helperText={formik.touched.cityFilter && formik.errors.cityFilter}
-              size="small"
-              style={{ marginBottom: DEFAULT_SPACE }}
-            />
-            <div style={{ marginBottom: DEFAULT_SPACE }}>
-              <Typography
-                id="max-distance-slider"
-                gutterBottom
-                className={classes.sliderLabel}
-              >
-                Max search distance in KM
-              </Typography>
-              <Slider
-                defaultValue={maxDistanceLimit}
-                aria-labelledby="max-distance-slider"
-                step={10}
-                marks
-                min={0}
-                max={maxDistanceLimit}
-                valueLabelDisplay="on"
-                value={maxSearchDistanceFilter}
-                onChange={handleMaxDistanceChange}
+              <TextField
+                fullWidth
+                id="universityFilter"
+                name="universityFilter"
+                label="University filter"
+                value={formik.values.universityFilter}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.universityFilter &&
+                  Boolean(formik.errors.universityFilter)
+                }
+                helperText={
+                  formik.touched.universityFilter &&
+                  formik.errors.universityFilter
+                }
+                size="small"
+                style={{ marginBottom: DEFAULT_SPACE }}
               />
-            </div>
+              <div style={{ marginBottom: DEFAULT_SPACE }}>
+                <Typography
+                  id="years-filter-range-slider"
+                  gutterBottom
+                  className={classes.sliderLabel}
+                >
+                  Years filter
+                </Typography>
+                <Slider
+                  id="yearsFilter"
+                  name="yearsFilter"
+                  value={yearsFilter}
+                  onChange={handleYearsChange}
+                  valueLabelDisplay="on"
+                  aria-labelledby="years-filter-range-slider"
+                  min={minYears}
 
-            {!areCredentialsCorrect && !isLoading && (
-              <>
-                <p style={{ color: "rgb(204,0,0)" }}>
-                  No user with this universityFilter and password
-                </p>
-              </>
-            )}
-            <Button
-              color="primary"
-              variant="contained"
-              fullWidth
-              type="submit"
-              disabled={formik.isSubmitting}
-              size="small"
-            >
-              UPDATE FILTERS
-            </Button>
-          </Paper>
-        </form>
+                  // getAriaValueText={valuetext}
+                />
+              </div>
+              <FormControl
+                component="fieldset"
+                className={classes.formControl}
+                style={{ marginBottom: DEFAULT_SPACE }}
+              >
+                <FormLabel component="legend">Gender filter</FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        color={"primary"}
+                        checked={Male}
+                        onChange={handleChange}
+                        name="Male"
+                      />
+                    }
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        color={"primary"}
+                        checked={Female}
+                        onChange={handleChange}
+                        name="Female"
+                      />
+                    }
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        color={"primary"}
+                        checked={Other}
+                        onChange={handleChange}
+                        name="Other"
+                      />
+                    }
+                    label="Other"
+                  />
+                </FormGroup>
+              </FormControl>
+              <TextField
+                fullWidth
+                id="interestFilter"
+                name="interestFilter"
+                label="Interest filter"
+                value={formik.values.interestFilter}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.interestFilter &&
+                  Boolean(formik.errors.interestFilter)
+                }
+                helperText={
+                  formik.touched.interestFilter && formik.errors.interestFilter
+                }
+                size="small"
+                style={{ marginBottom: DEFAULT_SPACE }}
+              />
+              <TextField
+                fullWidth
+                id="cityFilter"
+                name="cityFilter"
+                label="City filter"
+                value={formik.values.cityFilter}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.cityFilter && Boolean(formik.errors.cityFilter)
+                }
+                helperText={
+                  formik.touched.cityFilter && formik.errors.cityFilter
+                }
+                size="small"
+                style={{ marginBottom: DEFAULT_SPACE }}
+              />
+              <div style={{ marginBottom: DEFAULT_SPACE }}>
+                <Typography
+                  id="max-distance-slider"
+                  gutterBottom
+                  className={classes.sliderLabel}
+                >
+                  Max search distance in KM
+                </Typography>
+                <Slider
+                  defaultValue={maxDistanceLimit}
+                  aria-labelledby="max-distance-slider"
+                  step={10}
+                  marks
+                  min={0}
+                  max={maxDistanceLimit}
+                  valueLabelDisplay="on"
+                  value={maxSearchDistanceFilter}
+                  onChange={handleMaxDistanceChange}
+                />
+              </div>
+
+              {!areCredentialsCorrect && !isLoading && (
+                <>
+                  <p style={{ color: "rgb(204,0,0)" }}>
+                    No user with this universityFilter and password
+                  </p>
+                </>
+              )}
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                type="submit"
+                disabled={formik.isSubmitting}
+                size="small"
+              >
+                UPDATE FILTERS
+              </Button>
+            </Paper>
+          </form>
+        </Grid>
       </Grid>
-    </Grid>
-  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} TransitionComponent={Slide} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  >
-    <Alert onClose={handleSnackbarClose} severity={isUpdatedCorrectly ? 'success' : 'error'}>
-      {isUpdatedCorrectly ? 'FILTERS UPDATED' : 'FILTERS NOT UPDATED'}
-    </Alert>
-  </Snackbar>
-  </>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={AUTO_HIDE_DURATION}
+        TransitionComponent={Slide}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={isUpdatedCorrectly ? "success" : "error"}
+        >
+          {isUpdatedCorrectly ? "FILTERS UPDATED" : "FILTERS NOT UPDATED"}
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
 
