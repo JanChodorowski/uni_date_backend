@@ -70,6 +70,7 @@ router.post('/register', async (req: Request, res: Response) => {
   }
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(noWhitespacePassword, saltRounds);
+
   const newUser = new User();
 
   newUser.id = uuidv4();
@@ -139,13 +140,14 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(UNAUTHORIZED).end();
   }
 
-  const arePasswordsMatching = await bcrypt.compare(password, foundUser.passwordHash);
+  const { passwordHash, id } = foundUser;
 
+  const arePasswordsMatching = await bcrypt.compare(password, passwordHash);
   if (!arePasswordsMatching) {
     return res.status(UNAUTHORIZED).end();
   }
 
-  const token = jwt.sign({ id: foundUser.id }, TOKEN_SECRET!, {
+  const token = jwt.sign({ id }, TOKEN_SECRET!, {
     algorithm: 'HS256',
     expiresIn: jwtExpirySeconds,
   });

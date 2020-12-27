@@ -36,6 +36,7 @@ import MatchGallery from "../other/MatchGallery";
 import { blue, grey, pink } from "@material-ui/core/colors";
 import LabelValuePrinter from "../other/LabelValuePrinter";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
+import {UserContext} from "../../context/userContext";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -44,6 +45,8 @@ const Transition = React.forwardRef((props, ref) => (
 const MatchPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
+  const [user, setUser] = useContext(UserContext);
+
   const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null);
 
   const checkIfProfilesAlreadyFetched = () => profiles && profiles.length > 0;
@@ -57,7 +60,7 @@ const MatchPage = () => {
 
     setIsLoading(true);
 
-    getProfiles()
+    getProfiles(user)
       .then((res) => {
         let profilesData = res.data;
 
@@ -206,8 +209,6 @@ const MatchPage = () => {
       >
         <DialogContent>
           <MatchGallery profileId={passiveSideUserId}></MatchGallery>
-          {console.log("profiles", profiles)}
-          {profiles.length > 0 && console.log("jeste nullem")}
           {profiles &&
             Array.isArray(profiles) &&
             profiles.length > 0 &&

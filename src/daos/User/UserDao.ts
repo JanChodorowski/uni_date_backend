@@ -77,7 +77,11 @@ class UserDao implements IUserDao {
       .leftJoinAndSelect('user.pictures', 'picture')
       .leftJoinAndSelect('user.cityName', 'city')
       .leftJoinAndSelect('user.universityName', 'university')
+      .leftJoinAndSelect('user.universityFilter', 'universityFilter')
+      .leftJoinAndSelect('user.interestFilter', 'interestFilter')
+      .leftJoinAndSelect('user.cityFilter', 'cityFilter')
       .leftJoinAndSelect('user.interests', 'interests')
+      .leftJoinAndSelect('user.genderFilters', 'genderFilters')
       .where({ id })
       .select([
         'user.userName',
@@ -87,12 +91,15 @@ class UserDao implements IUserDao {
         'user.maxSearchDistanceFilter',
         'user.ageFromFilter',
         'user.ageToFilter',
-        'user.universityFilter',
-        'user.cityFilter',
-        'user.interestFilter',
+        'universityFilter.universityName',
+        'cityFilter.cityName',
+        'interestFilter.interestName',
         'user.isGraduated',
         'user.fieldOfStudy',
         'user.dateOfBirth',
+        'genderFilters.genderFilter',
+        'genderFilters.isLiking',
+        'picture.fileName',
         'picture.fileName',
         'picture.isAvatar',
         'picture.blob',
@@ -141,7 +148,7 @@ class UserDao implements IUserDao {
       .leftJoinAndSelect('user.universityName', 'university')
       .leftJoinAndSelect('user.interests', 'interests')
       .where('id != :id', { id })
-      .andWhere(cityFilter ? 'cityFilter = :cityFilter' : '1=1', { cityFilter })
+      .andWhere(cityFilter ? 'user.cityFilter = :cityFilter' : '1=1', { cityFilter })
       .select([
         'user.id',
         'user.userName',

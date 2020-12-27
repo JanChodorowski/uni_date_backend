@@ -23,8 +23,8 @@ export const getUser = () => {
   return axios.get("/api/users");
 };
 
-export const getProfiles = () => {
-  return axios.get("/api/users/profiles");
+export const getProfiles = ({cityFilter}) => {
+  return axios.post("/api/users/profiles", {cityFilter});
 };
 
 export const deleteUser = () => {

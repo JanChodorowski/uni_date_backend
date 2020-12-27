@@ -36,15 +36,36 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
+
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
-  console.log('userViewData', userViewData);
+
+  const getGenderFilters = () => {
+    if (!(
+      userViewData
+        && userViewData.genderFilters
+        && Array.isArray(userViewData.genderFilters)
+        && userViewData.genderFilters.length === 3
+        && userViewData?.genderFilters[0].genderFilter)) {
+      return {};
+    }
+
+    return {
+      [userViewData?.genderFilters[0].genderFilter]: userViewData?.genderFilters[0].isLiking,
+      [userViewData?.genderFilters[1].genderFilter]: userViewData?.genderFilters[1].isLiking,
+      [userViewData?.genderFilters[2].genderFilter]: userViewData?.genderFilters[2].isLiking,
+    };
+  };
 
   const userDto = {
     ...userViewData,
     city: userViewData?.cityName?.cityName || '',
+    cityFilter: userViewData?.cityFilter?.cityName || '',
     university: userViewData?.universityName?.universityName || '',
+    universityFilter: userViewData?.universityFilter?.universityName || '',
+    interestFilter: userViewData?.interestFilter?.interestName || '',
+    genderFilters: getGenderFilters() || {},
     interests: (userViewData?.interests
         && userViewData?.interests.length > 0
         && userViewData?.interests.map((interest: any) => interest.interestName)) || [],
@@ -54,15 +75,19 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
   res.json(userDto).end();
 });
 
-router.get('/profiles', authenticate, async (req: Request, res: Response) => {
-  const profilesData = await userDao.findProfiles(req?.body?.payload?.id)
+router.post('/profiles', authenticate, async (req: Request, res: Response) => {
+  const { payload, cityFilter } = req.body;
+
+  const profilesData = await userDao.findProfiles(payload?.id, cityFilter)
     .catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
+
   if (!profilesData) {
     res.sendStatus(BAD_REQUEST).end();
   }
+
   const profilesDto = profilesData.map((pd: any) => ({
     ...pd,
     city: pd?.cityName?.cityName || '',
@@ -81,9 +106,7 @@ router.get('/profiles', authenticate, async (req: Request, res: Response) => {
 router.put('/', authenticate, async (req: Request, res: Response) => {
   const { user } = req.body;
   const { id } = req.body.payload;
-  // if (!reqUser.dateOfBirth) {
-  //   reqUser.dateOfBirth = '1970-01-01';
-  // }
+
   const schema = yup.object().shape(
     {
       email: yup.string().email(),
@@ -95,8 +118,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       activityIntensity: yup.number(),
       localization: yup.number(),
       maxSearchDistanceFilter: yup.number(),
-      // ageFromFilter: yup.number(),
-      // ageToFilter: yup.number(),
       genderFilter: yup.number(),
       isGraduated: yup.bool(),
       fieldOfStudy: yup.string(),
@@ -124,8 +145,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     activityIntensity,
     localization,
     maxSearchDistanceFilter,
-    // ageFromFilter,
-    // ageToFilter,
     university,
     city,
     interests,
@@ -137,18 +156,14 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     genderFilters,
     yearsFilter,
   } = user;
-  // if (genderFilters) {
-  //   genderFilters.hasOwnProperty()
-  // }
 
-  console.log('reqUser', user);
   const updatedUser = new User();
   updatedUser.id = id;
   if (userName) {
     updatedUser.userName = capitalizeFirstLetter(userName);
   }
   if (gender) {
-    updatedUser.gender = gender;
+    updatedUser.gender = capitalizeFirstLetter(gender);
   }
   if (dateOfBirth) {
     updatedUser.dateOfBirth = dateOfBirth;
@@ -186,32 +201,35 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 
   let newOrExistingUniversity = null;
   if (universityFilter) {
-    updatedUser.universityFilter = universityFilter;
+    const capitalizedUniversityFilter = capitalizeFirstLetter(universityFilter);
+    updatedUser.universityFilter = capitalizedUniversityFilter;
     newOrExistingUniversity = new University();
-    newOrExistingUniversity.universityName = universityFilter;
+    newOrExistingUniversity.universityName = capitalizedUniversityFilter;
   }
 
   let newOrExistingInterest = null;
   if (interestFilter) {
-    updatedUser.interestFilter = interestFilter;
+    const lowerCaseInterestFilter = interestFilter.toLowerCase();
+    updatedUser.interestFilter = lowerCaseInterestFilter;
     newOrExistingInterest = new Interest();
-    newOrExistingInterest.interestName = interestFilter;
+    newOrExistingInterest.interestName = lowerCaseInterestFilter;
   }
 
   let newOrExistingCity = null;
   if (cityFilter) {
-    updatedUser.cityFilter = cityFilter;
+    const capitalizedCityFilter = capitalizeFirstLetter(cityFilter);
+    updatedUser.cityFilter = capitalizedCityFilter;
     newOrExistingCity = new City();
-    newOrExistingCity.cityName = cityFilter;
+    newOrExistingCity.cityName = capitalizedCityFilter;
   }
 
   let newOrUpdatedGenderFilters = null;
   if (genderFilters) {
     newOrUpdatedGenderFilters = Object.keys(genderFilters)
-      .map((key) => {
+      .map((key:any) => {
         const newGF = new GenderFilter();
         newGF.userId = id;
-        newGF.genderFilter = key;
+        newGF.genderFilter = capitalizeFirstLetter(key);
         newGF.isLiking = genderFilters[key];
         return newGF;
       });
@@ -228,7 +246,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   let newOrUpdatedUniversity = null;
   if (university) {
     newOrUpdatedUniversity = new University();
-
     const capitalizedUniversity = capitalizeFirstLetter(university);
     newOrUpdatedUniversity.universityName = capitalizedUniversity;
     updatedUser.universityName = capitalizedUniversity;
