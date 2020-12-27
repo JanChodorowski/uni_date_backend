@@ -76,9 +76,9 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.post('/profiles', authenticate, async (req: Request, res: Response) => {
-  const { payload, cityFilter } = req.body;
+  const { payload, cityFilter, universityFilter } = req.body;
 
-  const profilesData = await userDao.findProfiles(payload?.id, cityFilter)
+  const profilesData = await userDao.findProfiles(payload?.id, cityFilter, universityFilter)
     .catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);

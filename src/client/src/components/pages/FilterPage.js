@@ -10,7 +10,7 @@ import {
   Chip,
   FormControl,
   FormControlLabel,
-  FormGroup,
+  FormGroup, FormHelperText,
   FormLabel,
   Grid,
   IconButton,
@@ -132,6 +132,9 @@ const FilterPage = () => {
     setSnackbarOpen(false);
   };
 
+  const { Male, Female, Other } = genderFilters;
+  const error = [Male, Female, Other].filter((v) => v).length === 0;
+
   const formik = useFormik({
     initialValues: {
       universityFilter:
@@ -146,6 +149,9 @@ const FilterPage = () => {
     },
     // validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
+      if(error){
+        return
+      }
       handleCredentials(true);
       const extendedValues = {
         ...values,
@@ -193,7 +199,7 @@ const FilterPage = () => {
     });
   };
 
-  const { Male, Female, Other } = genderFilters;
+
 
   return (
     <>
@@ -249,6 +255,8 @@ const FilterPage = () => {
                 component="fieldset"
                 className={classes.formControl}
                 style={{ marginBottom: DEFAULT_SPACE }}
+                required
+                error={error}
               >
                 <FormLabel component="legend">Gender filter</FormLabel>
                 <FormGroup>
@@ -286,6 +294,7 @@ const FilterPage = () => {
                     label="Other"
                   />
                 </FormGroup>
+                {error && <FormHelperText>Pick at least one</FormHelperText>}
               </FormControl>
               <TextField
                 fullWidth
@@ -353,7 +362,7 @@ const FilterPage = () => {
                 variant="contained"
                 fullWidth
                 type="submit"
-                disabled={formik.isSubmitting}
+                disabled={formik.isSubmitting || error}
                 size="small"
               >
                 UPDATE FILTERS
