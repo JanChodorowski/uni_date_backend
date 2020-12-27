@@ -205,6 +205,8 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     updatedUser.universityFilter = capitalizedUniversityFilter;
     newOrExistingUniversity = new University();
     newOrExistingUniversity.universityName = capitalizedUniversityFilter;
+  } else {
+    updatedUser.universityFilter = null;
   }
 
   let newOrExistingInterest = null;
@@ -221,6 +223,8 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     updatedUser.cityFilter = capitalizedCityFilter;
     newOrExistingCity = new City();
     newOrExistingCity.cityName = capitalizedCityFilter;
+  } else {
+    updatedUser.cityFilter = null;
   }
 
   let newOrUpdatedGenderFilters = null;

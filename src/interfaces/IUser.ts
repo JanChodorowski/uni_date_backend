@@ -29,10 +29,10 @@ export interface IUser {
     oneSidedRelations: OneSidedRelation[];
     oneSidedRelations2: OneSidedRelation[];
     pictures: Picture[];
-    cityFilter: City;
-    cityName: City;
-    interestFilter: Interest;
-    universityFilter: University;
-    universityName: University;
+    cityFilter: City | null;
+    cityName: City | null;
+    interestFilter: Interest | null;
+    universityFilter: University | null;
+    universityName: University | null;
     interests: Interest[];
 }

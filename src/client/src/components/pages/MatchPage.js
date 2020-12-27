@@ -21,7 +21,7 @@ import {
   Divider,
   Grid,
   IconButton,
-  Paper,
+  Paper, Snackbar,
   Typography,
 } from "@material-ui/core";
 import PlaceHolder from "../../images/Missing_avatar.svg";
@@ -37,6 +37,7 @@ import { blue, grey, pink } from "@material-ui/core/colors";
 import LabelValuePrinter from "../other/LabelValuePrinter";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import {UserContext} from "../../context/userContext";
+import {Alert} from "@material-ui/lab";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -131,6 +132,8 @@ const MatchPage = () => {
     }
   };
 
+  const [isLiking, setIsLiking] = useState(false);
+
   const handleRelationClick = (isLiking) => {
     setIsLoading(true);
     createRelation(passiveSideUserId, isLiking)
@@ -139,9 +142,24 @@ const MatchPage = () => {
         setProfiles(profiles.filter((p) => p.id !== passiveSideUserId));
       })
       .catch()
-      .finally(setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false)
+        setIsLiking(isLiking)
+        setSnackbarOpen(true);
+      });
   };
+
   const paper = useTransparentPaperStyle();
+
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
 
   return (
     <>
@@ -320,6 +338,12 @@ const MatchPage = () => {
           </Grid>
         </DialogContent>
       </Dialog>
+      <Snackbar open={snackbarOpen} autoHideDuration={2000} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="info">
+          {isLiking ? "LIKE" : "DISLIKE"}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

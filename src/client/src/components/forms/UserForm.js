@@ -2,12 +2,12 @@ import {
   FormControlLabel,
   FormGroup,
   MenuItem,
-  Paper,
+  Paper, Snackbar,
   Switch,
   TextField,
 } from "@material-ui/core";
 
-import React, { useContext, useReducer } from "react";
+import React, {useContext, useReducer, useState} from "react";
 import Button from "@material-ui/core/Button";
 import { UserContext } from "../../context/userContext";
 import "date-fns";
@@ -25,7 +25,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ColorContext } from "../../context/colorContext";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { capitalizeFirstLetter } from "../../shared/functions";
-import { DEFAULT_SPACE } from "../../shared/constants";
+import {AUTO_HIDE_DURATION, DATA_NOT_UPDATED, DATA_UPDATED, DEFAULT_SPACE} from "../../shared/constants";
+import {Alert} from "@material-ui/lab";
 
 const genderEnum = {
   Male: 1,
@@ -89,6 +90,17 @@ const UserForm = () => {
     dispatch({ field: "isGraduated", value: !isGraduated });
   };
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [isUpdatedCorrectly, setIsUpdatedCorrectly] = useState(false);
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -97,17 +109,23 @@ const UserForm = () => {
     updateUser(state)
       .then((res) => {
         setUser({ ...user, ...state });
+        setIsUpdatedCorrectly(true)
       })
-      .catch((e) => {})
+      .catch((e) => {        setIsUpdatedCorrectly(false)
+      })
       .finally(() => {
         setIsLoading(false);
+        setSnackbarOpen(true);
       });
   };
 
   let maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
+
+
   return (
+      <>
     <form noValidate autoComplete="off" onSubmit={onSubmit}>
       <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
         <TextField
@@ -242,6 +260,13 @@ const UserForm = () => {
         </Button>
       </Paper>
     </form>
+  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+  >
+    <Alert onClose={handleSnackbarClose} severity={isUpdatedCorrectly ? 'success' : 'error'}>
+      {isUpdatedCorrectly ? 'PROFILE DATA UPDATED' : 'PROFILE DATA NOT UPDATED'}
+    </Alert>
+  </Snackbar>
+  </>
   );
 };
 

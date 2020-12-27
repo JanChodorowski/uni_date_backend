@@ -21,7 +21,7 @@ import {
   MenuItem,
   Paper,
   Select,
-  Slider,
+  Slider, Snackbar,
   Typography,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -29,6 +29,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import {
+  AUTO_HIDE_DURATION,
   BASIC_VALIDATION,
   DARK_TRANSPARENT,
   DEFAULT_SPACE,
@@ -44,6 +45,7 @@ import { grey } from "@material-ui/core/colors";
 import { ColorContext } from "../../context/colorContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import { capitalizeFirstLetter } from "../../shared/functions";
+import {Alert} from "@material-ui/lab";
 
 // const validationSchema = yup.object(BASIC_VALIDATION);
 
@@ -117,6 +119,17 @@ const FilterPage = () => {
 
   // const handleGenderChange = ()
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [isUpdatedCorrectly, setIsUpdatedCorrectly] = useState(false);
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
+
   const formik = useFormik({
     initialValues: {
       universityFilter:
@@ -145,8 +158,10 @@ const FilterPage = () => {
         .then((res) => {
           setProfiles(EMPTY_PROFILES);
           setUser({ ...user, ...extendedValues });
+          setIsUpdatedCorrectly(true)
+          setSnackbarOpen(true)
         })
-        .catch((e) => {})
+        .catch((e) => {setIsUpdatedCorrectly(false)})
         .finally(() => {
           setIsLoading(false);
         });
@@ -177,6 +192,7 @@ const FilterPage = () => {
   const { Male, Female, Other } = genderFilters;
 
   return (
+      <>
     <Grid container direction="row" alignItems="center" justify="center">
       <Grid
         item
@@ -340,6 +356,13 @@ const FilterPage = () => {
         </form>
       </Grid>
     </Grid>
+  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+  >
+    <Alert onClose={handleSnackbarClose} severity={isUpdatedCorrectly ? 'success' : 'error'}>
+      {isUpdatedCorrectly ? 'FILTERS UPDATED' : 'FILTERS NOT UPDATED'}
+    </Alert>
+  </Snackbar>
+  </>
   );
 };
 
