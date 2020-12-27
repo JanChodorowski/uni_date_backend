@@ -133,7 +133,7 @@ const FilterPage = () => {
   };
 
   const { Male, Female, Other } = genderFilters;
-  const error = [Male, Female, Other].filter((v) => v).length === 0;
+  const isNoneGenderPicked = [Male, Female, Other].filter((v) => v).length === 0;
 
   const formik = useFormik({
     initialValues: {
@@ -149,7 +149,7 @@ const FilterPage = () => {
     },
     // validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      if(error){
+      if(isNoneGenderPicked){
         return
       }
       handleCredentials(true);
@@ -256,7 +256,7 @@ const FilterPage = () => {
                 className={classes.formControl}
                 style={{ marginBottom: DEFAULT_SPACE }}
                 required
-                error={error}
+                error={isNoneGenderPicked}
               >
                 <FormLabel component="legend">Gender filter</FormLabel>
                 <FormGroup>
@@ -294,7 +294,7 @@ const FilterPage = () => {
                     label="Other"
                   />
                 </FormGroup>
-                {error && <FormHelperText>Pick at least one</FormHelperText>}
+                {isNoneGenderPicked && <FormHelperText>Pick at least one</FormHelperText>}
               </FormControl>
               <TextField
                 fullWidth
@@ -357,12 +357,13 @@ const FilterPage = () => {
                   </p>
                 </>
               )}
+
               <Button
                 color="primary"
                 variant="contained"
                 fullWidth
                 type="submit"
-                disabled={formik.isSubmitting || error}
+                disabled={formik.isSubmitting || isNoneGenderPicked}
                 size="small"
               >
                 UPDATE FILTERS
