@@ -27,6 +27,8 @@ import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { capitalizeFirstLetter } from "../../shared/functions";
 import {AUTO_HIDE_DURATION, DATA_NOT_UPDATED, DATA_UPDATED, DEFAULT_SPACE} from "../../shared/constants";
 import {Alert} from "@material-ui/lab";
+import Slide from '@material-ui/core/Slide';
+
 
 const genderEnum = {
   Male: 1,
@@ -260,7 +262,8 @@ const UserForm = () => {
         </Button>
       </Paper>
     </form>
-  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} onClose={handleSnackbarClose}         TransitionComponent={Slide}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
   >
     <Alert onClose={handleSnackbarClose} severity={isUpdatedCorrectly ? 'success' : 'error'}>
       {isUpdatedCorrectly ? 'PROFILE DATA UPDATED' : 'PROFILE DATA NOT UPDATED'}

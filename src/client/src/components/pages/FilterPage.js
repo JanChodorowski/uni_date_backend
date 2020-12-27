@@ -46,6 +46,7 @@ import { ColorContext } from "../../context/colorContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import { capitalizeFirstLetter } from "../../shared/functions";
 import {Alert} from "@material-ui/lab";
+import Slide from "@material-ui/core/Slide";
 
 // const validationSchema = yup.object(BASIC_VALIDATION);
 
@@ -356,7 +357,7 @@ const FilterPage = () => {
         </form>
       </Grid>
     </Grid>
-  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+  <Snackbar open={snackbarOpen} autoHideDuration={AUTO_HIDE_DURATION} TransitionComponent={Slide} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
   >
     <Alert onClose={handleSnackbarClose} severity={isUpdatedCorrectly ? 'success' : 'error'}>
       {isUpdatedCorrectly ? 'FILTERS UPDATED' : 'FILTERS NOT UPDATED'}

@@ -38,6 +38,7 @@ import LabelValuePrinter from "../other/LabelValuePrinter";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import {UserContext} from "../../context/userContext";
 import {Alert} from "@material-ui/lab";
+import Slide from "@material-ui/core/Slide";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -338,7 +339,7 @@ const MatchPage = () => {
           </Grid>
         </DialogContent>
       </Dialog>
-      <Snackbar open={snackbarOpen} autoHideDuration={2000} onClose={handleSnackbarClose}   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      <Snackbar open={snackbarOpen} autoHideDuration={2000} onClose={handleSnackbarClose} TransitionComponent={Slide}  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <Alert onClose={handleSnackbarClose} severity="info">
           {isLiking ? "LIKE" : "DISLIKE"}
