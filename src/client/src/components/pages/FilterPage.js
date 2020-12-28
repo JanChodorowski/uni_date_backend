@@ -32,18 +32,18 @@ import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import {
   AUTO_HIDE_DURATION,
-  BASIC_VALIDATION,
+  BASIC_VALIDATION, BLUE_INTENSITY,
   DARK_TRANSPARENT,
   DEFAULT_SPACE,
   EMPTY_PROFILES,
-  LIGHT_TRANSPARENT,
+  LIGHT_TRANSPARENT, PINK_INTENSITY, YELLOW_INTENSITY,
 } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import AvatarForm from "../forms/AvatarForm";
 import UserForm from "../forms/UserForm";
-import { grey } from "@material-ui/core/colors";
+import {blue, grey, pink, yellow} from "@material-ui/core/colors";
 import { ColorContext } from "../../context/colorContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import { capitalizeFirstLetter } from "../../shared/functions";
@@ -264,7 +264,7 @@ const FilterPage = () => {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        color={"primary"}
+                          style={{color: blue[BLUE_INTENSITY]}}
                         checked={Male}
                         onChange={handleChange}
                         name="Male"
@@ -275,7 +275,8 @@ const FilterPage = () => {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        color={"primary"}
+                        // color={pink[400]}
+                          style={{color: pink[PINK_INTENSITY]}}
                         checked={Female}
                         onChange={handleChange}
                         name="Female"
@@ -286,7 +287,7 @@ const FilterPage = () => {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        color={"primary"}
+                          style={{color: yellow[YELLOW_INTENSITY]}}
                         checked={Other}
                         onChange={handleChange}
                         name="Other"

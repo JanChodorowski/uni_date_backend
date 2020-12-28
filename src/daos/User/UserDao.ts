@@ -151,7 +151,10 @@ class UserDao implements IUserDao {
     maxSearchDistanceFilter: number | null = null,
 
   ): Promise<any> {
-    console.log('cityFilter', cityFilter);
+    let genders = null;
+    if (genderFilters) {
+      genders = Object.keys(genderFilters).filter((key) => genderFilters[key]);
+    }
     return getRepository(User)
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.pictures', 'picture')
@@ -162,6 +165,9 @@ class UserDao implements IUserDao {
       .andWhere(cityFilter ? 'user.cityName = :cityFilter' : '1=1', { cityFilter })
       .andWhere(universityFilter ? 'user.universityName = :universityFilter' : '1=1', { universityFilter })
       .andWhere(interestFilter ? 'interests.interest_name = :interestFilter' : '1=1', { interestFilter })
+      .andWhere(genders && genders.length !== 3 ? 'user.gender IN (:...genders)' : '1=1', {
+        genders,
+      })
       .select([
         'user.id',
         'user.userName',

@@ -6,11 +6,11 @@ import {
   getItemByKey,
 } from "../../shared/functions";
 import {
-  AVATAR_SIZE,
+  AVATAR_SIZE, BLUE_INTENSITY,
   DEFAULT_SPACE,
   EMPTY_USER,
-  LOCAL_STORAGE_KEY,
-  THEME_NAMES,
+  LOCAL_STORAGE_KEY, PINK_INTENSITY,
+  THEME_NAMES, YELLOW_INTENSITY,
 } from "../../shared/constants";
 import { createRelation, getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
@@ -34,7 +34,7 @@ import RegisterForm from "../forms/RegisterForm";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import MatchGallery from "../other/MatchGallery";
-import { blue, grey, pink } from "@material-ui/core/colors";
+import {blue, grey, pink, yellow} from "@material-ui/core/colors";
 import LabelValuePrinter from "../other/LabelValuePrinter";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { UserContext } from "../../context/userContext";
@@ -127,10 +127,12 @@ const MatchPage = () => {
     }
     const genderLowerCase = gender.toLocaleLowerCase();
     if (genderLowerCase === "male") {
-      return blue["500"];
+      return blue[BLUE_INTENSITY];
     } else if (genderLowerCase === "female") {
-      return pink["400"];
-    } else {
+      return pink[PINK_INTENSITY];
+    } else if (genderLowerCase === "other") {
+      return yellow[YELLOW_INTENSITY];
+    }else {
       return grey["900"];
     }
   };

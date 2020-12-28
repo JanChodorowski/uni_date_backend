@@ -252,6 +252,8 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     updatedUser.interestFilter = lowerCaseInterestFilter;
     newOrExistingInterest = new Interest();
     newOrExistingInterest.interestName = lowerCaseInterestFilter;
+  } else {
+    updatedUser.interestFilter = null;
   }
 
   let newOrExistingCity = null;
