@@ -53,7 +53,7 @@ import { PathContext } from "./context/pathContext";
 import { ProfilesContext } from "./context/profilesContext";
 import Logo from "./components/other/Logo";
 
-function App({coords}) {
+function App({ coords }) {
   // console.log('coords',coords)
   const [isDark, setIsDark] = useState(false);
   const [user, setUser] = useState(EMPTY_USER);
@@ -79,12 +79,12 @@ function App({coords}) {
     };
   }, []);
 
-//   useEffect(() => {
-// if(!coords){
-//   return
-// }
-//     console.log('coordscoords',coords)
-//   }, [coords]);
+  //   useEffect(() => {
+  // if(!coords){
+  //   return
+  // }
+  //     console.log('coordscoords',coords)
+  //   }, [coords]);
 
   useEffect(() => {
     let mounted = true;
@@ -119,7 +119,7 @@ function App({coords}) {
               ...userData,
               pictures: picturesDataWithBlobs,
             };
-            console.log('userData',userData)
+            console.log("userData", userData);
           })
           .catch((e) => {
             handleLoading(false);

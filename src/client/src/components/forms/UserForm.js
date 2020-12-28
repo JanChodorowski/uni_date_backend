@@ -34,7 +34,7 @@ import {
 } from "../../shared/constants";
 import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
-import PublishIcon from '@material-ui/icons/Publish';
+import PublishIcon from "@material-ui/icons/Publish";
 const genderEnum = {
   Male: 1,
   Female: 2,

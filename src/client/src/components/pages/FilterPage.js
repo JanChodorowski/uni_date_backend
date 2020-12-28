@@ -32,18 +32,21 @@ import Zoom from "@material-ui/core/Zoom";
 import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import {
   AUTO_HIDE_DURATION,
-  BASIC_VALIDATION, BLUE_INTENSITY,
+  BASIC_VALIDATION,
+  BLUE_INTENSITY,
   DARK_TRANSPARENT,
   DEFAULT_SPACE,
   EMPTY_PROFILES,
-  LIGHT_TRANSPARENT, PINK_INTENSITY, YELLOW_INTENSITY,
+  LIGHT_TRANSPARENT,
+  PINK_INTENSITY,
+  YELLOW_INTENSITY,
 } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import AvatarForm from "../forms/AvatarForm";
 import UserForm from "../forms/UserForm";
-import {blue, grey, pink, yellow} from "@material-ui/core/colors";
+import { blue, grey, pink, yellow } from "@material-ui/core/colors";
 import { ColorContext } from "../../context/colorContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import { capitalizeFirstLetter } from "../../shared/functions";
@@ -128,13 +131,11 @@ const FilterPage = () => {
   const isNoneGenderPicked =
     [Male, Female, Other].filter((v) => v).length === 0;
 
-  const validationSchema = yup.object().shape(
-      {
-        universityFilter: yup.string(),
-        interestFilter: yup.string(),
-        cityFilter: yup.string(),
-      },
-  );
+  const validationSchema = yup.object().shape({
+    universityFilter: yup.string(),
+    interestFilter: yup.string(),
+    cityFilter: yup.string(),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -142,18 +143,17 @@ const FilterPage = () => {
         (user.universityFilter &&
           capitalizeFirstLetter(user.universityFilter)) ||
         "",
-      interestFilter:
-        user.interestFilter ||
-        "",
+      interestFilter: user.interestFilter || "",
       cityFilter:
         (user.cityFilter && capitalizeFirstLetter(user.cityFilter)) || "",
     },
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      if (isNoneGenderPicked ||
-          !Array.isArray(yearsFilter) ||
-          !Number.isInteger(maxSearchDistanceFilter) ||
-          !(typeof genderFilters === 'object' && genderFilters !== null)
+      if (
+        isNoneGenderPicked ||
+        !Array.isArray(yearsFilter) ||
+        !Number.isInteger(maxSearchDistanceFilter) ||
+        !(typeof genderFilters === "object" && genderFilters !== null)
       ) {
         return;
       }
@@ -175,7 +175,7 @@ const FilterPage = () => {
           setProfiles(EMPTY_PROFILES);
           let ageFromFilter = Math.min(...yearsFilter);
           let ageToFilter = Math.max(...yearsFilter);
-          setUser({ ...user, ...extendedValues,ageFromFilter,ageToFilter });
+          setUser({ ...user, ...extendedValues, ageFromFilter, ageToFilter });
           setIsUpdatedCorrectly(true);
           setSnackbarOpen(true);
         })
@@ -269,7 +269,7 @@ const FilterPage = () => {
                   <FormControlLabel
                     control={
                       <Checkbox
-                          style={{color: blue[BLUE_INTENSITY]}}
+                        style={{ color: blue[BLUE_INTENSITY] }}
                         checked={Male}
                         onChange={handleChange}
                         name="Male"
@@ -281,7 +281,7 @@ const FilterPage = () => {
                     control={
                       <Checkbox
                         // color={pink[400]}
-                          style={{color: pink[PINK_INTENSITY]}}
+                        style={{ color: pink[PINK_INTENSITY] }}
                         checked={Female}
                         onChange={handleChange}
                         name="Female"
@@ -292,7 +292,7 @@ const FilterPage = () => {
                   <FormControlLabel
                     control={
                       <Checkbox
-                          style={{color: yellow[YELLOW_INTENSITY]}}
+                        style={{ color: yellow[YELLOW_INTENSITY] }}
                         checked={Other}
                         onChange={handleChange}
                         name="Other"

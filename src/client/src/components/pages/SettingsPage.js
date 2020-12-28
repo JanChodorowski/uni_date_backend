@@ -19,8 +19,8 @@ import { ColorContext } from "../../context/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { ProfilesContext } from "../../context/profilesContext";
-import DeleteIcon from '@material-ui/icons/Delete';
-import {MeetingRoom} from "@material-ui/icons";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { MeetingRoom } from "@material-ui/icons";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);

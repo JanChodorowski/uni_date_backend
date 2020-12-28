@@ -20,11 +20,27 @@ export const register = ({ email, password, passwordConfirmation }) => {
 };
 
 export const getUser = (localization) => {
-  return axios.post("/api/users", {localization});
+  return axios.post("/api/users", { localization });
 };
 
-export const getProfiles = ({ cityFilter, universityFilter, ageFromFilter, ageToFilter, maxSearchDistanceFilter, genderFilters, interestFilter }) => {
-  return axios.post("/api/users/profiles", { cityFilter, universityFilter, ageFromFilter, ageToFilter, maxSearchDistanceFilter, genderFilters, interestFilter });
+export const getProfiles = ({
+  cityFilter,
+  universityFilter,
+  ageFromFilter,
+  ageToFilter,
+  maxSearchDistanceFilter,
+  genderFilters,
+  interestFilter,
+}) => {
+  return axios.post("/api/users/profiles", {
+    cityFilter,
+    universityFilter,
+    ageFromFilter,
+    ageToFilter,
+    maxSearchDistanceFilter,
+    genderFilters,
+    interestFilter,
+  });
 };
 
 export const deleteUser = () => {

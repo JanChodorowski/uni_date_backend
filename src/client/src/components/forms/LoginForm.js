@@ -14,7 +14,7 @@ import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 import { compareFileNames } from "../../shared/functions";
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 const validationSchema = yup.object(BASIC_VALIDATION);
 
 const LoginForm = () => {
@@ -164,7 +164,6 @@ const LoginForm = () => {
           size="small"
           startIcon={<ArrowForwardIcon></ArrowForwardIcon>}
           endIcon={<ArrowForwardIcon></ArrowForwardIcon>}
-
         >
           Log In
         </Button>

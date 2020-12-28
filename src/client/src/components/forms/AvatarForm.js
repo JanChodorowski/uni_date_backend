@@ -13,8 +13,8 @@ import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
-import BackupIcon from '@material-ui/icons/Backup';
-import FaceIcon from '@material-ui/icons/Face';
+import BackupIcon from "@material-ui/icons/Backup";
+import FaceIcon from "@material-ui/icons/Face";
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     display: "flex",

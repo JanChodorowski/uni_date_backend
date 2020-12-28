@@ -6,17 +6,21 @@ import {
   getItemByKey,
 } from "../../shared/functions";
 import {
-  AVATAR_SIZE, BLUE_INTENSITY,
+  AVATAR_SIZE,
+  BLUE_INTENSITY,
   DEFAULT_SPACE,
   EMPTY_USER,
-  LOCAL_STORAGE_KEY, PINK_INTENSITY,
-  THEME_NAMES, YELLOW_INTENSITY,
+  LOCAL_STORAGE_KEY,
+  PINK_INTENSITY,
+  THEME_NAMES,
+  YELLOW_INTENSITY,
 } from "../../shared/constants";
-import { createRelation, getPicture, getProfiles, } from "../../api";
+import { createRelation, getPicture, getProfiles } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import {
-  Avatar, ButtonGroup,
+  Avatar,
+  ButtonGroup,
   Card,
   Divider,
   Grid,
@@ -34,13 +38,13 @@ import RegisterForm from "../forms/RegisterForm";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import MatchGallery from "../other/MatchGallery";
-import {blue, grey, pink, yellow} from "@material-ui/core/colors";
+import { blue, grey, pink, yellow } from "@material-ui/core/colors";
 import LabelValuePrinter from "../other/LabelValuePrinter";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { UserContext } from "../../context/userContext";
 import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
-import {NotInterested, Stars} from "@material-ui/icons";
+import { NotInterested, Stars } from "@material-ui/icons";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -132,7 +136,7 @@ const MatchPage = () => {
       return pink[PINK_INTENSITY];
     } else if (genderLowerCase === "other") {
       return yellow[YELLOW_INTENSITY];
-    }else {
+    } else {
       return grey["900"];
     }
   };
@@ -320,28 +324,29 @@ const MatchPage = () => {
           {/*>*/}
           {/*  <Grid item>*/}
           <ButtonGroup fullWidth>
-              <Button
-                color="secondary"
-                variant="contained"
-                fullWidth
-                size="large"
-                onClick={() => handleRelationClick(false)}
-                startIcon={<NotInterested></NotInterested>}
-              >
-                DISLIKE
-              </Button>
+            <Button
+              color="secondary"
+              variant="contained"
+              fullWidth
+              size="large"
+              onClick={() => handleRelationClick(false)}
+              startIcon={<NotInterested></NotInterested>}
+            >
+              DISLIKE
+            </Button>
             {/*</Grid>*/}
             {/*<Grid item>*/}
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth
-                size="large"
-                onClick={() => handleRelationClick(true)}
-                endIcon={<Stars></Stars>}
-              >
-                LIKE
-              </Button></ButtonGroup>
+            <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              size="large"
+              onClick={() => handleRelationClick(true)}
+              endIcon={<Stars></Stars>}
+            >
+              LIKE
+            </Button>
+          </ButtonGroup>
           {/*  </Grid>*/}
           {/*</Grid>*/}
         </DialogContent>
