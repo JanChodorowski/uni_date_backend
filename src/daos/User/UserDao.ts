@@ -155,6 +155,10 @@ class UserDao implements IUserDao {
     if (genderFilters) {
       genders = Object.keys(genderFilters).filter((key) => genderFilters[key]);
     }
+
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 18);
+
     return getRepository(User)
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.pictures', 'picture')
@@ -164,10 +168,10 @@ class UserDao implements IUserDao {
       .where('id != :id', { id })
       .andWhere(cityFilter ? 'user.cityName = :cityFilter' : '1=1', { cityFilter })
       .andWhere(universityFilter ? 'user.universityName = :universityFilter' : '1=1', { universityFilter })
-      .andWhere(interestFilter ? 'interests.interest_name = :interestFilter' : '1=1', { interestFilter })
-      .andWhere(genders && genders.length !== 3 ? 'user.gender IN (:...genders)' : '1=1', {
-        genders,
-      })
+      .andWhere(interestFilter ? 'interests.interestName = :interestFilter' : '1=1', { interestFilter })
+      .andWhere(genders && genders.length !== 3 ? 'user.gender IN (:...genders)' : '1=1', { genders })
+      .andWhere(ageFromFilter && ageFromFilter !== 18 ? 'user. >= :ageFromFilter' : '1=1', { ageFromFilter })
+
       .select([
         'user.id',
         'user.userName',

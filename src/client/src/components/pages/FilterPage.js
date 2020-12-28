@@ -51,8 +51,6 @@ import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
 import PublishIcon from "@material-ui/icons/Publish";
 
-// const validationSchema = yup.object(BASIC_VALIDATION);
-
 const FilterPage = () => {
   const [areCredentialsCorrect, setAreCredentialsCorrect] = useState(true);
 
@@ -71,7 +69,6 @@ const FilterPage = () => {
       maxWidth: 300,
     },
     formControl: {
-      // margin: theme.spacing(1),
       minWidth: 120,
       maxWidth: 300,
     },
@@ -81,9 +78,6 @@ const FilterPage = () => {
     },
     chip: {
       margin: 2,
-    },
-    noLabel: {
-      // marginTop: theme.spacing(3),
     },
     sliderLabel: {
       paddingBottom: "2rem",
@@ -111,8 +105,6 @@ const FilterPage = () => {
     setMaxSearchDistanceFilter(newMaxDistance);
   };
 
-  // const [genderFilters, setGenderFilters] = React.useState([user.ageFromFilter || 18, user.ageToFilter || 100]);
-
   const [genderFilters, setGenderFilters] = useState(
     user.genderFilters || {
       Male: true,
@@ -120,8 +112,6 @@ const FilterPage = () => {
       Other: true,
     }
   );
-
-  // const handleGenderChange = ()
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [isUpdatedCorrectly, setIsUpdatedCorrectly] = useState(false);
@@ -138,6 +128,14 @@ const FilterPage = () => {
   const isNoneGenderPicked =
     [Male, Female, Other].filter((v) => v).length === 0;
 
+  const validationSchema = yup.object().shape(
+      {
+        universityFilter: yup.string(),
+        interestFilter: yup.string(),
+        cityFilter: yup.string(),
+      },
+  );
+
   const formik = useFormik({
     initialValues: {
       universityFilter:
@@ -145,26 +143,33 @@ const FilterPage = () => {
           capitalizeFirstLetter(user.universityFilter)) ||
         "",
       interestFilter:
-        (user.interestFilter && capitalizeFirstLetter(user.interestFilter)) ||
+        user.interestFilter ||
         "",
       cityFilter:
         (user.cityFilter && capitalizeFirstLetter(user.cityFilter)) || "",
     },
-    // validationSchema: validationSchema,
+    validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      if (isNoneGenderPicked) {
+      if (isNoneGenderPicked ||
+          !Array.isArray(yearsFilter) ||
+          !Number.isInteger(maxSearchDistanceFilter) ||
+          !(typeof genderFilters === 'object' && genderFilters !== null)
+      ) {
         return;
       }
+
       handleCredentials(true);
+
       const extendedValues = {
         ...values,
-        universityFilter: values.universityFilter.trim(),
-        interestFilter: values.interestFilter.trim(),
-        cityFilter: values.cityFilter.trim(),
+        universityFilter: capitalizeFirstLetter(values.universityFilter.trim()),
+        interestFilter: values.interestFilter.trim().toLowerCase(),
+        cityFilter: capitalizeFirstLetter(values.cityFilter.trim()),
         genderFilters,
         yearsFilter,
         maxSearchDistanceFilter,
       };
+
       updateUser(extendedValues)
         .then((res) => {
           setProfiles(EMPTY_PROFILES);
@@ -181,16 +186,16 @@ const FilterPage = () => {
     },
   });
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
+  // const ITEM_HEIGHT = 48;
+  // const ITEM_PADDING_TOP = 8;
+  // const MenuProps = {
+  //   PaperProps: {
+  //     style: {
+  //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+  //       width: 250,
+  //     },
+  //   },
+  // };
 
   const paper = useTransparentPaperStyle();
   const paperPadding = "1.5rem";
@@ -248,8 +253,6 @@ const FilterPage = () => {
                   valueLabelDisplay="on"
                   aria-labelledby="years-filter-range-slider"
                   min={minYears}
-
-                  // getAriaValueText={valuetext}
                 />
               </div>
               <FormControl
