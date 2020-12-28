@@ -30,6 +30,16 @@ const {
 
 const userDao = new UserDao();
 
+const filterValidation = {
+  maxSearchDistanceFilter: yup.number(),
+  genderFilter: yup.number(),
+  universityFilter: yup.string(),
+  interestFilter: yup.string(),
+  cityFilter: yup.string(),
+  genderFilters: yup.object(),
+  yearsFilter: yup.array(),
+};
+
 router.get('/', authenticate, async (req: Request, res: Response) => {
   const userViewData = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
     .catch((err) => {
@@ -76,9 +86,42 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.post('/profiles', authenticate, async (req: Request, res: Response) => {
-  const { payload, cityFilter, universityFilter } = req.body;
+  console.log('req.body', req.body);
+  const {
+    payload,
+    cityFilter,
+    universityFilter,
+    ageFromFilter,
+    ageToFilter,
+    maxSearchDistanceFilter,
+    genderFilters,
+    interestFilter,
+  } = req.body;
 
-  const profilesData = await userDao.findProfiles(payload?.id, cityFilter, universityFilter)
+  const schema = yup.object().shape(filterValidation);
+  const isValid = await schema.isValid({
+    cityFilter,
+    universityFilter,
+    ageFromFilter,
+    ageToFilter,
+    maxSearchDistanceFilter,
+    genderFilters,
+    interestFilter,
+  });
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+
+  const profilesData = await userDao.findProfiles(
+    payload?.id,
+    cityFilter,
+    universityFilter,
+    interestFilter,
+    genderFilters,
+    ageFromFilter,
+    ageToFilter,
+    maxSearchDistanceFilter,
+  )
     .catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
@@ -109,6 +152,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 
   const schema = yup.object().shape(
     {
+      ...filterValidation,
       email: yup.string().email(),
       userName: yup.string(),
       gender: yup.string(),
@@ -117,16 +161,9 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       popularity: yup.number(),
       activityIntensity: yup.number(),
       localization: yup.number(),
-      maxSearchDistanceFilter: yup.number(),
-      genderFilter: yup.number(),
       isGraduated: yup.bool(),
       fieldOfStudy: yup.string(),
       interests: yup.array(),
-      universityFilter: yup.string(),
-      interestFilter: yup.string(),
-      cityFilter: yup.string(),
-      genderFilters: yup.object(),
-      yearsFilter: yup.array(),
     },
   );
 

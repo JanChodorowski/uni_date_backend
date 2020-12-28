@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3000",
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^1.1.0",
+    "@chatscope/chat-ui-kit-styles": "^1.0.5",
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
@@ -18,6 +20,7 @@
     "material-ui-chip-input": "^1.1.0",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
+    "react-chat-ui": "^0.4.0",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
     "react-images-upload": "^1.2.8",

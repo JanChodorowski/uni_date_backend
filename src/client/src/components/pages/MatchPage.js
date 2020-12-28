@@ -16,7 +16,7 @@ import { createRelation, getPicture, getProfiles, getUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import {
-  Avatar,
+  Avatar, ButtonGroup,
   Card,
   Divider,
   Grid,
@@ -310,15 +310,16 @@ const MatchPage = () => {
               profiles.find((p) => p.id === passiveSideUserId)?.interests || []
             }
           ></LabelValuePrinter>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            style={{ padding: DEFAULT_SPACE }}
-          >
-            <Grid item>
+          {/*<Grid*/}
+          {/*  container*/}
+          {/*  direction="row"*/}
+          {/*  justify="space-between"*/}
+          {/*  style={{ padding: DEFAULT_SPACE }}*/}
+          {/*>*/}
+          {/*  <Grid item>*/}
+          <ButtonGroup fullWidth>
               <Button
-                color="primary"
+                color="secondary"
                 variant="contained"
                 fullWidth
                 size="large"
@@ -327,8 +328,8 @@ const MatchPage = () => {
               >
                 DISLIKE
               </Button>
-            </Grid>
-            <Grid item>
+            {/*</Grid>*/}
+            {/*<Grid item>*/}
               <Button
                 color="primary"
                 variant="contained"
@@ -338,9 +339,9 @@ const MatchPage = () => {
                 endIcon={<Stars></Stars>}
               >
                 LIKE
-              </Button>
-            </Grid>
-          </Grid>
+              </Button></ButtonGroup>
+          {/*  </Grid>*/}
+          {/*</Grid>*/}
         </DialogContent>
       </Dialog>
       <Snackbar

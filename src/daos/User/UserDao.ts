@@ -140,7 +140,17 @@ class UserDao implements IUserDao {
   /**
      * @param id
      */
-  public findProfiles(id: string, cityFilter: string | null = null, universityFilter: string | null = null): Promise<any> {
+  public findProfiles(
+    id: string,
+    cityFilter: string | null = null,
+    universityFilter: string | null = null,
+    interestFilter: string | null = null,
+    genderFilters: any | null = null,
+    ageFromFilter: number | null = null,
+    ageToFilter: number | null = null,
+    maxSearchDistanceFilter: number | null = null,
+
+  ): Promise<any> {
     console.log('cityFilter', cityFilter);
     return getRepository(User)
       .createQueryBuilder('user')
@@ -151,7 +161,7 @@ class UserDao implements IUserDao {
       .where('id != :id', { id })
       .andWhere(cityFilter ? 'user.cityName = :cityFilter' : '1=1', { cityFilter })
       .andWhere(universityFilter ? 'user.universityName = :universityFilter' : '1=1', { universityFilter })
-
+      .andWhere(interestFilter ? 'interests.interest_name = :interestFilter' : '1=1', { interestFilter })
       .select([
         'user.id',
         'user.userName',

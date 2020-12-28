@@ -23,8 +23,8 @@ export const getUser = () => {
   return axios.get("/api/users");
 };
 
-export const getProfiles = ({ cityFilter, universityFilter }) => {
-  return axios.post("/api/users/profiles", { cityFilter, universityFilter });
+export const getProfiles = ({ cityFilter, universityFilter, ageFromFilter, ageToFilter, maxSearchDistanceFilter, genderFilters, interestFilter }) => {
+  return axios.post("/api/users/profiles", { cityFilter, universityFilter, ageFromFilter, ageToFilter, maxSearchDistanceFilter, genderFilters, interestFilter });
 };
 
 export const deleteUser = () => {

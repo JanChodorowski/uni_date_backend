@@ -67,7 +67,7 @@ const SettingsPage = () => {
         <Grid item>
           <Paper className={paper}>
             <Button
-              color="primary"
+              color="secondary"
               variant="contained"
               fullWidth
               type="submit"
