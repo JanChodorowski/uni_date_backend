@@ -19,7 +19,8 @@ import { ColorContext } from "../../context/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { ProfilesContext } from "../../context/profilesContext";
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import {MeetingRoom} from "@material-ui/icons";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
@@ -56,6 +57,7 @@ const SettingsPage = () => {
                 type="submit"
                 onClick={handleLogOut}
                 size="small"
+                startIcon={<MeetingRoom></MeetingRoom>}
               >
                 LOG OUT
               </Button>
@@ -71,6 +73,7 @@ const SettingsPage = () => {
               type="submit"
               onClick={handleDeleteAccount}
               size="small"
+              startIcon={<DeleteIcon></DeleteIcon>}
             >
               DELETE ACCOUNT
             </Button>

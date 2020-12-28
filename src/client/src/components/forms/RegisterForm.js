@@ -18,7 +18,7 @@ import PasswordVisibilityBtn from "../buttons/PasswordVisibilityBtn";
 import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
-
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 const validationSchema = yup.object({
   ...BASIC_VALIDATION,
   passwordConfirmation: yup
@@ -152,6 +152,8 @@ const RegisterForm = () => {
           type="submit"
           disabled={formik.isSubmitting}
           size="small"
+          startIcon={<ArrowUpwardIcon></ArrowUpwardIcon>}
+          endIcon={<ArrowUpwardIcon></ArrowUpwardIcon>}
         >
           CREATE NEW ACCOUNT
         </Button>

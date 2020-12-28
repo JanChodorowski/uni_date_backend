@@ -10,6 +10,7 @@ import RegisterForm from "../forms/RegisterForm";
 import Zoom from "@material-ui/core/Zoom";
 import { Grid, Paper } from "@material-ui/core";
 import { ColorContext } from "../../context/colorContext";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -34,6 +35,8 @@ export default function Register() {
         fullWidth
         onClick={handleClickOpen}
         size="small"
+        startIcon={<ArrowUpwardIcon></ArrowUpwardIcon>}
+        endIcon={<ArrowUpwardIcon></ArrowUpwardIcon>}
       >
         Create New Account
       </Button>

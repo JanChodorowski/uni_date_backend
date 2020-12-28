@@ -10,7 +10,8 @@ import {
   Chip,
   FormControl,
   FormControlLabel,
-  FormGroup, FormHelperText,
+  FormGroup,
+  FormHelperText,
   FormLabel,
   Grid,
   IconButton,
@@ -48,6 +49,7 @@ import { ProfilesContext } from "../../context/profilesContext";
 import { capitalizeFirstLetter } from "../../shared/functions";
 import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
+import PublishIcon from "@material-ui/icons/Publish";
 
 // const validationSchema = yup.object(BASIC_VALIDATION);
 
@@ -133,7 +135,8 @@ const FilterPage = () => {
   };
 
   const { Male, Female, Other } = genderFilters;
-  const isNoneGenderPicked = [Male, Female, Other].filter((v) => v).length === 0;
+  const isNoneGenderPicked =
+    [Male, Female, Other].filter((v) => v).length === 0;
 
   const formik = useFormik({
     initialValues: {
@@ -149,8 +152,8 @@ const FilterPage = () => {
     },
     // validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      if(isNoneGenderPicked){
-        return
+      if (isNoneGenderPicked) {
+        return;
       }
       handleCredentials(true);
       const extendedValues = {
@@ -198,8 +201,6 @@ const FilterPage = () => {
       [event.target.name]: event.target.checked,
     });
   };
-
-
 
   return (
     <>
@@ -294,7 +295,9 @@ const FilterPage = () => {
                     label="Other"
                   />
                 </FormGroup>
-                {isNoneGenderPicked && <FormHelperText>Pick at least one</FormHelperText>}
+                {isNoneGenderPicked && (
+                  <FormHelperText>Pick at least one</FormHelperText>
+                )}
               </FormControl>
               <TextField
                 fullWidth
@@ -365,6 +368,7 @@ const FilterPage = () => {
                 type="submit"
                 disabled={formik.isSubmitting || isNoneGenderPicked}
                 size="small"
+                startIcon={<PublishIcon></PublishIcon>}
               >
                 UPDATE FILTERS
               </Button>

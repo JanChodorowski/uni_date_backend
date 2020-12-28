@@ -40,6 +40,7 @@ import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { UserContext } from "../../context/userContext";
 import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
+import {NotInterested, Stars} from "@material-ui/icons";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -322,6 +323,7 @@ const MatchPage = () => {
                 fullWidth
                 size="large"
                 onClick={() => handleRelationClick(false)}
+                startIcon={<NotInterested></NotInterested>}
               >
                 DISLIKE
               </Button>
@@ -333,6 +335,7 @@ const MatchPage = () => {
                 fullWidth
                 size="large"
                 onClick={() => handleRelationClick(true)}
+                endIcon={<Stars></Stars>}
               >
                 LIKE
               </Button>

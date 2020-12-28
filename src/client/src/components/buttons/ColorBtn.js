@@ -33,6 +33,7 @@ const ColorBtn = () => {
         onClick={() => {
           setIsDark((prevIsDark) => !prevIsDark);
         }}
+        color={"primary"}
       >
         {isDark ? <Brightness7Icon /> : <Brightness3Icon />}
       </IconButton>

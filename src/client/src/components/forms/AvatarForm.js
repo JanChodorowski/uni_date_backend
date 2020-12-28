@@ -13,6 +13,8 @@ import { UserContext } from "../../context/userContext";
 import { ColorContext } from "../../context/colorContext";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
+import BackupIcon from '@material-ui/icons/Backup';
+import FaceIcon from '@material-ui/icons/Face';
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     display: "flex",
@@ -134,6 +136,7 @@ const AvatarForm = () => {
                 disabled={isLoading || pictures.length === 0}
                 onClick={handleUpload}
                 size="small"
+                startIcon={<BackupIcon></BackupIcon>}
               >
                 Upload pictures
               </Button>
@@ -184,8 +187,9 @@ const AvatarForm = () => {
                       isLoading
                     }
                     size="small"
+                    startIcon={<FaceIcon></FaceIcon>}
                   >
-                    CHOOSE THE PICTURE ABOVE FOR AVATAR
+                    CHOOSE AVATAR
                   </Button>
                 </Grid>
               </Grid>
