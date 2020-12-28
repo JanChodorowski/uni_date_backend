@@ -19,6 +19,7 @@ import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
 import { UserContext } from "../../context/userContext";
 import { LoadingContext } from "../../context/loadingContext";
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+
 const validationSchema = yup.object({
   ...BASIC_VALIDATION,
   passwordConfirmation: yup

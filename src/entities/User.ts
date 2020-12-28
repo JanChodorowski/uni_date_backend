@@ -48,8 +48,8 @@ export class User {
   @Column('integer', { name: 'activity_intensity' })
   activityIntensity: number;
 
-  @Column('integer', { name: 'localization' })
-  localization: number;
+  @Column('character varying', { name: 'localization', length: 100 })
+  localization: string;
 
   @Column('boolean', { name: 'is_graduated' })
   isGraduated: boolean;

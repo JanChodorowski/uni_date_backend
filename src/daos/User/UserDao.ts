@@ -146,8 +146,8 @@ class UserDao implements IUserDao {
     universityFilter: string | null = null,
     interestFilter: string | null = null,
     genderFilters: any | null = null,
-    ageFromFilter: number | null = null,
-    ageToFilter: number | null = null,
+    ageFromFilter: number,
+    ageToFilter: number,
     maxSearchDistanceFilter: number | null = null,
 
   ): Promise<any> {
@@ -157,8 +157,11 @@ class UserDao implements IUserDao {
     }
 
     const minDate = new Date();
-    minDate.setFullYear(minDate.getFullYear() - 18);
-
+    minDate.setFullYear(minDate.getFullYear() - ageFromFilter);
+    const maxDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() - ageToFilter);
+    // const test = minDate.toISOString().split('T')[0];
+    // console.log('ageFromFilter', test, ageFromFilter, minDate);
     return getRepository(User)
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.pictures', 'picture')
@@ -170,8 +173,8 @@ class UserDao implements IUserDao {
       .andWhere(universityFilter ? 'user.universityName = :universityFilter' : '1=1', { universityFilter })
       .andWhere(interestFilter ? 'interests.interestName = :interestFilter' : '1=1', { interestFilter })
       .andWhere(genders && genders.length !== 3 ? 'user.gender IN (:...genders)' : '1=1', { genders })
-      .andWhere(ageFromFilter && ageFromFilter !== 18 ? 'user. >= :ageFromFilter' : '1=1', { ageFromFilter })
-
+      .andWhere(ageFromFilter && ageFromFilter !== 18 ? 'user.dateOfBirth <= :minDate' : '1=1', { minDate })
+      .andWhere(ageToFilter && ageToFilter !== 18 ? 'user.dateOfBirth >= :maxDate' : '1=1', { maxDate })
       .select([
         'user.id',
         'user.userName',

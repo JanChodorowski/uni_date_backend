@@ -12,7 +12,7 @@ import {
   LOCAL_STORAGE_KEY, PINK_INTENSITY,
   THEME_NAMES, YELLOW_INTENSITY,
 } from "../../shared/constants";
-import { createRelation, getPicture, getProfiles, getUser } from "../../api";
+import { createRelation, getPicture, getProfiles, } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { ProfilesContext } from "../../context/profilesContext";
 import {

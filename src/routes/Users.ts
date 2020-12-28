@@ -40,7 +40,7 @@ const filterValidation = {
   yearsFilter: yup.array(),
 };
 
-router.get('/', authenticate, async (req: Request, res: Response) => {
+router.post('/', authenticate, async (req: Request, res: Response) => {
   const userViewData = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
     .catch((err) => {
       console.error(err);
@@ -231,8 +231,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   }
   if (yearsFilter) {
     updatedUser.ageFromFilter = Math.min(...yearsFilter);
-  }
-  if (yearsFilter) {
     updatedUser.ageToFilter = Math.max(...yearsFilter);
   }
 

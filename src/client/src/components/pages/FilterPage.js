@@ -166,14 +166,16 @@ const FilterPage = () => {
         interestFilter: values.interestFilter.trim().toLowerCase(),
         cityFilter: capitalizeFirstLetter(values.cityFilter.trim()),
         genderFilters,
-        yearsFilter,
+        // yearsFilter,
         maxSearchDistanceFilter,
       };
 
       updateUser(extendedValues)
         .then((res) => {
           setProfiles(EMPTY_PROFILES);
-          setUser({ ...user, ...extendedValues });
+          let ageFromFilter = Math.min(...yearsFilter);
+          let ageToFilter = Math.max(...yearsFilter);
+          setUser({ ...user, ...extendedValues,ageFromFilter,ageToFilter });
           setIsUpdatedCorrectly(true);
           setSnackbarOpen(true);
         })

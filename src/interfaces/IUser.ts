@@ -17,7 +17,7 @@ export interface IUser {
     createdAt: Date;
     popularity: number;
     activityIntensity: number;
-    localization: number;
+    localization: string;
     isGraduated: boolean;
     fieldOfStudy: string;
     maxSearchDistanceFilter: number;

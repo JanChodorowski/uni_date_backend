@@ -15,6 +15,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { login, secret, refresh, register, getUser, getPicture } from "./api";
+import { geolocated } from "react-geolocated";
+
 import {
   APP_THEME,
   EMPTY_USER,
@@ -50,7 +52,9 @@ import DeleteAccountPage from "./components/pages/DeleteAccountPage";
 import { PathContext } from "./context/pathContext";
 import { ProfilesContext } from "./context/profilesContext";
 import Logo from "./components/other/Logo";
-function App() {
+
+function App({coords}) {
+  // console.log('coords',coords)
   const [isDark, setIsDark] = useState(false);
   const [user, setUser] = useState(EMPTY_USER);
   const [isLoading, setIsLoading] = useState(false);
@@ -74,6 +78,13 @@ function App() {
       mounted = false;
     };
   }, []);
+
+//   useEffect(() => {
+// if(!coords){
+//   return
+// }
+//     console.log('coordscoords',coords)
+//   }, [coords]);
 
   useEffect(() => {
     let mounted = true;
@@ -108,6 +119,7 @@ function App() {
               ...userData,
               pictures: picturesDataWithBlobs,
             };
+            console.log('userData',userData)
           })
           .catch((e) => {
             handleLoading(false);
@@ -189,4 +201,9 @@ function App() {
   );
 }
 
-export default App;
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(App);

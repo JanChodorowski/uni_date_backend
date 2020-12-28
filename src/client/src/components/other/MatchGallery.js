@@ -15,7 +15,7 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { UserContext } from "../../context/userContext";
-import { getPicture, getUser } from "../../api";
+import { getPicture } from "../../api";
 import { compareFileNames } from "../../shared/functions";
 import { ProfilesContext } from "../../context/profilesContext";
 import { LoadingContext } from "../../context/loadingContext";
