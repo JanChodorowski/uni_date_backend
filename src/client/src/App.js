@@ -93,7 +93,7 @@ function App({ coords }) {
     getUser()
       .then((res) => {
         let userData = res.data;
-
+console.log('res',res)
         if (!(userData && mounted)) {
           throw new Error();
         }

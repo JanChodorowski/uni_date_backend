@@ -166,7 +166,7 @@ const FilterPage = () => {
         interestFilter: values.interestFilter.trim().toLowerCase(),
         cityFilter: capitalizeFirstLetter(values.cityFilter.trim()),
         genderFilters,
-        // yearsFilter,
+        yearsFilter,
         maxSearchDistanceFilter,
       };
 

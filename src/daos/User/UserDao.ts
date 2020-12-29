@@ -155,26 +155,38 @@ class UserDao implements IUserDao {
     if (genderFilters) {
       genders = Object.keys(genderFilters).filter((key) => genderFilters[key]);
     }
-
-    const minDate = new Date();
-    minDate.setFullYear(minDate.getFullYear() - ageFromFilter);
+    console.log('id', id);
     const maxDate = new Date();
-    maxDate.setFullYear(maxDate.getFullYear() - ageToFilter);
-    // const test = minDate.toISOString().split('T')[0];
-    // console.log('ageFromFilter', test, ageFromFilter, minDate);
+    maxDate.setFullYear(maxDate.getFullYear() - ageFromFilter);
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - ageToFilter);
+    // const test = maxDate.toISOString().split('T')[0];
+    // console.log('ageFromFilter', test, ageFromFilter, maxDate);
     return getRepository(User)
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.pictures', 'picture')
       .leftJoinAndSelect('user.cityName', 'city')
       .leftJoinAndSelect('user.universityName', 'university')
       .leftJoinAndSelect('user.interests', 'interests')
-      .where('id != :id', { id })
+      .leftJoinAndSelect('user.oneSidedRelations2', 'oneSidedRelations2')
+      .where('id != :paramId')
       .andWhere(cityFilter ? 'user.cityName = :cityFilter' : '1=1', { cityFilter })
       .andWhere(universityFilter ? 'user.universityName = :universityFilter' : '1=1', { universityFilter })
       .andWhere(interestFilter ? 'interests.interestName = :interestFilter' : '1=1', { interestFilter })
       .andWhere(genders && genders.length !== 3 ? 'user.gender IN (:...genders)' : '1=1', { genders })
-      .andWhere(ageFromFilter && ageFromFilter !== 18 ? 'user.dateOfBirth <= :minDate' : '1=1', { minDate })
-      .andWhere(ageToFilter && ageToFilter !== 18 ? 'user.dateOfBirth >= :maxDate' : '1=1', { maxDate })
+      .andWhere(ageFromFilter && ageFromFilter !== 18 ? 'user.dateOfBirth <= :maxDate' : '1=1', { maxDate })
+      .andWhere(ageToFilter && ageToFilter !== 100 ? 'user.dateOfBirth >= :minDate' : '1=1', { minDate })
+      .andWhere((qb) => {
+        const subQuery = qb.subQuery()
+          .select('u2.id')
+          .from(User, 'u2')
+          .leftJoin('u2.oneSidedRelations2', 'osr2')
+          .where('osr2.activeSideUserId = :paramId')
+          .andWhere('osr2.passiveSideUserId = u2.id')
+          .getQuery();
+        return `oneSidedRelations2.activeSideUserId is NUll OR user.id NOT IN ${subQuery}`;
+      })
+      .setParameter('paramId', id)
       .select([
         'user.id',
         'user.userName',

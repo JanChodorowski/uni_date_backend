@@ -6,7 +6,7 @@ import UserDao from '@daos/User/UserDao';
 import { User } from '@entities/User';
 
 import StatusCodes from 'http-status-codes';
-import { getConnection } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 
 import { authenticate } from '@middleware/middleware';
 import { IUser } from '@interfaces/IUser';
@@ -46,10 +46,41 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
+  const { id } = req.body.payload;
+  console.log(id);
+  // const test = await getRepository(User)
+  //   .createQueryBuilder('u2')
+  //   .select('u2.id')
+  //   .leftJoin('u2.oneSidedRelations2', 'osr2')
+  //   .where('osr2.activeSideUserId = :paramId', { paramId: id })
+  //   .andWhere('osr2.passiveSideUserId = u2.id')
+  //   .getRawMany();
+  const test = await getRepository(User)
+    .createQueryBuilder('user')
+    .select('user.id')
+    .leftJoinAndSelect('user.oneSidedRelations', 'oneSidedRelations', 'user.id = oneSidedRelations.passiveSideUser')
+    .where((qb) => {
+      const subQuery = qb.subQuery()
+        .select('u2.id')
+        .from(User, 'u2')
+        .leftJoin('u2.oneSidedRelations2', 'osr2')
+        .where('osr2.activeSideUserId = :paramId', { paramId: id })
+        .andWhere('osr2.passiveSideUserId = u2.id')
+        .getQuery();
+      return `oneSidedRelations.activeSideUserId is NUll OR user.id NOT IN ${subQuery}`;
+    })
+    .getRawMany();
+  console.log('test', test);
 
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
+
+  const initGenderFilter = {
+    Female: true,
+    Male: true,
+    Other: true,
+  };
 
   const getGenderFilters = () => {
     if (!(
@@ -58,7 +89,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
         && Array.isArray(userViewData.genderFilters)
         && userViewData.genderFilters.length === 3
         && userViewData?.genderFilters[0].genderFilter)) {
-      return {};
+      return initGenderFilter;
     }
 
     return {
@@ -75,7 +106,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     university: userViewData?.universityName?.universityName || '',
     universityFilter: userViewData?.universityFilter?.universityName || '',
     interestFilter: userViewData?.interestFilter?.interestName || '',
-    genderFilters: getGenderFilters() || {},
+    genderFilters: getGenderFilters() || initGenderFilter,
     interests: (userViewData?.interests
         && userViewData?.interests.length > 0
         && userViewData?.interests.map((interest: any) => interest.interestName)) || [],
@@ -86,7 +117,6 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.post('/profiles', authenticate, async (req: Request, res: Response) => {
-  console.log('req.body', req.body);
   const {
     payload,
     cityFilter,
@@ -149,6 +179,7 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
 router.put('/', authenticate, async (req: Request, res: Response) => {
   const { user } = req.body;
   const { id } = req.body.payload;
+  console.log('put user', user);
 
   const schema = yup.object().shape(
     {
@@ -192,6 +223,8 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     cityFilter,
     genderFilters,
     yearsFilter,
+    ageFromFilter,
+    ageToFilter,
   } = user;
 
   const updatedUser = new User();
