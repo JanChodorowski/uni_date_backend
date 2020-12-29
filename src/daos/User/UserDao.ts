@@ -155,20 +155,18 @@ class UserDao implements IUserDao {
     if (genderFilters) {
       genders = Object.keys(genderFilters).filter((key) => genderFilters[key]);
     }
-    console.log('id', id);
     const maxDate = new Date();
     maxDate.setFullYear(maxDate.getFullYear() - ageFromFilter);
     const minDate = new Date();
     minDate.setFullYear(minDate.getFullYear() - ageToFilter);
-    // const test = maxDate.toISOString().split('T')[0];
-    // console.log('ageFromFilter', test, ageFromFilter, maxDate);
+
     return getRepository(User)
       .createQueryBuilder('user')
-      .leftJoinAndSelect('user.pictures', 'picture')
-      .leftJoinAndSelect('user.cityName', 'city')
-      .leftJoinAndSelect('user.universityName', 'university')
-      .leftJoinAndSelect('user.interests', 'interests')
-      .leftJoinAndSelect('user.oneSidedRelations2', 'oneSidedRelations2')
+      .leftJoin('user.pictures', 'picture')
+      .leftJoin('user.cityName', 'city')
+      .leftJoin('user.universityName', 'university')
+      .leftJoin('user.interests', 'interests')
+      .leftJoin('user.oneSidedRelations2', 'oneSidedRelations2')
       .where('id != :paramId')
       .andWhere(cityFilter ? 'user.cityName = :cityFilter' : '1=1', { cityFilter })
       .andWhere(universityFilter ? 'user.universityName = :universityFilter' : '1=1', { universityFilter })

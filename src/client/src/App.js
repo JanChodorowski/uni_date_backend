@@ -53,8 +53,7 @@ import { PathContext } from "./context/pathContext";
 import { ProfilesContext } from "./context/profilesContext";
 import Logo from "./components/other/Logo";
 
-function App({ coords }) {
-  // console.log('coords',coords)
+function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
   const [user, setUser] = useState(EMPTY_USER);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,7 +92,7 @@ function App({ coords }) {
     getUser()
       .then((res) => {
         let userData = res.data;
-console.log('res',res)
+
         if (!(userData && mounted)) {
           throw new Error();
         }

@@ -46,31 +46,6 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
-  const { id } = req.body.payload;
-  console.log(id);
-  // const test = await getRepository(User)
-  //   .createQueryBuilder('u2')
-  //   .select('u2.id')
-  //   .leftJoin('u2.oneSidedRelations2', 'osr2')
-  //   .where('osr2.activeSideUserId = :paramId', { paramId: id })
-  //   .andWhere('osr2.passiveSideUserId = u2.id')
-  //   .getRawMany();
-  const test = await getRepository(User)
-    .createQueryBuilder('user')
-    .select('user.id')
-    .leftJoinAndSelect('user.oneSidedRelations', 'oneSidedRelations', 'user.id = oneSidedRelations.passiveSideUser')
-    .where((qb) => {
-      const subQuery = qb.subQuery()
-        .select('u2.id')
-        .from(User, 'u2')
-        .leftJoin('u2.oneSidedRelations2', 'osr2')
-        .where('osr2.activeSideUserId = :paramId', { paramId: id })
-        .andWhere('osr2.passiveSideUserId = u2.id')
-        .getQuery();
-      return `oneSidedRelations.activeSideUserId is NUll OR user.id NOT IN ${subQuery}`;
-    })
-    .getRawMany();
-  console.log('test', test);
 
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
@@ -179,7 +154,6 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
 router.put('/', authenticate, async (req: Request, res: Response) => {
   const { user } = req.body;
   const { id } = req.body.payload;
-  console.log('put user', user);
 
   const schema = yup.object().shape(
     {
