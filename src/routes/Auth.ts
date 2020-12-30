@@ -88,7 +88,7 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.localization = '';
   newUser.maxSearchDistanceFilter = 200;
   newUser.ageFromFilter = 18;
-  newUser.ageToFilter = 0;
+  newUser.ageToFilter = 100;
 
   await userDao.add(newUser).catch((err) => {
     console.error(err);
