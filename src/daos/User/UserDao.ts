@@ -30,6 +30,16 @@ export interface IUserDao {
              newOrExistingInterest: Interest | null,
              newOrExistingUniversity: University | null
   ) => Promise<void>
+    findProfiles: (
+        id: string,
+        cityFilter: string | null,
+        universityFilter: string | null,
+        interestFilter: string | null,
+        genderFilters: any | null,
+        ageFromFilter: number,
+        ageToFilter: number,
+        maxSearchDistanceFilter: number | null,
+    ) => Promise<any>
 }
 
 class UserDao implements IUserDao {
@@ -138,7 +148,14 @@ class UserDao implements IUserDao {
   }
 
   /**
-     * @param id
+   * @param id
+   * @param cityFilter
+   * @param universityFilter
+   * @param interestFilter
+   * @param genderFilters
+   * @param ageFromFilter
+   * @param ageToFilter
+   * @param maxSearchDistanceFilter
      */
   public findProfiles(
     id: string,
