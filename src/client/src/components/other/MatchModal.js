@@ -27,7 +27,7 @@ export default function MatchModal({isMatched, setIsMatched}) {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description" color={"primary"} style={{fontWeight: 'bold'}}>
+                    <DialogContentText id="alert-dialog-slide-description" color={"primary"} style={{fontWeight: 'bold'}} variant="h1">
                         MATCHED!
                     </DialogContentText>
                 </DialogContent>
