@@ -24,14 +24,9 @@ const cors = require('cors');
 
 const readDir = util.promisify(fs.readdir);
 
-// export const upload = multer({ dest: './images/' });
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-
-/** **********************************************************************************
- *                              Set basic express settings
- ********************************************************************************** */
 
 // Do usuniecia?
 app.use(cors());
@@ -81,11 +76,8 @@ const ormConfig = {
   },
 };
 createConnection(ormConfig as any).then(async (connection) => {
-  // Add APIs
   app.use('/api', BaseRouter);
 
-  // Print API errors
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     logger.err(err, true);
     return res.status(BAD_REQUEST).json({
@@ -93,18 +85,11 @@ createConnection(ormConfig as any).then(async (connection) => {
     });
   });
 
-  /** **********************************************************************************
- *                              Serve front-end content
- ********************************************************************************** */
-
   // if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
-  // Handle React routing, return all requests to React app
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 // }
 }).catch((error) => console.log('TypeORM connection error: ', error));
-// Export express instance
 export default app;
