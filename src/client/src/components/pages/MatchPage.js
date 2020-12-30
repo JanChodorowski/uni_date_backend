@@ -45,6 +45,7 @@ import { UserContext } from "../../context/userContext";
 import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
 import { NotInterested, Stars } from "@material-ui/icons";
+import MatchModal from "../other/MatchModal";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -142,11 +143,15 @@ const MatchPage = () => {
   };
 
   const [isLiking, setIsLiking] = useState(false);
+  const [isMatched, setIsMatched] = useState(false);
+
 
   const handleRelationClick = (isLiking) => {
     setIsLoading(true);
     createRelation(passiveSideUserId, isLiking)
-      .then(() => {
+      .then((res) => {
+        console.table(res)
+        setIsMatched(res?.data?.isMatched)
         setOpen(false);
         setProfiles(profiles.filter((p) => p.id !== passiveSideUserId));
       })
@@ -351,6 +356,7 @@ const MatchPage = () => {
           {/*</Grid>*/}
         </DialogContent>
       </Dialog>
+      <MatchModal isMatched={isMatched} setIsMatched={setIsMatched}></MatchModal>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}

@@ -60,6 +60,8 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
+
+    res.json({ isMatched: true }).end();
   } else {
     const newRelation = new OneSidedRelation();
     newRelation.activeSideUserId = id;
@@ -71,9 +73,9 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
-  }
 
-  res.end();
+    res.json({ isMatched: false }).end();
+  }
 });
 
 export default router;
