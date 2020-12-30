@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { GenderFilter } from './GenderFilter';
-import { MatchedUsers } from './MatchedUsers';
+import { Match } from './Match';
 import { OneSidedRelation } from './OneSidedRelation';
 import { Picture } from './Picture';
 import { City } from './City';
@@ -27,8 +27,8 @@ export class User {
   @Column('character varying', { name: 'gender', length: 255 })
   gender: string;
 
-  @Column('date', { name: 'date_of_birth' })
-  dateOfBirth: string;
+  @Column('date', { name: 'date_of_birth', nullable: true })
+  dateOfBirth: string | null;
 
   @Column('character varying', { name: 'description', length: 255 })
   description: string;
@@ -57,23 +57,23 @@ export class User {
   @Column('character varying', { name: 'field_of_study', length: 255 })
   fieldOfStudy: string;
 
-  @Column('integer', { name: 'max_search_distance_filter' })
-  maxSearchDistanceFilter: number;
-
   @Column('integer', { name: 'age_from_filter' })
   ageFromFilter: number;
 
   @Column('integer', { name: 'age_to_filter' })
   ageToFilter: number;
 
+  @Column('integer', { name: 'max_search_distance_filter' })
+  maxSearchDistanceFilter: number;
+
   @OneToMany(() => GenderFilter, (genderFilter) => genderFilter.user)
   genderFilters: GenderFilter[];
 
-  @OneToMany(() => MatchedUsers, (matchedUsers) => matchedUsers.userId)
-  matchedUsers: MatchedUsers[];
+  @OneToMany(() => Match, (match) => match.userId)
+  matches: Match[];
 
-  @OneToMany(() => MatchedUsers, (matchedUsers) => matchedUsers.userId_3)
-  matchedUsers2: MatchedUsers[];
+  @OneToMany(() => Match, (match) => match.userId_3)
+  matches2: Match[];
 
   @OneToMany(
     () => OneSidedRelation,

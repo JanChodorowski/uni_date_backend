@@ -11,14 +11,14 @@ export class Picture {
   })
   fileName: string;
 
-  @Column("integer", { name: "order" })
-  order: number;
+  @Column("bytea", { name: "blob" })
+  blob: Buffer;
 
   @Column("boolean", { name: "is_avatar" })
   isAvatar: boolean;
 
-  @Column("bytea", { name: "blob" })
-  blob: Buffer;
+  @Column("integer", { name: "order" })
+  order: number;
 
   @ManyToOne(() => User, (user) => user.pictures, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])

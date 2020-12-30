@@ -9,9 +9,9 @@ import {
 import { User } from "./User";
 import { Message } from "./Message";
 
-@Index("matched_users_pk", ["userId_1", "userId_2"], { unique: true })
-@Entity("matched_users", { schema: "public" })
-export class MatchedUsers {
+@Index("match_pk", ["userId_1", "userId_2"], { unique: true })
+@Entity("match", { schema: "public" })
+export class Match {
   @Column("character varying", {
     primary: true,
     name: "user_id_1",
@@ -29,14 +29,14 @@ export class MatchedUsers {
   @Column("timestamp without time zone", { name: "created_at" })
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.matchedUsers, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.matches, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_id_1", referencedColumnName: "id" }])
   userId: User;
 
-  @ManyToOne(() => User, (user) => user.matchedUsers2, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.matches2, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_id_2", referencedColumnName: "id" }])
   userId_3: User;
 
-  @OneToMany(() => Message, (message) => message.matchedUsers)
+  @OneToMany(() => Message, (message) => message.match)
   messages: Message[];
 }

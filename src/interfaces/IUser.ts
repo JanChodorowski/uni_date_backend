@@ -1,16 +1,16 @@
 import { GenderFilter } from '@entities/GenderFilter';
-import { MatchedUsers } from '@entities/MatchedUsers';
 import { OneSidedRelation } from '@entities/OneSidedRelation';
 import { Picture } from '@entities/Picture';
 import { Interest } from '@entities/Interest';
 import { University } from '@entities/University';
 import { City } from '@entities/City';
+import { Match } from '@entities/Match';
 
 export interface IUser {
     id: string;
     userName: string;
     gender: string;
-    dateOfBirth: string;
+    dateOfBirth: string | null;
     description: string;
     email: string;
     passwordHash: string;
@@ -20,12 +20,12 @@ export interface IUser {
     localization: string;
     isGraduated: boolean;
     fieldOfStudy: string;
-    maxSearchDistanceFilter: number;
     ageFromFilter: number;
     ageToFilter: number;
+    maxSearchDistanceFilter: number;
     genderFilters: GenderFilter[];
-    matchedUsers: MatchedUsers[];
-    matchedUsers2: MatchedUsers[];
+    matches: Match[];
+    matches2: Match[];
     oneSidedRelations: OneSidedRelation[];
     oneSidedRelations2: OneSidedRelation[];
     pictures: Picture[];

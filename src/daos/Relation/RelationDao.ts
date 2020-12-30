@@ -10,12 +10,38 @@ import { OneSidedRelation } from '@entities/OneSidedRelation';
 
 export interface IRelationDao {
   add: (newRelation: OneSidedRelation) => Promise<any>;
+  findLikingBackRelation: (
+      activeSideUser: string,
+      passiveSideUser: string,
+  )=> Promise<OneSidedRelation | undefined>
 
 }
 
 class RelationDao implements IRelationDao {
   public async add(newRelation: OneSidedRelation): Promise<OneSidedRelation> {
     return getConnection().manager.save(newRelation);
+  }
+
+  public async findLikingBackRelation(
+    activeSideUser: string,
+    passiveSideUser: string,
+  ): Promise<OneSidedRelation | undefined> {
+    return await getConnection()
+      .createEntityManager()
+      .findOne(OneSidedRelation, {
+        where: {
+          activeSideUser,
+          passiveSideUser,
+          isLiking: true,
+        },
+      });
+  }
+
+  public async createMatch(foundLikingBackRelation: OneSidedRelation) {
+    await getConnection()
+      .transaction(async (entityManager) => {
+        await entityManager.remove(foundLikingBackRelation);
+      });
   }
 }
 
