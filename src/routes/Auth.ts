@@ -2,7 +2,6 @@ import {
   CookieOptions, Request, Response, Router,
 } from 'express';
 import jwt, { SignOptions } from 'jsonwebtoken';
-import UniversityDao, { IUniversityDao } from '@daos/University/UniversityDao';
 import UserDao from '@daos/User/UserDao';
 import { University } from '@entities/University';
 import { User } from '@entities/User';
@@ -75,7 +74,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
   newUser.id = uuidv4();
   newUser.userName = '';
-  newUser.dateOfBirth = '1970-01-01';
+  newUser.dateOfBirth = null;
   newUser.gender = '';
   newUser.description = '';
   newUser.email = trimmedEmail;

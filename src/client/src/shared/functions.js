@@ -23,6 +23,11 @@ export const capitalizeFirstLetter = (
   first && first.toLocaleUpperCase(locale) + rest.join("").toLocaleLowerCase();
 
 export const calculateAge = (birthday) => {
+  if (!birthday){
+    return ''
+  }
+
+  console.log('birthday',birthday)
   birthday = new Date(birthday);
   let ageDifMs = Date.now() - birthday;
   let ageDate = new Date(ageDifMs);

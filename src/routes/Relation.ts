@@ -12,6 +12,7 @@ import RelationDao from '@daos/Relation/RelationDao';
 import { OneSidedRelation } from '@entities/OneSidedRelation';
 import { getConnection, getRepository } from 'typeorm';
 import { User } from '@entities/User';
+import { Match } from '@entities/Match';
 
 global.Blob = require('node-blob');
 
@@ -24,7 +25,7 @@ const relationDao = new RelationDao();
 
 router.post('/', authenticate, async (req: Request, res: Response) => {
   const reqBody = req.body;
-
+  console.table(reqBody);
   const isValid = await yup.object().shape(
     {
       passiveSideUserId: yup.string().required(),
@@ -47,9 +48,15 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
 
+  console.table(foundLikingBackRelation);
+
   if (foundLikingBackRelation) {
-    // const newMatch = ;
-    await relationDao.createMatch(foundLikingBackRelation).catch((err) => {
+    const newMatch = new Match();
+    newMatch.createdAt = new Date();
+    newMatch.userId_1 = id;
+    newMatch.userId_2 = passiveSideUserId;
+    console.table(newMatch);
+    await relationDao.createMatch(foundLikingBackRelation, newMatch).catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
@@ -59,7 +66,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     newRelation.passiveSideUserId = passiveSideUserId;
     newRelation.isLiking = isLiking;
     newRelation.createdAt = new Date();
-
+    console.table(newRelation);
     await relationDao.add(newRelation).catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);

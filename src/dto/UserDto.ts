@@ -5,7 +5,7 @@ export class UserDto {
 
     gender: string;
 
-    dateOfBirth: string;
+    dateOfBirth: string | null;
 
     description: string;
 

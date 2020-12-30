@@ -7,6 +7,7 @@ import { getConnection, getRepository } from 'typeorm';
 import { IUser } from '@interfaces/IUser';
 import { User } from '@entities/User';
 import { OneSidedRelation } from '@entities/OneSidedRelation';
+import { Match } from '@entities/Match';
 
 export interface IRelationDao {
   add: (newRelation: OneSidedRelation) => Promise<any>;
@@ -23,24 +24,25 @@ class RelationDao implements IRelationDao {
   }
 
   public async findLikingBackRelation(
-    activeSideUser: string,
-    passiveSideUser: string,
+    activeSideUserId: string,
+    passiveSideUserId: string,
   ): Promise<OneSidedRelation | undefined> {
     return await getConnection()
       .createEntityManager()
       .findOne(OneSidedRelation, {
         where: {
-          activeSideUser,
-          passiveSideUser,
+          activeSideUserId,
+          passiveSideUserId,
           isLiking: true,
         },
       });
   }
 
-  public async createMatch(foundLikingBackRelation: OneSidedRelation) {
+  public async createMatch(foundLikingBackRelation: OneSidedRelation, newMatch: Match) {
     await getConnection()
       .transaction(async (entityManager) => {
         await entityManager.remove(foundLikingBackRelation);
+        await entityManager.save(newMatch);
       });
   }
 }
