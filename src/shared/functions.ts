@@ -34,3 +34,5 @@ export const capitalizeFirstLetter = (
 export const removeWhiteSpaces = (text: any) => String(text).replace(/\s/g, '');
 
 export const removeUndefinedFields = (obj: any) => Object.keys(obj).forEach((key) => (obj[key] == null || obj[key] === 'undefined') && delete obj[key]);
+
+export const removeCityAndUniversityFromCollection = (collection: []) => collection.forEach((pd: any) => { delete pd.cityName; delete pd.universityName; });

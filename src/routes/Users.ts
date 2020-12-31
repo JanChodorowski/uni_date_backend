@@ -15,7 +15,7 @@ import * as yup from 'yup';
 import { City } from '@entities/City';
 import { University } from '@entities/University';
 import { Interest } from '@entities/Interest';
-import { capitalizeFirstLetter } from '@shared/functions';
+import { capitalizeFirstLetter, removeCityAndUniversityFromCollection } from '@shared/functions';
 import { GenderFilter } from '@entities/GenderFilter';
 
 global.Blob = require('node-blob');
@@ -112,7 +112,7 @@ router.get('/matches', authenticate, async (req: Request, res: Response) => {
         || [],
   }));
 
-  matchesDto.forEach((pd: any) => { delete pd.cityName; delete pd.universityName; });
+  removeCityAndUniversityFromCollection(matchesDto);
 
   res.json(matchesDto).end();
 });
@@ -172,7 +172,7 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
         || [],
   }));
 
-  profilesDto.forEach((pd: any) => { delete pd.cityName; delete pd.universityName; });
+  removeCityAndUniversityFromCollection(profilesDto);
 
   res.json(profilesDto).end();
 });
