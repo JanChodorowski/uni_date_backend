@@ -92,12 +92,10 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.get('/matches', authenticate, async (req: Request, res: Response) => {
-  console.log('req.body.payload.id', req.body.payload.id);
   const matchesData = await userDao.findMatches(req.body.payload.id).catch((err) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
-  console.log('matchesData', matchesData);
   if (!matchesData) {
     res.sendStatus(BAD_REQUEST).end();
   }

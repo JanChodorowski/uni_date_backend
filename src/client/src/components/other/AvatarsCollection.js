@@ -14,7 +14,6 @@ import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import { MatchesContext } from "../../context/matchesContext";
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
-  console.log("collection", collection);
   return (
     <Grid container direction="row" alignItems="center" justify="center">
       {collection &&
