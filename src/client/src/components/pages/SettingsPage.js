@@ -21,9 +21,11 @@ import useTransparentPaperStyle from "../hooks/useTransparentPaperStyle";
 import { ProfilesContext } from "../../context/profilesContext";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MeetingRoom } from "@material-ui/icons";
+import {MatchesContext} from "../../context/matchesContext";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
+  const [matches, setMatches] = useContext(MatchesContext);
 
   const [path, setPath] = useContext(PathContext);
 
@@ -36,6 +38,7 @@ const SettingsPage = () => {
     cookies.remove(LOCAL_STORAGE_KEY.jwtToken);
     setUser(EMPTY_USER);
     setProfiles(EMPTY_PROFILES);
+    setMatches(EMPTY_PROFILES);
     setPath(profile);
     history.push(`/`);
   };

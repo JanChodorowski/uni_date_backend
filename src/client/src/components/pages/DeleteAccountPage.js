@@ -16,6 +16,7 @@ import { deleteUser } from "../../api";
 import { LoadingContext } from "../../context/loadingContext";
 import { PathContext } from "../../context/pathContext";
 import { ProfilesContext } from "../../context/profilesContext";
+import {MatchesContext} from "../../context/matchesContext";
 
 const DeleteAccountPage = () => {
   const history = useHistory();
@@ -24,6 +25,7 @@ const DeleteAccountPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [path, setPath] = useContext(PathContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
+  const [matches, setMatches] = useContext(MatchesContext);
 
   const redirectToHomePage = () => {
     history.push(`/${profile}`);
@@ -41,6 +43,7 @@ const DeleteAccountPage = () => {
         cookies.remove(LOCAL_STORAGE_KEY.jwtToken);
         setUser(EMPTY_USER);
         setProfiles(EMPTY_PROFILES);
+        setMatches(EMPTY_PROFILES);
         redirectToHomePage();
       })
       .catch((e) => {})
