@@ -148,6 +148,37 @@ class UserDao implements IUserDao {
   }
 
   /**
+     * @param id
+     */
+  public findMatches(id: string): Promise<any> {
+    return getRepository(User)
+      .createQueryBuilder('user')
+      .leftJoin('user.pictures', 'picture')
+      .leftJoin('user.cityName', 'city')
+      .leftJoin('user.universityName', 'university')
+      .leftJoin('user.interests', 'interests')
+      .leftJoin('user.matches2', 'matches2')
+      .where('id != :paramId')
+      .andWhere('matches2.userId = :paramId')
+      .setParameter('paramId', id)
+      .select([
+        'user.id',
+        'user.userName',
+        'user.gender',
+        'user.description',
+        'user.isGraduated',
+        'user.fieldOfStudy',
+        'user.dateOfBirth',
+        'picture.fileName',
+        'picture.isAvatar',
+        'city.cityName',
+        'university.universityName',
+        'interests.interestName',
+      ])
+      .getMany();
+  }
+
+  /**
    * @param id
    * @param cityFilter
    * @param universityFilter

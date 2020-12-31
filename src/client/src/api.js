@@ -83,3 +83,7 @@ export const createRelation = (passiveSideUserId, isLiking) => {
     isLiking,
   });
 };
+
+export const getMatches = () => {
+  return axios.get('/api/users/matches')
+}

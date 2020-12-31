@@ -91,6 +91,32 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
   res.json(userDto).end();
 });
 
+router.get('/matches', authenticate, async (req: Request, res: Response) => {
+  console.log('req.body.payload.id', req.body.payload.id);
+  const matchesData = await userDao.findMatches(req.body.payload.id).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
+  console.log('matchesData', matchesData);
+  if (!matchesData) {
+    res.sendStatus(BAD_REQUEST).end();
+  }
+
+  const matchesDto = matchesData.map((pd: any) => ({
+    ...pd,
+    city: pd?.cityName?.cityName || '',
+    university: pd?.universityName?.universityName || '',
+    interests: (pd?.interests
+        && pd?.interests.length > 0
+        && pd?.interests.map((interest: any) => interest.interestName))
+        || [],
+  }));
+
+  matchesDto.forEach((pd: any) => { delete pd.cityName; delete pd.universityName; });
+
+  res.json(matchesDto).end();
+});
+
 router.post('/profiles', authenticate, async (req: Request, res: Response) => {
   const {
     payload,

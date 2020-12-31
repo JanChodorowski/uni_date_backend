@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   calculateAge,
   capitalizeFirstLetter,
-  compareFileNames,
+  compareFileNames, getGenderColor,
   getItemByKey,
 } from "../../shared/functions";
 import {
@@ -46,6 +46,7 @@ import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
 import { NotInterested, Stars } from "@material-ui/icons";
 import MatchModal from "../other/MatchModal";
+import AvatarsCollection from "../other/AvatarsCollection";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -54,7 +55,7 @@ const Transition = React.forwardRef((props, ref) => (
 const MatchPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
-  const [user, setUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
 
   const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null);
 
@@ -77,7 +78,7 @@ const MatchPage = () => {
           throw new Error();
         }
 
-        let usersAvatarsPromises = profilesData
+        let matchesAvatarsPromises = profilesData
           .map((pd) => {
             const picture = pd.pictures.find((p) => p.isAvatar);
             if (picture) {
@@ -90,7 +91,7 @@ const MatchPage = () => {
             return getPicture(fileName);
           });
 
-        Promise.all(usersAvatarsPromises)
+        Promise.all(matchesAvatarsPromises)
           .then((results) => {
             results.forEach((r) => {
               profilesData.find((pd) =>
@@ -99,7 +100,6 @@ const MatchPage = () => {
             });
           })
           .catch((e) => {
-            setIsLoading(false);
           })
           .finally(() => {
             setProfiles(profilesData);
@@ -126,21 +126,7 @@ const MatchPage = () => {
     setOpen(false);
   };
 
-  const getGenderColor = (gender) => {
-    if (!gender) {
-      return;
-    }
-    const genderLowerCase = gender.toLocaleLowerCase();
-    if (genderLowerCase === "male") {
-      return blue[BLUE_INTENSITY];
-    } else if (genderLowerCase === "female") {
-      return pink[PINK_INTENSITY];
-    } else if (genderLowerCase === "other") {
-      return yellow[YELLOW_INTENSITY];
-    } else {
-      return grey["900"];
-    }
-  };
+
 
   const [isLiking, setIsLiking] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
@@ -163,7 +149,6 @@ const MatchPage = () => {
       });
   };
 
-  const paper = useTransparentPaperStyle();
 
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
@@ -179,58 +164,59 @@ const MatchPage = () => {
     <>
       {checkIfProfilesAlreadyFetched() && (
         <>
-          <Grid container direction="row" alignItems="center" justify="center">
-            {profiles &&
-              profiles.map((p, i) => (
-                <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
-                  <Grid item>
-                    <IconButton onClick={() => handleClickOpen(p.id)}>
-                      <Grid
-                        container
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
-                        style={{ padding: "2rem" }}
-                      >
-                        <Grid item>
-                          {p.avatar ? (
-                            <Avatar
-                              alt={p.userName}
-                              src={URL.createObjectURL(p.avatar)}
-                              style={{
-                                height: AVATAR_SIZE,
-                                width: AVATAR_SIZE,
-                              }}
-                            />
-                          ) : (
-                            <Avatar
-                              alt={p.userName}
-                              src={PlaceHolder}
-                              style={{
-                                height: AVATAR_SIZE,
-                                width: AVATAR_SIZE,
-                              }}
-                            />
-                          )}
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            style={{
-                              fontSize: "1.5rem",
-                              fontWeight: "bold",
-                              color: getGenderColor(p.gender),
-                            }}
-                            paragraph
-                          >
-                            {capitalizeFirstLetter(p.userName)}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              ))}
-          </Grid>
+          <AvatarsCollection collection={profiles} handleClickOpen={handleClickOpen}></AvatarsCollection>
+          {/*<Grid container direction="row" alignItems="center" justify="center">*/}
+          {/*  {profiles &&*/}
+          {/*    profiles.map((p, i) => (*/}
+          {/*      <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>*/}
+          {/*        <Grid item>*/}
+          {/*          <IconButton onClick={() => handleClickOpen(p.id)}>*/}
+          {/*            <Grid*/}
+          {/*              container*/}
+          {/*              direction="column"*/}
+          {/*              alignItems="center"*/}
+          {/*              justify="center"*/}
+          {/*              style={{ padding: "2rem" }}*/}
+          {/*            >*/}
+          {/*              <Grid item>*/}
+          {/*                {p.avatar ? (*/}
+          {/*                  <Avatar*/}
+          {/*                    alt={p.userName}*/}
+          {/*                    src={URL.createObjectURL(p.avatar)}*/}
+          {/*                    style={{*/}
+          {/*                      height: AVATAR_SIZE,*/}
+          {/*                      width: AVATAR_SIZE,*/}
+          {/*                    }}*/}
+          {/*                  />*/}
+          {/*                ) : (*/}
+          {/*                  <Avatar*/}
+          {/*                    alt={p.userName}*/}
+          {/*                    src={PlaceHolder}*/}
+          {/*                    style={{*/}
+          {/*                      height: AVATAR_SIZE,*/}
+          {/*                      width: AVATAR_SIZE,*/}
+          {/*                    }}*/}
+          {/*                  />*/}
+          {/*                )}*/}
+          {/*              </Grid>*/}
+          {/*              <Grid item>*/}
+          {/*                <Typography*/}
+          {/*                  style={{*/}
+          {/*                    fontSize: "1.5rem",*/}
+          {/*                    fontWeight: "bold",*/}
+          {/*                    color: getGenderColor(p.gender),*/}
+          {/*                  }}*/}
+          {/*                  paragraph*/}
+          {/*                >*/}
+          {/*                  {capitalizeFirstLetter(p.userName)}*/}
+          {/*                </Typography>*/}
+          {/*              </Grid>*/}
+          {/*            </Grid>*/}
+          {/*          </IconButton>*/}
+          {/*        </Grid>*/}
+          {/*      </Grid>*/}
+          {/*    ))}*/}
+          {/*</Grid>*/}
         </>
       )}
       <Dialog

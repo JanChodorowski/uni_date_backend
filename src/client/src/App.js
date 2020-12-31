@@ -52,6 +52,7 @@ import DeleteAccountPage from "./components/pages/DeleteAccountPage";
 import { PathContext } from "./context/pathContext";
 import { ProfilesContext } from "./context/profilesContext";
 import Logo from "./components/other/Logo";
+import {MatchesContext} from "./context/matchesContext";
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
@@ -59,6 +60,7 @@ function App(/*{ coords }*/) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
   const [profiles, setProfiles] = useState([]);
+  const [matches, setMatches] = useState([]);
 
   const [path, setPath] = useState(
     (window?.location?.pathname &&
@@ -150,6 +152,7 @@ function App(/*{ coords }*/) {
               value={[isLoadingUserData, setIsLoadingUserData]}
             >
               <ProfilesContext.Provider value={[profiles, setProfiles]}>
+                <MatchesContext.Provider value={[matches, setMatches]}>
                 <PathContext.Provider value={[path, setPath]}>
                   <CssBaseline />
                   <ProgressShower></ProgressShower>
@@ -191,7 +194,9 @@ function App(/*{ coords }*/) {
                     <LandingPage></LandingPage>
                   )}
                 </PathContext.Provider>
+              </MatchesContext.Provider>
               </ProfilesContext.Provider>
+
             </LoadingUserDataContext.Provider>
           </LoadingContext.Provider>
         </UserContext.Provider>
