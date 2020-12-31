@@ -52,7 +52,7 @@ import DeleteAccountPage from "./components/pages/DeleteAccountPage";
 import { PathContext } from "./context/pathContext";
 import { ProfilesContext } from "./context/profilesContext";
 import Logo from "./components/other/Logo";
-import {MatchesContext} from "./context/matchesContext";
+import { MatchesContext } from "./context/matchesContext";
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
@@ -153,50 +153,53 @@ function App(/*{ coords }*/) {
             >
               <ProfilesContext.Provider value={[profiles, setProfiles]}>
                 <MatchesContext.Provider value={[matches, setMatches]}>
-                <PathContext.Provider value={[path, setPath]}>
-                  <CssBaseline />
-                  <ProgressShower></ProgressShower>
-                  {user.email ? (
-                    <>
-                      <Logo></Logo>
-                      <br />
-                      <br />
-                      <Switch>
-                        <Route path={`/${chat}`} component={ChatPage} exact />
-                        <Route path={`/${match}`} component={MatchPage} exact />
-                        <Route
-                          path={`/${filter}`}
-                          component={FilterPage}
-                          exact
-                        />
-                        <Route
-                          path={`/${settings}`}
-                          component={SettingsPage}
-                          exact
-                        />
-                        <Route
-                          path={`/${profile}`}
-                          component={ProfilePage}
-                          exact
-                        />
-                        <Route
-                          path={`/${settings}/${deleteaccount}`}
-                          component={DeleteAccountPage}
-                          exact
-                        />
-                        <Route path="/">
-                          <Redirect to={`/${profile}`} />
-                        </Route>
-                      </Switch>
-                      <BtmNav />
-                    </>
-                  ) : (
-                    <LandingPage></LandingPage>
-                  )}
-                </PathContext.Provider>
-              </MatchesContext.Provider>
+                  <PathContext.Provider value={[path, setPath]}>
+                    <CssBaseline />
+                    <ProgressShower></ProgressShower>
+                    {user.email ? (
+                      <>
+                        <Logo></Logo>
+                        <br />
+                        <br />
+                        <Switch>
+                          <Route path={`/${chat}`} component={ChatPage} exact />
+                          <Route
+                            path={`/${match}`}
+                            component={MatchPage}
+                            exact
+                          />
+                          <Route
+                            path={`/${filter}`}
+                            component={FilterPage}
+                            exact
+                          />
+                          <Route
+                            path={`/${settings}`}
+                            component={SettingsPage}
+                            exact
+                          />
+                          <Route
+                            path={`/${profile}`}
+                            component={ProfilePage}
+                            exact
+                          />
+                          <Route
+                            path={`/${settings}/${deleteaccount}`}
+                            component={DeleteAccountPage}
+                            exact
+                          />
+                          <Route path="/">
+                            <Redirect to={`/${profile}`} />
+                          </Route>
+                        </Switch>
+                        <BtmNav />
+                      </>
+                    ) : (
+                      <LandingPage></LandingPage>
+                    )}
+                  </PathContext.Provider>
+                </MatchesContext.Provider>
               </ProfilesContext.Provider>
-
             </LoadingUserDataContext.Provider>
           </LoadingContext.Provider>
         </UserContext.Provider>

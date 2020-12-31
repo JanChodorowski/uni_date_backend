@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -7,142 +7,142 @@ import {
   Message,
   MessageInput,
 } from "@chatscope/chat-ui-kit-react";
-import {getMatches, getPicture, getProfiles} from "../../api";
-import {LoadingContext} from "../../context/loadingContext";
-import {ProfilesContext} from "../../context/profilesContext";
-import {UserContext} from "../../context/userContext";
-import {MatchesContext} from "../../context/matchesContext";
-import {Avatar, Grid, IconButton, Typography} from "@material-ui/core";
-import {AVATAR_SIZE, DEFAULT_SPACE} from "../../shared/constants";
+import { getMatches, getPicture, getProfiles } from "../../api";
+import { LoadingContext } from "../../context/loadingContext";
+import { ProfilesContext } from "../../context/profilesContext";
+import { UserContext } from "../../context/userContext";
+import { MatchesContext } from "../../context/matchesContext";
+import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
+import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import PlaceHolder from "../../images/Missing_avatar.svg";
-import {capitalizeFirstLetter, getGenderColor} from "../../shared/functions";
+import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import AvatarsCollection from "../other/AvatarsCollection";
 const ChatPage = () => {
-    const [isLoading, setIsLoading] = useContext(LoadingContext);
-    const [matches, setMatches] = useContext(MatchesContext);
-    const [user] = useContext(UserContext);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const [matches, setMatches] = useContext(MatchesContext);
+  const [user] = useContext(UserContext);
 
-    useEffect(() => {
-        let mounted = true;
+  useEffect(() => {
+    let mounted = true;
 
-        setIsLoading(true);
+    setIsLoading(true);
 
-        getMatches()
-            .then((res) => {
-                let matchesData = res.data;
-                console.table(res.data)
+    getMatches()
+      .then((res) => {
+        let matchesData = res.data;
+        console.table(res.data);
 
-                if (!(matchesData && mounted)) {
-                    throw new Error();
-                }
+        if (!(matchesData && mounted)) {
+          throw new Error();
+        }
 
-                let usersAvatarsPromises = matchesData
-                    .map((pd) => {
-                        const picture = pd.pictures.find((p) => p.isAvatar);
-                        if (picture) {
-                            return picture.fileName;
-                        }
-                        return null;
-                    })
-                    .filter((fileNameOrUndefined) => fileNameOrUndefined)
-                    .map((fileName) => {
-                        return getPicture(fileName);
-                    });
+        let usersAvatarsPromises = matchesData
+          .map((pd) => {
+            const picture = pd.pictures.find((p) => p.isAvatar);
+            if (picture) {
+              return picture.fileName;
+            }
+            return null;
+          })
+          .filter((fileNameOrUndefined) => fileNameOrUndefined)
+          .map((fileName) => {
+            return getPicture(fileName);
+          });
 
-                Promise.all(usersAvatarsPromises)
-                    .then((results) => {
-                        results.forEach((r) => {
-                            matchesData.find((pd) =>
-                                pd.pictures.find((p) => p.fileName === r.headers.filename)
-                            ).avatar = r.data;
-                        });
-                    })
-                    .catch((e) => {
-                    })
-                    .finally(() => {
-                        console.log('matches',matches)
-
-                        setMatches(matchesData);
-                        setIsLoading(false);
-                    });
-            })
-            .catch((e) => {
-                setIsLoading(false);
+        Promise.all(usersAvatarsPromises)
+          .then((results) => {
+            results.forEach((r) => {
+              matchesData.find((pd) =>
+                pd.pictures.find((p) => p.fileName === r.headers.filename)
+              ).avatar = r.data;
             });
-        return () => {
-            mounted = false;
-        };
-    }, []);
+          })
+          .catch((e) => {})
+          .finally(() => {
+            console.log("matches", matches);
 
-    const [open, setOpen] = useState(false);
-    // const [passiveSideUserId, setPassiveSideUserId] = useState("");
-
-    const handleClickOpen = (profileId) => {
-        // setPassiveSideUserId(profileId);
-        setOpen(true);
+            setMatches(matchesData);
+            setIsLoading(false);
+          });
+      })
+      .catch((e) => {
+        setIsLoading(false);
+      });
+    return () => {
+      mounted = false;
     };
+  }, []);
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const [open, setOpen] = useState(false);
+  // const [passiveSideUserId, setPassiveSideUserId] = useState("");
+
+  const handleClickOpen = (profileId) => {
+    // setPassiveSideUserId(profileId);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
-        <AvatarsCollection collection={matches} handleClickOpen={handleClickOpen}></AvatarsCollection>
-            {/*<Grid container direction="row" alignItems="center" justify="center">*/}
-            {/*    {matches &&*/}
-            {/*    matches.map((p, i) => (*/}
-            {/*        <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>*/}
-            {/*            <Grid item>*/}
-            {/*                <IconButton onClick={() => handleClickOpen(p.id)}>*/}
-            {/*                    <Grid*/}
-            {/*                        container*/}
-            {/*                        direction="column"*/}
-            {/*                        alignItems="center"*/}
-            {/*                        justify="center"*/}
-            {/*                        style={{ padding: "2rem" }}*/}
-            {/*                    >*/}
-            {/*                        <Grid item>*/}
-            {/*                            {p.avatar ? (*/}
-            {/*                                <Avatar*/}
-            {/*                                    alt={p.userName}*/}
-            {/*                                    src={URL.createObjectURL(p.avatar)}*/}
-            {/*                                    style={{*/}
-            {/*                                        height: AVATAR_SIZE,*/}
-            {/*                                        width: AVATAR_SIZE,*/}
-            {/*                                    }}*/}
-            {/*                                />*/}
-            {/*                            ) : (*/}
-            {/*                                <Avatar*/}
-            {/*                                    alt={p.userName}*/}
-            {/*                                    src={PlaceHolder}*/}
-            {/*                                    style={{*/}
-            {/*                                        height: AVATAR_SIZE,*/}
-            {/*                                        width: AVATAR_SIZE,*/}
-            {/*                                    }}*/}
-            {/*                                />*/}
-            {/*                            )}*/}
-            {/*                        </Grid>*/}
-            {/*                        <Grid item>*/}
-            {/*                            <Typography*/}
-            {/*                                style={{*/}
-            {/*                                    fontSize: "1.5rem",*/}
-            {/*                                    fontWeight: "bold",*/}
-            {/*                                    color: getGenderColor(p.gender),*/}
-            {/*                                }}*/}
-            {/*                                paragraph*/}
-            {/*                            >*/}
-            {/*                                {capitalizeFirstLetter(p.userName)}*/}
-            {/*                            </Typography>*/}
-            {/*                        </Grid>*/}
-            {/*                    </Grid>*/}
-            {/*                </IconButton>*/}
-            {/*            </Grid>*/}
-            {/*        </Grid>*/}
-            {/*    ))}*/}
-            {/*</Grid>*/}
-
-
+      <AvatarsCollection
+        collection={matches}
+        handleClickOpen={handleClickOpen}
+      ></AvatarsCollection>
+      {/*<Grid container direction="row" alignItems="center" justify="center">*/}
+      {/*    {matches &&*/}
+      {/*    matches.map((p, i) => (*/}
+      {/*        <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>*/}
+      {/*            <Grid item>*/}
+      {/*                <IconButton onClick={() => handleClickOpen(p.id)}>*/}
+      {/*                    <Grid*/}
+      {/*                        container*/}
+      {/*                        direction="column"*/}
+      {/*                        alignItems="center"*/}
+      {/*                        justify="center"*/}
+      {/*                        style={{ padding: "2rem" }}*/}
+      {/*                    >*/}
+      {/*                        <Grid item>*/}
+      {/*                            {p.avatar ? (*/}
+      {/*                                <Avatar*/}
+      {/*                                    alt={p.userName}*/}
+      {/*                                    src={URL.createObjectURL(p.avatar)}*/}
+      {/*                                    style={{*/}
+      {/*                                        height: AVATAR_SIZE,*/}
+      {/*                                        width: AVATAR_SIZE,*/}
+      {/*                                    }}*/}
+      {/*                                />*/}
+      {/*                            ) : (*/}
+      {/*                                <Avatar*/}
+      {/*                                    alt={p.userName}*/}
+      {/*                                    src={PlaceHolder}*/}
+      {/*                                    style={{*/}
+      {/*                                        height: AVATAR_SIZE,*/}
+      {/*                                        width: AVATAR_SIZE,*/}
+      {/*                                    }}*/}
+      {/*                                />*/}
+      {/*                            )}*/}
+      {/*                        </Grid>*/}
+      {/*                        <Grid item>*/}
+      {/*                            <Typography*/}
+      {/*                                style={{*/}
+      {/*                                    fontSize: "1.5rem",*/}
+      {/*                                    fontWeight: "bold",*/}
+      {/*                                    color: getGenderColor(p.gender),*/}
+      {/*                                }}*/}
+      {/*                                paragraph*/}
+      {/*                            >*/}
+      {/*                                {capitalizeFirstLetter(p.userName)}*/}
+      {/*                            </Typography>*/}
+      {/*                        </Grid>*/}
+      {/*                    </Grid>*/}
+      {/*                </IconButton>*/}
+      {/*            </Grid>*/}
+      {/*        </Grid>*/}
+      {/*    ))}*/}
+      {/*</Grid>*/}
       <div style={{ position: "relative", height: "500px" }}>
         <MainContainer>
           <ChatContainer>

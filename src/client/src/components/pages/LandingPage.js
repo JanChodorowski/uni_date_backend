@@ -64,13 +64,21 @@ const LandingPage = () => {
                       justify="center"
                     >
                       <Grid item>
-                        <Typography variant="h1" style={{ lineHeight: "80%",textAlign: 'center' }}>
+                        <Typography
+                          variant="h1"
+                          style={{ lineHeight: "80%", textAlign: "center" }}
+                        >
                           {APP_NAME}
                         </Typography>
                       </Grid>
                       <Grid item style={{ padding: DEFAULT_SPACE }}>
-                        <Typography style={{ fontSize: "1.3rem" ,  textAlign: 'center',lineHeight: "90%"
-                        }}>
+                        <Typography
+                          style={{
+                            fontSize: "1.3rem",
+                            textAlign: "center",
+                            lineHeight: "90%",
+                          }}
+                        >
                           Dating app for universities students & graduates
                         </Typography>
                       </Grid>

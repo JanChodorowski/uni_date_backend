@@ -1,6 +1,6 @@
 import * as yup from "yup";
-import {blue, grey, pink, yellow} from "@material-ui/core/colors";
-import {BLUE_INTENSITY, PINK_INTENSITY, YELLOW_INTENSITY} from "./constants";
+import { blue, grey, pink, yellow } from "@material-ui/core/colors";
+import { BLUE_INTENSITY, PINK_INTENSITY, YELLOW_INTENSITY } from "./constants";
 
 export const getItemByKey = (item) =>
   typeof window !== "undefined" && window.localStorage.getItem(item);
@@ -25,8 +25,8 @@ export const capitalizeFirstLetter = (
   first && first.toLocaleUpperCase(locale) + rest.join("").toLocaleLowerCase();
 
 export const calculateAge = (birthday) => {
-  if (!birthday){
-    return ''
+  if (!birthday) {
+    return "";
   }
 
   birthday = new Date(birthday);
@@ -35,7 +35,6 @@ export const calculateAge = (birthday) => {
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
-
 
 export const getGenderColor = (gender) => {
   if (!gender) {

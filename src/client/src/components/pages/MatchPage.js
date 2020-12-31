@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   calculateAge,
   capitalizeFirstLetter,
-  compareFileNames, getGenderColor,
+  compareFileNames,
+  getGenderColor,
   getItemByKey,
 } from "../../shared/functions";
 import {
@@ -99,8 +100,7 @@ const MatchPage = () => {
               ).avatar = r.data;
             });
           })
-          .catch((e) => {
-          })
+          .catch((e) => {})
           .finally(() => {
             setProfiles(profilesData);
             setIsLoading(false);
@@ -126,18 +126,15 @@ const MatchPage = () => {
     setOpen(false);
   };
 
-
-
   const [isLiking, setIsLiking] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
-
 
   const handleRelationClick = (isLiking) => {
     setIsLoading(true);
     createRelation(passiveSideUserId, isLiking)
       .then((res) => {
-        console.table(res)
-        setIsMatched(res?.data?.isMatched)
+        console.table(res);
+        setIsMatched(res?.data?.isMatched);
         setOpen(false);
         setProfiles(profiles.filter((p) => p.id !== passiveSideUserId));
       })
@@ -148,7 +145,6 @@ const MatchPage = () => {
         setSnackbarOpen(true);
       });
   };
-
 
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
@@ -164,7 +160,10 @@ const MatchPage = () => {
     <>
       {checkIfProfilesAlreadyFetched() && (
         <>
-          <AvatarsCollection collection={profiles} handleClickOpen={handleClickOpen}></AvatarsCollection>
+          <AvatarsCollection
+            collection={profiles}
+            handleClickOpen={handleClickOpen}
+          ></AvatarsCollection>
           {/*<Grid container direction="row" alignItems="center" justify="center">*/}
           {/*  {profiles &&*/}
           {/*    profiles.map((p, i) => (*/}
@@ -342,7 +341,10 @@ const MatchPage = () => {
           {/*</Grid>*/}
         </DialogContent>
       </Dialog>
-      <MatchModal isMatched={isMatched} setIsMatched={setIsMatched}></MatchModal>
+      <MatchModal
+        isMatched={isMatched}
+        setIsMatched={setIsMatched}
+      ></MatchModal>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}
