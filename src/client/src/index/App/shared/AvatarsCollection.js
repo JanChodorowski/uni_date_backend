@@ -1,9 +1,6 @@
 import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
 import React from "react";
-import {
-  AVATAR_SIZE,
-  DEFAULT_SPACE
-} from "../../shared/constants";
+import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "./Missing_avatar.svg";
 

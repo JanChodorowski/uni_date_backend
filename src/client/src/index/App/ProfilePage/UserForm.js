@@ -6,25 +6,21 @@ import {
   Paper,
   Snackbar,
   Switch,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Slide from "@material-ui/core/Slide";
 import PublishIcon from "@material-ui/icons/Publish";
 import { Alert } from "@material-ui/lab";
 import {
-  KeyboardDatePicker, MuiPickersUtilsProvider
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import "date-fns";
 import ChipInput from "material-ui-chip-input";
 import React, { useContext, useReducer, useState } from "react";
 import { updateUser } from "../../shared/api";
-import {
-  AUTO_HIDE_DURATION,
-
-
-  DEFAULT_SPACE
-} from "../../shared/constants";
+import { AUTO_HIDE_DURATION, DEFAULT_SPACE } from "../../shared/constants";
 import { capitalizeFirstLetter } from "../../shared/functions";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";

@@ -1,23 +1,16 @@
 import {
   Checkbox,
-
   FormControl,
   FormControlLabel,
   FormGroup,
   FormHelperText,
   FormLabel,
   Grid,
-
-
-
-
   makeStyles,
-
   Paper,
-
   Slider,
   Snackbar,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { blue, grey, pink, yellow } from "@material-ui/core/colors";
@@ -32,14 +25,11 @@ import { updateUser } from "../shared/api";
 import { ColorContext } from "../shared/colorContext";
 import {
   AUTO_HIDE_DURATION,
-
   BLUE_INTENSITY,
-
   DEFAULT_SPACE,
   EMPTY_PROFILES,
-
   PINK_INTENSITY,
-  YELLOW_INTENSITY
+  YELLOW_INTENSITY,
 } from "../shared/constants";
 import { capitalizeFirstLetter } from "../shared/functions";
 import { LoadingContext } from "../shared/loadingContext";

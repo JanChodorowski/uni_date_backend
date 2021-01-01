@@ -1,7 +1,9 @@
 import {
-  ChatContainer, MainContainer,
+  ChatContainer,
+  MainContainer,
   Message,
-  MessageInput, MessageList
+  MessageInput,
+  MessageList,
 } from "@chatscope/chat-ui-kit-react";
 import React, { useContext, useEffect, useState } from "react";
 import { getMatches, getPicture } from "../shared/api";

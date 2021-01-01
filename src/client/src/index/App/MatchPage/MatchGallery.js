@@ -3,13 +3,7 @@ import MobileStepper from "@material-ui/core/MobileStepper";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import React, {
-  useContext,
-  useEffect,
-
-
-  useState
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { getPicture } from "../../shared/api";
 import { DEFAULT_IMAGE_SIZE } from "../../shared/constants";

@@ -4,7 +4,7 @@ import { ColorContext } from "../../shared/colorContext";
 import {
   DARK_TRANSPARENT,
   DEFAULT_SPACE,
-  LIGHT_TRANSPARENT
+  LIGHT_TRANSPARENT,
 } from "../../shared/constants";
 
 const useTransparentPaperStyle = () => {

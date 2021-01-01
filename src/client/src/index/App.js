@@ -1,23 +1,8 @@
-import {
-  CssBaseline,
-
-
-
-
-  ThemeProvider
-} from "@material-ui/core";
-import {
-  createMuiTheme,
-
-  responsiveFontSizes
-} from "@material-ui/core/styles";
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import { geolocated } from "react-geolocated";
-import {
-  Redirect,
-  Route,
-  Switch
-} from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import ChatPage from "./App/ChatPage";
 import DeleteAccountPage from "./App/DeleteAccountPage";
 import FilterPage from "./App/FilterPage";
@@ -35,7 +20,7 @@ import {
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
-  THEME_NAMES
+  THEME_NAMES,
 } from "./shared/constants";
 import { compareFileNames, getItemByKey } from "./shared/functions";
 import { LoadingContext } from "./shared/loadingContext";
@@ -44,7 +29,6 @@ import { MatchesContext } from "./shared/matchesContext";
 import { PathContext } from "./shared/pathContext";
 import { ProfilesContext } from "./shared/profilesContext";
 import { UserContext } from "./shared/userContext";
-
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);

@@ -9,7 +9,7 @@ import {
   EMPTY_PROFILES,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
-  NAVIGATION
+  NAVIGATION,
 } from "../shared/constants";
 import { MatchesContext } from "../shared/matchesContext";
 import { PathContext } from "../shared/pathContext";

@@ -8,7 +8,7 @@ import {
   EMPTY_PROFILES,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
-  NAVIGATION
+  NAVIGATION,
 } from "../shared/constants";
 import { LoadingContext } from "../shared/loadingContext";
 import { MatchesContext } from "../shared/matchesContext";

@@ -4,9 +4,6 @@ import React, { useContext } from "react";
 import ColorBtn from "./ColorBtnCorner/ColorBtn";
 import { ColorContext } from "../../shared/colorContext";
 
-
-
-
 const ColorBtnCorner = () => {
   const [isDark] = useContext(ColorContext);
 

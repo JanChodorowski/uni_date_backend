@@ -1,9 +1,4 @@
-import {
-  Grid,
-  Paper,
-
-  Typography
-} from "@material-ui/core";
+import { Grid, Paper, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
 import { APP_NAME, DEFAULT_SPACE } from "../shared/constants";
 import { LoadingUserDataContext } from "../shared/loadingUserDataContex";

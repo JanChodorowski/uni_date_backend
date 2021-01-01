@@ -1,13 +1,4 @@
-import {
-  ButtonGroup,
-
-  Divider,
-
-
-
-  Snackbar,
-  Typography
-} from "@material-ui/core";
+import { ButtonGroup, Divider, Snackbar, Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -17,15 +8,8 @@ import { NotInterested, Stars } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import React, { useContext, useEffect, useState } from "react";
 import { createRelation, getPicture, getProfiles } from "../shared/api";
-import {
-  DEFAULT_SPACE
-} from "../shared/constants";
-import {
-  calculateAge,
-
-
-  getGenderColor
-} from "../shared/functions";
+import { DEFAULT_SPACE } from "../shared/constants";
+import { calculateAge, getGenderColor } from "../shared/functions";
 import { LoadingContext } from "../shared/loadingContext";
 import { ProfilesContext } from "../shared/profilesContext";
 import { UserContext } from "../shared/userContext";
