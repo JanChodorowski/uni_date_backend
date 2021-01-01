@@ -1,20 +1,16 @@
-import React, { useContext, useState } from "react";
-import ReactDOM from "react-dom";
-import { useFormik } from "formik";
-import * as yup from "yup";
+import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { getPicture, getUser, login } from "./api";
-import { Grid, IconButton, Input, InputAdornment } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import Tooltip from "@material-ui/core/Tooltip";
-import Zoom from "@material-ui/core/Zoom";
-import PasswordVisibilityBtn from "../App/shared/PasswordVisibilityBtn";
-import { BASIC_VALIDATION, DEFAULT_SPACE } from "./constants";
-import { UserContext } from "./userContext";
-import { LoadingContext } from "./loadingContext";
-import { compareFileNames } from "./functions";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import { useFormik } from "formik";
+import React, { useContext, useState } from "react";
+import * as yup from "yup";
+import PasswordVisibilityBtn from "../App/shared/PasswordVisibilityBtn";
+import { getPicture, getUser, login } from "./api";
+import { BASIC_VALIDATION, DEFAULT_SPACE } from "./constants";
+import { compareFileNames } from "./functions";
+import { LoadingContext } from "./loadingContext";
+import { UserContext } from "./userContext";
 const validationSchema = yup.object(BASIC_VALIDATION);
 
 const LoginForm = () => {

@@ -1,25 +1,21 @@
+import Button from "@material-ui/core/Button";
+import MobileStepper from "@material-ui/core/MobileStepper";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import React, {
   useContext,
   useEffect,
-  useReducer,
-  useRef,
-  useState,
+
+
+  useState
 } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import MobileStepper from "@material-ui/core/MobileStepper";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
-import { autoPlay } from "react-swipeable-views-utils";
-import { UserContext } from "../../shared/userContext";
 import { getPicture } from "../../shared/api";
-import { compareFileNames } from "../../shared/functions";
-import { ProfilesContext } from "../../shared/profilesContext";
-import { LoadingContext } from "../../shared/loadingContext";
 import { DEFAULT_IMAGE_SIZE } from "../../shared/constants";
+import { compareFileNames } from "../../shared/functions";
+import { LoadingContext } from "../../shared/loadingContext";
+import { ProfilesContext } from "../../shared/profilesContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {

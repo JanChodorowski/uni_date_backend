@@ -1,3 +1,4 @@
+import DateFnsUtils from "@date-io/date-fns";
 import {
   FormControlLabel,
   FormGroup,
@@ -5,36 +6,30 @@ import {
   Paper,
   Snackbar,
   Switch,
-  TextField,
+  TextField
 } from "@material-ui/core";
-
-import React, { useContext, useReducer, useState } from "react";
 import Button from "@material-ui/core/Button";
-import { UserContext } from "../../shared/userContext";
-import "date-fns";
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import { register, updateUser } from "../../shared/api";
-import { LoadingContext } from "../../shared/loadingContext";
-import ChipInput from "material-ui-chip-input";
-import { makeStyles } from "@material-ui/core/styles";
-import { ColorContext } from "../../shared/colorContext";
-import useTransparentPaperStyle from "./useTransparentPaperStyle";
-import { capitalizeFirstLetter } from "../../shared/functions";
-import {
-  AUTO_HIDE_DURATION,
-  DATA_NOT_UPDATED,
-  DATA_UPDATED,
-  DEFAULT_SPACE,
-} from "../../shared/constants";
-import { Alert } from "@material-ui/lab";
 import Slide from "@material-ui/core/Slide";
 import PublishIcon from "@material-ui/icons/Publish";
+import { Alert } from "@material-ui/lab";
+import {
+  KeyboardDatePicker, MuiPickersUtilsProvider
+} from "@material-ui/pickers";
+import "date-fns";
+import ChipInput from "material-ui-chip-input";
+import React, { useContext, useReducer, useState } from "react";
+import { updateUser } from "../../shared/api";
+import {
+  AUTO_HIDE_DURATION,
+
+
+  DEFAULT_SPACE
+} from "../../shared/constants";
+import { capitalizeFirstLetter } from "../../shared/functions";
+import { LoadingContext } from "../../shared/loadingContext";
+import { UserContext } from "../../shared/userContext";
+import useTransparentPaperStyle from "./useTransparentPaperStyle";
+
 const genderEnum = {
   Male: 1,
   Female: 2,

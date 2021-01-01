@@ -1,22 +1,21 @@
-import React, { useContext } from "react";
-import CenterHOC from "./shared/CenterHOC";
-import { Grid, Paper, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import CenterPaperHOC from "./shared/CenterPaperHOC";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { deleteUser } from "../shared/api";
 import {
   EMPTY_PROFILES,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
-  NAVIGATION,
+  NAVIGATION
 } from "../shared/constants";
-import { UserContext } from "../shared/userContext";
-import { deleteUser } from "../shared/api";
 import { LoadingContext } from "../shared/loadingContext";
+import { MatchesContext } from "../shared/matchesContext";
 import { PathContext } from "../shared/pathContext";
 import { ProfilesContext } from "../shared/profilesContext";
-import {MatchesContext} from "../shared/matchesContext";
+import { UserContext } from "../shared/userContext";
+import CenterPaperHOC from "./shared/CenterPaperHOC";
 
 const DeleteAccountPage = () => {
   const history = useHistory();

@@ -1,10 +1,8 @@
-import React, { useContext, useLayoutEffect, useRef } from "react";
 import { Grid, Paper } from "@material-ui/core";
-import CenterHOC from "./CenterHOC";
-import { ColorContext } from "../../shared/colorContext";
-import { makeStyles } from "@material-ui/core/styles";
-import useTransparentPaperStyle from "./useTransparentPaperStyle";
+import React from "react";
 import { DEFAULT_SPACE } from "../../shared/constants";
+import CenterHOC from "./CenterHOC";
+import useTransparentPaperStyle from "./useTransparentPaperStyle";
 
 const CenterPaperHOC = ({ children, minHeight }) => {
   const paper = useTransparentPaperStyle();

@@ -39,7 +39,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "desitny": "npx destiny -w \"src/**/*.*\"",
+    "desitny:dry": "npx destiny \"src/**/*.*\""
   },
   "eslintConfig": {
     "extends": [

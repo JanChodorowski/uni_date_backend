@@ -1,27 +1,22 @@
-import React, { useContext } from "react";
-import Cookies from "universal-cookie";
+import { Grid, Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { UserContext } from "../shared/userContext";
+import { MeetingRoom } from "@material-ui/icons";
+import DeleteIcon from "@material-ui/icons/Delete";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import Cookies from "universal-cookie";
 import {
   EMPTY_PROFILES,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
-  NAVIGATION,
+  NAVIGATION
 } from "../shared/constants";
-import { useHistory } from "react-router-dom";
-import { Grid, Paper } from "@material-ui/core";
-import ColorBtn from "../shared/ColorBtn";
-import CenterHOC from "./shared/CenterHOC";
-import ColorBtnCorner from "./shared/ColorBtnCorner";
-import CenterPaperHOC from "./shared/CenterPaperHOC";
+import { MatchesContext } from "../shared/matchesContext";
 import { PathContext } from "../shared/pathContext";
-import { ColorContext } from "../shared/colorContext";
-import { makeStyles } from "@material-ui/core/styles";
-import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 import { ProfilesContext } from "../shared/profilesContext";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { MeetingRoom } from "@material-ui/icons";
-import {MatchesContext} from "../shared/matchesContext";
+import { UserContext } from "../shared/userContext";
+import ColorBtnCorner from "./shared/ColorBtnCorner";
+import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);

@@ -1,4 +1,3 @@
-import * as yup from "yup";
 import { blue, grey, pink, yellow } from "@material-ui/core/colors";
 import { BLUE_INTENSITY, PINK_INTENSITY, YELLOW_INTENSITY } from "./constants";
 

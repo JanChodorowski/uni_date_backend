@@ -1,5 +1,5 @@
-import React, { useContext, useLayoutEffect, useRef } from "react";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import React from "react";
 
 const CenterHOC = ({ children, minHeight = "80vh" }) => {
   return (

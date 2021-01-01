@@ -1,16 +1,11 @@
-import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import RegisterForm from "../App/shared/RegisterForm";
 import Zoom from "@material-ui/core/Zoom";
-import { Grid, Paper } from "@material-ui/core";
-import { ColorContext } from "./colorContext";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import React from "react";
+import RegisterForm from "../App/shared/RegisterForm";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />

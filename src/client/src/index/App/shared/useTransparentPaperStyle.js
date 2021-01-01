@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext } from "react";
-import { ColorContext } from "../../shared/colorContext";
 import { makeStyles } from "@material-ui/core/styles";
+import { useContext } from "react";
+import { ColorContext } from "../../shared/colorContext";
 import {
   DARK_TRANSPARENT,
   DEFAULT_SPACE,
-  LIGHT_TRANSPARENT,
+  LIGHT_TRANSPARENT
 } from "../../shared/constants";
 
 const useTransparentPaperStyle = () => {

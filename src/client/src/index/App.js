@@ -1,58 +1,50 @@
-import React, { useState, useEffect } from "react";
+import {
+  CssBaseline,
+
+
+
+
+  ThemeProvider
+} from "@material-ui/core";
 import {
   createMuiTheme,
-  makeStyles,
-  responsiveFontSizes,
-} from "@material-ui/core/styles";
-import {
-  Button,
-  CssBaseline,
-  Divider,
-  Grid,
-  LinearProgress,
-  Paper,
-  ThemeProvider,
-  Typography,
-} from "@material-ui/core";
-import { login, secret, refresh, register, getUser, getPicture } from "./shared/api";
-import { geolocated } from "react-geolocated";
 
+  responsiveFontSizes
+} from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { geolocated } from "react-geolocated";
+import {
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
+import ChatPage from "./App/ChatPage";
+import DeleteAccountPage from "./App/DeleteAccountPage";
+import FilterPage from "./App/FilterPage";
+import LandingPage from "./App/LandingPage";
+import Logo from "./App/Logo";
+import MatchPage from "./App/MatchPage";
+import ProfilePage from "./App/ProfilePage";
+import ProgressShower from "./App/ProgressShower";
+import SettingsPage from "./App/SettingsPage";
+import { getPicture, getUser } from "./shared/api";
+import BtmNav from "./shared/BtmNav";
+import { ColorContext } from "./shared/colorContext";
 import {
   APP_THEME,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
-  THEME_NAMES,
+  THEME_NAMES
 } from "./shared/constants";
-import heart from "./App/heart-rate.png";
-import LoginForm from "./shared/LoginForm";
-import Register from "./shared/Register";
-import BtmNav from "./shared/BtmNav";
-import ColorBtn from "./shared/ColorBtn";
-import { ColorContext } from "./shared/colorContext";
-import { UserContext } from "./shared/userContext";
 import { compareFileNames, getItemByKey } from "./shared/functions";
-import LandingPage from "./App/LandingPage";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-  withRouter,
-} from "react-router-dom";
-import ProfilePage from "./App/ProfilePage";
-import ChatPage from "./App/ChatPage";
-import MatchPage from "./App/MatchPage";
-import FilterPage from "./App/FilterPage";
-import SettingsPage from "./App/SettingsPage";
 import { LoadingContext } from "./shared/loadingContext";
-import ProgressShower from "./App/ProgressShower";
 import { LoadingUserDataContext } from "./shared/loadingUserDataContex";
-import DeleteAccountPage from "./App/DeleteAccountPage";
+import { MatchesContext } from "./shared/matchesContext";
 import { PathContext } from "./shared/pathContext";
 import { ProfilesContext } from "./shared/profilesContext";
-import Logo from "./App/Logo";
-import { MatchesContext } from "./shared/matchesContext";
+import { UserContext } from "./shared/userContext";
+
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);

@@ -1,12 +1,11 @@
 import { Paper } from "@material-ui/core";
-import classNames from "classnames";
-
 import { makeStyles } from "@material-ui/core/styles";
-
 import React, { useContext } from "react";
-
 import ColorBtn from "../../shared/ColorBtn";
 import { ColorContext } from "../../shared/colorContext";
+
+
+
 
 const ColorBtnCorner = () => {
   const [isDark] = useContext(ColorContext);

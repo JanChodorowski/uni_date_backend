@@ -1,21 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
-  MainContainer,
-  ChatContainer,
-  MessageList,
+  ChatContainer, MainContainer,
   Message,
-  MessageInput,
+  MessageInput, MessageList
 } from "@chatscope/chat-ui-kit-react";
-import { getMatches, getPicture, getProfiles } from "../shared/api";
+import React, { useContext, useEffect, useState } from "react";
+import { getMatches, getPicture } from "../shared/api";
 import { LoadingContext } from "../shared/loadingContext";
-import { ProfilesContext } from "../shared/profilesContext";
-import { UserContext } from "../shared/userContext";
 import { MatchesContext } from "../shared/matchesContext";
-import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
-import { AVATAR_SIZE, DEFAULT_SPACE } from "../shared/constants";
-import PlaceHolder from "./shared/Missing_avatar.svg";
-import { capitalizeFirstLetter, getGenderColor } from "../shared/functions";
+import { UserContext } from "../shared/userContext";
 import AvatarsCollection from "./shared/AvatarsCollection";
 const ChatPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);

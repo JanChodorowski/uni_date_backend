@@ -1,24 +1,17 @@
-import React, { useContext, useState } from "react";
-import ReactDOM from "react-dom";
-import { useFormik } from "formik";
-import * as yup from "yup";
+import {
+  Grid
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { register } from "../../shared/api";
-import {
-  Grid,
-  IconButton,
-  Input,
-  InputAdornment,
-  Typography,
-} from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import red from "@material-ui/core/colors/red";
-import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
-import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
-import { UserContext } from "../../shared/userContext";
-import { LoadingContext } from "../../shared/loadingContext";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import { useFormik } from "formik";
+import React, { useContext, useState } from "react";
+import * as yup from "yup";
+import { register } from "../../shared/api";
+import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
+import { LoadingContext } from "../../shared/loadingContext";
+import { UserContext } from "../../shared/userContext";
+import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
 
 const validationSchema = yup.object({
   ...BASIC_VALIDATION,

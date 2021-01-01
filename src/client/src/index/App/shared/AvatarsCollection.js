@@ -1,17 +1,11 @@
-import { Avatar, Grid, IconButton, Paper, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import React, { useContext } from "react";
-import { ColorContext } from "../../shared/colorContext";
+import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
+import React from "react";
 import {
-  APP_NAME,
-  APP_THEME,
   AVATAR_SIZE,
-  DEFAULT_SPACE,
+  DEFAULT_SPACE
 } from "../../shared/constants";
-import logo from "./the-eiger.svg";
-import PlaceHolder from "./Missing_avatar.svg";
 import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
-import { MatchesContext } from "../../shared/matchesContext";
+import PlaceHolder from "./Missing_avatar.svg";
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
   return (

@@ -1,51 +1,36 @@
+import {
+  ButtonGroup,
+
+  Divider,
+
+
+
+  Snackbar,
+  Typography
+} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import Slide from "@material-ui/core/Slide";
+import Zoom from "@material-ui/core/Zoom";
+import { NotInterested, Stars } from "@material-ui/icons";
+import { Alert } from "@material-ui/lab";
 import React, { useContext, useEffect, useState } from "react";
+import { createRelation, getPicture, getProfiles } from "../shared/api";
+import {
+  DEFAULT_SPACE
+} from "../shared/constants";
 import {
   calculateAge,
-  capitalizeFirstLetter,
-  compareFileNames,
-  getGenderColor,
-  getItemByKey,
+
+
+  getGenderColor
 } from "../shared/functions";
-import {
-  AVATAR_SIZE,
-  BLUE_INTENSITY,
-  DEFAULT_SPACE,
-  EMPTY_USER,
-  LOCAL_STORAGE_KEY,
-  PINK_INTENSITY,
-  THEME_NAMES,
-  YELLOW_INTENSITY,
-} from "../shared/constants";
-import { createRelation, getPicture, getProfiles } from "../shared/api";
 import { LoadingContext } from "../shared/loadingContext";
 import { ProfilesContext } from "../shared/profilesContext";
-import {
-  Avatar,
-  ButtonGroup,
-  Card,
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Snackbar,
-  Typography,
-} from "@material-ui/core";
-import PlaceHolder from "./shared/Missing_avatar.svg";
-import CenterPaperHOC from "./shared/CenterPaperHOC";
-import Zoom from "@material-ui/core/Zoom";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import RegisterForm from "./shared/RegisterForm";
-import Dialog from "@material-ui/core/Dialog";
-import Button from "@material-ui/core/Button";
-import MatchGallery from "./MatchPage/MatchGallery";
-import { blue, grey, pink, yellow } from "@material-ui/core/colors";
-import LabelValuePrinter from "./MatchPage/LabelValuePrinter";
-import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 import { UserContext } from "../shared/userContext";
-import { Alert } from "@material-ui/lab";
-import Slide from "@material-ui/core/Slide";
-import { NotInterested, Stars } from "@material-ui/icons";
+import LabelValuePrinter from "./MatchPage/LabelValuePrinter";
+import MatchGallery from "./MatchPage/MatchGallery";
 import MatchModal from "./MatchPage/MatchModal";
 import AvatarsCollection from "./shared/AvatarsCollection";
 

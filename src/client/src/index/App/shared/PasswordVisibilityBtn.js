@@ -1,13 +1,8 @@
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
-import Brightness7Icon from "@material-ui/icons/Brightness7";
-import React, { useContext, useLayoutEffect, useRef } from "react";
-import { ColorContext } from "../../shared/colorContext";
-import { LOCAL_STORAGE_KEY, THEME_NAMES } from "../../shared/constants";
-import { Grid, InputAdornment } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import React from "react";
 
 const PasswordVisibilityBtn = ({
   showPassword,

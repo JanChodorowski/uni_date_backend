@@ -1,31 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
 import {
-  createMuiTheme,
-  makeStyles,
-  responsiveFontSizes,
-} from "@material-ui/core/styles";
-import {
-  Button,
-  CssBaseline,
-  Divider,
   Grid,
   Paper,
-  ThemeProvider,
-  Typography,
+
+  Typography
 } from "@material-ui/core";
-import logo from "./shared/the-eiger.svg";
+import React, { useContext } from "react";
+import { APP_NAME, DEFAULT_SPACE } from "../shared/constants";
+import { LoadingUserDataContext } from "../shared/loadingUserDataContex";
 import LoginForm from "../shared/LoginForm";
 import Register from "../shared/Register";
-import ColorBtn from "../shared/ColorBtn";
-import BtmNav from "../shared/BtmNav";
 import CenterHOC from "./shared/CenterHOC";
-import ColorBtnCorner from "./shared/ColorBtnCorner";
-import { ColorContext } from "../shared/colorContext";
-import { LoadingContext } from "../shared/loadingContext";
-import { LoadingUserDataContext } from "../shared/loadingUserDataContex";
-import { APP_NAME, DEFAULT_SPACE } from "../shared/constants";
+import logo from "./shared/the-eiger.svg";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
-import TextField from "@material-ui/core/TextField";
 
 const LandingPage = () => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);

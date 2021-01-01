@@ -1,20 +1,18 @@
-import React, { useContext, useState } from "react";
-import ImageUploader from "react-images-upload";
-import Button from "@material-ui/core/Button";
-import { LoadingContext } from "../../shared/loadingContext";
-import { login, updateAvatar, updateUser, uploadPictures } from "../../shared/api";
-import Gallery from "./Gallery";
-import CenterPaperHOC from "./CenterPaperHOC";
 import { Avatar, Grid, Paper } from "@material-ui/core";
-import CenterHOC from "./CenterHOC";
-import { makeStyles } from "@material-ui/core/styles";
-import PlaceHolder from "./Missing_avatar.svg";
-import { UserContext } from "../../shared/userContext";
-import { ColorContext } from "../../shared/colorContext";
-import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
-import useTransparentPaperStyle from "./useTransparentPaperStyle";
+import Button from "@material-ui/core/Button";
 import BackupIcon from "@material-ui/icons/Backup";
 import FaceIcon from "@material-ui/icons/Face";
+import React, { useContext, useState } from "react";
+import ImageUploader from "react-images-upload";
+import { updateAvatar, uploadPictures } from "../../shared/api";
+import { ColorContext } from "../../shared/colorContext";
+import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
+import { LoadingContext } from "../../shared/loadingContext";
+import { UserContext } from "../../shared/userContext";
+import CenterHOC from "./CenterHOC";
+import Gallery from "./Gallery";
+import PlaceHolder from "./Missing_avatar.svg";
+import useTransparentPaperStyle from "./useTransparentPaperStyle";
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     display: "flex",

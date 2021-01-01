@@ -1,24 +1,19 @@
-import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, IconButton, Paper } from "@material-ui/core";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import FolderIcon from "@material-ui/icons/Folder";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import ChatIcon from "@material-ui/icons/Chat";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import SettingsIcon from "@material-ui/icons/Settings";
-import FilterListIcon from "@material-ui/icons/FilterList";
+import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { Grid, Paper } from "@material-ui/core";
-import { IconButton } from "@material-ui/core";
-import { NAVIGATION } from "./constants";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ChatIcon from "@material-ui/icons/Chat";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import SettingsIcon from "@material-ui/icons/Settings";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "./userContext";
-import { PathContext } from "./pathContext";
-import Dialog from "@material-ui/core/Dialog";
 import { ColorContext } from "./colorContext";
+import { NAVIGATION } from "./constants";
+import { PathContext } from "./pathContext";
+import { UserContext } from "./userContext";
 
 const useStyles = makeStyles({
   root: {

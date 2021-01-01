@@ -1,58 +1,51 @@
-import React, { useContext, useState } from "react";
-import ReactDOM from "react-dom";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import { getPicture, getUser, login, updateUser } from "../shared/api";
 import {
   Checkbox,
-  Chip,
+
   FormControl,
   FormControlLabel,
   FormGroup,
   FormHelperText,
   FormLabel,
   Grid,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
+
+
+
+
   makeStyles,
-  MenuItem,
+
   Paper,
-  Select,
+
   Slider,
   Snackbar,
-  Typography,
+  Typography
 } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import Tooltip from "@material-ui/core/Tooltip";
-import Zoom from "@material-ui/core/Zoom";
-import PasswordVisibilityBtn from "./shared/PasswordVisibilityBtn";
+import Button from "@material-ui/core/Button";
+import { blue, grey, pink, yellow } from "@material-ui/core/colors";
+import Slide from "@material-ui/core/Slide";
+import TextField from "@material-ui/core/TextField";
+import PublishIcon from "@material-ui/icons/Publish";
+import { Alert } from "@material-ui/lab";
+import { useFormik } from "formik";
+import React, { useContext, useState } from "react";
+import * as yup from "yup";
+import { updateUser } from "../shared/api";
+import { ColorContext } from "../shared/colorContext";
 import {
   AUTO_HIDE_DURATION,
-  BASIC_VALIDATION,
+
   BLUE_INTENSITY,
-  DARK_TRANSPARENT,
+
   DEFAULT_SPACE,
   EMPTY_PROFILES,
-  LIGHT_TRANSPARENT,
+
   PINK_INTENSITY,
-  YELLOW_INTENSITY,
+  YELLOW_INTENSITY
 } from "../shared/constants";
-import { UserContext } from "../shared/userContext";
-import { LoadingContext } from "../shared/loadingContext";
-import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
-import AvatarForm from "./shared/AvatarForm";
-import UserForm from "./shared/UserForm";
-import { blue, grey, pink, yellow } from "@material-ui/core/colors";
-import { ColorContext } from "../shared/colorContext";
-import { ProfilesContext } from "../shared/profilesContext";
 import { capitalizeFirstLetter } from "../shared/functions";
-import { Alert } from "@material-ui/lab";
-import Slide from "@material-ui/core/Slide";
-import PublishIcon from "@material-ui/icons/Publish";
+import { LoadingContext } from "../shared/loadingContext";
+import { ProfilesContext } from "../shared/profilesContext";
+import { UserContext } from "../shared/userContext";
+import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 
 const FilterPage = () => {
   const [areCredentialsCorrect, setAreCredentialsCorrect] = useState(true);

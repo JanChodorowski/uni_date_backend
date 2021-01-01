@@ -2,7 +2,7 @@ import { Grid, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext } from "react";
 import { ColorContext } from "../shared/colorContext";
-import { APP_NAME, APP_THEME } from "../shared/constants";
+import { APP_NAME } from "../shared/constants";
 import logo from "./shared/the-eiger.svg";
 
 const Logo = () => {
