@@ -15,7 +15,7 @@ import { MatchesContext } from "../shared/matchesContext";
 import { PathContext } from "../shared/pathContext";
 import { ProfilesContext } from "../shared/profilesContext";
 import { UserContext } from "../shared/userContext";
-import ColorBtnCorner from "./shared/ColorBtnCorner";
+import ColorBtnCorner from "./SettingsPage/ColorBtnCorner";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);

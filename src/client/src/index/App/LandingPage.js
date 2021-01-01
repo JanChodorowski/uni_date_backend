@@ -7,8 +7,8 @@ import {
 import React, { useContext } from "react";
 import { APP_NAME, DEFAULT_SPACE } from "../shared/constants";
 import { LoadingUserDataContext } from "../shared/loadingUserDataContex";
-import LoginForm from "../shared/LoginForm";
-import Register from "../shared/Register";
+import LoginForm from "./LandingPage/LoginForm";
+import Register from "./LandingPage/Register";
 import CenterHOC from "./shared/CenterHOC";
 import logo from "./shared/the-eiger.svg";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";

@@ -9,10 +9,10 @@ import { ColorContext } from "../../shared/colorContext";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";
-import CenterHOC from "./CenterHOC";
-import Gallery from "./Gallery";
-import PlaceHolder from "./Missing_avatar.svg";
-import useTransparentPaperStyle from "./useTransparentPaperStyle";
+import CenterHOC from "../shared/CenterHOC";
+import Gallery from "./AvatarForm/Gallery";
+import PlaceHolder from "../shared/Missing_avatar.svg";
+import useTransparentPaperStyle from "../shared/useTransparentPaperStyle";
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     display: "flex",

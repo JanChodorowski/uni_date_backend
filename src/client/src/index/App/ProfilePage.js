@@ -1,8 +1,8 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
 import { DEFAULT_SPACE } from "../shared/constants";
-import AvatarForm from "./shared/AvatarForm";
-import UserForm from "./shared/UserForm";
+import AvatarForm from "./ProfilePage/AvatarForm";
+import UserForm from "./ProfilePage/UserForm";
 
 const ProfilePage = () => {
   return (

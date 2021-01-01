@@ -28,7 +28,7 @@ import {
 import { capitalizeFirstLetter } from "../../shared/functions";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";
-import useTransparentPaperStyle from "./useTransparentPaperStyle";
+import useTransparentPaperStyle from "../shared/useTransparentPaperStyle";
 
 const genderEnum = {
   Male: 1,

@@ -7,11 +7,11 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
-import { register } from "../../shared/api";
-import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
-import { LoadingContext } from "../../shared/loadingContext";
-import { UserContext } from "../../shared/userContext";
-import PasswordVisibilityBtn from "./PasswordVisibilityBtn";
+import { register } from "../../../shared/api";
+import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../../shared/constants";
+import { LoadingContext } from "../../../shared/loadingContext";
+import { UserContext } from "../../../shared/userContext";
+import PasswordVisibilityBtn from "../shared/PasswordVisibilityBtn";
 
 const validationSchema = yup.object({
   ...BASIC_VALIDATION,

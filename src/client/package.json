@@ -40,8 +40,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "npx prettier --write .",
-    "desitny": "npx destiny -w \"src/**/*.*\"",
-    "desitny:dry": "npx destiny \"src/**/*.*\""
+    "destiny": "npx destiny -w \"src/**/*.*\"",
+    "destiny:dry": "npx destiny \"src/**/*.*\""
   },
   "eslintConfig": {
     "extends": [

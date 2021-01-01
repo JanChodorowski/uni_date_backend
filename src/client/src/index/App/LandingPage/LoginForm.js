@@ -5,12 +5,12 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
-import PasswordVisibilityBtn from "../App/shared/PasswordVisibilityBtn";
-import { getPicture, getUser, login } from "./api";
-import { BASIC_VALIDATION, DEFAULT_SPACE } from "./constants";
-import { compareFileNames } from "./functions";
-import { LoadingContext } from "./loadingContext";
-import { UserContext } from "./userContext";
+import PasswordVisibilityBtn from "./shared/PasswordVisibilityBtn";
+import { getPicture, getUser, login } from "../../shared/api";
+import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
+import { compareFileNames } from "../../shared/functions";
+import { LoadingContext } from "../../shared/loadingContext";
+import { UserContext } from "../../shared/userContext";
 const validationSchema = yup.object(BASIC_VALIDATION);
 
 const LoginForm = () => {

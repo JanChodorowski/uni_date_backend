@@ -28,7 +28,7 @@ import ProfilePage from "./App/ProfilePage";
 import ProgressShower from "./App/ProgressShower";
 import SettingsPage from "./App/SettingsPage";
 import { getPicture, getUser } from "./shared/api";
-import BtmNav from "./shared/BtmNav";
+import BtmNav from "./App/BtmNav";
 import { ColorContext } from "./shared/colorContext";
 import {
   APP_THEME,

@@ -5,7 +5,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Zoom from "@material-ui/core/Zoom";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import React from "react";
-import RegisterForm from "../App/shared/RegisterForm";
+import RegisterForm from "./Register/RegisterForm";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />

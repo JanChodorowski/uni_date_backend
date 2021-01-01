@@ -10,10 +10,10 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import SettingsIcon from "@material-ui/icons/Settings";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { ColorContext } from "./colorContext";
-import { NAVIGATION } from "./constants";
-import { PathContext } from "./pathContext";
-import { UserContext } from "./userContext";
+import { ColorContext } from "../shared/colorContext";
+import { NAVIGATION } from "../shared/constants";
+import { PathContext } from "../shared/pathContext";
+import { UserContext } from "../shared/userContext";
 
 const useStyles = makeStyles({
   root: {

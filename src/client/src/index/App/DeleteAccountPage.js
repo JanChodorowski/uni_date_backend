@@ -15,7 +15,7 @@ import { MatchesContext } from "../shared/matchesContext";
 import { PathContext } from "../shared/pathContext";
 import { ProfilesContext } from "../shared/profilesContext";
 import { UserContext } from "../shared/userContext";
-import CenterPaperHOC from "./shared/CenterPaperHOC";
+import CenterPaperHOC from "./DeleteAccountPage/CenterPaperHOC";
 
 const DeleteAccountPage = () => {
   const history = useHistory();
