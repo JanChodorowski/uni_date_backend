@@ -40,7 +40,9 @@ export const getGenderColor = (gender) => {
   if (!gender) {
     return;
   }
+
   const genderLowerCase = gender.toLocaleLowerCase();
+
   if (genderLowerCase === "male") {
     return blue[BLUE_INTENSITY];
   } else if (genderLowerCase === "female") {

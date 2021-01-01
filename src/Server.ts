@@ -10,19 +10,13 @@ import 'reflect-metadata';
 import {
   ConnectionOptions, createConnection, Connection, getConnection,
 } from 'typeorm';
-import { User } from '@entities/User';
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import { authenticate } from '@middleware/middleware';
 import BaseRouter from './routes';
 import router from './routes/Picture';
 
-const util = require('util');
-const fs = require('fs');
-const uniqueString = require('unique-string');
 const cors = require('cors');
-
-const readDir = util.promisify(fs.readdir);
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
