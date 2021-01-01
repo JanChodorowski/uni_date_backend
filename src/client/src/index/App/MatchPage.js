@@ -1,0 +1,363 @@
+import React, { useContext, useEffect, useState } from "react";
+import {
+  calculateAge,
+  capitalizeFirstLetter,
+  compareFileNames,
+  getGenderColor,
+  getItemByKey,
+} from "../shared/functions";
+import {
+  AVATAR_SIZE,
+  BLUE_INTENSITY,
+  DEFAULT_SPACE,
+  EMPTY_USER,
+  LOCAL_STORAGE_KEY,
+  PINK_INTENSITY,
+  THEME_NAMES,
+  YELLOW_INTENSITY,
+} from "../shared/constants";
+import { createRelation, getPicture, getProfiles } from "../shared/api";
+import { LoadingContext } from "../shared/loadingContext";
+import { ProfilesContext } from "../shared/profilesContext";
+import {
+  Avatar,
+  ButtonGroup,
+  Card,
+  Divider,
+  Grid,
+  IconButton,
+  Paper,
+  Snackbar,
+  Typography,
+} from "@material-ui/core";
+import PlaceHolder from "./shared/Missing_avatar.svg";
+import CenterPaperHOC from "./shared/CenterPaperHOC";
+import Zoom from "@material-ui/core/Zoom";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import RegisterForm from "./shared/RegisterForm";
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import MatchGallery from "./MatchPage/MatchGallery";
+import { blue, grey, pink, yellow } from "@material-ui/core/colors";
+import LabelValuePrinter from "./MatchPage/LabelValuePrinter";
+import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
+import { UserContext } from "../shared/userContext";
+import { Alert } from "@material-ui/lab";
+import Slide from "@material-ui/core/Slide";
+import { NotInterested, Stars } from "@material-ui/icons";
+import MatchModal from "./MatchPage/MatchModal";
+import AvatarsCollection from "./shared/AvatarsCollection";
+
+const Transition = React.forwardRef((props, ref) => (
+  <Zoom ref={ref} {...props} />
+));
+
+const MatchPage = () => {
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const [profiles, setProfiles] = useContext(ProfilesContext);
+  const [user] = useContext(UserContext);
+
+  const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null);
+
+  const checkIfProfilesAlreadyFetched = () => profiles && profiles.length > 0;
+
+  useEffect(() => {
+    if (checkIfProfilesAlreadyFetched()) {
+      return;
+    }
+
+    let mounted = true;
+
+    setIsLoading(true);
+
+    getProfiles(user)
+      .then((res) => {
+        let profilesData = res.data;
+
+        if (!(profilesData && mounted)) {
+          throw new Error();
+        }
+
+        let matchesAvatarsPromises = profilesData
+          .map((pd) => {
+            const picture = pd.pictures.find((p) => p.isAvatar);
+            if (picture) {
+              return picture.fileName;
+            }
+            return null;
+          })
+          .filter((fileNameOrUndefined) => fileNameOrUndefined)
+          .map((fileName) => {
+            return getPicture(fileName);
+          });
+
+        Promise.all(matchesAvatarsPromises)
+          .then((results) => {
+            results.forEach((r) => {
+              profilesData.find((pd) =>
+                pd.pictures.find((p) => p.fileName === r.headers.filename)
+              ).avatar = r.data;
+            });
+          })
+          .catch((e) => {})
+          .finally(() => {
+            setProfiles(profilesData);
+            setIsLoading(false);
+          });
+      })
+      .catch((e) => {
+        setIsLoading(false);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, [areMoreProfilesNeeded]);
+
+  const [open, setOpen] = useState(false);
+  const [passiveSideUserId, setPassiveSideUserId] = useState("");
+
+  const handleClickOpen = (profileId) => {
+    setPassiveSideUserId(profileId);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [isLiking, setIsLiking] = useState(false);
+  const [isMatched, setIsMatched] = useState(false);
+
+  const handleRelationClick = (isLiking) => {
+    setIsLoading(true);
+    createRelation(passiveSideUserId, isLiking)
+      .then((res) => {
+        console.table(res);
+        setIsMatched(res?.data?.isMatched);
+        setOpen(false);
+        setProfiles(profiles.filter((p) => p.id !== passiveSideUserId));
+      })
+      .catch()
+      .finally(() => {
+        setIsLoading(false);
+        setIsLiking(isLiking);
+        setSnackbarOpen(true);
+      });
+  };
+
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
+
+  return (
+    <>
+      {checkIfProfilesAlreadyFetched() && (
+        <>
+          <AvatarsCollection
+            collection={profiles}
+            handleClickOpen={handleClickOpen}
+          ></AvatarsCollection>
+          {/*<Grid container direction="row" alignItems="center" justify="center">*/}
+          {/*  {profiles &&*/}
+          {/*    profiles.map((p, i) => (*/}
+          {/*      <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>*/}
+          {/*        <Grid item>*/}
+          {/*          <IconButton onClick={() => handleClickOpen(p.id)}>*/}
+          {/*            <Grid*/}
+          {/*              container*/}
+          {/*              direction="column"*/}
+          {/*              alignItems="center"*/}
+          {/*              justify="center"*/}
+          {/*              style={{ padding: "2rem" }}*/}
+          {/*            >*/}
+          {/*              <Grid item>*/}
+          {/*                {p.avatar ? (*/}
+          {/*                  <Avatar*/}
+          {/*                    alt={p.userName}*/}
+          {/*                    src={URL.createObjectURL(p.avatar)}*/}
+          {/*                    style={{*/}
+          {/*                      height: AVATAR_SIZE,*/}
+          {/*                      width: AVATAR_SIZE,*/}
+          {/*                    }}*/}
+          {/*                  />*/}
+          {/*                ) : (*/}
+          {/*                  <Avatar*/}
+          {/*                    alt={p.userName}*/}
+          {/*                    src={PlaceHolder}*/}
+          {/*                    style={{*/}
+          {/*                      height: AVATAR_SIZE,*/}
+          {/*                      width: AVATAR_SIZE,*/}
+          {/*                    }}*/}
+          {/*                  />*/}
+          {/*                )}*/}
+          {/*              </Grid>*/}
+          {/*              <Grid item>*/}
+          {/*                <Typography*/}
+          {/*                  style={{*/}
+          {/*                    fontSize: "1.5rem",*/}
+          {/*                    fontWeight: "bold",*/}
+          {/*                    color: getGenderColor(p.gender),*/}
+          {/*                  }}*/}
+          {/*                  paragraph*/}
+          {/*                >*/}
+          {/*                  {capitalizeFirstLetter(p.userName)}*/}
+          {/*                </Typography>*/}
+          {/*              </Grid>*/}
+          {/*            </Grid>*/}
+          {/*          </IconButton>*/}
+          {/*        </Grid>*/}
+          {/*      </Grid>*/}
+          {/*    ))}*/}
+          {/*</Grid>*/}
+        </>
+      )}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="choose profile"
+        TransitionComponent={Transition}
+      >
+        <DialogContent>
+          <MatchGallery profileId={passiveSideUserId}></MatchGallery>
+          {profiles &&
+            Array.isArray(profiles) &&
+            profiles.length > 0 &&
+            profiles.find((p) => p.id === passiveSideUserId) &&
+            profiles.find((p) => p.id === passiveSideUserId)?.userName && (
+              <>
+                <Typography
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "bold",
+                    padding: DEFAULT_SPACE,
+                    color: getGenderColor(
+                      profiles.find((p) => p.id === passiveSideUserId)?.gender
+                    ),
+                  }}
+                >
+                  {`${
+                    profiles.find((p) => p.id === passiveSideUserId)?.userName
+                  } ` || ""}
+                  {calculateAge(
+                    profiles.find((p) => p.id === passiveSideUserId)
+                      ?.dateOfBirth
+                  ) || ""}
+                </Typography>
+                <Divider></Divider>
+              </>
+            )}
+
+          {profiles.find((p) => p.id === passiveSideUserId)?.description && (
+            <>
+              <Typography style={{ padding: DEFAULT_SPACE }}>
+                {profiles.find((p) => p.id === passiveSideUserId)
+                  ?.description || ""}
+              </Typography>
+              <Divider></Divider>
+            </>
+          )}
+
+          {profiles.find((p) => p.id === passiveSideUserId) &&
+            profiles.find((p) => p.id === passiveSideUserId).university && (
+              <>
+                <LabelValuePrinter
+                  label="University"
+                  value={
+                    profiles.find((p) => p.id === passiveSideUserId)
+                      ?.university || ""
+                  }
+                ></LabelValuePrinter>
+                <LabelValuePrinter
+                  label="Filed of study"
+                  value={
+                    profiles.find((p) => p.id === passiveSideUserId)
+                      ?.fieldOfStudy || ""
+                  }
+                ></LabelValuePrinter>
+                <LabelValuePrinter
+                  label="Already graduated?"
+                  value={
+                    profiles.find((p) => p.id === passiveSideUserId)
+                      ?.isGraduated
+                      ? "yes"
+                      : "no"
+                  }
+                ></LabelValuePrinter>
+
+                <Divider></Divider>
+              </>
+            )}
+          <LabelValuePrinter
+            label="City"
+            value={profiles.find((p) => p.id === passiveSideUserId)?.city || ""}
+          ></LabelValuePrinter>
+          <Divider></Divider>
+          <LabelValuePrinter
+            label="Interests"
+            value={
+              profiles.find((p) => p.id === passiveSideUserId)?.interests || []
+            }
+          ></LabelValuePrinter>
+          {/*<Grid*/}
+          {/*  container*/}
+          {/*  direction="row"*/}
+          {/*  justify="space-between"*/}
+          {/*  style={{ padding: DEFAULT_SPACE }}*/}
+          {/*>*/}
+          {/*  <Grid item>*/}
+          <ButtonGroup fullWidth>
+            <Button
+              color="secondary"
+              variant="contained"
+              fullWidth
+              size="large"
+              onClick={() => handleRelationClick(false)}
+              startIcon={<NotInterested></NotInterested>}
+            >
+              DISLIKE
+            </Button>
+            {/*</Grid>*/}
+            {/*<Grid item>*/}
+            <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              size="large"
+              onClick={() => handleRelationClick(true)}
+              endIcon={<Stars></Stars>}
+            >
+              LIKE
+            </Button>
+          </ButtonGroup>
+          {/*  </Grid>*/}
+          {/*</Grid>*/}
+        </DialogContent>
+      </Dialog>
+      <MatchModal
+        isMatched={isMatched}
+        setIsMatched={setIsMatched}
+      ></MatchModal>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        TransitionComponent={Slide}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="info">
+          {isLiking ? "LIKE" : "DISLIKE"}
+        </Alert>
+      </Snackbar>
+    </>
+  );
+};
+
+export default MatchPage;
