@@ -36,19 +36,19 @@ export const calculateAge = (birthday) => {
 };
 
 export const getGenderColor = (gender) => {
-  if (!gender) {
-    return;
-  }
+  let genderLowerCase
 
-  const genderLowerCase = gender.toLocaleLowerCase();
+  if (gender) {
+    genderLowerCase = gender.toLocaleLowerCase();  }
 
-  if (genderLowerCase === "male") {
-    return blue[BLUE_INTENSITY];
-  } else if (genderLowerCase === "female") {
-    return pink[PINK_INTENSITY];
-  } else if (genderLowerCase === "other") {
-    return yellow[YELLOW_INTENSITY];
-  } else {
-    return grey["900"];
+  switch (genderLowerCase) {
+    case "male":
+      return blue[BLUE_INTENSITY];
+    case "female":
+      return pink[PINK_INTENSITY];
+    case "other":
+      return yellow[YELLOW_INTENSITY];
+    default:
+      return grey["900"];
   }
 };
