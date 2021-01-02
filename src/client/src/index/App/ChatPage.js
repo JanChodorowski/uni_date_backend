@@ -28,8 +28,15 @@ const ChatPage = () => {
   const [matches, setMatches] = useContext(MatchesContext);
   const [user] = useContext(UserContext);
 
-  useEffect(() => {
+    const checkIfProfilesAlreadyFetched = () => matches && matches.length > 0;
+
+
+    useEffect(() => {
     let mounted = true;
+
+      if (checkIfProfilesAlreadyFetched()) {
+          return;
+      }
 
     setIsLoading(true);
 
@@ -104,6 +111,7 @@ const ChatPage = () => {
         TransitionComponent={Transition}
       >
         <DialogContent>
+
           <ProfileInfo
             passiveSideUserId={passiveSideUserId}
             setProfiles={setMatches}
