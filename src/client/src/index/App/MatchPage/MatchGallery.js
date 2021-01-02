@@ -32,13 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MatchGallery({ profileId }) {
+function MatchGallery({ profileId, profiles, setProfiles }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   // const [user, setUser] = useContext(UserContext);
 
-  const [profiles, setProfiles] = useContext(ProfilesContext);
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const maxSteps =

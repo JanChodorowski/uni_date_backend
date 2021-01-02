@@ -7,16 +7,13 @@ import Zoom from "@material-ui/core/Zoom";
 import { NotInterested, Stars } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import React, { useContext, useEffect, useState } from "react";
-import { createRelation, getPicture, getProfiles } from "../shared/api";
-import { DEFAULT_SPACE } from "../shared/constants";
-import { calculateAge, getGenderColor } from "../shared/functions";
-import { LoadingContext } from "../shared/loadingContext";
-import { ProfilesContext } from "../shared/profilesContext";
-import { UserContext } from "../shared/userContext";
-import LabelValuePrinter from "./MatchPage/LabelValuePrinter";
-import MatchGallery from "./MatchPage/MatchGallery";
-import MatchModal from "./MatchPage/MatchModal";
+import {LoadingContext} from "../shared/loadingContext";
+import {ProfilesContext} from "../shared/profilesContext";
+import {UserContext} from "../shared/userContext";
+import {createRelation, getPicture, getProfiles} from "../shared/api";
 import AvatarsCollection from "./shared/AvatarsCollection";
+import ProfileInfo from "../../ProfileInfo";
+import MatchModal from "./MatchPage/MatchModal";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -142,87 +139,7 @@ const MatchPage = () => {
         TransitionComponent={Transition}
       >
         <DialogContent>
-          <MatchGallery profileId={passiveSideUserId}></MatchGallery>
-          {profiles &&
-            Array.isArray(profiles) &&
-            profiles.length > 0 &&
-            profiles.find((p) => p.id === passiveSideUserId) &&
-            profiles.find((p) => p.id === passiveSideUserId)?.userName && (
-              <>
-                <Typography
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "bold",
-                    padding: DEFAULT_SPACE,
-                    color: getGenderColor(
-                      profiles.find((p) => p.id === passiveSideUserId)?.gender
-                    ),
-                  }}
-                >
-                  {`${
-                    profiles.find((p) => p.id === passiveSideUserId)?.userName
-                  } ` || ""}
-                  {calculateAge(
-                    profiles.find((p) => p.id === passiveSideUserId)
-                      ?.dateOfBirth
-                  ) || ""}
-                </Typography>
-                <Divider></Divider>
-              </>
-            )}
-
-          {profiles.find((p) => p.id === passiveSideUserId)?.description && (
-            <>
-              <Typography style={{ padding: DEFAULT_SPACE }}>
-                {profiles.find((p) => p.id === passiveSideUserId)
-                  ?.description || ""}
-              </Typography>
-              <Divider></Divider>
-            </>
-          )}
-
-          {profiles.find((p) => p.id === passiveSideUserId) &&
-            profiles.find((p) => p.id === passiveSideUserId).university && (
-              <>
-                <LabelValuePrinter
-                  label="University"
-                  value={
-                    profiles.find((p) => p.id === passiveSideUserId)
-                      ?.university || ""
-                  }
-                ></LabelValuePrinter>
-                <LabelValuePrinter
-                  label="Filed of study"
-                  value={
-                    profiles.find((p) => p.id === passiveSideUserId)
-                      ?.fieldOfStudy || ""
-                  }
-                ></LabelValuePrinter>
-                <LabelValuePrinter
-                  label="Already graduated?"
-                  value={
-                    profiles.find((p) => p.id === passiveSideUserId)
-                      ?.isGraduated
-                      ? "yes"
-                      : "no"
-                  }
-                ></LabelValuePrinter>
-
-                <Divider></Divider>
-              </>
-            )}
-          <LabelValuePrinter
-            label="City"
-            value={profiles.find((p) => p.id === passiveSideUserId)?.city || ""}
-          ></LabelValuePrinter>
-          <Divider></Divider>
-          <LabelValuePrinter
-            label="Interests"
-            value={
-              profiles.find((p) => p.id === passiveSideUserId)?.interests || []
-            }
-          ></LabelValuePrinter>
+            <ProfileInfo  profiles={profiles} setProfiles={setProfiles} passiveSideUserId={passiveSideUserId}></ProfileInfo>
           <ButtonGroup fullWidth>
             <Button
               color="secondary"

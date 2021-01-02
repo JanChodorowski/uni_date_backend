@@ -22,6 +22,7 @@ import LabelValuePrinter from "./MatchPage/LabelValuePrinter";
 import Button from "@material-ui/core/Button";
 import {NotInterested, Stars} from "@material-ui/icons";
 import Zoom from "@material-ui/core/Zoom";
+import ProfileInfo from "../../ProfileInfo";
 const chatscopeStyles = styles
 
 const Transition = React.forwardRef((props, ref) => (
@@ -110,87 +111,7 @@ const ChatPage = () => {
             TransitionComponent={Transition}
         >
             <DialogContent>
-                {/*<MatchGallery profileId={passiveSideUserId}></MatchGallery>*/}
-                {matches &&
-                Array.isArray(matches) &&
-                matches.length > 0 &&
-                matches.find((p) => p.id === passiveSideUserId) &&
-                matches.find((p) => p.id === passiveSideUserId)?.userName && (
-                    <>
-                        <Typography
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                fontWeight: "bold",
-                                padding: DEFAULT_SPACE,
-                                color: getGenderColor(
-                                    matches.find((p) => p.id === passiveSideUserId)?.gender
-                                ),
-                            }}
-                        >
-                            {`${
-                                matches.find((p) => p.id === passiveSideUserId)?.userName
-                            } ` || ""}
-                            {calculateAge(
-                                matches.find((p) => p.id === passiveSideUserId)
-                                    ?.dateOfBirth
-                            ) || ""}
-                        </Typography>
-                        <Divider></Divider>
-                    </>
-                )}
-
-                {matches.find((p) => p.id === passiveSideUserId)?.description && (
-                    <>
-                        <Typography style={{ padding: DEFAULT_SPACE }}>
-                            {matches.find((p) => p.id === passiveSideUserId)
-                                ?.description || ""}
-                        </Typography>
-                        <Divider></Divider>
-                    </>
-                )}
-
-                {matches.find((p) => p.id === passiveSideUserId) &&
-                matches.find((p) => p.id === passiveSideUserId).university && (
-                    <>
-                        <LabelValuePrinter
-                            label="University"
-                            value={
-                                matches.find((p) => p.id === passiveSideUserId)
-                                    ?.university || ""
-                            }
-                        ></LabelValuePrinter>
-                        <LabelValuePrinter
-                            label="Filed of study"
-                            value={
-                                matches.find((p) => p.id === passiveSideUserId)
-                                    ?.fieldOfStudy || ""
-                            }
-                        ></LabelValuePrinter>
-                        <LabelValuePrinter
-                            label="Already graduated?"
-                            value={
-                                matches.find((p) => p.id === passiveSideUserId)
-                                    ?.isGraduated
-                                    ? "yes"
-                                    : "no"
-                            }
-                        ></LabelValuePrinter>
-
-                        <Divider></Divider>
-                    </>
-                )}
-                <LabelValuePrinter
-                    label="City"
-                    value={matches.find((p) => p.id === passiveSideUserId)?.city || ""}
-                ></LabelValuePrinter>
-                <Divider></Divider>
-                <LabelValuePrinter
-                    label="Interests"
-                    value={
-                        matches.find((p) => p.id === passiveSideUserId)?.interests || []
-                    }
-                ></LabelValuePrinter>
+                <ProfileInfo passiveSideUserId={passiveSideUserId} setProfiles={setMatches} profiles={matches}></ProfileInfo>
             </DialogContent>
         </Dialog>
       <div style={{ position: "relative", height: "500px" }}>
