@@ -99,7 +99,6 @@ function App(/*{ coords }*/) {
             console.log("userData", userData);
           })
           .catch((e) => {
-            handleLoading(false);
           })
           .finally(() => {
             setUser(userData);

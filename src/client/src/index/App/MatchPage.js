@@ -133,58 +133,6 @@ const MatchPage = () => {
             collection={profiles}
             handleClickOpen={handleClickOpen}
           ></AvatarsCollection>
-          {/*<Grid container direction="row" alignItems="center" justify="center">*/}
-          {/*  {profiles &&*/}
-          {/*    profiles.map((p, i) => (*/}
-          {/*      <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>*/}
-          {/*        <Grid item>*/}
-          {/*          <IconButton onClick={() => handleClickOpen(p.id)}>*/}
-          {/*            <Grid*/}
-          {/*              container*/}
-          {/*              direction="column"*/}
-          {/*              alignItems="center"*/}
-          {/*              justify="center"*/}
-          {/*              style={{ padding: "2rem" }}*/}
-          {/*            >*/}
-          {/*              <Grid item>*/}
-          {/*                {p.avatar ? (*/}
-          {/*                  <Avatar*/}
-          {/*                    alt={p.userName}*/}
-          {/*                    src={URL.createObjectURL(p.avatar)}*/}
-          {/*                    style={{*/}
-          {/*                      height: AVATAR_SIZE,*/}
-          {/*                      width: AVATAR_SIZE,*/}
-          {/*                    }}*/}
-          {/*                  />*/}
-          {/*                ) : (*/}
-          {/*                  <Avatar*/}
-          {/*                    alt={p.userName}*/}
-          {/*                    src={PlaceHolder}*/}
-          {/*                    style={{*/}
-          {/*                      height: AVATAR_SIZE,*/}
-          {/*                      width: AVATAR_SIZE,*/}
-          {/*                    }}*/}
-          {/*                  />*/}
-          {/*                )}*/}
-          {/*              </Grid>*/}
-          {/*              <Grid item>*/}
-          {/*                <Typography*/}
-          {/*                  style={{*/}
-          {/*                    fontSize: "1.5rem",*/}
-          {/*                    fontWeight: "bold",*/}
-          {/*                    color: getGenderColor(p.gender),*/}
-          {/*                  }}*/}
-          {/*                  paragraph*/}
-          {/*                >*/}
-          {/*                  {capitalizeFirstLetter(p.userName)}*/}
-          {/*                </Typography>*/}
-          {/*              </Grid>*/}
-          {/*            </Grid>*/}
-          {/*          </IconButton>*/}
-          {/*        </Grid>*/}
-          {/*      </Grid>*/}
-          {/*    ))}*/}
-          {/*</Grid>*/}
         </>
       )}
       <Dialog
@@ -275,13 +223,6 @@ const MatchPage = () => {
               profiles.find((p) => p.id === passiveSideUserId)?.interests || []
             }
           ></LabelValuePrinter>
-          {/*<Grid*/}
-          {/*  container*/}
-          {/*  direction="row"*/}
-          {/*  justify="space-between"*/}
-          {/*  style={{ padding: DEFAULT_SPACE }}*/}
-          {/*>*/}
-          {/*  <Grid item>*/}
           <ButtonGroup fullWidth>
             <Button
               color="secondary"
@@ -293,8 +234,6 @@ const MatchPage = () => {
             >
               DISLIKE
             </Button>
-            {/*</Grid>*/}
-            {/*<Grid item>*/}
             <Button
               color="primary"
               variant="contained"
@@ -306,8 +245,6 @@ const MatchPage = () => {
               LIKE
             </Button>
           </ButtonGroup>
-          {/*  </Grid>*/}
-          {/*</Grid>*/}
         </DialogContent>
       </Dialog>
       <MatchModal

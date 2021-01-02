@@ -173,8 +173,9 @@ class UserDao implements IUserDao {
         .leftJoin('user.universityName', 'university')
         .leftJoin('user.interests', 'interests')
         .leftJoin('user.matches2', 'matches2')
+        .leftJoin('user.matches', 'matches')
         .where('id != :paramId')
-        .andWhere('matches2.userId = :paramId')
+        .andWhere('matches2.userId = :paramId OR matches.userId_3 = :paramId')
         .setParameter('paramId', id)
         .select(this.profilesDto)
         .getMany();
@@ -232,8 +233,9 @@ class UserDao implements IUserDao {
             .leftJoin('u2.oneSidedRelations2', 'osr2')
             .where('osr2.activeSideUserId = :paramId')
             .andWhere('osr2.passiveSideUserId = u2.id')
+            // .orWhere('osr2.isLiking = false')
             .getQuery();
-          return `(oneSidedRelations2.activeSideUserId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId AND oneSidedRelations2.isLiking != 'false'`;
+          return `(oneSidedRelations2.activeSideUserId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId`;
         })
         .andWhere((qb) => {
           const subQuery = qb.subQuery()

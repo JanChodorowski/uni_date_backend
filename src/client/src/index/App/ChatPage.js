@@ -11,6 +11,23 @@ import { LoadingContext } from "../shared/loadingContext";
 import { MatchesContext } from "../shared/matchesContext";
 import { UserContext } from "../shared/userContext";
 import AvatarsCollection from "./shared/AvatarsCollection";
+import styles from '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import MatchGallery from "./MatchPage/MatchGallery";
+import {ButtonGroup, Divider, Typography} from "@material-ui/core";
+import {DEFAULT_SPACE} from "../shared/constants";
+import {calculateAge, getGenderColor} from "../shared/functions";
+import LabelValuePrinter from "./MatchPage/LabelValuePrinter";
+import Button from "@material-ui/core/Button";
+import {NotInterested, Stars} from "@material-ui/icons";
+import Zoom from "@material-ui/core/Zoom";
+const chatscopeStyles = styles
+
+const Transition = React.forwardRef((props, ref) => (
+    <Zoom ref={ref} {...props} />
+));
+
 const ChatPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
@@ -68,10 +85,10 @@ const ChatPage = () => {
   }, []);
 
   const [open, setOpen] = useState(false);
-  // const [passiveSideUserId, setPassiveSideUserId] = useState("");
+  const [passiveSideUserId, setPassiveSideUserId] = useState("");
 
   const handleClickOpen = (profileId) => {
-    // setPassiveSideUserId(profileId);
+    setPassiveSideUserId(profileId);
     setOpen(true);
   };
 
@@ -85,58 +102,97 @@ const ChatPage = () => {
         collection={matches}
         handleClickOpen={handleClickOpen}
       ></AvatarsCollection>
-      {/*<Grid container direction="row" alignItems="center" justify="center">*/}
-      {/*    {matches &&*/}
-      {/*    matches.map((p, i) => (*/}
-      {/*        <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>*/}
-      {/*            <Grid item>*/}
-      {/*                <IconButton onClick={() => handleClickOpen(p.id)}>*/}
-      {/*                    <Grid*/}
-      {/*                        container*/}
-      {/*                        direction="column"*/}
-      {/*                        alignItems="center"*/}
-      {/*                        justify="center"*/}
-      {/*                        style={{ padding: "2rem" }}*/}
-      {/*                    >*/}
-      {/*                        <Grid item>*/}
-      {/*                            {p.avatar ? (*/}
-      {/*                                <Avatar*/}
-      {/*                                    alt={p.userName}*/}
-      {/*                                    src={URL.createObjectURL(p.avatar)}*/}
-      {/*                                    style={{*/}
-      {/*                                        height: AVATAR_SIZE,*/}
-      {/*                                        width: AVATAR_SIZE,*/}
-      {/*                                    }}*/}
-      {/*                                />*/}
-      {/*                            ) : (*/}
-      {/*                                <Avatar*/}
-      {/*                                    alt={p.userName}*/}
-      {/*                                    src={PlaceHolder}*/}
-      {/*                                    style={{*/}
-      {/*                                        height: AVATAR_SIZE,*/}
-      {/*                                        width: AVATAR_SIZE,*/}
-      {/*                                    }}*/}
-      {/*                                />*/}
-      {/*                            )}*/}
-      {/*                        </Grid>*/}
-      {/*                        <Grid item>*/}
-      {/*                            <Typography*/}
-      {/*                                style={{*/}
-      {/*                                    fontSize: "1.5rem",*/}
-      {/*                                    fontWeight: "bold",*/}
-      {/*                                    color: getGenderColor(p.gender),*/}
-      {/*                                }}*/}
-      {/*                                paragraph*/}
-      {/*                            >*/}
-      {/*                                {capitalizeFirstLetter(p.userName)}*/}
-      {/*                            </Typography>*/}
-      {/*                        </Grid>*/}
-      {/*                    </Grid>*/}
-      {/*                </IconButton>*/}
-      {/*            </Grid>*/}
-      {/*        </Grid>*/}
-      {/*    ))}*/}
-      {/*</Grid>*/}
+
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="choose profile"
+            TransitionComponent={Transition}
+        >
+            <DialogContent>
+                {/*<MatchGallery profileId={passiveSideUserId}></MatchGallery>*/}
+                {matches &&
+                Array.isArray(matches) &&
+                matches.length > 0 &&
+                matches.find((p) => p.id === passiveSideUserId) &&
+                matches.find((p) => p.id === passiveSideUserId)?.userName && (
+                    <>
+                        <Typography
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                fontWeight: "bold",
+                                padding: DEFAULT_SPACE,
+                                color: getGenderColor(
+                                    matches.find((p) => p.id === passiveSideUserId)?.gender
+                                ),
+                            }}
+                        >
+                            {`${
+                                matches.find((p) => p.id === passiveSideUserId)?.userName
+                            } ` || ""}
+                            {calculateAge(
+                                matches.find((p) => p.id === passiveSideUserId)
+                                    ?.dateOfBirth
+                            ) || ""}
+                        </Typography>
+                        <Divider></Divider>
+                    </>
+                )}
+
+                {matches.find((p) => p.id === passiveSideUserId)?.description && (
+                    <>
+                        <Typography style={{ padding: DEFAULT_SPACE }}>
+                            {matches.find((p) => p.id === passiveSideUserId)
+                                ?.description || ""}
+                        </Typography>
+                        <Divider></Divider>
+                    </>
+                )}
+
+                {matches.find((p) => p.id === passiveSideUserId) &&
+                matches.find((p) => p.id === passiveSideUserId).university && (
+                    <>
+                        <LabelValuePrinter
+                            label="University"
+                            value={
+                                matches.find((p) => p.id === passiveSideUserId)
+                                    ?.university || ""
+                            }
+                        ></LabelValuePrinter>
+                        <LabelValuePrinter
+                            label="Filed of study"
+                            value={
+                                matches.find((p) => p.id === passiveSideUserId)
+                                    ?.fieldOfStudy || ""
+                            }
+                        ></LabelValuePrinter>
+                        <LabelValuePrinter
+                            label="Already graduated?"
+                            value={
+                                matches.find((p) => p.id === passiveSideUserId)
+                                    ?.isGraduated
+                                    ? "yes"
+                                    : "no"
+                            }
+                        ></LabelValuePrinter>
+
+                        <Divider></Divider>
+                    </>
+                )}
+                <LabelValuePrinter
+                    label="City"
+                    value={matches.find((p) => p.id === passiveSideUserId)?.city || ""}
+                ></LabelValuePrinter>
+                <Divider></Divider>
+                <LabelValuePrinter
+                    label="Interests"
+                    value={
+                        matches.find((p) => p.id === passiveSideUserId)?.interests || []
+                    }
+                ></LabelValuePrinter>
+            </DialogContent>
+        </Dialog>
       <div style={{ position: "relative", height: "500px" }}>
         <MainContainer>
           <ChatContainer>
