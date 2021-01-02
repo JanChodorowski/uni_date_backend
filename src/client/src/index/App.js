@@ -98,8 +98,7 @@ function App(/*{ coords }*/) {
             };
             console.log("userData", userData);
           })
-          .catch((e) => {
-          })
+          .catch((e) => {})
           .finally(() => {
             setUser(userData);
             handleLoading(false);

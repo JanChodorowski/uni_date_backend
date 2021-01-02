@@ -1,20 +1,26 @@
-import {ChatContainer, MainContainer, Message, MessageInput, MessageList,} from "@chatscope/chat-ui-kit-react";
-import React, {useContext, useEffect, useState} from "react";
-import {getMatches, getPicture} from "../shared/api";
-import {LoadingContext} from "../shared/loadingContext";
-import {MatchesContext} from "../shared/matchesContext";
-import {UserContext} from "../shared/userContext";
+import {
+  ChatContainer,
+  MainContainer,
+  Message,
+  MessageInput,
+  MessageList,
+} from "@chatscope/chat-ui-kit-react";
+import React, { useContext, useEffect, useState } from "react";
+import { getMatches, getPicture } from "../shared/api";
+import { LoadingContext } from "../shared/loadingContext";
+import { MatchesContext } from "../shared/matchesContext";
+import { UserContext } from "../shared/userContext";
 import AvatarsCollection from "./shared/AvatarsCollection";
-import styles from '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Zoom from "@material-ui/core/Zoom";
 import ProfileInfo from "./shared/ProfileInfo";
 
-const chatscopeStyles = styles
+const chatscopeStyles = styles;
 
 const Transition = React.forwardRef((props, ref) => (
-    <Zoom ref={ref} {...props} />
+  <Zoom ref={ref} {...props} />
 ));
 
 const ChatPage = () => {
@@ -91,17 +97,20 @@ const ChatPage = () => {
         collection={matches}
         handleClickOpen={handleClickOpen}
       ></AvatarsCollection>
-
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="choose profile"
-            TransitionComponent={Transition}
-        >
-            <DialogContent>
-                <ProfileInfo passiveSideUserId={passiveSideUserId} setProfiles={setMatches} profiles={matches}></ProfileInfo>
-            </DialogContent>
-        </Dialog>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="choose profile"
+        TransitionComponent={Transition}
+      >
+        <DialogContent>
+          <ProfileInfo
+            passiveSideUserId={passiveSideUserId}
+            setProfiles={setMatches}
+            profiles={matches}
+          ></ProfileInfo>
+        </DialogContent>
+      </Dialog>
       <div style={{ position: "relative", height: "500px" }}>
         <MainContainer>
           <ChatContainer>

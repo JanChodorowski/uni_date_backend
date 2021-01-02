@@ -1,6 +1,6 @@
-import {Grid, Paper} from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import React from "react";
-import {DEFAULT_SPACE} from "../../shared/constants";
+import { DEFAULT_SPACE } from "../../shared/constants";
 import CenterHOC from "../shared/CenterHOC";
 import useTransparentPaperStyle from "../shared/useTransparentPaperStyle";
 

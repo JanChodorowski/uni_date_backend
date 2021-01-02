@@ -38,7 +38,6 @@ function MatchGallery({ profileId, profiles, setProfiles }) {
   const [activeStep, setActiveStep] = useState(0);
   // const [user, setUser] = useContext(UserContext);
 
-
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const maxSteps =
     (profiles &&
