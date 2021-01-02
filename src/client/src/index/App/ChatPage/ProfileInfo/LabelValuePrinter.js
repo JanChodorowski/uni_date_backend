@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import { DEFAULT_SPACE } from "../../shared/constants";
+import { DEFAULT_SPACE } from "../../../shared/constants";
 
 const LabelValuePrinter = ({ label, value }) => {
   const validateArgs = () => {

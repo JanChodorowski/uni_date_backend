@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 
 import { IUser } from '@interfaces/IUser';
-import { IUniversity } from '@interfaces/IUniversity';
 import { getConnection, getRepository } from 'typeorm';
 import { University } from '@entities/University';
 import { User } from '@entities/User';
-import { UserDto } from '@dto/UserDto';
 import { City } from '@entities/City';
 import { Interest } from '@entities/Interest';
 import { GenderFilter } from '@entities/GenderFilter';

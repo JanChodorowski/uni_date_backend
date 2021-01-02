@@ -1,18 +1,18 @@
-import { ButtonGroup, Divider, Snackbar, Typography } from "@material-ui/core";
+import {ButtonGroup, Snackbar} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Slide from "@material-ui/core/Slide";
 import Zoom from "@material-ui/core/Zoom";
-import { NotInterested, Stars } from "@material-ui/icons";
-import { Alert } from "@material-ui/lab";
-import React, { useContext, useEffect, useState } from "react";
+import {NotInterested, Stars} from "@material-ui/icons";
+import {Alert} from "@material-ui/lab";
+import React, {useContext, useEffect, useState} from "react";
 import {LoadingContext} from "../shared/loadingContext";
 import {ProfilesContext} from "../shared/profilesContext";
 import {UserContext} from "../shared/userContext";
 import {createRelation, getPicture, getProfiles} from "../shared/api";
 import AvatarsCollection from "./shared/AvatarsCollection";
-import ProfileInfo from "../../ProfileInfo";
+import ProfileInfo from "./shared/ProfileInfo";
 import MatchModal from "./MatchPage/MatchModal";
 
 const Transition = React.forwardRef((props, ref) => (

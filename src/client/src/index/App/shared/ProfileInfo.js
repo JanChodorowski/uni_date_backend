@@ -1,9 +1,9 @@
-import {Divider, Grid, Paper, Typography} from "@material-ui/core";
+import {Divider, Typography} from "@material-ui/core";
 import React from "react";
-import MatchGallery from "./index/App/MatchPage/MatchGallery";
-import {calculateAge, getGenderColor} from "./index/shared/functions";
-import LabelValuePrinter from "./index/App/MatchPage/LabelValuePrinter";
-import {DEFAULT_SPACE} from "./index/shared/constants";
+import MatchGallery from "../ChatPage/ProfileInfo/MatchGallery";
+import {calculateAge, getGenderColor} from "../../shared/functions";
+import LabelValuePrinter from "../ChatPage/ProfileInfo/LabelValuePrinter";
+import {DEFAULT_SPACE} from "../../shared/constants";
 
 const ProfileInfo = ({passiveSideUserId,profiles,  setProfiles }) => {
     return (
