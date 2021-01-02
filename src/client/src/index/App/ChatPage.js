@@ -16,12 +16,32 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Zoom from "@material-ui/core/Zoom";
 import ProfileInfo from "./shared/ProfileInfo";
+import IconButton from "@material-ui/core/IconButton";
+import clsx from 'clsx';
+import {Box, Grid, makeStyles, Typography} from "@material-ui/core";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {DEFAULT_IMAGE_SIZE} from "../shared/constants";
 
 const chatscopeStyles = styles;
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
+const useStyles = makeStyles((theme) => ({
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    text: {
+        maxWidth: '600px',
+    },
+}));
 
 const ChatPage = () => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
@@ -29,7 +49,9 @@ const ChatPage = () => {
   const [user] = useContext(UserContext);
 
     const checkIfProfilesAlreadyFetched = () => matches && matches.length > 0;
-
+    const {
+        text, root, expand, expandOpen,
+    } = useStyles();
 
     useEffect(() => {
     let mounted = true;
@@ -94,12 +116,20 @@ const ChatPage = () => {
     setOpen(true);
   };
 
+    const [expanded, setExpanded] = useState(false);
+
   const handleClose = () => {
     setOpen(false);
+      setExpanded(false)
   };
 
-  return (
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    return (
     <>
+
       <AvatarsCollection
         collection={matches}
         handleClickOpen={handleClickOpen}
@@ -111,12 +141,32 @@ const ChatPage = () => {
         TransitionComponent={Transition}
       >
         <DialogContent>
+            <Grid
+                container
+                direction="row"
+                alignItems="center"
+                wrap="nowrap"
+                style={{ width: DEFAULT_IMAGE_SIZE }}
+            > <Grid item> <IconButton
+                className={clsx(expand, {
+                    [expandOpen]: expanded,
+                })}
+                // style={{ float: 'right' }}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+            >
+                <ExpandMoreIcon />
+            </IconButton> </Grid><Grid item style={{ marginRight: "6px" }}>           <Typography>More info</Typography>
+            </Grid>
 
+            </Grid>
+            {expanded && (<>
           <ProfileInfo
             passiveSideUserId={passiveSideUserId}
             setProfiles={setMatches}
             profiles={matches}
-          ></ProfileInfo>
+          ></ProfileInfo></>)}
             <div style={{ position: "relative", height: "500px" }}>
                 <MainContainer>
                     <ChatContainer>
