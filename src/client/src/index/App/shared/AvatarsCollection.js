@@ -11,7 +11,10 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
         collection.map((p, i) => (
           <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
             <Grid item>
-              <IconButton onClick={() => handleClickOpen(p.id)} color={"primary"}>
+              <IconButton
+                onClick={() => handleClickOpen(p.id)}
+                color={"primary"}
+              >
                 <Grid
                   container
                   direction="column"

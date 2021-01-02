@@ -36,10 +36,11 @@ export const calculateAge = (birthday) => {
 };
 
 export const getGenderColor = (gender) => {
-  let genderLowerCase
+  let genderLowerCase;
 
   if (gender) {
-    genderLowerCase = gender.toLocaleLowerCase();  }
+    genderLowerCase = gender.toLocaleLowerCase();
+  }
 
   switch (genderLowerCase) {
     case "male":
