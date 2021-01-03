@@ -6,7 +6,10 @@ import LabelValuePrinter from "../ChatPage/ProfileInfo/LabelValuePrinter";
 import { DEFAULT_SPACE } from "../../shared/constants";
 
 const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
-    const passiveSideUser = profiles.find((p) => p.id === passiveSideUserId)
+    const isProfilesFilled = () => !!(profiles &&
+        Array.isArray(profiles) &&
+        profiles.length > 0)
+    const passiveSideUser = isProfilesFilled() && profiles.find((p) => p.id === passiveSideUserId)
   return (
     <>
       <MatchGallery
@@ -14,10 +17,7 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
         profiles={profiles}
         setProfiles={setProfiles}
       ></MatchGallery>
-      {profiles &&
-        Array.isArray(profiles) &&
-        profiles.length > 0 &&
-      passiveSideUser &&
+      {isProfilesFilled() &&
       passiveSideUser?.userName && (
           <>
             <Typography
@@ -58,8 +58,8 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
         </>
       )}
 
-      {passiveSideUser &&
-      passiveSideUser.university && (
+      {
+      passiveSideUser?.university && (
           <>
             <LabelValuePrinter
               label="University"
