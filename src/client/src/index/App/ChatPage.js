@@ -156,13 +156,13 @@ const ChatPage = () => {
         aria-labelledby="choose profile"
         TransitionComponent={Transition}
       >
-        <DialogContent>
+        <DialogContent style={{overflowX: 'hidden'}}>
           <Grid
             container
             direction="row"
             alignItems="center"
             wrap="nowrap"
-            style={{ width: DEFAULT_IMAGE_SIZE }}
+            style={{ width: DEFAULT_IMAGE_SIZE}}
           >
 
             <Grid item>
