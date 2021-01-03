@@ -41,6 +41,7 @@ const filterValidation = {
 };
 
 router.post('/', authenticate, async (req: Request, res: Response) => {
+  const { id } = req?.body?.payload;
   const userViewData = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
     .catch((err) => {
       console.error(err);
@@ -76,6 +77,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
 
   const userDto = {
     ...userViewData,
+    id,
     city: userViewData?.cityName?.cityName || '',
     cityFilter: userViewData?.cityFilter?.cityName || '',
     university: userViewData?.universityName?.universityName || '',

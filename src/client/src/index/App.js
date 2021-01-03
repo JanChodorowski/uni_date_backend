@@ -29,6 +29,26 @@ import { MatchesContext } from "./shared/matchesContext";
 import { PathContext } from "./shared/pathContext";
 import { ProfilesContext } from "./shared/profilesContext";
 import { UserContext } from "./shared/userContext";
+import socketIOClient from "socket.io-client";
+// const io = require("socket.io")({
+//       transports  : [ 'websocket' ]
+//     })
+import io from 'socket.io-client';
+import Button from "@material-ui/core/Button";
+const ENDPOINT = "http://127.0.0.1:4001";
+const socket = io("http://localhost:3000", {
+    withCredentials: true,
+    extraHeaders: {
+        "my-custom-header": "abcd"
+    }
+});
+
+socket.on('private_chat',function(data){
+    var username = data.id;
+    var message = data.message;
+
+    alert(username+': '+message);
+});
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
@@ -37,7 +57,6 @@ function App(/*{ coords }*/) {
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
   const [profiles, setProfiles] = useState([]);
   const [matches, setMatches] = useState([]);
-
   const [path, setPath] = useState(
     (window?.location?.pathname &&
       window?.location?.pathname?.replace(/\//g, "")) ||
@@ -47,6 +66,19 @@ function App(/*{ coords }*/) {
     setIsLoading(status);
     setIsLoadingUserData(status);
   };
+
+  const [response, setResponse] = useState("");
+
+  // useEffect(() => {
+  //   // const socket = socketIOClient(ENDPOINT);
+  //   // socket.on("FromAPI", data => {
+  //   //   setResponse(data);
+  //   // });
+  //   //Connect socket.io
+  //
+  //
+  //
+  // }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -96,11 +128,23 @@ function App(/*{ coords }*/) {
               ...userData,
               pictures: picturesDataWithBlobs,
             };
-            console.log("userData", userData);
-          })
-          .catch((e) => {})
-          .finally(() => {
+            console.log("userData", userData, io);
             setUser(userData);
+
+            if (!userData.id){
+              return
+            }
+
+            // var systemUrl = 'http://localhost:3000';
+            // var socket = io.connect(systemUrl);
+
+console.log('socket',socket)
+//Collect User identity from the client side
+            socket.emit('register',userData.id);
+
+          })
+          .catch((e) => {console.error('err',e)})
+          .finally(() => {
             handleLoading(false);
           });
       })

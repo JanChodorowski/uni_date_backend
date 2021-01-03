@@ -3,6 +3,42 @@ import app from '@server';
 import logger from '@shared/Logger';
 
 const port = Number(process.env.PORT || 3000);
-app.listen(port, () => {
+const server = app.listen(port, () => {
   logger.info(`Express server started on port: ${port}`);
+});
+
+const connectedUsers:any = {};
+
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:3006',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['my-custom-header'],
+    credentials: true,
+  },
+});
+
+io.on('connection', (socket:any) => {
+  /* Register connected user */
+  socket.on('register', (id:any) => {
+    socket.id = id;
+    connectedUsers[id] = socket;
+    console.log('connectedUsers', connectedUsers);
+  });
+
+  /* Private chat */
+  socket.on('private_chat', (data:any) => {
+    const { to } = data;
+    const { message } = data;
+
+    if (connectedUsers.hasOwnProperty(to)) {
+      connectedUsers[to].emit('private_chat', {
+        // The sender's username
+        id: socket.id,
+
+        // Message sent to receiver
+        message,
+      });
+    }
+  });
 });

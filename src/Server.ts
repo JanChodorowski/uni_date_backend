@@ -71,6 +71,26 @@ const ormConfig = {
   },
 };
 createConnection(ormConfig as any).then(async (connection) => {
+  // const io = require('socket.io')(app);
+  // const users:any = {};
+  // io.sockets.on('connection', (socket: any) => {
+  //   socket.on('new', (data: any, callback:any) => {
+  //     console.log(data.name);
+  //     if (data in users) {
+  //       callback(false);
+  //     } else {
+  //       callback(true);
+  //       socket.name = data.name;
+  //       users[socket.name] = socket;
+  //     }
+  //   });
+  //   socket.on('msg', (data: any, callback:any) => {
+  //     callback(data.msg);
+  //     io.to(users[data.to].emit('priv', data.msg));
+  //   });
+  // });
+  /* Craete an empty object to collect connected users */
+
   app.use('/api', BaseRouter);
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

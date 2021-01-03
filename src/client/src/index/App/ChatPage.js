@@ -21,7 +21,16 @@ import clsx from "clsx";
 import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { DEFAULT_IMAGE_SIZE } from "../shared/constants";
-
+import io from 'socket.io-client';
+import Button from "@material-ui/core/Button";
+import {PathContext} from "../shared/pathContext";
+const ENDPOINT = "http://127.0.0.1:4001";
+const socket = io("http://localhost:3000", {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+});
 const chatscopeStyles = styles;
 
 const Transition = React.forwardRef((props, ref) => (
@@ -125,6 +134,13 @@ const ChatPage = () => {
     setExpanded(!expanded);
   };
 
+  const handleSend = (message) => {
+    socket.emit('private_chat',{
+      to : passiveSideUserId,
+      message
+    });
+  }
+
   return (
     <>
       <AvatarsCollection
@@ -158,10 +174,10 @@ const ChatPage = () => {
                 aria-label="show more"
               >
                 <ExpandMoreIcon />
-              </IconButton>{" "}
+              </IconButton>
             </Grid>
             <Grid item style={{ marginRight: "6px" }}>
-              {" "}
+
               <Typography>More info</Typography>
             </Grid>
           </Grid>
@@ -190,6 +206,7 @@ const ChatPage = () => {
                   attachButton={false}
                   fancyScroll={true}
                   placeholder="Type message here"
+                  onSend={handleSend}
                 />
               </ChatContainer>
             </MainContainer>
