@@ -6,7 +6,7 @@ import {
   MessageList,
 } from "@chatscope/chat-ui-kit-react";
 import React, { useContext, useEffect, useState } from "react";
-import {createMessage, getMatches, getPicture} from "../shared/api";
+import { createMessage, getMatches, getPicture } from "../shared/api";
 import { LoadingContext } from "../shared/loadingContext";
 import { MatchesContext } from "../shared/matchesContext";
 import { UserContext } from "../shared/userContext";
@@ -21,15 +21,15 @@ import clsx from "clsx";
 import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { DEFAULT_IMAGE_SIZE } from "../shared/constants";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 import Button from "@material-ui/core/Button";
-import {PathContext} from "../shared/pathContext";
+import { PathContext } from "../shared/pathContext";
 const ENDPOINT = "http://127.0.0.1:4001";
 const socket = io("http://localhost:3000", {
   withCredentials: true,
   extraHeaders: {
-    "my-custom-header": "abcd"
-  }
+    "my-custom-header": "abcd",
+  },
 });
 const chatscopeStyles = styles;
 
@@ -135,14 +135,15 @@ const ChatPage = () => {
   };
 
   const handleSend = (message) => {
-    createMessage(passiveSideUserId, message).then(() =>{
-      socket.emit('private_chat',{
-        to : passiveSideUserId,
-        message
-      });
-    }).catch(e => {})
-
-  }
+    createMessage(passiveSideUserId, message)
+      .then(() => {
+        socket.emit("private_chat", {
+          to: passiveSideUserId,
+          message,
+        });
+      })
+      .catch((e) => {});
+  };
 
   return (
     <>
@@ -156,17 +157,15 @@ const ChatPage = () => {
         aria-labelledby="choose profile"
         TransitionComponent={Transition}
       >
-        <DialogContent style={{overflowX: 'hidden'}}>
+        <DialogContent style={{ overflowX: "hidden" }}>
           <Grid
             container
             direction="row"
             alignItems="center"
             wrap="nowrap"
-            style={{ width: DEFAULT_IMAGE_SIZE}}
+            style={{ width: DEFAULT_IMAGE_SIZE }}
           >
-
             <Grid item>
-
               <IconButton
                 className={clsx(expand, {
                   [expandOpen]: expanded,
@@ -180,7 +179,6 @@ const ChatPage = () => {
               </IconButton>
             </Grid>
             <Grid item style={{ marginRight: "6px" }}>
-
               <Typography>More info</Typography>
             </Grid>
           </Grid>

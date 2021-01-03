@@ -6,10 +6,10 @@ import LabelValuePrinter from "../ChatPage/ProfileInfo/LabelValuePrinter";
 import { DEFAULT_SPACE } from "../../shared/constants";
 
 const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
-    const isProfilesFilled = () => !!(profiles &&
-        Array.isArray(profiles) &&
-        profiles.length > 0)
-    const passiveSideUser = isProfilesFilled() && profiles.find((p) => p.id === passiveSideUserId)
+  const isProfilesFilled = () =>
+    !!(profiles && Array.isArray(profiles) && profiles.length > 0);
+  const passiveSideUser =
+    isProfilesFilled() && profiles.find((p) => p.id === passiveSideUserId);
   return (
     <>
       <MatchGallery
@@ -17,30 +17,23 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
         profiles={profiles}
         setProfiles={setProfiles}
       ></MatchGallery>
-      {isProfilesFilled() &&
-      passiveSideUser?.userName && (
-          <>
-            <Typography
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                fontWeight: "bold",
-                padding: DEFAULT_SPACE,
-                color: getGenderColor(
-                    passiveSideUser?.gender
-                ),
-              }}
-            >
-              {`${
-                  passiveSideUser?.userName
-              } ` || ""}
-              {calculateAge(
-                  passiveSideUser?.dateOfBirth
-              ) || ""}
-            </Typography>
-            <Divider></Divider>
-          </>
-        )}
+      {isProfilesFilled() && passiveSideUser?.userName && (
+        <>
+          <Typography
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              padding: DEFAULT_SPACE,
+              color: getGenderColor(passiveSideUser?.gender),
+            }}
+          >
+            {`${passiveSideUser?.userName} ` || ""}
+            {calculateAge(passiveSideUser?.dateOfBirth) || ""}
+          </Typography>
+          <Divider></Divider>
+        </>
+      )}
 
       {passiveSideUser?.description && (
         <>
@@ -51,42 +44,30 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
               justifyContent: "center",
             }}
           >
-            {passiveSideUser?.description ||
-              ""}
+            {passiveSideUser?.description || ""}
           </Typography>
           <Divider></Divider>
         </>
       )}
 
-      {
-      passiveSideUser?.university && (
-          <>
-            <LabelValuePrinter
-              label="University"
-              value={
-                  passiveSideUser?.university ||
-                ""
-              }
-            ></LabelValuePrinter>
-            <LabelValuePrinter
-              label="Filed of study"
-              value={
-                  passiveSideUser
-                  ?.fieldOfStudy || ""
-              }
-            ></LabelValuePrinter>
-            <LabelValuePrinter
-              label="Already graduated?"
-              value={
-                  passiveSideUser?.isGraduated
-                  ? "yes"
-                  : "no"
-              }
-            ></LabelValuePrinter>
+      {passiveSideUser?.university && (
+        <>
+          <LabelValuePrinter
+            label="University"
+            value={passiveSideUser?.university || ""}
+          ></LabelValuePrinter>
+          <LabelValuePrinter
+            label="Filed of study"
+            value={passiveSideUser?.fieldOfStudy || ""}
+          ></LabelValuePrinter>
+          <LabelValuePrinter
+            label="Already graduated?"
+            value={passiveSideUser?.isGraduated ? "yes" : "no"}
+          ></LabelValuePrinter>
 
-            <Divider></Divider>
-          </>
-        )}
+          <Divider></Divider>
+        </>
+      )}
       <LabelValuePrinter
         label="City"
         value={passiveSideUser?.city || ""}
@@ -94,9 +75,7 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
       <Divider></Divider>
       <LabelValuePrinter
         label="Interests"
-        value={
-            passiveSideUser?.interests || []
-        }
+        value={passiveSideUser?.interests || []}
       ></LabelValuePrinter>
     </>
   );

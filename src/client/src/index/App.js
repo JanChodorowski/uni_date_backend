@@ -33,21 +33,21 @@ import socketIOClient from "socket.io-client";
 // const io = require("socket.io")({
 //       transports  : [ 'websocket' ]
 //     })
-import io from 'socket.io-client';
+import io from "socket.io-client";
 import Button from "@material-ui/core/Button";
 const ENDPOINT = "http://127.0.0.1:4001";
 const socket = io("http://localhost:3000", {
-    withCredentials: true,
-    extraHeaders: {
-        "my-custom-header": "abcd"
-    }
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd",
+  },
 });
 
-socket.on('private_chat',function(data){
-    const username = data.id;
-    const message = data.message;
+socket.on("private_chat", function (data) {
+  const username = data.id;
+  const message = data.message;
 
-    alert(username+': '+message);
+  alert(username + ": " + message);
 });
 
 function App(/*{ coords }*/) {
@@ -131,17 +131,18 @@ function App(/*{ coords }*/) {
             console.log("userData", userData, io);
             setUser(userData);
 
-            if (!userData.id){
-              return
+            if (!userData.id) {
+              return;
             }
 
             // var systemUrl = 'http://localhost:3000';
             // var socket = io.connect(systemUrl);
 
-            socket.emit('register',userData.id);
-
+            socket.emit("register", userData.id);
           })
-          .catch((e) => {console.error('err',e)})
+          .catch((e) => {
+            console.error("err", e);
+          })
           .finally(() => {
             handleLoading(false);
           });

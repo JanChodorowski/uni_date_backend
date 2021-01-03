@@ -87,7 +87,7 @@ export const createRelation = (passiveSideUserId, isLiking) => {
 export const createMessage = (userId_2, content) => {
   return axios.post("/api/message", {
     userId_2,
-    content
+    content,
   });
 };
 
