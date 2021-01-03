@@ -6,6 +6,7 @@ import LabelValuePrinter from "../ChatPage/ProfileInfo/LabelValuePrinter";
 import { DEFAULT_SPACE } from "../../shared/constants";
 
 const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
+    const passiveSideUser = profiles.find((p) => p.id === passiveSideUserId)
   return (
     <>
       <MatchGallery
@@ -16,8 +17,8 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
       {profiles &&
         Array.isArray(profiles) &&
         profiles.length > 0 &&
-        profiles.find((p) => p.id === passiveSideUserId) &&
-        profiles.find((p) => p.id === passiveSideUserId)?.userName && (
+      passiveSideUser &&
+      passiveSideUser?.userName && (
           <>
             <Typography
               style={{
@@ -26,22 +27,22 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
                 fontWeight: "bold",
                 padding: DEFAULT_SPACE,
                 color: getGenderColor(
-                  profiles.find((p) => p.id === passiveSideUserId)?.gender
+                    passiveSideUser?.gender
                 ),
               }}
             >
               {`${
-                profiles.find((p) => p.id === passiveSideUserId)?.userName
+                  passiveSideUser?.userName
               } ` || ""}
               {calculateAge(
-                profiles.find((p) => p.id === passiveSideUserId)?.dateOfBirth
+                  passiveSideUser?.dateOfBirth
               ) || ""}
             </Typography>
             <Divider></Divider>
           </>
         )}
 
-      {profiles.find((p) => p.id === passiveSideUserId)?.description && (
+      {passiveSideUser?.description && (
         <>
           <Typography
             style={{
@@ -50,34 +51,34 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
               justifyContent: "center",
             }}
           >
-            {profiles.find((p) => p.id === passiveSideUserId)?.description ||
+            {passiveSideUser?.description ||
               ""}
           </Typography>
           <Divider></Divider>
         </>
       )}
 
-      {profiles.find((p) => p.id === passiveSideUserId) &&
-        profiles.find((p) => p.id === passiveSideUserId).university && (
+      {passiveSideUser &&
+      passiveSideUser.university && (
           <>
             <LabelValuePrinter
               label="University"
               value={
-                profiles.find((p) => p.id === passiveSideUserId)?.university ||
+                  passiveSideUser?.university ||
                 ""
               }
             ></LabelValuePrinter>
             <LabelValuePrinter
               label="Filed of study"
               value={
-                profiles.find((p) => p.id === passiveSideUserId)
+                  passiveSideUser
                   ?.fieldOfStudy || ""
               }
             ></LabelValuePrinter>
             <LabelValuePrinter
               label="Already graduated?"
               value={
-                profiles.find((p) => p.id === passiveSideUserId)?.isGraduated
+                  passiveSideUser?.isGraduated
                   ? "yes"
                   : "no"
               }
@@ -88,13 +89,13 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
         )}
       <LabelValuePrinter
         label="City"
-        value={profiles.find((p) => p.id === passiveSideUserId)?.city || ""}
+        value={passiveSideUser?.city || ""}
       ></LabelValuePrinter>
       <Divider></Divider>
       <LabelValuePrinter
         label="Interests"
         value={
-          profiles.find((p) => p.id === passiveSideUserId)?.interests || []
+            passiveSideUser?.interests || []
         }
       ></LabelValuePrinter>
     </>
