@@ -44,8 +44,8 @@ const socket = io("http://localhost:3000", {
 });
 
 socket.on('private_chat',function(data){
-    var username = data.id;
-    var message = data.message;
+    const username = data.id;
+    const message = data.message;
 
     alert(username+': '+message);
 });
@@ -138,8 +138,6 @@ function App(/*{ coords }*/) {
             // var systemUrl = 'http://localhost:3000';
             // var socket = io.connect(systemUrl);
 
-console.log('socket',socket)
-//Collect User identity from the client side
             socket.emit('register',userData.id);
 
           })

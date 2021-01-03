@@ -25,7 +25,6 @@ const relationDao = new RelationDao();
 
 router.post('/', authenticate, async (req: Request, res: Response) => {
   const reqBody = req.body;
-  console.table(reqBody);
   const isValid = await yup.object().shape(
     {
       passiveSideUserId: yup.string().required(),

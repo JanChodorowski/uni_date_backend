@@ -6,7 +6,7 @@ import {
   MessageList,
 } from "@chatscope/chat-ui-kit-react";
 import React, { useContext, useEffect, useState } from "react";
-import { getMatches, getPicture } from "../shared/api";
+import {createMessage, getMatches, getPicture} from "../shared/api";
 import { LoadingContext } from "../shared/loadingContext";
 import { MatchesContext } from "../shared/matchesContext";
 import { UserContext } from "../shared/userContext";
@@ -135,10 +135,13 @@ const ChatPage = () => {
   };
 
   const handleSend = (message) => {
-    socket.emit('private_chat',{
-      to : passiveSideUserId,
-      message
-    });
+    createMessage(passiveSideUserId, message).then(() =>{
+      socket.emit('private_chat',{
+        to : passiveSideUserId,
+        message
+      });
+    }).catch(e => {})
+
   }
 
   return (
@@ -161,9 +164,9 @@ const ChatPage = () => {
             wrap="nowrap"
             style={{ width: DEFAULT_IMAGE_SIZE }}
           >
-            {" "}
+
             <Grid item>
-              {" "}
+
               <IconButton
                 className={clsx(expand, {
                   [expandOpen]: expanded,

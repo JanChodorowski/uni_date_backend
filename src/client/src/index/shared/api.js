@@ -84,6 +84,13 @@ export const createRelation = (passiveSideUserId, isLiking) => {
   });
 };
 
+export const createMessage = (userId_2, content) => {
+  return axios.post("/api/message", {
+    userId_2,
+    content
+  });
+};
+
 export const getMatches = () => {
   return axios.get("/api/users/matches");
 };
