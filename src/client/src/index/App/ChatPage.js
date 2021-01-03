@@ -24,6 +24,7 @@ import { DEFAULT_IMAGE_SIZE } from "../shared/constants";
 import io from "socket.io-client";
 import Button from "@material-ui/core/Button";
 import { PathContext } from "../shared/pathContext";
+import Chat from "../../Chat";
 const ENDPOINT = "http://127.0.0.1:4001";
 const socket = io("http://localhost:3000", {
   withCredentials: true,
@@ -134,16 +135,16 @@ const ChatPage = () => {
     setExpanded(!expanded);
   };
 
-  const handleSend = (message) => {
-    createMessage(passiveSideUserId, message)
-      .then(() => {
-        socket.emit("private_chat", {
-          to: passiveSideUserId,
-          message,
-        });
-      })
-      .catch((e) => {});
-  };
+  // const handleSend = (message) => {
+  //   createMessage(passiveSideUserId, message)
+  //     .then(() => {
+  //       socket.emit("private_chat", {
+  //         to: passiveSideUserId,
+  //         message,
+  //       });
+  //     })
+  //     .catch((e) => {});
+  // };
 
   return (
     <>
@@ -170,7 +171,6 @@ const ChatPage = () => {
                 className={clsx(expand, {
                   [expandOpen]: expanded,
                 })}
-                // style={{ float: 'right' }}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
                 aria-label="show more"
@@ -191,27 +191,7 @@ const ChatPage = () => {
               ></ProfileInfo>
             </>
           )}
-          <div style={{ position: "relative", height: "500px" }}>
-            <MainContainer>
-              <ChatContainer>
-                <MessageList>
-                  <Message
-                    model={{
-                      message: "Hello my friend",
-                      sentTime: "just now",
-                      sender: "Joe",
-                    }}
-                  />
-                </MessageList>
-                <MessageInput
-                  attachButton={false}
-                  fancyScroll={true}
-                  placeholder="Type message here"
-                  onSend={handleSend}
-                />
-              </ChatContainer>
-            </MainContainer>
-          </div>
+          <Chat passiveSideUserId={passiveSideUserId}></Chat>
         </DialogContent>
       </Dialog>
     </>
