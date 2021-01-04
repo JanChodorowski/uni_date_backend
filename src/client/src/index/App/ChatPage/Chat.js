@@ -13,10 +13,12 @@ import { LoadingContext } from "../../shared/loadingContext";
 import { MatchesContext } from "../../shared/matchesContext";
 import PlaceHolder from "../shared/Missing_avatar.svg";
 import { socket } from "../../shared/socket";
+import {UserContext} from "../../shared/userContext";
 
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-  const [matches, setMatches] = useContext(MatchesContext);
+  const [matches, setMatches] = useContext(MatchesContext);  const [user] = useContext(UserContext);
+
   const [incomingMessages, setIncomingMessages] = useState([]);
   useEffect(() => {
     let mounted = true;
@@ -68,11 +70,22 @@ const Chat = ({ passiveSideUserId }) => {
           passiveSideUserId: passiveSideUserId,
           content,
         });
+        setIncomingMessages((prevIncomingMessages) => {
+          return [
+              ...prevIncomingMessages,
+            {
+              content,
+              createdAt: (new Date()).toISOString(),
+              senderUserId: user.id
+
+          }
+          ];
+        });
       })
       .catch((e) => {});
   };
   const theMatch = matches.find((m) => m.id === passiveSideUserId);
-
+console.log('theMatch',theMatch)
   return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer responsive>
@@ -106,9 +119,8 @@ const Chat = ({ passiveSideUserId }) => {
                       model={{
                         message: msg.content,
                         // sentTime: "just now",
-                        // sender: msg.sender_user_id,
                         direction:
-                          msg.sender_user_id === passiveSideUserId
+                          msg.senderUserId === passiveSideUserId
                             ? "incoming"
                             : "outgoing",
                       }}

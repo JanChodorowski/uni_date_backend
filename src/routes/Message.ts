@@ -78,7 +78,7 @@ router.post('/getmessage', authenticate, async (req: Request, res: Response) => 
   });
 
   const messagesDto = rawMessages.map((rm:any) => ({
-    ...rm,
+    content: rm.content,
     userId_1: rm.user_id_1,
     userId_2: rm.user_id_2,
     createdAt: rm.created_at,
