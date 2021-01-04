@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { geolocated } from "react-geolocated";
 import { Redirect, Route, Switch } from "react-router-dom";
 import ChatPage from "./App/ChatPage";
@@ -32,6 +32,10 @@ import { UserContext } from "./shared/userContext";
 
 import io from "socket.io-client";
 import { socket } from "./shared/socket";
+import Comb from '../comb.mp4'
+import Schlern from '../Schlern.mp4'
+import SchlernLow from '../SchlernLow.mp4'
+
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
@@ -49,6 +53,11 @@ function App(/*{ coords }*/) {
     setIsLoading(status);
     setIsLoadingUserData(status);
   };
+
+  const videoRef = useRef();
+  useEffect(() => {
+    videoRef.current.playbackRate = 0.6;
+  }, [videoRef]);
 
   useEffect(() => {
     let mounted = true;
@@ -141,6 +150,11 @@ function App(/*{ coords }*/) {
                 <MatchesContext.Provider value={[matches, setMatches]}>
                   <PathContext.Provider value={[path, setPath]}>
                     <CssBaseline />
+                    <div className="fullscreen-bg">
+
+                    <video ref={videoRef} className="fullscreen-bg__video" id="background-video" autoPlay loop muted>
+                          <source src={SchlernLow} type='video/mp4' />
+                      </video></div>
                     <ProgressShower></ProgressShower>
                     {user.email ? (
                       <>
