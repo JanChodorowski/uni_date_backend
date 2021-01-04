@@ -21,7 +21,7 @@ const [incomingMessages,setIncomingMessages ] = useState([])
     useEffect(() => {
         let mounted = true;
         socket.on("private_chat", function (newIncomingMessage) {
-
+            console.log('newIncomingMessage.createdAt', typeof newIncomingMessage.createdAt)
             setIncomingMessages(prevIncomingMessages => {return [
                 ...prevIncomingMessages,
                 newIncomingMessage
@@ -107,7 +107,8 @@ const [incomingMessages,setIncomingMessages ] = useState([])
               Array.isArray(theMatch.messages) &&
               theMatch.messages.length > 0 &&
               [...theMatch.messages, ...incomingMessages]
-                  // .sort((a,b)=>a.createdAt.getTime()-b.createdAt.getTime())
+                  .sort((a,b)=>            new Date(a.createdAt)
+                .getTime() - new Date(b.createdAt).getTime())
                   .map((msg,i) => {
                 return (
                   <Message
