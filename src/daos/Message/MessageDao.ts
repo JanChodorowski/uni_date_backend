@@ -1,12 +1,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
-import { Picture } from '@entities/Picture';
-import { IPicture } from '@interfaces/IPicture';
+import {IPicture} from '@interfaces/IPicture';
 
-import { getConnection, getRepository } from 'typeorm';
-import { IUser } from '@interfaces/IUser';
-import { User } from '@entities/User';
-import { Message } from '@entities/Message';
+import {getConnection} from 'typeorm';
+import {Message} from '@entities/Message';
 
 export interface IMessageDao {
 

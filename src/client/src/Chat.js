@@ -1,24 +1,18 @@
 import React, {useContext, useEffect} from "react";
 import {
-  ChatContainer,
-  MainContainer,
-  Message,
-  MessageInput,
-  MessageList,ConversationHeader
-
+    Avatar,
+    ChatContainer,
+    ConversationHeader,
+    MainContainer,
+    Message,
+    MessageInput,
+    MessageList
 } from "@chatscope/chat-ui-kit-react";
-import DialogContent from "@material-ui/core/DialogContent";
-import {createMessage, getMatches, getMessages, getPicture} from "./index/shared/api";
-import io from "socket.io-client";
+import {createMessage, getMessages} from "./index/shared/api";
 import {LoadingContext} from "./index/shared/loadingContext";
 import {MatchesContext} from "./index/shared/matchesContext";
-import {Avatar} from "@chatscope/chat-ui-kit-react";
-import {AVATAR_SIZE} from "./index/shared/constants";
 import PlaceHolder from "./index/App/shared/Missing_avatar.svg";
 import {socket} from "./index/socket";
-
-
-
 
 
 const Chat = ({ passiveSideUserId }) => {
