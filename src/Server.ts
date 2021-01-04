@@ -14,7 +14,7 @@ import BaseRouter from './routes';
 const cors = require('cors');
 
 const {
-  NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL, TOKEN_SECRET,
+  NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL,
 } = process.env;
 
 const WORKERS = process.env.WEB_CONCURRENCY || 1;
