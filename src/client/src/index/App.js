@@ -33,8 +33,6 @@ import { UserContext } from "./shared/userContext";
 import io from "socket.io-client";
 import { socket } from "./shared/socket";
 
-
-
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
   const [user, setUser] = useState(EMPTY_USER);

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Avatar,
   ChatContainer,
@@ -17,19 +17,22 @@ import { socket } from "../../shared/socket";
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
-const [incomingMessages,setIncomingMessages ] = useState([])
-    useEffect(() => {
-        let mounted = true;
-        socket.on("private_chat", function (newIncomingMessage) {
-            console.log('newIncomingMessage.createdAt', typeof newIncomingMessage.createdAt)
-            setIncomingMessages(prevIncomingMessages => {return [
-                ...prevIncomingMessages,
-                newIncomingMessage
-            ]})
-        });    return () => {
-            mounted = false;
-        };
-    }, []);
+  const [incomingMessages, setIncomingMessages] = useState([]);
+  useEffect(() => {
+    let mounted = true;
+    socket.on("private_chat", function (newIncomingMessage) {
+      console.log(
+        "newIncomingMessage.createdAt",
+        typeof newIncomingMessage.createdAt
+      );
+      setIncomingMessages((prevIncomingMessages) => {
+        return [...prevIncomingMessages, newIncomingMessage];
+      });
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
   useEffect(() => {
     let mounted = true;
 
@@ -66,7 +69,7 @@ const [incomingMessages,setIncomingMessages ] = useState([])
     createMessage(passiveSideUserId, content)
       .then(() => {
         socket.emit("private_chat", {
-            passiveSideUserId: passiveSideUserId,
+          passiveSideUserId: passiveSideUserId,
           content,
         });
       })
@@ -107,24 +110,27 @@ const [incomingMessages,setIncomingMessages ] = useState([])
               Array.isArray(theMatch.messages) &&
               theMatch.messages.length > 0 &&
               [...theMatch.messages, ...incomingMessages]
-                  .sort((a,b)=>            new Date(a.createdAt)
-                .getTime() - new Date(b.createdAt).getTime())
-                  .map((msg,i) => {
-                return (
-                  <Message
-                    key={i}
-                    model={{
-                      message: msg.content,
-                      // sentTime: "just now",
-                      // sender: msg.sender_user_id,
-                      direction:
-                        msg.sender_user_id === passiveSideUserId
-                          ? "incoming"
-                          : "outgoing",
-                    }}
-                  />
-                );
-              })}
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                )
+                .map((msg, i) => {
+                  return (
+                    <Message
+                      key={i}
+                      model={{
+                        message: msg.content,
+                        // sentTime: "just now",
+                        // sender: msg.sender_user_id,
+                        direction:
+                          msg.sender_user_id === passiveSideUserId
+                            ? "incoming"
+                            : "outgoing",
+                      }}
+                    />
+                  );
+                })}
           </MessageList>
           <MessageInput
             attachButton={false}
