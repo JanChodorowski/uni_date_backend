@@ -13,11 +13,12 @@ import { LoadingContext } from "../../shared/loadingContext";
 import { MatchesContext } from "../../shared/matchesContext";
 import PlaceHolder from "../shared/Missing_avatar.svg";
 import { socket } from "../../shared/socket";
-import {UserContext} from "../../shared/userContext";
+import { UserContext } from "../../shared/userContext";
 
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
-  const [matches, setMatches] = useContext(MatchesContext);  const [user] = useContext(UserContext);
+  const [matches, setMatches] = useContext(MatchesContext);
+  const [user] = useContext(UserContext);
 
   const [incomingMessages, setIncomingMessages] = useState([]);
   useEffect(() => {
@@ -72,20 +73,19 @@ const Chat = ({ passiveSideUserId }) => {
         });
         setIncomingMessages((prevIncomingMessages) => {
           return [
-              ...prevIncomingMessages,
+            ...prevIncomingMessages,
             {
               content,
-              createdAt: (new Date()).toISOString(),
-              senderUserId: user.id
-
-          }
+              createdAt: new Date().toISOString(),
+              senderUserId: user.id,
+            },
           ];
         });
       })
       .catch((e) => {});
   };
   const theMatch = matches.find((m) => m.id === passiveSideUserId);
-console.log('theMatch',theMatch)
+  console.log("theMatch", theMatch);
   return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer responsive>

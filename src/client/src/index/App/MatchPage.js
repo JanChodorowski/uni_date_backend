@@ -172,18 +172,21 @@ const MatchPage = () => {
         isMatched={isMatched}
         setIsMatched={setIsMatched}
       ></MatchModal>
-        {!isMatched && (<>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={2000}
-        onClose={handleSnackbarClose}
-        TransitionComponent={Slide}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      >
-        <Alert onClose={handleSnackbarClose} severity="info">
-          {isLiking ? "LIKE" : "DISLIKE"}
-        </Alert>
-      </Snackbar></>)}
+      {!isMatched && (
+        <>
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={2000}
+            onClose={handleSnackbarClose}
+            TransitionComponent={Slide}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <Alert onClose={handleSnackbarClose} severity="info">
+              {isLiking ? "LIKE" : "DISLIKE"}
+            </Alert>
+          </Snackbar>
+        </>
+      )}
     </>
   );
 };
