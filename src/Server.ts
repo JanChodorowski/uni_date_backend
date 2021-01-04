@@ -53,8 +53,8 @@ const ormConfig = {
   type: 'postgres',
   url: DATABASE_URL || LOCAL_DATABASE_URL,
   synchronize: false,
-  logging: NODE_ENV === 'development',
-  // logging: false,
+  // logging: NODE_ENV === 'development',
+  logging: false,
   entities: [
     `${mainDirName}/entities/*.*`,
   ],

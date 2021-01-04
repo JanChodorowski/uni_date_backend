@@ -21,7 +21,9 @@ const Chat = ({ passiveSideUserId }) => {
   useEffect(() => {
     let mounted = true;
     socket.on("private_chat", function (newIncomingMessage) {
-      console.log(
+        alert('test',newIncomingMessage )
+
+        console.log(
         "newIncomingMessage.createdAt",
         typeof newIncomingMessage.createdAt
       );

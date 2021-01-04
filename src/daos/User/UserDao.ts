@@ -216,6 +216,7 @@ class UserDao implements IUserDao {
         .leftJoin('user.universityName', 'university')
         .leftJoin('user.interests', 'interests')
         .leftJoin('user.oneSidedRelations2', 'oneSidedRelations2')
+        .leftJoin('user.oneSidedRelations', 'oneSidedRelations')
         .leftJoin('user.matches2', 'matches2')
         .where('id != :paramId')
         .andWhere(cityFilter ? 'user.cityName = :cityFilter' : '1=1', { cityFilter })
@@ -231,10 +232,19 @@ class UserDao implements IUserDao {
             .leftJoin('u2.oneSidedRelations2', 'osr2')
             .where('osr2.activeSideUserId = :paramId')
             .andWhere('osr2.passiveSideUserId = u2.id')
-            // .orWhere('osr2.isLiking = false')
             .getQuery();
           return `(oneSidedRelations2.activeSideUserId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId`;
         })
+        // .andWhere((qb) => {
+        //   const subQuery = qb.subQuery()
+        //     .select('u.id')
+        //     .from(User, 'u')
+        //     .leftJoin('u.oneSidedRelations', 'osr')
+        //     .where('osr.passiveSideUserId = :paramId')
+        //     .andWhere('osr.activeSideUserId = u.id')
+        //     .getQuery();
+        //   return `(oneSidedRelations.activeSideUserId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId`;
+        // })
         .andWhere((qb) => {
           const subQuery = qb.subQuery()
             .select('u2.id')

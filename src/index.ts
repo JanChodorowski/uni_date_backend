@@ -23,13 +23,12 @@ io.on('connection', (socket:any) => {
   socket.on('register', (id:any) => {
     socket.id = id;
     connectedUsers[id] = socket;
-    console.log('connectedUsers', connectedUsers);
   });
 
   /* Private chat */
   socket.on('private_chat', (data:any) => {
     const { content, passiveSideUserId } = data;
-
+    console.log('private_chat', content, passiveSideUserId, connectedUsers);
     if (connectedUsers.hasOwnProperty(passiveSideUserId)) {
       connectedUsers[passiveSideUserId].emit('private_chat', {
         // The sender's username
