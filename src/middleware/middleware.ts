@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import StatusCodes from 'http-status-codes';
-import {NextFunction, Response,} from 'express';
-import {IRequestWithPayload} from '@shared/constants';
+import { NextFunction, Response } from 'express';
+import { IRequestWithPayload } from '@shared/constants';
 
 const {
   BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,

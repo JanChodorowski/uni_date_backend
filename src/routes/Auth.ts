@@ -1,15 +1,17 @@
-import {CookieOptions, Request, Response, Router,} from 'express';
-import jwt, {SignOptions} from 'jsonwebtoken';
+import {
+  CookieOptions, Request, Response, Router,
+} from 'express';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import UserDao from '@daos/User/UserDao';
-import {User} from '@entities/User';
-import {PASSWORD_MIN_CHARS,} from '@shared/constants';
+import { User } from '@entities/User';
+import { PASSWORD_MIN_CHARS } from '@shared/constants';
 import StatusCodes from 'http-status-codes';
 import * as yup from 'yup';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
-import {authenticate} from '@middleware/middleware';
-import {UserDto} from '@dto/UserDto';
-import {removeWhiteSpaces} from '@shared/functions';
+import { authenticate } from '@middleware/middleware';
+import { UserDto } from '@dto/UserDto';
+import { removeWhiteSpaces } from '@shared/functions';
 
 const router = Router();
 const {

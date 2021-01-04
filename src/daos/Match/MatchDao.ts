@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
 
-import {getConnection} from 'typeorm';
-import {Match} from '@entities/Match';
+import { getConnection } from 'typeorm';
+import { Match } from '@entities/Match';
 
 export interface IMatchDao {
     findOneByUsersIds: (userId_1: string, userId_2: string)=> Promise<Match | undefined>

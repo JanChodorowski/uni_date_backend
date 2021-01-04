@@ -1,14 +1,14 @@
-import {Request, Response, Router,} from 'express';
+import { Request, Response, Router } from 'express';
 
 import StatusCodes from 'http-status-codes';
 
-import {authenticate} from '@middleware/middleware';
+import { authenticate } from '@middleware/middleware';
 
 import * as yup from 'yup';
 
 import RelationDao from '@daos/Relation/RelationDao';
-import {OneSidedRelation} from '@entities/OneSidedRelation';
-import {Match} from '@entities/Match';
+import { OneSidedRelation } from '@entities/OneSidedRelation';
+import { Match } from '@entities/Match';
 
 global.Blob = require('node-blob');
 

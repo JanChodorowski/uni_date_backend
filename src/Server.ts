@@ -1,12 +1,12 @@
 import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
-import express, {NextFunction, Request, Response} from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import helmet from 'helmet';
 import StatusCodes from 'http-status-codes';
 import morgan from 'morgan';
 import 'reflect-metadata';
-import {createConnection,} from 'typeorm';
+import { createConnection } from 'typeorm';
 import path from 'path';
 import BaseRouter from './routes';
 

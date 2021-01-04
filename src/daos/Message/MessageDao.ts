@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
-import {IPicture} from '@interfaces/IPicture';
+import { IPicture } from '@interfaces/IPicture';
 
-import {getConnection} from 'typeorm';
-import {Message} from '@entities/Message';
+import { getConnection } from 'typeorm';
+import { Message } from '@entities/Message';
 
 export interface IMessageDao {
     get:(userId_1: string, userId_2: string)=> Promise<any>

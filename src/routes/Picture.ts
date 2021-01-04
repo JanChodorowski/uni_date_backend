@@ -1,14 +1,16 @@
-import {NextFunction, Request, Response, Router,} from 'express';
+import {
+  NextFunction, Request, Response, Router,
+} from 'express';
 
 import StatusCodes from 'http-status-codes';
-import {authenticate} from '@middleware/middleware';
-import {v4 as uuidv4} from 'uuid';
+import { authenticate } from '@middleware/middleware';
+import { v4 as uuidv4 } from 'uuid';
 import UserDao from '@daos/User/UserDao';
-import {IPicture} from '@interfaces/IPicture';
-import {Picture} from '@entities/Picture';
+import { IPicture } from '@interfaces/IPicture';
+import { Picture } from '@entities/Picture';
 import PictureDao from '@daos/Picture/PictureDao';
 import * as yup from 'yup';
-import {removeWhiteSpaces} from '@shared/functions';
+import { removeWhiteSpaces } from '@shared/functions';
 
 const fileUpload = require('express-fileupload');
 

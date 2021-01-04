@@ -1,13 +1,13 @@
-import {Request, Response, Router} from 'express';
+import { Request, Response, Router } from 'express';
 
 import StatusCodes from 'http-status-codes';
 
-import {authenticate} from '@middleware/middleware';
+import { authenticate } from '@middleware/middleware';
 
 import * as yup from 'yup';
 import MessageDao from '@daos/Message/MessageDao';
-import {Message} from '@entities/Message';
-import {v4 as uuidv4} from 'uuid';
+import { Message } from '@entities/Message';
+import { v4 as uuidv4 } from 'uuid';
 import MatchDao from '@daos/Match/MatchDao';
 
 global.Blob = require('node-blob');

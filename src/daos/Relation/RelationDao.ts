@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
 
-import {getConnection} from 'typeorm';
-import {OneSidedRelation} from '@entities/OneSidedRelation';
-import {Match} from '@entities/Match';
+import { getConnection } from 'typeorm';
+import { OneSidedRelation } from '@entities/OneSidedRelation';
+import { Match } from '@entities/Match';
 
 export interface IRelationDao {
   add: (newRelation: OneSidedRelation) => Promise<any>;
