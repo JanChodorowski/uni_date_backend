@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
-import {getMatches, getPicture} from "../shared/api";
-import {LoadingContext} from "../shared/loadingContext";
-import {MatchesContext} from "../shared/matchesContext";
-import {UserContext} from "../shared/userContext";
+import React, { useContext, useEffect, useState } from "react";
+import { getMatches, getPicture } from "../shared/api";
+import { LoadingContext } from "../shared/loadingContext";
+import { MatchesContext } from "../shared/matchesContext";
+import { UserContext } from "../shared/userContext";
 import AvatarsCollection from "./shared/AvatarsCollection";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,11 +11,10 @@ import Zoom from "@material-ui/core/Zoom";
 import ProfileInfo from "./shared/ProfileInfo";
 import IconButton from "@material-ui/core/IconButton";
 import clsx from "clsx";
-import {Grid, makeStyles, Typography} from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {DEFAULT_IMAGE_SIZE} from "../shared/constants";
+import { DEFAULT_IMAGE_SIZE } from "../shared/constants";
 import Chat from "./ChatPage/Chat";
-
 
 const chatscopeStyles = styles;
 

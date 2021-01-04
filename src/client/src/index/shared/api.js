@@ -96,5 +96,5 @@ export const getMatches = () => {
 };
 
 export const getMessages = (passiveSideUserId) => {
-  return axios.post("/api/message/getmessage",{passiveSideUserId})
-}
+  return axios.post("/api/message/getmessage", { passiveSideUserId });
+};

@@ -1,8 +1,8 @@
-import {CssBaseline, ThemeProvider} from "@material-ui/core";
-import {createMuiTheme, responsiveFontSizes} from "@material-ui/core/styles";
-import React, {useEffect, useState} from "react";
-import {geolocated} from "react-geolocated";
-import {Redirect, Route, Switch} from "react-router-dom";
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { geolocated } from "react-geolocated";
+import { Redirect, Route, Switch } from "react-router-dom";
 import ChatPage from "./App/ChatPage";
 import DeleteAccountPage from "./App/DeleteAccountPage";
 import FilterPage from "./App/FilterPage";
@@ -12,20 +12,26 @@ import MatchPage from "./App/MatchPage";
 import ProfilePage from "./App/ProfilePage";
 import ProgressShower from "./App/ProgressShower";
 import SettingsPage from "./App/SettingsPage";
-import {getPicture, getUser} from "./shared/api";
+import { getPicture, getUser } from "./shared/api";
 import BtmNav from "./App/BtmNav";
-import {ColorContext} from "./shared/colorContext";
-import {APP_THEME, EMPTY_USER, LOCAL_STORAGE_KEY, NAVIGATION, THEME_NAMES,} from "./shared/constants";
-import {compareFileNames, getItemByKey} from "./shared/functions";
-import {LoadingContext} from "./shared/loadingContext";
-import {LoadingUserDataContext} from "./shared/loadingUserDataContex";
-import {MatchesContext} from "./shared/matchesContext";
-import {PathContext} from "./shared/pathContext";
-import {ProfilesContext} from "./shared/profilesContext";
-import {UserContext} from "./shared/userContext";
+import { ColorContext } from "./shared/colorContext";
+import {
+  APP_THEME,
+  EMPTY_USER,
+  LOCAL_STORAGE_KEY,
+  NAVIGATION,
+  THEME_NAMES,
+} from "./shared/constants";
+import { compareFileNames, getItemByKey } from "./shared/functions";
+import { LoadingContext } from "./shared/loadingContext";
+import { LoadingUserDataContext } from "./shared/loadingUserDataContex";
+import { MatchesContext } from "./shared/matchesContext";
+import { PathContext } from "./shared/pathContext";
+import { ProfilesContext } from "./shared/profilesContext";
+import { UserContext } from "./shared/userContext";
 
 import io from "socket.io-client";
-import {socket} from "./shared/socket";
+import { socket } from "./shared/socket";
 
 socket.on("private_chat", function (data) {
   const username = data.id;
@@ -33,7 +39,6 @@ socket.on("private_chat", function (data) {
 
   alert(username + ": " + message);
 });
-
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
