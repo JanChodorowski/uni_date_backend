@@ -94,3 +94,7 @@ export const createMessage = (userId_2, content) => {
 export const getMatches = () => {
   return axios.get("/api/users/matches");
 };
+
+export const getMessages = (passiveSideUserId) => {
+  return axios.post("/api/message/getmessage",{passiveSideUserId})
+}

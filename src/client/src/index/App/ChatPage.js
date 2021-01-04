@@ -25,13 +25,8 @@ import io from "socket.io-client";
 import Button from "@material-ui/core/Button";
 import { PathContext } from "../shared/pathContext";
 import Chat from "../../Chat";
-const ENDPOINT = "http://127.0.0.1:4001";
-const socket = io("http://localhost:3000", {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd",
-  },
-});
+
+
 const chatscopeStyles = styles;
 
 const Transition = React.forwardRef((props, ref) => (

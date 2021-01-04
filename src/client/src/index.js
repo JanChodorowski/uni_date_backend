@@ -6,6 +6,7 @@ import "./index/index.css";
 import reportWebVitals from "./index/reportWebVitals";
 ReactDOM.render(
   // <React.StrictMode>
+
   <Router>
     <App />
   </Router>,

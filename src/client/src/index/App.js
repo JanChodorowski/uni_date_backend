@@ -35,13 +35,7 @@ import socketIOClient from "socket.io-client";
 //     })
 import io from "socket.io-client";
 import Button from "@material-ui/core/Button";
-const ENDPOINT = "http://127.0.0.1:4001";
-const socket = io("http://localhost:3000", {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd",
-  },
-});
+import {socket} from "./socket";
 
 socket.on("private_chat", function (data) {
   const username = data.id;
@@ -49,6 +43,7 @@ socket.on("private_chat", function (data) {
 
   alert(username + ": " + message);
 });
+
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);

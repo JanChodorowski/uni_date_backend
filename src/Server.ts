@@ -20,7 +20,7 @@ const cors = require('cors');
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Do usuniecia?
 app.use(cors());
@@ -53,8 +53,8 @@ const ormConfig = {
   type: 'postgres',
   url: DATABASE_URL || LOCAL_DATABASE_URL,
   synchronize: false,
-  // logging: NODE_ENV === 'development',
-  logging: false,
+  logging: NODE_ENV === 'development',
+  // logging: false,
   entities: [
     `${mainDirName}/entities/*.*`,
   ],
