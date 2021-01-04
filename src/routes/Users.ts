@@ -1,22 +1,17 @@
-import {
-  Request, Response, Router,
-} from 'express';
+import {Request, Response, Router,} from 'express';
 
 import UserDao from '@daos/User/UserDao';
-import { User } from '@entities/User';
+import {User} from '@entities/User';
 
 import StatusCodes from 'http-status-codes';
-import { getConnection, getRepository } from 'typeorm';
 
-import { authenticate } from '@middleware/middleware';
-import { IUser } from '@interfaces/IUser';
-import { UserDto } from '@dto/UserDto';
+import {authenticate} from '@middleware/middleware';
 import * as yup from 'yup';
-import { City } from '@entities/City';
-import { University } from '@entities/University';
-import { Interest } from '@entities/Interest';
-import { capitalizeFirstLetter, removeCityAndUniversityFromCollection } from '@shared/functions';
-import { GenderFilter } from '@entities/GenderFilter';
+import {City} from '@entities/City';
+import {University} from '@entities/University';
+import {Interest} from '@entities/Interest';
+import {capitalizeFirstLetter, removeCityAndUniversityFromCollection} from '@shared/functions';
+import {GenderFilter} from '@entities/GenderFilter';
 
 global.Blob = require('node-blob');
 const CrossBlob = require('cross-blob');

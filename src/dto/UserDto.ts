@@ -1,5 +1,3 @@
-import { array } from 'yup';
-
 export class UserDto {
     userName: string;
 

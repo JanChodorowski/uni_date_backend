@@ -1,11 +1,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
-import { Picture } from '@entities/Picture';
-import { IPicture } from '@interfaces/IPicture';
+import {Picture} from '@entities/Picture';
+import {IPicture} from '@interfaces/IPicture';
 
-import { getConnection, getRepository } from 'typeorm';
-import { IUser } from '@interfaces/IUser';
-import { User } from '@entities/User';
+import {getConnection, getRepository} from 'typeorm';
 
 export interface IPictureDao {
     // getOne: (email: string) => Promise<IUser | null>;

@@ -1,4 +1,3 @@
-import fs from 'fs';
 import logger from './Logger';
 
 export const pErr = (err: Error) => {

@@ -21,7 +21,6 @@ const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
   const [matches, setMatches] = useContext(MatchesContext);
-
   const [path, setPath] = useContext(PathContext);
 
   const paper = useTransparentPaperStyle();

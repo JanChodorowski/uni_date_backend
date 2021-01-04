@@ -1,20 +1,14 @@
-import { University } from '@entities/University';
 import logger from '@shared/Logger';
 import cookieParser from 'cookie-parser';
-import express, { NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import 'express-async-errors';
 import helmet from 'helmet';
 import StatusCodes from 'http-status-codes';
 import morgan from 'morgan';
 import 'reflect-metadata';
-import {
-  ConnectionOptions, createConnection, Connection, getConnection,
-} from 'typeorm';
-import jwt from 'jsonwebtoken';
+import {createConnection,} from 'typeorm';
 import path from 'path';
-import { authenticate } from '@middleware/middleware';
 import BaseRouter from './routes';
-import router from './routes/Picture';
 
 const cors = require('cors');
 

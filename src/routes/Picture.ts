@@ -1,24 +1,14 @@
-import express, {
-  NextFunction,
-  Request, Response, Router,
-} from 'express';
+import {NextFunction, Request, Response, Router,} from 'express';
 
 import StatusCodes from 'http-status-codes';
-import { authenticate } from '@middleware/middleware';
-import path from 'path';
-import app from '@server';
-import morgan from 'morgan';
-import helmet from 'helmet';
-import { v4 as uuidv4 } from 'uuid';
+import {authenticate} from '@middleware/middleware';
+import {v4 as uuidv4} from 'uuid';
 import UserDao from '@daos/User/UserDao';
-import { IPicture } from '@interfaces/IPicture';
-import { Picture } from '@entities/Picture';
-import { IUser } from '@interfaces/IUser';
+import {IPicture} from '@interfaces/IPicture';
+import {Picture} from '@entities/Picture';
 import PictureDao from '@daos/Picture/PictureDao';
 import * as yup from 'yup';
-import { removeUndefinedFields, removeWhiteSpaces } from '@shared/functions';
-import { getConnection } from 'typeorm';
-import { User } from '@entities/User';
+import {removeWhiteSpaces} from '@shared/functions';
 
 const fileUpload = require('express-fileupload');
 
