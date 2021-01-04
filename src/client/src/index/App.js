@@ -32,9 +32,9 @@ import { UserContext } from "./shared/userContext";
 
 import io from "socket.io-client";
 import { socket } from "./shared/socket";
-import Comb from '../comb.mp4'
-import Schlern from '../Schlern.mp4'
-import SchlernLow from '../SchlernLow.mp4'
+import Comb from './App/comb.mp4'
+import Schlern from './App/Schlern.mp4'
+import SchlernLow from './App/SchlernLow.mp4'
 
 
 function App(/*{ coords }*/) {
