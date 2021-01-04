@@ -86,8 +86,6 @@ const ChatPage = () => {
           })
           .catch((e) => {})
           .finally(() => {
-            console.log("matches", matches);
-
             setMatches(matchesData);
             setIsLoading(false);
           });

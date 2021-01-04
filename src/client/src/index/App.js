@@ -98,7 +98,6 @@ function App(/*{ coords }*/) {
               ...userData,
               pictures: picturesDataWithBlobs,
             };
-            console.log("userData", userData, io);
             setUser(userData);
 
             if (!userData.id) {

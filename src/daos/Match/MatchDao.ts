@@ -15,8 +15,6 @@ export interface IMatchDao {
 
 class MatchDao implements IMatchDao {
   public findOneByUsersIds(userId_1: string, userId_2: string): Promise<Match | undefined> {
-    console.log(userId_1, userId_2);
-
     return getConnection()
       .createEntityManager()
       .findOne(Match, {

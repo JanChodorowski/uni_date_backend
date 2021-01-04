@@ -75,7 +75,6 @@ createConnection(ormConfig as any).then(async (connection) => {
   // const users:any = {};
   // io.sockets.on('connection', (socket: any) => {
   //   socket.on('new', (data: any, callback:any) => {
-  //     console.log(data.name);
   //     if (data in users) {
   //       callback(false);
   //     } else {

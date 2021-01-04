@@ -23,10 +23,7 @@ const Chat = ({ passiveSideUserId }) => {
     socket.on("private_chat", function (newIncomingMessage) {
         alert('test',newIncomingMessage )
 
-        console.log(
-        "newIncomingMessage.createdAt",
-        typeof newIncomingMessage.createdAt
-      );
+
       setIncomingMessages((prevIncomingMessages) => {
         return [...prevIncomingMessages, newIncomingMessage];
       });
@@ -46,7 +43,6 @@ const Chat = ({ passiveSideUserId }) => {
 
     getMessages(passiveSideUserId)
       .then((res) => {
-        console.log("messages", res.data);
         const { data } = res;
         if (!data) {
           return;
@@ -54,7 +50,6 @@ const Chat = ({ passiveSideUserId }) => {
 
         const index = matches.findIndex((p) => p.id === passiveSideUserId);
         matches[index].messages = data;
-        console.log("data", data);
         setMatches(matches);
       })
       .catch((e) => {})
@@ -78,20 +73,11 @@ const Chat = ({ passiveSideUserId }) => {
       .catch((e) => {});
   };
   const theMatch = matches.find((m) => m.id === passiveSideUserId);
-  console.log(
-    "matches.find(m => m.id === passiveSideUserId)",
-    matches.find((m) => m.id === passiveSideUserId)
-  );
+
 
   return (
     <div style={{ position: "relative", height: "500px" }}>
-      {theMatch &&
-        theMatch.messages &&
-        Array.isArray(theMatch.messages) &&
-        theMatch.messages.length > 0 &&
-        theMatch.messages.forEach((msg) => {
-          console.log("hey", msg.message_id);
-        })}
+
 
       <MainContainer responsive>
         <ChatContainer>
