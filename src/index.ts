@@ -28,16 +28,15 @@ io.on('connection', (socket:any) => {
 
   /* Private chat */
   socket.on('private_chat', (data:any) => {
-    const { to } = data;
-    const { message } = data;
+    const { content, passiveSideUserId } = data;
 
-    if (connectedUsers.hasOwnProperty(to)) {
-      connectedUsers[to].emit('private_chat', {
+    if (connectedUsers.hasOwnProperty(passiveSideUserId)) {
+      connectedUsers[passiveSideUserId].emit('private_chat', {
         // The sender's username
-        id: socket.id,
-
+        senderUserId: socket.id,
         // Message sent to receiver
-        message,
+        content,
+        createdAt: new Date(),
       });
     }
   });

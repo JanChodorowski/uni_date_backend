@@ -13,8 +13,10 @@ import IconButton from "@material-ui/core/IconButton";
 import clsx from "clsx";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { DEFAULT_IMAGE_SIZE } from "../shared/constants";
+import {DEFAULT_IMAGE_SIZE, LOCAL_STORAGE_KEY, THEME_NAMES} from "../shared/constants";
 import Chat from "./ChatPage/Chat";
+import {socket} from "../shared/socket";
+import {getItemByKey} from "../shared/functions";
 
 const chatscopeStyles = styles;
 
@@ -32,9 +34,7 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
-  text: {
-    maxWidth: "600px",
-  },
+
 }));
 
 const ChatPage = () => {
@@ -43,7 +43,9 @@ const ChatPage = () => {
   const [user] = useContext(UserContext);
 
   const checkIfProfilesAlreadyFetched = () => matches && matches.length > 0;
-  const { text, root, expand, expandOpen } = useStyles();
+  const {  expand, expandOpen } = useStyles();
+
+
 
   useEffect(() => {
     let mounted = true;

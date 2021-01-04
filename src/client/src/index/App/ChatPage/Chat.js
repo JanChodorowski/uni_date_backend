@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   Avatar,
   ChatContainer,
@@ -17,6 +17,19 @@ import { socket } from "../../shared/socket";
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
+const [incomingMessages,setIncomingMessages ] = useState([])
+    useEffect(() => {
+        let mounted = true;
+        socket.on("private_chat", function (newIncomingMessage) {
+
+            setIncomingMessages(prevIncomingMessages => {return [
+                ...prevIncomingMessages,
+                newIncomingMessage
+            ]})
+        });    return () => {
+            mounted = false;
+        };
+    }, []);
   useEffect(() => {
     let mounted = true;
 
@@ -49,12 +62,12 @@ const Chat = ({ passiveSideUserId }) => {
     };
   }, []);
 
-  const handleSend = (message) => {
-    createMessage(passiveSideUserId, message)
+  const handleSend = (content) => {
+    createMessage(passiveSideUserId, content)
       .then(() => {
         socket.emit("private_chat", {
-          to: passiveSideUserId,
-          message,
+            passiveSideUserId: passiveSideUserId,
+          content,
         });
       })
       .catch((e) => {});
@@ -93,10 +106,12 @@ const Chat = ({ passiveSideUserId }) => {
               theMatch.messages &&
               Array.isArray(theMatch.messages) &&
               theMatch.messages.length > 0 &&
-              theMatch.messages.map((msg) => {
+              [...theMatch.messages, ...incomingMessages]
+                  // .sort((a,b)=>a.createdAt.getTime()-b.createdAt.getTime())
+                  .map((msg,i) => {
                 return (
                   <Message
-                    key={msg.message_id}
+                    key={i}
                     model={{
                       message: msg.content,
                       // sentTime: "just now",

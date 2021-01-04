@@ -33,12 +33,7 @@ import { UserContext } from "./shared/userContext";
 import io from "socket.io-client";
 import { socket } from "./shared/socket";
 
-socket.on("private_chat", function (data) {
-  const username = data.id;
-  const message = data.message;
 
-  alert(username + ": " + message);
-});
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
@@ -56,19 +51,6 @@ function App(/*{ coords }*/) {
     setIsLoading(status);
     setIsLoadingUserData(status);
   };
-
-  const [response, setResponse] = useState("");
-
-  // useEffect(() => {
-  //   // const socket = socketIOClient(ENDPOINT);
-  //   // socket.on("FromAPI", data => {
-  //   //   setResponse(data);
-  //   // });
-  //   //Connect socket.io
-  //
-  //
-  //
-  // }, []);
 
   useEffect(() => {
     let mounted = true;

@@ -65,19 +65,26 @@ router.post('/getmessage', authenticate, async (req: Request, res: Response) => 
       passiveSideUserId: yup.string().required(),
     },
   ).isValid(reqBody);
-  console.log('req.body;', req.body);
+
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
   const { passiveSideUserId, payload } = req.body;
 
-  const messagesDto = await messageDao.get(payload.id, passiveSideUserId).catch((err) => {
+  const rawMessages = await messageDao.get(payload.id, passiveSideUserId).catch((err) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
 
-  console.log('messagesDto', messagesDto);
+  const messagesDto = rawMessages.map((rm:any) => ({
+    ...rm,
+    userId_1: rm.user_id_1,
+    userId_2: rm.user_id_2,
+    createdAt: rm.created_at,
+    senderUserId: rm.sender_user_id,
+    messageId: rm.message_id,
+  }));
 
   res.json(messagesDto).end();
 });
