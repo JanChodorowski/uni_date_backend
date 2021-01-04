@@ -6,9 +6,8 @@ import { getConnection } from 'typeorm';
 import { Message } from '@entities/Message';
 
 export interface IMessageDao {
-
+    get:(userId_1: string, userId_2: string)=> Promise<any>
     add: (user: IPicture) => Promise<IPicture>;
-
 }
 
 class MessageDao implements IMessageDao {
@@ -20,6 +19,11 @@ class MessageDao implements IMessageDao {
     return getConnection().manager.save(newMessage);
   }
 
+  /**
+   *
+   * @param userId_1
+   * @param userId_2
+   */
   public get(userId_1: string, userId_2: string): Promise<any> {
     return getConnection()
       .createQueryBuilder()

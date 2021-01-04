@@ -15,14 +15,22 @@ export interface IRelationDao {
       activeSideUser: string,
       passiveSideUser: string,
   )=> Promise<OneSidedRelation | undefined>
+  createMatch: (foundLikingBackRelation: OneSidedRelation, newMatch: Match) => Promise<any>
 
 }
 
 class RelationDao implements IRelationDao {
+  /**
+   * @param newRelation
+   */
   public async add(newRelation: OneSidedRelation): Promise<OneSidedRelation> {
     return getConnection().manager.save(newRelation);
   }
 
+  /**
+   * @param activeSideUserId
+   * @param passiveSideUserId
+   */
   public async findLikingBackRelation(
     activeSideUserId: string,
     passiveSideUserId: string,
@@ -38,7 +46,10 @@ class RelationDao implements IRelationDao {
       });
   }
 
-  public async createMatch(foundLikingBackRelation: OneSidedRelation, newMatch: Match) {
+  /**
+   * @param foundLikingBackRelation
+   */
+  public async createMatch(foundLikingBackRelation: OneSidedRelation, newMatch: Match) : Promise<any> {
     await getConnection()
       .transaction(async (entityManager) => {
         await entityManager.remove(foundLikingBackRelation);

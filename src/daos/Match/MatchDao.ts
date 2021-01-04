@@ -10,10 +10,15 @@ import { OneSidedRelation } from '@entities/OneSidedRelation';
 import { Match } from '@entities/Match';
 
 export interface IMatchDao {
-
+    findOneByUsersIds: (userId_1: string, userId_2: string)=> Promise<Match | undefined>
 }
 
 class MatchDao implements IMatchDao {
+  /**
+     *
+     * @param userId_1
+     * @param userId_2
+     */
   public findOneByUsersIds(userId_1: string, userId_2: string): Promise<Match | undefined> {
     return getConnection()
       .createEntityManager()

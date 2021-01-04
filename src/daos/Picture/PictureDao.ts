@@ -14,6 +14,7 @@ export interface IPictureDao {
     // update: (user: IUser) => Promise<void>;
     // delete: (id: number) => Promise<void>;
     chooseAvatar: (userId: string, trimmedFileName: string) => Promise<any>;
+    findBlobByFileName:(fileName: string)=> Promise<any>
 
 }
 
@@ -78,15 +79,6 @@ class PictureDao implements IPictureDao {
         .execute();
     });
   }
-
-//   /**
-//      *
-//      * @param id
-//      */
-//   public async delete(id: number): Promise<void> {
-//     // TODO
-//     return Promise.resolve(undefined);
-//   }
 }
 
 export default PictureDao;

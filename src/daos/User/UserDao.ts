@@ -9,10 +9,7 @@ import { Interest } from '@entities/Interest';
 import { GenderFilter } from '@entities/GenderFilter';
 
 export interface IUserDao {
-  // getOne: (email: string) => Promise<IUser | null>;
-  // getAll: () => Promise<IUser[]>;
   add: (user: IUser) => Promise<IUser>;
-  // update: (newUserPart: IUser, id: string, newCity: City, newUniversity: University) => Promise<void>;
   delete: (id: number) => Promise<void>;
   findOneByEmail: (email: string) => Promise<IUser | undefined>;
   findOneById: (id: string) => Promise<IUser | undefined>;
@@ -325,7 +322,6 @@ class UserDao implements IUserDao {
    * @param id
    */
     public async delete(id: number): Promise<void> {
-    // TODO
       await getConnection()
         .createQueryBuilder()
         .delete()
