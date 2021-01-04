@@ -8,11 +8,11 @@ import {
     MessageInput,
     MessageList
 } from "@chatscope/chat-ui-kit-react";
-import {createMessage, getMessages} from "./index/shared/api";
-import {LoadingContext} from "./index/shared/loadingContext";
-import {MatchesContext} from "./index/shared/matchesContext";
-import PlaceHolder from "./index/App/shared/Missing_avatar.svg";
-import {socket} from "./index/socket";
+import {createMessage, getMessages} from "../../shared/api";
+import {LoadingContext} from "../../shared/loadingContext";
+import {MatchesContext} from "../../shared/matchesContext";
+import PlaceHolder from "../shared/Missing_avatar.svg";
+import {socket} from "../../shared/socket";
 
 
 const Chat = ({ passiveSideUserId }) => {

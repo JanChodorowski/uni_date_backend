@@ -25,7 +25,7 @@ import {ProfilesContext} from "./shared/profilesContext";
 import {UserContext} from "./shared/userContext";
 
 import io from "socket.io-client";
-import {socket} from "./socket";
+import {socket} from "./shared/socket";
 
 socket.on("private_chat", function (data) {
   const username = data.id;

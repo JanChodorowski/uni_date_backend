@@ -14,7 +14,7 @@ import clsx from "clsx";
 import {Grid, makeStyles, Typography} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {DEFAULT_IMAGE_SIZE} from "../shared/constants";
-import Chat from "../../Chat";
+import Chat from "./ChatPage/Chat";
 
 
 const chatscopeStyles = styles;
