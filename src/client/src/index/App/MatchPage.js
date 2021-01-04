@@ -172,6 +172,7 @@ const MatchPage = () => {
         isMatched={isMatched}
         setIsMatched={setIsMatched}
       ></MatchModal>
+        {!isMatched && (<>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}
@@ -182,7 +183,7 @@ const MatchPage = () => {
         <Alert onClose={handleSnackbarClose} severity="info">
           {isLiking ? "LIKE" : "DISLIKE"}
         </Alert>
-      </Snackbar>
+      </Snackbar></>)}
     </>
   );
 };
