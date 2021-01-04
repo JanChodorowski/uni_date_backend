@@ -51,9 +51,6 @@ const ChatPage = () => {
   useEffect(() => {
     let mounted = true;
 
-    if (checkIfProfilesAlreadyFetched()) {
-      return;
-    }
 
     setIsLoading(true);
 
