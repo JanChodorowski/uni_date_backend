@@ -21,8 +21,7 @@ const Chat = ({ passiveSideUserId }) => {
   useEffect(() => {
     let mounted = true;
     socket.on("private_chat", function (newIncomingMessage) {
-        alert('test',newIncomingMessage )
-
+      alert("test", newIncomingMessage);
 
       setIncomingMessages((prevIncomingMessages) => {
         return [...prevIncomingMessages, newIncomingMessage];
@@ -74,11 +73,8 @@ const Chat = ({ passiveSideUserId }) => {
   };
   const theMatch = matches.find((m) => m.id === passiveSideUserId);
 
-
   return (
     <div style={{ position: "relative", height: "500px" }}>
-
-
       <MainContainer responsive>
         <ChatContainer>
           <ConversationHeader>

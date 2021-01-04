@@ -51,7 +51,6 @@ const ChatPage = () => {
   useEffect(() => {
     let mounted = true;
 
-
     setIsLoading(true);
 
     getMatches()
