@@ -16,8 +16,9 @@ const ProfilePage = () => {
         <Grid item style={{ marginBottom: DEFAULT_SPACE }}>
           <AvatarForm></AvatarForm>
         </Grid>
-        <Grid item style={{ maxWidth: "250px" }}>
-          <UserForm></UserForm>
+        <Grid item >
+          <UserForm
+          ></UserForm >
         </Grid>
       </Grid>
     </>

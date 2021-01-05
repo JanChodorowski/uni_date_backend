@@ -14,13 +14,10 @@ import { capitalizeFirstLetter, removeCityAndUniversityFromCollection } from '@s
 import { GenderFilter } from '@entities/GenderFilter';
 
 global.Blob = require('node-blob');
-const CrossBlob = require('cross-blob');
-
-const streamToBlob = require('stream-to-blob');
 
 const router = Router();
 const {
-  BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,
+  BAD_REQUEST, INTERNAL_SERVER_ERROR,
 } = StatusCodes;
 
 const userDao = new UserDao();

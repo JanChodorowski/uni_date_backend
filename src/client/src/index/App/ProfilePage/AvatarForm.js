@@ -98,54 +98,15 @@ const AvatarForm = () => {
 
   return (
     <>
-      <Paper className={paper}>
-        <Grid container direction="column" alignItems="center" justify="center">
-          <Grid item>
-            <>
-              <ImageUploader
-                withIcon={false}
-                buttonText="CHOOSE PICTURES TO UPLOAD"
-                onChange={handlePictureChange}
-                imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
-                maxFileSize={5242880}
-                withPreview
-                label=""
-                fileContainerStyle={{
-                  backgroundColor: isDark
-                    ? "rgba(38, 50, 56, 0.7)"
-                    : "rgba(255, 255, 255, 0.6)",
-                }}
-                buttonStyles={{
-                  backgroundColor: "#03a9f4",
-                  fontWeight: "bold",
-                  padding: DEFAULT_SPACE,
-                  margin: DEFAULT_SPACE,
-                }}
-              />
-            </>
-          </Grid>
-          <Grid item>
-            <>
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth
-                type="submit"
-                disabled={isLoading || pictures.length === 0}
-                onClick={handleUpload}
-                size="small"
-                startIcon={<BackupIcon></BackupIcon>}
-              >
-                Upload pictures
-              </Button>
-            </>
-          </Grid>
-        </Grid>
-      </Paper>
-
-      {!user?.pictures ||
-        (user?.pictures?.length > 0 && (
-          <Paper className={paper} style={{ marginTop: DEFAULT_SPACE }}>
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        justify="center"
+        spacing={1}
+      >
+        <Grid item>
+          <Paper className={paper}>
             <Grid
               container
               direction="column"
@@ -154,46 +115,103 @@ const AvatarForm = () => {
             >
               <Grid item>
                 <>
-                  <CenterHOC minHeight="0">
-                    <Gallery setChosenFileName={setChosenFileName}></Gallery>
-                  </CenterHOC>
+                  <ImageUploader
+                    withIcon={false}
+                    buttonText="CHOOSE PICTURES TO UPLOAD"
+                    onChange={handlePictureChange}
+                    imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
+                    maxFileSize={5242880}
+                    withPreview
+                    label=""
+                    fileContainerStyle={{
+                      backgroundColor: isDark
+                        ? "rgba(38, 50, 56, 0.7)"
+                        : "rgba(255, 255, 255, 0.6)",
+                    }}
+                    buttonStyles={{
+                      backgroundColor: "#03a9f4",
+                      fontWeight: "bold",
+                      padding: DEFAULT_SPACE,
+                      margin: DEFAULT_SPACE,
+                    }}
+                  />
                 </>
               </Grid>
-              <Grid
-                item
-                container
-                direction="row"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item style={{ padding: DEFAULT_SPACE }}>
-                  <Avatar
-                    alt={user.userName}
-                    src={avatarPicture}
-                    style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
-                  />
-                </Grid>
-                <Grid item>
+              <Grid item>
+                <>
                   <Button
                     color="primary"
                     variant="contained"
+                    fullWidth
                     type="submit"
-                    onClick={handleAvatarChange}
-                    disabled={
-                      // (chosenPictureIdx === activeStep &&
-                      //   chosenFileName !== PlaceHolder) ||
-                      isLoading
-                    }
+                    disabled={isLoading || pictures.length === 0}
+                    onClick={handleUpload}
                     size="small"
-                    startIcon={<FaceIcon></FaceIcon>}
+                    startIcon={<BackupIcon></BackupIcon>}
                   >
-                    CHOOSE AVATAR
+                    Upload pictures
                   </Button>
-                </Grid>
+                </>
               </Grid>
             </Grid>
           </Paper>
-        ))}
+        </Grid>
+        <Grid item>
+          {!user?.pictures ||
+            (user?.pictures?.length > 0 && (
+              <Paper className={paper} style={{ marginTop: DEFAULT_SPACE }}>
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid item>
+                    <>
+                      <CenterHOC minHeight="0">
+                        <Gallery
+                          setChosenFileName={setChosenFileName}
+                        ></Gallery>
+                      </CenterHOC>
+                    </>
+                  </Grid>
+                  <Grid
+                    item
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <Grid item style={{ padding: DEFAULT_SPACE }}>
+                      <Avatar
+                        alt={user.userName}
+                        src={avatarPicture}
+                        style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        onClick={handleAvatarChange}
+                        disabled={
+                          // (chosenPictureIdx === activeStep &&
+                          //   chosenFileName !== PlaceHolder) ||
+                          isLoading
+                        }
+                        size="small"
+                        startIcon={<FaceIcon></FaceIcon>}
+                      >
+                        CHOOSE AVATAR
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Paper>
+            ))}
+        </Grid>
+      </Grid>
     </>
   );
 };

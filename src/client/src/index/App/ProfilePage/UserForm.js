@@ -2,6 +2,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import {
   FormControlLabel,
   FormGroup,
+  Grid,
   MenuItem,
   Paper,
   Snackbar,
@@ -123,157 +124,180 @@ const UserForm = () => {
 
   return (
     <>
-      <form noValidate autoComplete="off" onSubmit={onSubmit}>
-        <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
-          <TextField
-            name="university"
-            value={university}
-            label="University"
-            fullWidth
-            onChange={onChange}
-            size="small"
-          />
-          {university && (
-            <>
-              <TextField
-                name="fieldOfStudy"
-                value={fieldOfStudy}
-                label="Field of study"
-                fullWidth
-                onChange={onChange}
-                size="small"
-                style={{ marginBottom: DEFAULT_SPACE }}
-              />
+      <form noValidate autoComplete="off" onSubmit={onSubmit} >
+        {/*<Grid container direction="column" alignItems="center" justify="center">*/}
+        {/*  <Grid item>*/}
+            <Grid
+              container
+              direction="row"
+              alignItems="flex-end"
+              justify="center"
+              spacing={1}
+            >
+              <Grid item style={{maxWidth: '250px'}}>
+                <Paper
+                  className={paper}
+                  style={{ marginBottom: DEFAULT_SPACE }}
+                >
+                  <TextField
+                    name="university"
+                    value={university}
+                    label="University"
+                    fullWidth
+                    onChange={onChange}
+                    size="small"
+                  />
+                  {university && (
+                    <>
+                      <TextField
+                        name="fieldOfStudy"
+                        value={fieldOfStudy}
+                        label="Field of study"
+                        fullWidth
+                        onChange={onChange}
+                        size="small"
+                        style={{ marginBottom: DEFAULT_SPACE }}
+                      />
 
-              <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={isGraduated}
-                      onChange={onIsGraduatedChange}
-                      name="isGraduated"
-                      color="primary"
+                      <FormGroup row>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={isGraduated}
+                              onChange={onIsGraduatedChange}
+                              name="isGraduated"
+                              color="primary"
+                              size="small"
+                            />
+                          }
+                          label="Already graduated?"
+                        />
+                      </FormGroup>
+                    </>
+                  )}
+                </Paper>
+              </Grid>
+              <Grid item               style={{maxWidth: '250px'}}
+              >
+                <Paper
+                  className={paper}
+                  style={{ marginBottom: DEFAULT_SPACE }}
+                >
+                  <TextField
+                    name="userName"
+                    value={userName}
+                    label="Name"
+                    fullWidth
+                    onChange={onChange}
+                    size="small"
+                    style={{ marginBottom: "1rem" }}
+                  />
+
+                  <TextField
+                    name="description"
+                    label="Description"
+                    multiline
+                    fullWidth
+                    rows={6}
+                    value={description}
+                    onChange={onChange}
+                    variant="outlined"
+                    size="small"
+                    style={{ marginBottom: DEFAULT_SPACE }}
+                  />
+
+                  <TextField
+                    name="gender"
+                    select
+                    label="Gender"
+                    fullWidth
+                    value={gender}
+                    onChange={onChange}
+                    size="small"
+                  >
+                    {Object.entries(genderEnum).map(([k, v]) => (
+                      <MenuItem key={v} value={k}>
+                        {k}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      name="dateOfBirth"
+                      variant="inline"
+                      format="dd/MM/yyyy"
+                      margin="normal"
+                      label="Date of birth"
+                      value={dateOfBirth}
+                      onChange={onDateChange}
+                      fullWidth
+                      maxDate={maxDate}
+                      KeyboardButtonProps={{
+                        "aria-label": "change date",
+                      }}
                       size="small"
                     />
-                  }
-                  label="Already graduated?"
-                />
-              </FormGroup>
-            </>
-          )}
-        </Paper>
+                  </MuiPickersUtilsProvider>
 
-        <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
-          <TextField
-            name="userName"
-            value={userName}
-            label="Name"
-            fullWidth
-            onChange={onChange}
-            size="small"
-            style={{ marginBottom: "1rem" }}
-          />
+                  <ChipInput
+                    fullWidth
+                    variant="filled"
+                    name="interests"
+                    label="Interests"
+                    blurBehavior="add"
+                    // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
+                    defaultValue={interests}
+                    onChange={onInterestsChange}
+                    size="small"
+                    style={{ marginBottom: DEFAULT_SPACE }}
+                  />
 
-          <TextField
-            name="description"
-            label="Description"
-            multiline
-            fullWidth
-            rows={6}
-            value={description}
-            onChange={onChange}
-            variant="outlined"
-            size="small"
-            style={{ marginBottom: DEFAULT_SPACE }}
-          />
-
-          <TextField
-            name="gender"
-            select
-            label="Gender"
-            fullWidth
-            value={gender}
-            onChange={onChange}
-            size="small"
-          >
-            {Object.entries(genderEnum).map(([k, v]) => (
-              <MenuItem key={v} value={k}>
-                {k}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              name="dateOfBirth"
-              variant="inline"
-              format="dd/MM/yyyy"
-              margin="normal"
-              label="Date of birth"
-              value={dateOfBirth}
-              onChange={onDateChange}
-              fullWidth
-              maxDate={maxDate}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-              size="small"
-            />
-          </MuiPickersUtilsProvider>
-
-          <ChipInput
-            fullWidth
-            variant="filled"
-            name="interests"
-            label="Interests"
-            blurBehavior="add"
-            // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
-            defaultValue={interests}
-            onChange={onInterestsChange}
-            size="small"
-            style={{ marginBottom: DEFAULT_SPACE }}
-          />
-
-          <TextField
-            name="city"
-            value={city}
-            label="City"
-            fullWidth
-            onChange={onChange}
-            size="small"
-          />
-        </Paper>
-
-        <Paper className={paper}>
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-            // disabled={formik.isSubmitting}
-            size="small"
-            startIcon={<PublishIcon></PublishIcon>}
-          >
-            UPDATE DATA
-          </Button>
-        </Paper>
+                  <TextField
+                    name="city"
+                    value={city}
+                    label="City"
+                    fullWidth
+                    onChange={onChange}
+                    size="small"
+                  />
+                </Paper>
+              </Grid>
+            </Grid>
+          {/*</Grid>*/}
+          {/*<Grid item>*/}
+            <Paper className={paper}>
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                type="submit"
+                // disabled={formik.isSubmitting}
+                size="small"
+                startIcon={<PublishIcon></PublishIcon>}
+              >
+                UPDATE DATA
+              </Button>
+            </Paper>
+        {/*  </Grid>*/}
+        {/*</Grid>*/}
       </form>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={AUTO_HIDE_DURATION}
-        onClose={handleSnackbarClose}
-        TransitionComponent={Slide}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity={isUpdatedCorrectly ? "success" : "error"}
-        >
-          {isUpdatedCorrectly
-            ? "PROFILE DATA UPDATED"
-            : "PROFILE DATA NOT UPDATED"}
-        </Alert>
-      </Snackbar>
+      {/*<Snackbar*/}
+      {/*  open={snackbarOpen}*/}
+      {/*  autoHideDuration={AUTO_HIDE_DURATION}*/}
+      {/*  onClose={handleSnackbarClose}*/}
+      {/*  TransitionComponent={Slide}*/}
+      {/*  anchorOrigin={{ vertical: "top", horizontal: "right" }}*/}
+      {/*>*/}
+      {/*  <Alert*/}
+      {/*    onClose={handleSnackbarClose}*/}
+      {/*    severity={isUpdatedCorrectly ? "success" : "error"}*/}
+      {/*  >*/}
+      {/*    {isUpdatedCorrectly*/}
+      {/*      ? "PROFILE DATA UPDATED"*/}
+      {/*      : "PROFILE DATA NOT UPDATED"}*/}
+      {/*  </Alert>*/}
+      {/*</Snackbar>*/}
     </>
   );
 };
