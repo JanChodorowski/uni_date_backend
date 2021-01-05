@@ -242,12 +242,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   if (popularity) {
     updatedUser.popularity = popularity;
   }
-  if (isGraduated) {
-    updatedUser.isGraduated = isGraduated;
-  }
-  if (fieldOfStudy) {
-    updatedUser.fieldOfStudy = capitalizeFirstLetter(fieldOfStudy);
-  }
   if (activityIntensity) {
     updatedUser.activityIntensity = activityIntensity;
   }
@@ -318,6 +312,13 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     const capitalizedUniversity = capitalizeFirstLetter(university);
     newOrUpdatedUniversity.universityName = capitalizedUniversity;
     updatedUser.universityName = capitalizedUniversity;
+
+    if (isGraduated) {
+      updatedUser.isGraduated = isGraduated;
+    }
+    if (fieldOfStudy) {
+      updatedUser.fieldOfStudy = capitalizeFirstLetter(fieldOfStudy);
+    }
   }
 
   let newOrUpdatedInterests = null;
