@@ -22,7 +22,7 @@ import {
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
-SOCKET_EVENTS,
+  SOCKET_EVENTS,
   THEME_NAMES,
 } from "./shared/constants";
 import { compareFileNames, getItemByKey } from "./shared/functions";
@@ -39,7 +39,7 @@ import Comb from "./App/comb.mp4";
 import Schlern from "./App/Schlern.mp4";
 import SchlernLow from "./App/SchlernLow.mp4";
 
-const {privateChat, register} = SOCKET_EVENTS
+const { privateChat, register } = SOCKET_EVENTS;
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
@@ -73,12 +73,10 @@ function App(/*{ coords }*/) {
     if (!user.id) {
       return;
     }
-console.log('register',user.id)
+    console.log("register", user.id);
     socket.removeAllListeners(privateChat);
     socket.removeAllListeners(register);
     socket.emit("register", user.id);
-
-
 
     socket.on(privateChat, function (newIncomingMessage) {
       setIncomingMessages((prevIncomingMessages) => {

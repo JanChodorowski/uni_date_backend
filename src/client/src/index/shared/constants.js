@@ -123,6 +123,5 @@ export const BLUE_INTENSITY = "700";
 
 export const SOCKET_EVENTS = {
   privateChat: "private_chat",
-  register: "register"
-
-}
+  register: "register",
+};

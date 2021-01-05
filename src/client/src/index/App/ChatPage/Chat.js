@@ -20,7 +20,7 @@ import Button from "@material-ui/core/Button";
 import { ButtonGroup } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import WarningIcon from "@material-ui/icons/Warning";
-import {DEFAULT_SPACE, SOCKET_EVENTS} from "../../shared/constants";
+import { DEFAULT_SPACE, SOCKET_EVENTS } from "../../shared/constants";
 
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);

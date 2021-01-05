@@ -106,40 +106,39 @@ const AvatarForm = () => {
         spacing={1}
       >
         <Grid item>
-            <Grid
-              container
-              direction="column"
-              alignItems="center"
-              justify="center"
-            >
-              <Grid item>
-                <>
-                  <ImageUploader
-                    withIcon={false}
-                    buttonText="CHOOSE PICTURES TO UPLOAD"
-                    onChange={handlePictureChange}
-                    imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
-                    maxFileSize={5242880}
-                    withPreview
-                    label=""
-                    fileContainerStyle={{
-                      backgroundColor: isDark
-                        ? "rgba(38, 50, 56, 0.7)"
-                        : "rgba(255, 255, 255, 0.6)",
-                    }}
-                    buttonStyles={{
-                      backgroundColor: "#03a9f4",
-                      fontWeight: "bold",
-                      padding: DEFAULT_SPACE,
-                      margin: DEFAULT_SPACE,
-                    }}
-                  />
-                </>
-              </Grid>
-              <Grid item>
-                <>
-                  <Paper className={paper}>
-
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justify="center"
+          >
+            <Grid item>
+              <>
+                <ImageUploader
+                  withIcon={false}
+                  buttonText="CHOOSE PICTURES TO UPLOAD"
+                  onChange={handlePictureChange}
+                  imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
+                  maxFileSize={5242880}
+                  withPreview
+                  label=""
+                  fileContainerStyle={{
+                    backgroundColor: isDark
+                      ? "rgba(38, 50, 56, 0.7)"
+                      : "rgba(255, 255, 255, 0.6)",
+                  }}
+                  buttonStyles={{
+                    backgroundColor: "#03a9f4",
+                    fontWeight: "bold",
+                    padding: DEFAULT_SPACE,
+                    margin: DEFAULT_SPACE,
+                  }}
+                />
+              </>
+            </Grid>
+            <Grid item>
+              <>
+                <Paper className={paper}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -151,11 +150,11 @@ const AvatarForm = () => {
                     startIcon={<BackupIcon></BackupIcon>}
                   >
                     Upload pictures
-                  </Button>          </Paper>
-
-                </>
-              </Grid>
+                  </Button>{" "}
+                </Paper>
+              </>
             </Grid>
+          </Grid>
         </Grid>
         <Grid item>
           {!user?.pictures ||
