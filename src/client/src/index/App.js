@@ -21,7 +21,7 @@ import {
   APP_THEME,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
-  NAVIGATION,
+  NAVIGATION, PRIVATE_CHAT,
   THEME_NAMES,
 } from "./shared/constants";
 import { compareFileNames, getItemByKey } from "./shared/functions";
@@ -63,12 +63,18 @@ function App(/*{ coords }*/) {
   }, [videoRef]);
 
   useEffect(() => {
+    console.log('rm all')
+    socket.removeAllListeners(PRIVATE_CHAT);
+  }, []);
+
+  useEffect(() => {
     if (!user.id){
       return
     }
     console.log("connectiong...");
+    socket.emit("register", user.id);
 
-    socket.on("private_chat", function (newIncomingMessage) {
+    socket.on(PRIVATE_CHAT, function (newIncomingMessage) {
       console.log("newIncomingMessage", newIncomingMessage);
       // matches.find((m) => m.id === passiveSideUserId)
       setIncomingMessages((prevIncomingMessages) => {
@@ -130,7 +136,7 @@ function App(/*{ coords }*/) {
             // var systemUrl = 'http://localhost:3000';
             // var socket = io.connect(systemUrl);
 
-            socket.emit("register", userData.id);
+            // socket.emit("register", userData.id);
           })
           .catch((e) => {
             console.error("err", e);

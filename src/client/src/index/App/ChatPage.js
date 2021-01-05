@@ -15,8 +15,7 @@ import { Grid, makeStyles, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   DEFAULT_IMAGE_SIZE,
-  LOCAL_STORAGE_KEY,
-  THEME_NAMES,
+
 } from "../shared/constants";
 import Chat from "./ChatPage/Chat";
 
@@ -113,17 +112,6 @@ const ChatPage = () => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
-  // const handleSend = (message) => {
-  //   createMessage(passiveSideUserId, message)
-  //     .then(() => {
-  //       socket.emit("private_chat", {
-  //         to: passiveSideUserId,
-  //         message,
-  //       });
-  //     })
-  //     .catch((e) => {});
-  // };
 
   return (
     <>

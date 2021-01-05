@@ -18,6 +18,8 @@ const io = require('socket.io')(server, {
 
 io.on('connection', (socket:any) => {
   socket.on('register', (id:any) => {
+    console.log('register', id);
+
     socket.id = id;
     connectedUsers[id] = socket;
   });

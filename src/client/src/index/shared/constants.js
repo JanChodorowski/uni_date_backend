@@ -120,3 +120,5 @@ export const AUTO_HIDE_DURATION = 6000;
 export const PINK_INTENSITY = "400";
 export const YELLOW_INTENSITY = "800";
 export const BLUE_INTENSITY = "700";
+
+export const PRIVATE_CHAT = "private_chat"

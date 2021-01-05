@@ -30,7 +30,7 @@ import {
   DEFAULT_SPACE,
   EMPTY_PROFILES,
   EMPTY_USER,
-  LOCAL_STORAGE_KEY,
+  LOCAL_STORAGE_KEY, PRIVATE_CHAT,
 } from "../../shared/constants";
 import Cookies from "universal-cookie";
 const Chat = ({ passiveSideUserId }) => {
@@ -43,7 +43,7 @@ const Chat = ({ passiveSideUserId }) => {
   );
   // useEffect(() => {
   //   let mounted = true;
-  //   socket.on("private_chat", function (newIncomingMessage) {
+  //   socket.on(PRIVATE_CHAT, function (newIncomingMessage) {
   //     alert("test", newIncomingMessage);
   //
   //     setIncomingMessages((prevIncomingMessages) => {
@@ -97,7 +97,7 @@ const Chat = ({ passiveSideUserId }) => {
   const handleSend = (content) => {
     createMessage(passiveSideUserId, content)
       .then(() => {
-        socket.emit("private_chat", {
+        socket.emit(PRIVATE_CHAT, {
           senderUserId: user.id,
           passiveSideUserId,
           content,
