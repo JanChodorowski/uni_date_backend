@@ -51,6 +51,7 @@ class RelationDao implements IRelationDao {
 
   /**
    * @param foundLikingBackRelation
+   * @param newMatch
    */
   public async createMatch(foundLikingBackRelation: OneSidedRelation, newMatch: Match) : Promise<any> {
     await getConnection()

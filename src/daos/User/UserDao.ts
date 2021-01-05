@@ -36,6 +36,8 @@ export interface IUserDao {
         maxSearchDistanceFilter: number | null,
     ) => Promise<any>
     findMatches: (id: string) => Promise<any>
+    deleteMatch: (id :string, passiveSideUserId:string) => Promise<void>
+
 }
 
 class UserDao implements IUserDao {
@@ -319,6 +321,11 @@ class UserDao implements IUserDao {
         .execute();
     }
 
+    /**
+     *
+     * @param id
+     * @param passiveSideUserId
+     */
     public async deleteMatch(id :string, passiveSideUserId:string): Promise<void> {
       await getConnection()
         .createQueryBuilder()
