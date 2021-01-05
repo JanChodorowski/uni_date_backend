@@ -8,12 +8,7 @@ import {
   MessageInput,
   MessageList,
 } from "@chatscope/chat-ui-kit-react";
-import {
-  createMessage,
-  deleteMatch,
-  deleteUser,
-  getMessages,
-} from "../../shared/api";
+import { createMessage, deleteMatch, getMessages } from "../../shared/api";
 import { LoadingContext } from "../../shared/loadingContext";
 import { MatchesContext } from "../../shared/matchesContext";
 import PlaceHolder from "../shared/Missing_avatar.svg";
@@ -22,17 +17,11 @@ import { UserContext } from "../../shared/userContext";
 import { IncomingMessagesContext } from "../../shared/incomingMessagesContext";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
-import { NotInterested, Stars } from "@material-ui/icons";
 import { ButtonGroup } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import WarningIcon from "@material-ui/icons/Warning";
-import {
-  DEFAULT_SPACE,
-  EMPTY_PROFILES,
-  EMPTY_USER,
-  LOCAL_STORAGE_KEY, PRIVATE_CHAT,
-} from "../../shared/constants";
-import Cookies from "universal-cookie";
+import { DEFAULT_SPACE, PRIVATE_CHAT } from "../../shared/constants";
+
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);

@@ -21,7 +21,8 @@ import {
   APP_THEME,
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
-  NAVIGATION, PRIVATE_CHAT,
+  NAVIGATION,
+  PRIVATE_CHAT,
   THEME_NAMES,
 } from "./shared/constants";
 import { compareFileNames, getItemByKey } from "./shared/functions";
@@ -67,8 +68,8 @@ function App(/*{ coords }*/) {
   }, []);
 
   useEffect(() => {
-    if (!user.id){
-      return
+    if (!user.id) {
+      return;
     }
     socket.emit("register", user.id);
 

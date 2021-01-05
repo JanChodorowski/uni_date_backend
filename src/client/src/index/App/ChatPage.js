@@ -13,10 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import clsx from "clsx";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {
-  DEFAULT_IMAGE_SIZE,
-
-} from "../shared/constants";
+import { DEFAULT_IMAGE_SIZE } from "../shared/constants";
 import Chat from "./ChatPage/Chat";
 
 const chatscopeStyles = styles;
