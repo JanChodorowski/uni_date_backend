@@ -16,9 +16,8 @@ const ProfilePage = () => {
         <Grid item style={{ marginBottom: DEFAULT_SPACE }}>
           <AvatarForm></AvatarForm>
         </Grid>
-        <Grid item >
-          <UserForm
-          ></UserForm >
+        <Grid item>
+          <UserForm></UserForm>
         </Grid>
       </Grid>
     </>

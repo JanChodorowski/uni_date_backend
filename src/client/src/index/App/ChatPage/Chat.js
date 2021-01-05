@@ -14,14 +14,16 @@ import { MatchesContext } from "../../shared/matchesContext";
 import PlaceHolder from "../shared/Missing_avatar.svg";
 import { socket } from "../../shared/socket";
 import { UserContext } from "../../shared/userContext";
-import {IncomingMessagesContext} from "../../shared/incomingMessagesContext";
+import { IncomingMessagesContext } from "../../shared/incomingMessagesContext";
 
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
   const [user] = useContext(UserContext);
 
-  const [incomingMessages, setIncomingMessages] = useContext(IncomingMessagesContext);
+  const [incomingMessages, setIncomingMessages] = useContext(
+    IncomingMessagesContext
+  );
   // useEffect(() => {
   //   let mounted = true;
   //   socket.on("private_chat", function (newIncomingMessage) {
@@ -37,12 +39,14 @@ const Chat = ({ passiveSideUserId }) => {
   // }, []);
 
   useEffect(() => {
-      setIncomingMessages((prevIncomingMessages) => {
-        return prevIncomingMessages.filter(im => im.senderUserId !== passiveSideUserId);
-      });
+    setIncomingMessages((prevIncomingMessages) => {
+      return prevIncomingMessages.filter(
+        (im) => im.senderUserId !== passiveSideUserId
+      );
+    });
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     let mounted = true;
 
     // if (checkIfProfilesAlreadyFetched()) {
@@ -95,8 +99,11 @@ const Chat = ({ passiveSideUserId }) => {
       .catch((e) => {});
   };
   const theMatch = matches.find((m) => m.id === passiveSideUserId);
-  console.log('passiveSideUserId',passiveSideUserId)
-  console.log("incomingMessages.filter(im => im.senderUserId === passiveSideUserId)", incomingMessages.filter(im => im.senderUserId === passiveSideUserId));
+  console.log("passiveSideUserId", passiveSideUserId);
+  console.log(
+    "incomingMessages.filter(im => im.senderUserId === passiveSideUserId)",
+    incomingMessages.filter((im) => im.senderUserId === passiveSideUserId)
+  );
   return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer responsive>
@@ -118,9 +125,11 @@ const Chat = ({ passiveSideUserId }) => {
               Array.isArray(theMatch.messages) &&
               theMatch.messages.length > 0 &&
               [
-                  ...theMatch.messages,
-                ...incomingMessages.filter(im => im.senderUserId === passiveSideUserId),
-                ...outgoingMessages
+                ...theMatch.messages,
+                ...incomingMessages.filter(
+                  (im) => im.senderUserId === passiveSideUserId
+                ),
+                ...outgoingMessages,
               ]
                 .sort(
                   (a, b) =>

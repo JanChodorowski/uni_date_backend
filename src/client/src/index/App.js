@@ -64,7 +64,7 @@ function App(/*{ coords }*/) {
 
   useEffect(() => {
     socket.on("private_chat", function (newIncomingMessage) {
-      console.log('newIncomingMessage',newIncomingMessage)
+      console.log("newIncomingMessage", newIncomingMessage);
       // matches.find((m) => m.id === passiveSideUserId)
       setIncomingMessages((prevIncomingMessages) => {
         return [...prevIncomingMessages, newIncomingMessage];
@@ -158,62 +158,68 @@ function App(/*{ coords }*/) {
               <ProfilesContext.Provider value={[profiles, setProfiles]}>
                 <MatchesContext.Provider value={[matches, setMatches]}>
                   <PathContext.Provider value={[path, setPath]}>
-                    <IncomingMessagesContext.Provider value={[incomingMessages, setIncomingMessages]}>
-                    <CssBaseline />
-                    <div className="fullscreen-bg">
-                      <video
-                        ref={videoRef}
-                        className="fullscreen-bg__video"
-                        id="background-video"
-                        autoPlay
-                        loop
-                        muted
-                      >
-                        <source src={SchlernLow} type="video/mp4" />
-                      </video>
-                    </div>
-                    <ProgressShower></ProgressShower>
-                    {user.email ? (
-                      <>
-                        <Logo></Logo>
-                        <br />
-                        <br />
-                        <Switch>
-                          <Route path={`/${chat}`} component={ChatPage} exact />
-                          <Route
-                            path={`/${match}`}
-                            component={MatchPage}
-                            exact
-                          />
-                          <Route
-                            path={`/${filter}`}
-                            component={FilterPage}
-                            exact
-                          />
-                          <Route
-                            path={`/${settings}`}
-                            component={SettingsPage}
-                            exact
-                          />
-                          <Route
-                            path={`/${profile}`}
-                            component={ProfilePage}
-                            exact
-                          />
-                          <Route
-                            path={`/${settings}/${deleteaccount}`}
-                            component={DeleteAccountPage}
-                            exact
-                          />
-                          <Route path="/">
-                            <Redirect to={`/${profile}`} />
-                          </Route>
-                        </Switch>
-                        <BtmNav />
-                      </>
-                    ) : (
-                      <LandingPage></LandingPage>
-                    )}
+                    <IncomingMessagesContext.Provider
+                      value={[incomingMessages, setIncomingMessages]}
+                    >
+                      <CssBaseline />
+                      <div className="fullscreen-bg">
+                        <video
+                          ref={videoRef}
+                          className="fullscreen-bg__video"
+                          id="background-video"
+                          autoPlay
+                          loop
+                          muted
+                        >
+                          <source src={SchlernLow} type="video/mp4" />
+                        </video>
+                      </div>
+                      <ProgressShower></ProgressShower>
+                      {user.email ? (
+                        <>
+                          <Logo></Logo>
+                          <br />
+                          <br />
+                          <Switch>
+                            <Route
+                              path={`/${chat}`}
+                              component={ChatPage}
+                              exact
+                            />
+                            <Route
+                              path={`/${match}`}
+                              component={MatchPage}
+                              exact
+                            />
+                            <Route
+                              path={`/${filter}`}
+                              component={FilterPage}
+                              exact
+                            />
+                            <Route
+                              path={`/${settings}`}
+                              component={SettingsPage}
+                              exact
+                            />
+                            <Route
+                              path={`/${profile}`}
+                              component={ProfilePage}
+                              exact
+                            />
+                            <Route
+                              path={`/${settings}/${deleteaccount}`}
+                              component={DeleteAccountPage}
+                              exact
+                            />
+                            <Route path="/">
+                              <Redirect to={`/${profile}`} />
+                            </Route>
+                          </Switch>
+                          <BtmNav />
+                        </>
+                      ) : (
+                        <LandingPage></LandingPage>
+                      )}
                     </IncomingMessagesContext.Provider>
                   </PathContext.Provider>
                 </MatchesContext.Provider>

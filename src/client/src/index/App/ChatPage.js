@@ -20,7 +20,6 @@ import {
 } from "../shared/constants";
 import Chat from "./ChatPage/Chat";
 
-
 const chatscopeStyles = styles;
 
 const Transition = React.forwardRef((props, ref) => (
