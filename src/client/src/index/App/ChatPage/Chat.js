@@ -20,7 +20,7 @@ import Button from "@material-ui/core/Button";
 import { ButtonGroup } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import WarningIcon from "@material-ui/icons/Warning";
-import { DEFAULT_SPACE, PRIVATE_CHAT } from "../../shared/constants";
+import {DEFAULT_SPACE, SOCKET_EVENTS} from "../../shared/constants";
 
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
@@ -86,7 +86,7 @@ const Chat = ({ passiveSideUserId }) => {
   const handleSend = (content) => {
     createMessage(passiveSideUserId, content)
       .then(() => {
-        socket.emit(PRIVATE_CHAT, {
+        socket.emit(SOCKET_EVENTS.privateChat, {
           senderUserId: user.id,
           passiveSideUserId,
           content,

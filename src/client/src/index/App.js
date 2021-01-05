@@ -22,7 +22,7 @@ import {
   EMPTY_USER,
   LOCAL_STORAGE_KEY,
   NAVIGATION,
-  PRIVATE_CHAT,
+SOCKET_EVENTS,
   THEME_NAMES,
 } from "./shared/constants";
 import { compareFileNames, getItemByKey } from "./shared/functions";
@@ -38,6 +38,8 @@ import { socket } from "./shared/socket";
 import Comb from "./App/comb.mp4";
 import Schlern from "./App/Schlern.mp4";
 import SchlernLow from "./App/SchlernLow.mp4";
+
+const {privateChat, register} = SOCKET_EVENTS
 
 function App(/*{ coords }*/) {
   const [isDark, setIsDark] = useState(false);
@@ -63,17 +65,22 @@ function App(/*{ coords }*/) {
     videoRef.current.playbackRate = 0.6;
   }, [videoRef]);
 
-  useEffect(() => {
-    socket.removeAllListeners(PRIVATE_CHAT);
-  }, []);
+  // useEffect(() => {
+  //   socket.removeAllListeners(PRIVATE_CHAT);
+  // }, []);
 
   useEffect(() => {
     if (!user.id) {
       return;
     }
+console.log('register',user.id)
+    socket.removeAllListeners(privateChat);
+    socket.removeAllListeners(register);
     socket.emit("register", user.id);
 
-    socket.on(PRIVATE_CHAT, function (newIncomingMessage) {
+
+
+    socket.on(privateChat, function (newIncomingMessage) {
       setIncomingMessages((prevIncomingMessages) => {
         return [...prevIncomingMessages, newIncomingMessage];
       });
