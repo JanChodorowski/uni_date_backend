@@ -93,6 +93,7 @@ router.post('/register', async (req: Request, res: Response) => {
   const token = jwt.sign({ id: newUser.id }, TOKEN_SECRET!, signOptions);
 
   const resUser = new UserDto();
+  resUser.id = newUser.id;
   resUser.userName = newUser.userName;
   resUser.dateOfBirth = newUser.dateOfBirth;
   resUser.gender = newUser.gender;

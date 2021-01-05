@@ -12,6 +12,7 @@ import { University } from '@entities/University';
 import { Interest } from '@entities/Interest';
 import { capitalizeFirstLetter, removeCityAndUniversityFromCollection } from '@shared/functions';
 import { GenderFilter } from '@entities/GenderFilter';
+import { Match } from '@entities/Match';
 
 global.Blob = require('node-blob');
 
@@ -107,6 +108,16 @@ router.get('/matches', authenticate, async (req: Request, res: Response) => {
   removeCityAndUniversityFromCollection(matchesDto);
 
   res.json(matchesDto).end();
+});
+
+router.post('/deletematch', authenticate, async (req: Request, res: Response) => {
+  const { payload, passiveSideUserId } = req.body;
+
+  await userDao.deleteMatch(payload?.id, passiveSideUserId).catch((err) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
+  res.end();
 });
 
 router.post('/profiles', authenticate, async (req: Request, res: Response) => {
@@ -351,7 +362,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.delete('/', authenticate, async (req: Request, res: Response) => {
-  await userDao.delete(req?.body?.payload?.id).catch((err) => {
+  await userDao.delete(req.body.payload.id).catch((err) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });

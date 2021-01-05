@@ -349,10 +349,10 @@ const FilterPage = () => {
                   </p>
                 </>
               )}
-
-
             </Paper>
-            <Paper className={paper} style={{ marginTop: DEFAULT_SPACE }}> <Button
+            <Paper className={paper} style={{ marginTop: DEFAULT_SPACE }}>
+              {" "}
+              <Button
                 color="primary"
                 variant="contained"
                 fullWidth
@@ -360,10 +360,10 @@ const FilterPage = () => {
                 disabled={formik.isSubmitting || isNoneGenderPicked}
                 size="small"
                 startIcon={<PublishIcon></PublishIcon>}
-            >
-              UPDATE FILTERS
-            </Button></Paper>
-
+              >
+                UPDATE FILTERS
+              </Button>
+            </Paper>
           </form>
         </Grid>
       </Grid>

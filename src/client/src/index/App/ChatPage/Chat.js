@@ -8,14 +8,31 @@ import {
   MessageInput,
   MessageList,
 } from "@chatscope/chat-ui-kit-react";
-import { createMessage, getMessages } from "../../shared/api";
+import {
+  createMessage,
+  deleteMatch,
+  deleteUser,
+  getMessages,
+} from "../../shared/api";
 import { LoadingContext } from "../../shared/loadingContext";
 import { MatchesContext } from "../../shared/matchesContext";
 import PlaceHolder from "../shared/Missing_avatar.svg";
 import { socket } from "../../shared/socket";
 import { UserContext } from "../../shared/userContext";
 import { IncomingMessagesContext } from "../../shared/incomingMessagesContext";
-
+import DeleteIcon from "@material-ui/icons/Delete";
+import Button from "@material-ui/core/Button";
+import { NotInterested, Stars } from "@material-ui/icons";
+import { ButtonGroup } from "@material-ui/core";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import WarningIcon from "@material-ui/icons/Warning";
+import {
+  DEFAULT_SPACE,
+  EMPTY_PROFILES,
+  EMPTY_USER,
+  LOCAL_STORAGE_KEY,
+} from "../../shared/constants";
+import Cookies from "universal-cookie";
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
@@ -99,14 +116,25 @@ const Chat = ({ passiveSideUserId }) => {
       .catch((e) => {});
   };
   const theMatch = matches.find((m) => m.id === passiveSideUserId);
-  console.log("passiveSideUserId", passiveSideUserId);
-  console.log(
-    "incomingMessages.filter(im => im.senderUserId === passiveSideUserId)",
-    incomingMessages.filter((im) => im.senderUserId === passiveSideUserId)
-  );
+  const [isMatchReadyToDelete, setIsMatchReadyToDelete] = useState(false);
+
+  const handleRemoveMatchClick = () => {
+    setIsLoading(true);
+    deleteMatch()
+      .then(() => {})
+      .catch((e) => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    return () => {
+      setIsLoading(false);
+    };
+  };
+console.log('incomingMessages',incomingMessages)
   return (
     <div style={{ position: "relative", height: "500px" }}>
-      <MainContainer responsive>
+      <MainContainer responsive style={{ marginBottom: "2rem" }}>
         <ChatContainer>
           <ConversationHeader>
             {theMatch.avatar ? (
@@ -123,7 +151,6 @@ const Chat = ({ passiveSideUserId }) => {
             {theMatch &&
               theMatch.messages &&
               Array.isArray(theMatch.messages) &&
-              theMatch.messages.length > 0 &&
               [
                 ...theMatch.messages,
                 ...incomingMessages.filter(
@@ -160,6 +187,44 @@ const Chat = ({ passiveSideUserId }) => {
           />
         </ChatContainer>
       </MainContainer>
+      <div style={{ paddingBottom: DEFAULT_SPACE }}>
+        {!isMatchReadyToDelete ? (
+          <Button
+            color="secondary"
+            variant="contained"
+            fullWidth
+            type="submit"
+            onClick={() => setIsMatchReadyToDelete(true)}
+            size="small"
+            startIcon={<DeleteIcon></DeleteIcon>}
+          >
+            REMOVE THE MATCH
+          </Button>
+        ) : (
+          <ButtonGroup fullWidth>
+            <Button
+              color="secondary"
+              variant="contained"
+              fullWidth
+              size="large"
+              onClick={handleRemoveMatchClick}
+              startIcon={<WarningIcon></WarningIcon>}
+            >
+              YES, REMOVE THE MATCH
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              size="large"
+              onClick={() => setIsMatchReadyToDelete(false)}
+              endIcon={<KeyboardBackspaceIcon></KeyboardBackspaceIcon>}
+            >
+              NO
+            </Button>
+          </ButtonGroup>
+        )}
+      </div>
     </div>
   );
 };

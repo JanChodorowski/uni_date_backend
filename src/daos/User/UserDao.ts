@@ -10,7 +10,7 @@ import { GenderFilter } from '@entities/GenderFilter';
 
 export interface IUserDao {
   add: (user: IUser) => Promise<IUser>;
-  delete: (id: number) => Promise<void>;
+  delete: (id: string) => Promise<void>;
   findOneByEmail: (email: string) => Promise<IUser | undefined>;
   findOneById: (id: string) => Promise<IUser | undefined>;
   getUserViewDataByUserId: (id: string) => Promise<any>
@@ -310,7 +310,16 @@ class UserDao implements IUserDao {
    *
    * @param id
    */
-    public async delete(id: number): Promise<void> {
+    public async delete(id: string): Promise<void> {
+      await getConnection()
+        .createQueryBuilder()
+        .delete()
+        .from(User)
+        .where('id = :id', { id })
+        .execute();
+    }
+
+    public async deleteMatch(id :string, passiveSideUserId:string): Promise<void> {
       await getConnection()
         .createQueryBuilder()
         .delete()

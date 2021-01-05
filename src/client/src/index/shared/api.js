@@ -47,6 +47,10 @@ export const deleteUser = () => {
   return axios.delete("/api/users");
 };
 
+export const deleteMatch = (passiveSideUserId) => {
+  return axios.post("/api/users/deletematch", { passiveSideUserId });
+};
+
 export const uploadPictures = (pictures) => {
   const formData = new FormData();
   pictures.forEach((p, i) => {

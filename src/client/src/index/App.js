@@ -63,6 +63,11 @@ function App(/*{ coords }*/) {
   }, [videoRef]);
 
   useEffect(() => {
+    if (!user.id){
+      return
+    }
+    console.log("connectiong...");
+
     socket.on("private_chat", function (newIncomingMessage) {
       console.log("newIncomingMessage", newIncomingMessage);
       // matches.find((m) => m.id === passiveSideUserId)
@@ -70,7 +75,7 @@ function App(/*{ coords }*/) {
         return [...prevIncomingMessages, newIncomingMessage];
       });
     });
-  }, []);
+  }, [user.id]);
 
   useEffect(() => {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) === THEME_NAMES.dark);
@@ -175,7 +180,7 @@ function App(/*{ coords }*/) {
                         </video>
                       </div>
                       <ProgressShower></ProgressShower>
-                      {user.email ? (
+                      {user.id ? (
                         <>
                           <Logo></Logo>
                           <br />
