@@ -4,6 +4,7 @@
 import { getConnection } from 'typeorm';
 import { OneSidedRelation } from '@entities/OneSidedRelation';
 import { Match } from '@entities/Match';
+import { Message } from '@entities/Message';
 
 export interface IRelationDao {
   add: (newRelation: OneSidedRelation) => Promise<any>;
@@ -40,6 +41,12 @@ class RelationDao implements IRelationDao {
           isLiking: true,
         },
       });
+    // getConnection()
+    //     .createQueryBuilder()
+    //     .from(OneSidedRelation, 'osr')
+    //     .where('(osr.activeSideUserId = :paramUserId_1 AND osr.passiveSideUserId = :paramUserId_2 AND ) OR (osr.activeSideUserId = :paramUserId_2 AND osr.passiveSideUserId = :paramUserId_1)')
+    //     .setParameters({ paramUserId_1: activeSideUserId, paramUserId_2: passiveSideUserId })
+    //     .getRawMany();
   }
 
   /**

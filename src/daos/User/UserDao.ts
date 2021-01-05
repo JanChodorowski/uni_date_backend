@@ -232,23 +232,12 @@ class UserDao implements IUserDao {
             .getQuery();
           return `(oneSidedRelations2.activeSideUserId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId`;
         })
-        // .andWhere((qb) => {
-        //   const subQuery = qb.subQuery()
-        //     .select('u.id')
-        //     .from(User, 'u')
-        //     .leftJoin('u.oneSidedRelations', 'osr')
-        //     .where('osr.passiveSideUserId = :paramId')
-        //     .andWhere('osr.activeSideUserId = u.id')
-        //     .getQuery();
-        //   return `(oneSidedRelations.activeSideUserId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId`;
-        // })
         .andWhere((qb) => {
           const subQuery = qb.subQuery()
             .select('u2.id')
             .from(User, 'u2')
-            .leftJoin('u2.matches2', 'osr2')
-            .where('osr2.userId = :paramId')
-            .andWhere('osr2.userId_3 = u2.id')
+            .leftJoin('u2.matches', 'm')
+            .where('(m.userId = :paramId AND m.userId_3 = u2.id) OR (m.userId = u2.id AND m.userId_3 = :paramId)')
             .getQuery();
           return `(matches2.userId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId`;
         })

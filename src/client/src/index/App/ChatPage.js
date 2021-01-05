@@ -19,8 +19,7 @@ import {
   THEME_NAMES,
 } from "../shared/constants";
 import Chat from "./ChatPage/Chat";
-import { socket } from "../shared/socket";
-import { getItemByKey } from "../shared/functions";
+
 
 const chatscopeStyles = styles;
 

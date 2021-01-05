@@ -282,22 +282,22 @@ const UserForm = () => {
         {/*  </Grid>*/}
         {/*</Grid>*/}
       </form>
-      {/*<Snackbar*/}
-      {/*  open={snackbarOpen}*/}
-      {/*  autoHideDuration={AUTO_HIDE_DURATION}*/}
-      {/*  onClose={handleSnackbarClose}*/}
-      {/*  TransitionComponent={Slide}*/}
-      {/*  anchorOrigin={{ vertical: "top", horizontal: "right" }}*/}
-      {/*>*/}
-      {/*  <Alert*/}
-      {/*    onClose={handleSnackbarClose}*/}
-      {/*    severity={isUpdatedCorrectly ? "success" : "error"}*/}
-      {/*  >*/}
-      {/*    {isUpdatedCorrectly*/}
-      {/*      ? "PROFILE DATA UPDATED"*/}
-      {/*      : "PROFILE DATA NOT UPDATED"}*/}
-      {/*  </Alert>*/}
-      {/*</Snackbar>*/}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={AUTO_HIDE_DURATION}
+        onClose={handleSnackbarClose}
+        TransitionComponent={Slide}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={isUpdatedCorrectly ? "success" : "error"}
+        >
+          {isUpdatedCorrectly
+            ? "PROFILE DATA UPDATED"
+            : "PROFILE DATA NOT UPDATED"}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
