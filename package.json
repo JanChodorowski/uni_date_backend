@@ -91,7 +91,6 @@
     "reflect-metadata": "^0.1.13",
     "socket.io": "^3.0.4",
     "stream-to-blob": "^2.0.1",
-    "throng": "^5.0.0",
     "typeorm": "^0.2.29",
     "unique-string": "^2.0.0",
     "uuid": "^8.3.2",
