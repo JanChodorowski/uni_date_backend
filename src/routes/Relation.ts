@@ -43,7 +43,6 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
 
-
   if (foundLikingBackRelation) {
     const newMatch = new Match();
     newMatch.createdAt = new Date();
