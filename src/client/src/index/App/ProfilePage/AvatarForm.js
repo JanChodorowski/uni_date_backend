@@ -106,7 +106,6 @@ const AvatarForm = () => {
         spacing={1}
       >
         <Grid item>
-          <Paper className={paper}>
             <Grid
               container
               direction="column"
@@ -139,6 +138,8 @@ const AvatarForm = () => {
               </Grid>
               <Grid item>
                 <>
+                  <Paper className={paper}>
+
                   <Button
                     color="primary"
                     variant="contained"
@@ -150,11 +151,11 @@ const AvatarForm = () => {
                     startIcon={<BackupIcon></BackupIcon>}
                   >
                     Upload pictures
-                  </Button>
+                  </Button>          </Paper>
+
                 </>
               </Grid>
             </Grid>
-          </Paper>
         </Grid>
         <Grid item>
           {!user?.pictures ||
