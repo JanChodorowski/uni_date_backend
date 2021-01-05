@@ -131,7 +131,7 @@ const Chat = ({ passiveSideUserId }) => {
       setIsLoading(false);
     };
   };
-console.log('incomingMessages',incomingMessages)
+
   return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer responsive style={{ marginBottom: "2rem" }}>

@@ -63,7 +63,6 @@ function App(/*{ coords }*/) {
   }, [videoRef]);
 
   useEffect(() => {
-    console.log('rm all')
     socket.removeAllListeners(PRIVATE_CHAT);
   }, []);
 
@@ -71,12 +70,9 @@ function App(/*{ coords }*/) {
     if (!user.id){
       return
     }
-    console.log("connectiong...");
     socket.emit("register", user.id);
 
     socket.on(PRIVATE_CHAT, function (newIncomingMessage) {
-      console.log("newIncomingMessage", newIncomingMessage);
-      // matches.find((m) => m.id === passiveSideUserId)
       setIncomingMessages((prevIncomingMessages) => {
         return [...prevIncomingMessages, newIncomingMessage];
       });

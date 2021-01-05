@@ -53,7 +53,6 @@ const ChatPage = () => {
     getMatches()
       .then((res) => {
         let matchesData = res.data;
-        console.table(res.data);
 
         if (!(matchesData && mounted)) {
           throw new Error();

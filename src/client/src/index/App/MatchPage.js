@@ -99,7 +99,6 @@ const MatchPage = () => {
     setIsLoading(true);
     createRelation(passiveSideUserId, isLiking)
       .then((res) => {
-        console.table(res);
         setIsMatched(res?.data?.isMatched);
         setOpen(false);
         setProfiles(profiles.filter((p) => p.id !== passiveSideUserId));

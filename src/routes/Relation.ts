@@ -43,14 +43,12 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
 
-  console.table(foundLikingBackRelation);
 
   if (foundLikingBackRelation) {
     const newMatch = new Match();
     newMatch.createdAt = new Date();
     newMatch.userId_1 = id;
     newMatch.userId_2 = passiveSideUserId;
-    console.table(newMatch);
     await relationDao.createMatch(foundLikingBackRelation, newMatch).catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
@@ -63,7 +61,6 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     newRelation.passiveSideUserId = passiveSideUserId;
     newRelation.isLiking = isLiking;
     newRelation.createdAt = new Date();
-    console.table(newRelation);
     await relationDao.add(newRelation).catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);

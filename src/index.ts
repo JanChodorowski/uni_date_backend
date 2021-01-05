@@ -18,7 +18,6 @@ const io = require('socket.io')(server, {
 
 io.on('connection', (socket:any) => {
   socket.on('register', (id:any) => {
-    console.log('register', id);
 
     socket.id = id;
     connectedUsers[id] = socket;
@@ -27,7 +26,6 @@ io.on('connection', (socket:any) => {
   socket.on('private_chat', (data:any) => {
     const { content, passiveSideUserId, senderUserId } = data;
     if (connectedUsers.hasOwnProperty(passiveSideUserId)) {
-      console.log('data', data);
       connectedUsers[passiveSideUserId].emit('private_chat', {
         senderUserId,
         content,
