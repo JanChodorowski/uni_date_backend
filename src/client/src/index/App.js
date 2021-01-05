@@ -15,6 +15,8 @@ import SettingsPage from "./App/SettingsPage";
 import { getPicture, getUser } from "./shared/api";
 import BtmNav from "./App/BtmNav";
 import { ColorContext } from "./shared/colorContext";
+import { IncomingMessagesContext } from "./shared/incomingMessagesContext";
+
 import {
   APP_THEME,
   EMPTY_USER,
@@ -43,6 +45,8 @@ function App(/*{ coords }*/) {
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);
   const [profiles, setProfiles] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [incomingMessages, setIncomingMessages] = useState([]);
+
   const [path, setPath] = useState(
     (window?.location?.pathname &&
       window?.location?.pathname?.replace(/\//g, "")) ||
@@ -59,11 +63,17 @@ function App(/*{ coords }*/) {
   }, [videoRef]);
 
   useEffect(() => {
-    let mounted = true;
+    socket.on("private_chat", function (newIncomingMessage) {
+      console.log('newIncomingMessage',newIncomingMessage)
+      // matches.find((m) => m.id === passiveSideUserId)
+      setIncomingMessages((prevIncomingMessages) => {
+        return [...prevIncomingMessages, newIncomingMessage];
+      });
+    });
+  }, []);
+
+  useEffect(() => {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) === THEME_NAMES.dark);
-    return () => {
-      mounted = false;
-    };
   }, []);
 
   //   useEffect(() => {
@@ -148,6 +158,7 @@ function App(/*{ coords }*/) {
               <ProfilesContext.Provider value={[profiles, setProfiles]}>
                 <MatchesContext.Provider value={[matches, setMatches]}>
                   <PathContext.Provider value={[path, setPath]}>
+                    <IncomingMessagesContext.Provider value={[incomingMessages, setIncomingMessages]}>
                     <CssBaseline />
                     <div className="fullscreen-bg">
                       <video
@@ -203,6 +214,7 @@ function App(/*{ coords }*/) {
                     ) : (
                       <LandingPage></LandingPage>
                     )}
+                    </IncomingMessagesContext.Provider>
                   </PathContext.Provider>
                 </MatchesContext.Provider>
               </ProfilesContext.Provider>

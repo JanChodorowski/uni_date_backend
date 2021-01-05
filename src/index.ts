@@ -17,20 +17,17 @@ const io = require('socket.io')(server, {
 });
 
 io.on('connection', (socket:any) => {
-  /* Register connected user */
   socket.on('register', (id:any) => {
     socket.id = id;
     connectedUsers[id] = socket;
   });
 
-  /* Private chat */
   socket.on('private_chat', (data:any) => {
-    const { content, passiveSideUserId } = data;
+    const { content, passiveSideUserId, senderUserId } = data;
     if (connectedUsers.hasOwnProperty(passiveSideUserId)) {
+      // console.log('data', data);
       connectedUsers[passiveSideUserId].emit('private_chat', {
-        // The sender's username
-        senderUserId: socket.id,
-        // Message sent to receiver
+        senderUserId,
         content,
         createdAt: new Date(),
       });

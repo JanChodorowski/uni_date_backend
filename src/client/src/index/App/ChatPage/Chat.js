@@ -14,27 +14,35 @@ import { MatchesContext } from "../../shared/matchesContext";
 import PlaceHolder from "../shared/Missing_avatar.svg";
 import { socket } from "../../shared/socket";
 import { UserContext } from "../../shared/userContext";
+import {IncomingMessagesContext} from "../../shared/incomingMessagesContext";
 
 const Chat = ({ passiveSideUserId }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
   const [user] = useContext(UserContext);
 
-  const [incomingMessages, setIncomingMessages] = useState([]);
-  useEffect(() => {
-    let mounted = true;
-    socket.on("private_chat", function (newIncomingMessage) {
-      alert("test", newIncomingMessage);
+  const [incomingMessages, setIncomingMessages] = useContext(IncomingMessagesContext);
+  // useEffect(() => {
+  //   let mounted = true;
+  //   socket.on("private_chat", function (newIncomingMessage) {
+  //     alert("test", newIncomingMessage);
+  //
+  //     setIncomingMessages((prevIncomingMessages) => {
+  //       return [...prevIncomingMessages, newIncomingMessage];
+  //     });
+  //   });
+  //   return () => {
+  //     mounted = false;
+  //   };
+  // }, []);
 
-      setIncomingMessages((prevIncomingMessages) => {
-        return [...prevIncomingMessages, newIncomingMessage];
-      });
-    });
-    return () => {
-      mounted = false;
-    };
-  }, []);
   useEffect(() => {
+      setIncomingMessages((prevIncomingMessages) => {
+        return prevIncomingMessages.filter(im => im.senderUserId !== passiveSideUserId);
+      });
+  }, []);
+
+    useEffect(() => {
     let mounted = true;
 
     // if (checkIfProfilesAlreadyFetched()) {
@@ -63,17 +71,19 @@ const Chat = ({ passiveSideUserId }) => {
       mounted = false;
     };
   }, []);
+  const [outgoingMessages, setOutgoingMessages] = useState([]);
 
   const handleSend = (content) => {
     createMessage(passiveSideUserId, content)
       .then(() => {
         socket.emit("private_chat", {
-          passiveSideUserId: passiveSideUserId,
+          senderUserId: user.id,
+          passiveSideUserId,
           content,
         });
-        setIncomingMessages((prevIncomingMessages) => {
+        setOutgoingMessages((prevOutgoingMessages) => {
           return [
-            ...prevIncomingMessages,
+            ...prevOutgoingMessages,
             {
               content,
               createdAt: new Date().toISOString(),
@@ -85,7 +95,8 @@ const Chat = ({ passiveSideUserId }) => {
       .catch((e) => {});
   };
   const theMatch = matches.find((m) => m.id === passiveSideUserId);
-  console.log("theMatch", theMatch);
+  console.log('passiveSideUserId',passiveSideUserId)
+  console.log("incomingMessages.filter(im => im.senderUserId === passiveSideUserId)", incomingMessages.filter(im => im.senderUserId === passiveSideUserId));
   return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer responsive>
@@ -106,7 +117,11 @@ const Chat = ({ passiveSideUserId }) => {
               theMatch.messages &&
               Array.isArray(theMatch.messages) &&
               theMatch.messages.length > 0 &&
-              [...theMatch.messages, ...incomingMessages]
+              [
+                  ...theMatch.messages,
+                ...incomingMessages.filter(im => im.senderUserId === passiveSideUserId),
+                ...outgoingMessages
+              ]
                 .sort(
                   (a, b) =>
                     new Date(a.createdAt).getTime() -
