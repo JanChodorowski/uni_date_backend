@@ -3,11 +3,11 @@ import Button from "@material-ui/core/Button";
 import BackupIcon from "@material-ui/icons/Backup";
 import React, {useContext, useState} from "react";
 import ImageUploader from "react-images-upload";
-import {uploadPictures} from "../../shared/api";
-import {ColorContext} from "../../shared/colorContext";
-import {DEFAULT_SPACE} from "../../shared/constants";
-import {LoadingContext} from "../../shared/loadingContext";
-import useTransparentPaperStyle from "../shared/useTransparentPaperStyle";
+import {uploadPictures} from "../../../shared/api";
+import {ColorContext} from "../../../shared/colorContext";
+import {DEFAULT_SPACE} from "../../../shared/constants";
+import {LoadingContext} from "../../../shared/loadingContext";
+import useTransparentPaperStyle from "../../shared/useTransparentPaperStyle";
 
 const PictureUploader = () => {
   const [picturesToUpload, setPicturesToUpload] = useState([]);

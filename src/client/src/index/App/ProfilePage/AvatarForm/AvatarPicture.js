@@ -2,15 +2,15 @@ import {Avatar, Grid, Paper} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import FaceIcon from "@material-ui/icons/Face";
 import React, {useContext, useState} from "react";
-import {updateAvatar} from "../../shared/api";
-import {AVATAR_SIZE, DEFAULT_SPACE} from "../../shared/constants";
-import {LoadingContext} from "../../shared/loadingContext";
-import {UserContext} from "../../shared/userContext";
-import CenterHOC from "../shared/CenterHOC";
-import Gallery from "./AvatarForm/Gallery";
-import PlaceHolder from "../shared/Missing_avatar.svg";
-import useTransparentPaperStyle from "../shared/useTransparentPaperStyle";
-import RemoveAvatar from "./RemoveAvatar";
+import {updateAvatar} from "../../../shared/api";
+import {AVATAR_SIZE, DEFAULT_SPACE} from "../../../shared/constants";
+import {LoadingContext} from "../../../shared/loadingContext";
+import {UserContext} from "../../../shared/userContext";
+import CenterHOC from "../../shared/CenterHOC";
+import Gallery from "./AvatarPicture/Gallery";
+import PlaceHolder from "../../ChatPage/shared/Missing_avatar.svg";
+import useTransparentPaperStyle from "../../shared/useTransparentPaperStyle";
+import RemoveAvatar from "./AvatarPicture/RemoveAvatar";
 
 const AvatarPicture = () => {
   const [user] = useContext(UserContext);

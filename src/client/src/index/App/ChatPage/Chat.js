@@ -11,7 +11,7 @@ import {
 import {createMessage, deleteMatch, getMessages} from "../../shared/api";
 import {LoadingContext} from "../../shared/loadingContext";
 import {MatchesContext} from "../../shared/matchesContext";
-import PlaceHolder from "../shared/Missing_avatar.svg";
+import PlaceHolder from "./shared/Missing_avatar.svg";
 import {socket} from "../../shared/socket";
 import {UserContext} from "../../shared/userContext";
 import {IncomingMessagesContext} from "../../shared/incomingMessagesContext";

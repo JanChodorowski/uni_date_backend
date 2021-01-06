@@ -1,7 +1,7 @@
 import {Grid} from "@material-ui/core";
 import React from "react";
-import PictureUploader from "./PictureUploader";
-import AvatarPicture from "./AvatarPicture";
+import PictureUploader from "./AvatarForm/PictureUploader";
+import AvatarPicture from "./AvatarForm/AvatarPicture";
 
 const AvatarForm = () => {
   return (

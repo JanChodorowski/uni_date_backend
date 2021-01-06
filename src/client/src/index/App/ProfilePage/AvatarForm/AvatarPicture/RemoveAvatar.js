@@ -1,13 +1,13 @@
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import React, {useContext, useState} from "react";
-import {DEFAULT_SPACE} from "../../shared/constants";
-import {LoadingContext} from "../../shared/loadingContext";
-import {UserContext} from "../../shared/userContext";
-import PlaceHolder from "../shared/Missing_avatar.svg";
+import {DEFAULT_SPACE} from "../../../../shared/constants";
+import {LoadingContext} from "../../../../shared/loadingContext";
+import {UserContext} from "../../../../shared/userContext";
 import DeleteIcon from "@material-ui/icons/Delete";
 import WarningIcon from "@material-ui/icons/Warning";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import PlaceHolder from "../../../ChatPage/shared/Missing_avatar.svg";
 
 const RemoveAvatar = ({ chosenFileName,setChosenFileName,setActiveStep,setAvatarPicture }) => {
   const [user, setUser] = useContext(UserContext);
