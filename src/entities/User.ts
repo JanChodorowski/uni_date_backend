@@ -21,14 +21,14 @@ export class User {
   @Column('character varying', { primary: true, name: 'id', length: 450 })
   id: string;
 
+  @Column('date', { name: 'date_of_birth', nullable: true })
+  dateOfBirth: string | null;
+
   @Column('character varying', { name: 'user_name', length: 450 })
   userName: string;
 
   @Column('character varying', { name: 'gender', length: 255 })
   gender: string;
-
-  @Column('date', { name: 'date_of_birth', nullable: true })
-  dateOfBirth: string | null;
 
   @Column('character varying', { name: 'description', length: 255 })
   description: string;
@@ -41,12 +41,6 @@ export class User {
 
   @Column('timestamp without time zone', { name: 'created_at' })
   createdAt: Date;
-
-  @Column('integer', { name: 'popularity' })
-  popularity: number;
-
-  @Column('integer', { name: 'activity_intensity' })
-  activityIntensity: number;
 
   @Column('character varying', { name: 'localization', length: 100 })
   localization: string;

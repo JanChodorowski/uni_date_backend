@@ -17,9 +17,6 @@ export class Picture {
   @Column("boolean", { name: "is_avatar" })
   isAvatar: boolean;
 
-  @Column("integer", { name: "order" })
-  order: number;
-
   @ManyToOne(() => User, (user) => user.pictures, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "user_id", referencedColumnName: "id" }])
   user: User;

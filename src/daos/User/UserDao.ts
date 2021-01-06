@@ -173,7 +173,9 @@ class UserDao implements IUserDao {
         .leftJoin('user.matches2', 'matches2')
         .leftJoin('user.matches', 'matches')
         .where('id != :paramId')
-        .andWhere('matches2.userId = :paramId OR matches.userId_3 = :paramId')
+        .andWhere('(matches2.userId = :paramId OR matches.userId_3 = :paramId) AND (matches2.isResigned = false OR matches2.isResigned IS NULL) AND (matches.isResigned = false OR matches.isResigned IS NULL)')
+        // .andWhere('matches2.isResigned = \'false\'')
+        // .andWhere('matches.isResigned = \'false\'')
         .setParameter('paramId', id)
         .select(this.profilesDto)
         .getMany();
@@ -293,14 +295,16 @@ class UserDao implements IUserDao {
    * @param newOrExistingInterest
    * @param newOrExistingUniversity
    */
-    public async update(newOrUpdatedUser: IUser,
+    public async update(
+      newOrUpdatedUser: IUser,
       newOrUpdatedCity : City | null = null,
       newOrUpdatedUniversity: University | null = null,
       newOrUpdatedInterests: Interest[] | null = null,
       newOrUpdatedGenderFilters: GenderFilter[] | null = null,
       newOrExistingCity : City | null = null,
       newOrExistingInterest: Interest | null = null,
-      newOrExistingUniversity: University | null = null): Promise<void> {
+      newOrExistingUniversity: University | null = null,
+    ): Promise<void> {
       await getConnection()
         .transaction(async (entityManager) => {
           if (newOrUpdatedCity) {
@@ -360,8 +364,11 @@ class UserDao implements IUserDao {
         .getOne();
 
       if (!matchToRemove) {
-
+        return;
       }
+
+      matchToRemove.isResigned = true;
+      await getRepository(Match).save(matchToRemove);
     }
 }
 

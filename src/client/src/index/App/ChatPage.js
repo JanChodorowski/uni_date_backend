@@ -154,7 +154,7 @@ const ChatPage = () => {
               ></ProfileInfo>
             </>
           )}
-          <Chat passiveSideUserId={passiveSideUserId}></Chat>
+          <Chat passiveSideUserId={passiveSideUserId} setOpen={setOpen}></Chat>
         </DialogContent>
       </Dialog>
     </>

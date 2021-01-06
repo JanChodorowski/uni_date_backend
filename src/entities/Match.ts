@@ -26,6 +26,9 @@ export class Match {
   })
   userId_2: string;
 
+  @Column("boolean", { name: "is_resigned" })
+  isResigned: boolean;
+
   @Column("timestamp without time zone", { name: "created_at" })
   createdAt: Date;
 

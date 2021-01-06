@@ -117,7 +117,7 @@ router.post('/deletematch', authenticate, async (req: Request, res: Response) =>
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
-  res.end();
+  res.json({ isRemoved: true }).end();
 });
 
 router.post('/profiles', authenticate, async (req: Request, res: Response) => {
@@ -247,12 +247,12 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   if (email) {
     updatedUser.email = email;
   }
-  if (popularity) {
-    updatedUser.popularity = popularity;
-  }
-  if (activityIntensity) {
-    updatedUser.activityIntensity = activityIntensity;
-  }
+  // if (popularity) {
+  //   updatedUser.popularity = popularity;
+  // }
+  // if (activityIntensity) {
+  //   updatedUser.activityIntensity = activityIntensity;
+  // }
   if (localization) {
     updatedUser.localization = localization;
   }

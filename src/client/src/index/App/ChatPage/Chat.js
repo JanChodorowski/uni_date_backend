@@ -22,7 +22,7 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import WarningIcon from "@material-ui/icons/Warning";
 import { DEFAULT_SPACE, SOCKET_EVENTS } from "../../shared/constants";
 
-const Chat = ({ passiveSideUserId }) => {
+const Chat = ({ passiveSideUserId,setOpen }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
   const [user] = useContext(UserContext);
@@ -110,11 +110,19 @@ const Chat = ({ passiveSideUserId }) => {
   const handleRemoveMatchClick = () => {
     setIsLoading(true);
     deleteMatch(passiveSideUserId)
-      .then(() => {})
-      .catch((e) => {})
-      .finally(() => {
-        setIsLoading(false);
-      });
+        .then((res) => {
+          const { data } = res;
+          if (!res?.data?.isRemoved) {
+            return;
+          }
+
+          setMatches(prevMatches => prevMatches.filter(pm => pm.id !== passiveSideUserId))
+          setOpen(false)
+        })
+        .catch((e) => {})
+        .finally(() => {
+          setIsLoading(false);
+        });
 
     return () => {
       setIsLoading(false);
@@ -126,19 +134,19 @@ const Chat = ({ passiveSideUserId }) => {
       <MainContainer responsive style={{ marginBottom: "2rem" }}>
         <ChatContainer>
           <ConversationHeader>
-            {theMatch.avatar ? (
+            {theMatch?.avatar ? (
               <Avatar
                 src={URL.createObjectURL(theMatch.avatar)}
                 name={theMatch.userName || ""}
               />
             ) : (
-              <Avatar src={PlaceHolder} name={theMatch.userName || ""} />
+              <Avatar src={PlaceHolder} name={theMatch?.userName || ""} />
             )}
-            <ConversationHeader.Content userName={theMatch.userName} />
+            <ConversationHeader.Content userName={theMatch?.userName || ''} />
           </ConversationHeader>
           <MessageList>
-            {theMatch &&
-              theMatch.messages &&
+            {
+              theMatch?.messages &&
               Array.isArray(theMatch.messages) &&
               [
                 ...theMatch.messages,

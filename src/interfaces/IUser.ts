@@ -8,15 +8,13 @@ import { Match } from '@entities/Match';
 
 export interface IUser {
     id: string;
+    dateOfBirth: string | null;
     userName: string;
     gender: string;
-    dateOfBirth: string | null;
     description: string;
     email: string;
     passwordHash: string;
     createdAt: Date;
-    popularity: number;
-    activityIntensity: number;
     localization: string;
     isGraduated: boolean;
     fieldOfStudy: string;

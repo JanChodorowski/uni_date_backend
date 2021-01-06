@@ -48,6 +48,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     newMatch.createdAt = new Date();
     newMatch.userId_1 = id;
     newMatch.userId_2 = passiveSideUserId;
+    newMatch.isResigned = false;
     await relationDao.createMatch(foundLikingBackRelation, newMatch).catch((err) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
