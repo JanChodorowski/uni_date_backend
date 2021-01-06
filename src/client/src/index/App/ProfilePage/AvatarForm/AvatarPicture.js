@@ -1,11 +1,11 @@
-import {Avatar, Grid, Paper} from "@material-ui/core";
+import { Avatar, Grid, Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import FaceIcon from "@material-ui/icons/Face";
-import React, {useContext, useState} from "react";
-import {updateAvatar} from "../../../shared/api";
-import {AVATAR_SIZE, DEFAULT_SPACE} from "../../../shared/constants";
-import {LoadingContext} from "../../../shared/loadingContext";
-import {UserContext} from "../../../shared/userContext";
+import React, { useContext, useState } from "react";
+import { updateAvatar } from "../../../shared/api";
+import { AVATAR_SIZE, DEFAULT_SPACE } from "../../../shared/constants";
+import { LoadingContext } from "../../../shared/loadingContext";
+import { UserContext } from "../../../shared/userContext";
 import CenterHOC from "../../shared/CenterHOC";
 import Gallery from "./AvatarPicture/Gallery";
 import PlaceHolder from "../../ChatPage/shared/Missing_avatar.svg";
@@ -64,9 +64,18 @@ const AvatarPicture = () => {
               <Grid item>
                 <>
                   <CenterHOC minHeight="0">
-                    <Gallery setChosenFileName={setChosenFileName} activeStep={activeStep} setActiveStep={setActiveStep}></Gallery>
+                    <Gallery
+                      setChosenFileName={setChosenFileName}
+                      activeStep={activeStep}
+                      setActiveStep={setActiveStep}
+                    ></Gallery>
                   </CenterHOC>
-                  <RemoveAvatar chosenFileName={chosenFileName} setChosenFileName={setChosenFileName} setActiveStep={setActiveStep} setAvatarPicture={setAvatarPicture}></RemoveAvatar>
+                  <RemoveAvatar
+                    chosenFileName={chosenFileName}
+                    setChosenFileName={setChosenFileName}
+                    setActiveStep={setActiveStep}
+                    setAvatarPicture={setAvatarPicture}
+                  ></RemoveAvatar>
                 </>
               </Grid>
               <Grid

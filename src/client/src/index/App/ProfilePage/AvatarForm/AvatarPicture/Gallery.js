@@ -1,12 +1,12 @@
 import Button from "@material-ui/core/Button";
 import MobileStepper from "@material-ui/core/MobileStepper";
-import {makeStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import SwipeableViews from "react-swipeable-views";
-import {DEFAULT_IMAGE_SIZE} from "../../../../shared/constants";
-import {UserContext} from "../../../../shared/userContext";
+import { DEFAULT_IMAGE_SIZE } from "../../../../shared/constants";
+import { UserContext } from "../../../../shared/userContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Gallery({ setChosenFileName,activeStep, setActiveStep }) {
+function Gallery({ setChosenFileName, activeStep, setActiveStep }) {
   const classes = useStyles();
   const theme = useTheme();
 

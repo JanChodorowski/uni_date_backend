@@ -92,7 +92,7 @@ function App({ coords }) {
   //   return
   // }
   //   }, [coords]);
-console.log('user',user)
+  console.log("user", user);
   useEffect(() => {
     let mounted = true;
     handleLoading(true);
