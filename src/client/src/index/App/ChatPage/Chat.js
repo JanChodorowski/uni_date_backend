@@ -22,7 +22,7 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import WarningIcon from "@material-ui/icons/Warning";
 import { DEFAULT_SPACE, SOCKET_EVENTS } from "../../shared/constants";
 
-const Chat = ({ passiveSideUserId,setOpen }) => {
+const Chat = ({ passiveSideUserId, setOpen }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
   const [user] = useContext(UserContext);
@@ -110,19 +110,21 @@ const Chat = ({ passiveSideUserId,setOpen }) => {
   const handleRemoveMatchClick = () => {
     setIsLoading(true);
     deleteMatch(passiveSideUserId)
-        .then((res) => {
-          const { data } = res;
-          if (!res?.data?.isRemoved) {
-            return;
-          }
+      .then((res) => {
+        const { data } = res;
+        if (!res?.data?.isRemoved) {
+          return;
+        }
 
-          setMatches(prevMatches => prevMatches.filter(pm => pm.id !== passiveSideUserId))
-          setOpen(false)
-        })
-        .catch((e) => {})
-        .finally(() => {
-          setIsLoading(false);
-        });
+        setMatches((prevMatches) =>
+          prevMatches.filter((pm) => pm.id !== passiveSideUserId)
+        );
+        setOpen(false);
+      })
+      .catch((e) => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
 
     return () => {
       setIsLoading(false);
@@ -142,11 +144,10 @@ const Chat = ({ passiveSideUserId,setOpen }) => {
             ) : (
               <Avatar src={PlaceHolder} name={theMatch?.userName || ""} />
             )}
-            <ConversationHeader.Content userName={theMatch?.userName || ''} />
+            <ConversationHeader.Content userName={theMatch?.userName || ""} />
           </ConversationHeader>
           <MessageList>
-            {
-              theMatch?.messages &&
+            {theMatch?.messages &&
               Array.isArray(theMatch.messages) &&
               [
                 ...theMatch.messages,

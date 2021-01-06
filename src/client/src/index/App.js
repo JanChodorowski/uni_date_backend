@@ -48,7 +48,7 @@ function App({ coords }) {
   const [profiles, setProfiles] = useState([]);
   const [matches, setMatches] = useState([]);
   const [incomingMessages, setIncomingMessages] = useState([]);
-console.log('coords',coords)
+
   const [path, setPath] = useState(
     (window?.location?.pathname &&
       window?.location?.pathname?.replace(/\//g, "")) ||
@@ -72,7 +72,6 @@ console.log('coords',coords)
     if (!user.id) {
       return;
     }
-    console.log("register", user.id);
     socket.removeAllListeners(privateChat);
     socket.removeAllListeners(register);
     socket.emit("register", user.id);
@@ -92,9 +91,8 @@ console.log('coords',coords)
   // if(!coords){
   //   return
   // }
-  //     console.log('coordscoords',coords)
   //   }, [coords]);
-
+console.log('user',user)
   useEffect(() => {
     let mounted = true;
     handleLoading(true);

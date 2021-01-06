@@ -354,7 +354,6 @@ class UserDao implements IUserDao {
      * @param passiveSideUserId
      */
     public async deleteMatch(id :string, passiveSideUserId:string): Promise<void> {
-      console.log('ooo', id, passiveSideUserId);
       const matchToRemove : Match | undefined = await getRepository(Match)
         .createQueryBuilder()
         .where('(Match.user_id_1 = :id AND Match.user_id_2 = :passiveSideUserId) OR (Match.user_id_2 = :id AND Match.user_id_1 = :passiveSideUserId)', {

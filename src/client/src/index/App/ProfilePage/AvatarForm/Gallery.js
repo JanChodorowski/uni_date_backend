@@ -29,10 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Gallery({ setChosenFileName }) {
+function Gallery({ setChosenFileName,activeStep, setActiveStep }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [activeStep, setActiveStep] = useState(0);
 
   const [user, setUser] = useContext(UserContext);
   const maxSteps = user?.pictures?.length;
