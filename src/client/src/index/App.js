@@ -35,13 +35,12 @@ import { UserContext } from "./shared/userContext";
 
 import io from "socket.io-client";
 import { socket } from "./shared/socket";
-import Comb from "./App/comb.mp4";
 import Schlern from "./App/Schlern.mp4";
 import SchlernLow from "./App/SchlernLow.mp4";
 
 const { privateChat, register } = SOCKET_EVENTS;
 
-function App(/*{ coords }*/) {
+function App({ coords }) {
   const [isDark, setIsDark] = useState(false);
   const [user, setUser] = useState(EMPTY_USER);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +48,7 @@ function App(/*{ coords }*/) {
   const [profiles, setProfiles] = useState([]);
   const [matches, setMatches] = useState([]);
   const [incomingMessages, setIncomingMessages] = useState([]);
-
+console.log('coords',coords)
   const [path, setPath] = useState(
     (window?.location?.pathname &&
       window?.location?.pathname?.replace(/\//g, "")) ||

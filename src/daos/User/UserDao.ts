@@ -7,6 +7,7 @@ import { User } from '@entities/User';
 import { City } from '@entities/City';
 import { Interest } from '@entities/Interest';
 import { GenderFilter } from '@entities/GenderFilter';
+import { Match } from '@entities/Match';
 
 export interface IUserDao {
   add: (user: IUser) => Promise<IUser>;
@@ -228,7 +229,7 @@ class UserDao implements IUserDao {
           const subQuery = qb.subQuery()
             .select('u2.id')
             .from(User, 'u2')
-            .leftJoin('u2.oneSidedRelations2', 'osr2')
+            .innerJoin('u2.oneSidedRelations2', 'osr2')
             .where('osr2.activeSideUserId = :paramId')
             .andWhere('osr2.passiveSideUserId = u2.id')
             .getQuery();
@@ -238,13 +239,35 @@ class UserDao implements IUserDao {
           const subQuery = qb.subQuery()
             .select('u2.id')
             .from(User, 'u2')
-            .leftJoin('u2.matches', 'm')
-            .where('(m.userId = :paramId AND m.userId_3 = u2.id) OR (m.userId = u2.id AND m.userId_3 = :paramId)')
+            .innerJoin('u2.matches2', 'osr2')
+            .where('osr2.userId = :paramId')
+            .andWhere('osr2.userId_3 = u2.id')
             .getQuery();
           return `(matches2.userId is NUll OR user.id NOT IN ${subQuery}) AND user.id != :paramId`;
         })
+        .andWhere((qb) => {
+          const subQuery = qb.subQuery()
+            .select('u2.id')
+            .from(User, 'u2')
+            .innerJoin('u2.matches', 'm')
+            .where('(m.userId = :paramId AND m.userId_3 = u2.id) OR (m.userId = u2.id AND m.userId_3 = :paramId)')
+            .getQuery();
+          return `(user.id NOT IN ${subQuery}) AND user.id != :paramId`;
+        })
+        .andWhere((qb) => {
+          const subQuery = qb.subQuery()
+            .select('u2.id')
+            .from(User, 'u2')
+            .innerJoin('u2.matches', 'osr2')
+            // .where('osr2.userId = :paramId')
+            // .andWhere('osr2.userId_3 = u2.id')
+            .where('(osr2.userId = :paramId AND osr2.userId_3 = u2.id) OR (osr2.userId = u2.id AND osr2.userId_3 = :paramId)')
+            .getQuery();
+          return `(user.id NOT IN ${subQuery}) AND user.id != :paramId`;
+        })
         .setParameter('paramId', id)
         .select(this.profilesDto)
+        .orderBy('picture.isAvatar')
       // .limit(2)
         .getMany();
     }
@@ -327,12 +350,18 @@ class UserDao implements IUserDao {
      * @param passiveSideUserId
      */
     public async deleteMatch(id :string, passiveSideUserId:string): Promise<void> {
-      await getConnection()
+      console.log('ooo', id, passiveSideUserId);
+      const matchToRemove : Match | undefined = await getRepository(Match)
         .createQueryBuilder()
-        .delete()
-        .from(User)
-        .where('id = :id', { id })
-        .execute();
+        .where('(Match.user_id_1 = :id AND Match.user_id_2 = :passiveSideUserId) OR (Match.user_id_2 = :id AND Match.user_id_1 = :passiveSideUserId)', {
+          id,
+          passiveSideUserId,
+        })
+        .getOne();
+
+      if (!matchToRemove) {
+
+      }
     }
 }
 

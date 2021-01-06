@@ -109,7 +109,7 @@ const Chat = ({ passiveSideUserId }) => {
 
   const handleRemoveMatchClick = () => {
     setIsLoading(true);
-    deleteMatch()
+    deleteMatch(passiveSideUserId)
       .then(() => {})
       .catch((e) => {})
       .finally(() => {
