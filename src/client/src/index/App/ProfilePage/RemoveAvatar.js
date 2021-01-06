@@ -1,27 +1,13 @@
-import { Avatar, ButtonGroup, Grid, Paper } from "@material-ui/core";
+import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import BackupIcon from "@material-ui/icons/Backup";
-import FaceIcon from "@material-ui/icons/Face";
-import React, { useContext, useState } from "react";
-import ImageUploader from "react-images-upload";
-import {
-  deleteMatch,
-  deletePicture,
-  updateAvatar,
-  uploadPictures,
-} from "../../shared/api";
-import { ColorContext } from "../../shared/colorContext";
-import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
-import { LoadingContext } from "../../shared/loadingContext";
-import { UserContext } from "../../shared/userContext";
-import CenterHOC from "../shared/CenterHOC";
-import Gallery from "./AvatarForm/Gallery";
+import React, {useContext, useState} from "react";
+import {DEFAULT_SPACE} from "../../shared/constants";
+import {LoadingContext} from "../../shared/loadingContext";
+import {UserContext} from "../../shared/userContext";
 import PlaceHolder from "../shared/Missing_avatar.svg";
-import useTransparentPaperStyle from "../shared/useTransparentPaperStyle";
 import DeleteIcon from "@material-ui/icons/Delete";
 import WarningIcon from "@material-ui/icons/Warning";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import PictureUploader from "./PictureUploader";
 
 const RemoveAvatar = ({ chosenFileName,setChosenFileName,setActiveStep,setAvatarPicture }) => {
   const [user, setUser] = useContext(UserContext);
