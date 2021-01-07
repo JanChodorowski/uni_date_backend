@@ -88,7 +88,7 @@ const RemoveAvatar = ({
             color="secondary"
             variant="contained"
             fullWidth
-            size="large"
+            size="small"
             onClick={handleRemovePictureClick}
             startIcon={<WarningIcon></WarningIcon>}
           >
@@ -98,7 +98,7 @@ const RemoveAvatar = ({
             color="primary"
             variant="contained"
             fullWidth
-            size="large"
+            size="small"
             onClick={() => setIsAvatarReadyToDelete(false)}
             endIcon={<KeyboardBackspaceIcon></KeyboardBackspaceIcon>}
           >

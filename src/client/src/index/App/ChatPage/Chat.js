@@ -204,7 +204,7 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
               color="secondary"
               variant="contained"
               fullWidth
-              size="large"
+              size="small"
               onClick={handleRemoveMatchClick}
               startIcon={<WarningIcon></WarningIcon>}
             >
@@ -214,7 +214,7 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
               color="primary"
               variant="contained"
               fullWidth
-              size="large"
+              size="small"
               onClick={() => setIsMatchReadyToDelete(false)}
               endIcon={<KeyboardBackspaceIcon></KeyboardBackspaceIcon>}
             >
