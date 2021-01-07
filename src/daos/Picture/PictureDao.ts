@@ -7,14 +7,11 @@ import { getConnection, getRepository } from 'typeorm';
 import { User } from '@entities/User';
 
 export interface IPictureDao {
-    // getOne: (email: string) => Promise<IUser | null>;
     getAll: () => Promise<IPicture[]>;
     add: (user: IPicture) => Promise<IPicture>;
-    // update: (user: IUser) => Promise<void>;
-    // delete: (id: number) => Promise<void>;
     chooseAvatar: (userId: string, trimmedFileName: string) => Promise<any>;
     findBlobByFileName:(fileName: string)=> Promise<any>
-
+    delete: (fileName: string)=> Promise<void>
 }
 
 class PictureDao implements IPictureDao {
@@ -22,8 +19,6 @@ class PictureDao implements IPictureDao {
      *
      */
   public getAll(): Promise<IPicture[]> {
-    // TODO
-    // return Promise.resolve([]);
     return getConnection().manager.find(Picture);
   }
 

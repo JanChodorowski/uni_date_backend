@@ -24,6 +24,12 @@ export class User {
   @Column('date', { name: 'date_of_birth', nullable: true })
   dateOfBirth: string | null;
 
+  @Column('real', { name: 'latitude', nullable: true, precision: 24 })
+  latitude: number | null;
+
+  @Column('real', { name: 'longitude', nullable: true, precision: 24 })
+  longitude: number | null;
+
   @Column('character varying', { name: 'user_name', length: 450 })
   userName: string;
 

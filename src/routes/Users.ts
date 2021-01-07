@@ -13,6 +13,7 @@ import { Interest } from '@entities/Interest';
 import { capitalizeFirstLetter, removeCityAndUniversityFromCollection } from '@shared/functions';
 import { GenderFilter } from '@entities/GenderFilter';
 import { Match } from '@entities/Match';
+import { IUser } from '@interfaces/IUser';
 
 global.Blob = require('node-blob');
 
@@ -44,7 +45,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
-
+  console.log('userViewData', userViewData);
   const initGenderFilter = {
     Female: true,
     Male: true,
@@ -83,6 +84,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
   };
   delete userDto.cityName;
   delete userDto.universityName;
+  console.log('userDto', userDto);
   res.json(userDto).end();
 });
 
@@ -112,6 +114,17 @@ router.get('/matches', authenticate, async (req: Request, res: Response) => {
 
 router.post('/deletematch', authenticate, async (req: Request, res: Response) => {
   const { payload, passiveSideUserId } = req.body;
+
+  const schema = yup.object().shape(
+    {
+      passiveSideUserId: yup.string().required(),
+    },
+  );
+
+  const isValid = await schema.isValid({ passiveSideUserId });
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
 
   await userDao.deleteMatch(payload?.id, passiveSideUserId).catch((err: Error) => {
     console.error(err);
@@ -365,6 +378,35 @@ router.delete('/', authenticate, async (req: Request, res: Response) => {
   await userDao.delete(req.body.payload.id).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
+  res.end();
+});
+
+router.post('/location', authenticate, async (req: Request, res: Response) => {
+  const schema = yup.object().shape(
+    {
+      latitude: yup.number().required(),
+      longitude: yup.number().required(),
+    },
+  );
+  console.log('req.body.coords', req.body);
+
+  const isValid = await schema.isValid(req.body);
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+
+  console.log('isValid', isValid);
+  const { latitude, longitude } = req.body;
+  const updatedUser: IUser = new User();
+  updatedUser.id = req.body.payload.id;
+  updatedUser.latitude = latitude;
+  updatedUser.longitude = longitude;
+  const dbResult = userDao.update(
+    updatedUser,
+  ).catch((err: Error) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`).end();
   });
   res.end();
 });

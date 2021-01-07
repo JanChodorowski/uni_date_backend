@@ -284,6 +284,14 @@ class UserDao implements IUserDao {
         .save(user);
     }
 
+    //
+    // public async updateGeo(
+    //     latitude: number,
+    //     longitude: number,
+    // ): Promise<void> {
+    //     await getConnection().createEntityManager()
+    //
+    // }
     /**
    *
    * @param newOrUpdatedUser
@@ -326,6 +334,12 @@ class UserDao implements IUserDao {
           }
           if (newOrExistingInterest) {
             await entityManager.save(newOrExistingInterest);
+          }
+          if (newOrExistingUniversity) {
+            await entityManager.save(newOrExistingUniversity);
+          }
+          if (newOrExistingUniversity) {
+            await entityManager.save(newOrExistingUniversity);
           }
           if (newOrExistingUniversity) {
             await entityManager.save(newOrExistingUniversity);

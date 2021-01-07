@@ -9,6 +9,8 @@ import { Match } from '@entities/Match';
 export interface IUser {
     id: string;
     dateOfBirth: string | null;
+    latitude: number | null;
+    longitude: number | null;
     userName: string;
     gender: string;
     description: string;

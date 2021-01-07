@@ -106,3 +106,8 @@ export const getMessages = (passiveSideUserId) => {
 export const deletePicture = (fileName) => {
   return axios.post("/api/pictures/delete", {fileName});
 };
+
+export const sendLocation = (coords) => {
+  const {latitude, longitude} = coords
+  return axios.post("/api/users/location", {latitude, longitude});
+};

@@ -12,7 +12,7 @@ import MatchPage from "./App/MatchPage";
 import ProfilePage from "./App/ProfilePage";
 import ProgressShower from "./App/ProgressShower";
 import SettingsPage from "./App/SettingsPage";
-import { getPicture, getUser } from "./shared/api";
+import {getPicture, getUser, sendLocation} from "./shared/api";
 import BtmNav from "./App/BtmNav";
 import { ColorContext } from "./shared/colorContext";
 import { IncomingMessagesContext } from "./shared/incomingMessagesContext";
@@ -87,12 +87,16 @@ function App({ coords }) {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) === THEME_NAMES.dark);
   }, []);
 
-  //   useEffect(() => {
-  // if(!coords){
-  //   return
-  // }
-  //   }, [coords]);
-  console.log("user", user);
+  useEffect(() => {
+    if(!coords){
+      return
+    }
+    console.log('coords',coords)
+    sendLocation(coords).then(() => {}).catch((err)=> {})
+  }, [coords]);
+
+  console.log('1',coords)
+  // console.log("user", user);
   useEffect(() => {
     let mounted = true;
     handleLoading(true);
