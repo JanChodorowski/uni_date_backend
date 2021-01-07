@@ -26,7 +26,7 @@ const fileNameSchema = yup.object().shape({ fileName: yup.string().required() })
 const pictureDao = new PictureDao();
 
 router.post('/getone', authenticate, async (req: any, res: Response, next:NextFunction) => {
-  const blobHolder = await pictureDao.findBlobByFileName(req?.body?.fileName).catch((err) => {
+  const blobHolder = await pictureDao.findBlobByFileName(req?.body?.fileName).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -47,7 +47,7 @@ router.put('/avatar', authenticate, async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).end();
   }
 
-  await pictureDao.chooseAvatar(userId, trimmedFileName).catch((err) => {
+  await pictureDao.chooseAvatar(userId, trimmedFileName).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -55,9 +55,16 @@ router.put('/avatar', authenticate, async (req: Request, res: Response) => {
   res.end();
 });
 
-router.delete('/', authenticate, async (req: any, res: Response) => {
-  // Delete the file like normal
-  // await unlinkAsync(req.file.path);
+router.post('/delete', authenticate, async (req: Request, res: Response) => {
+  const { fileName } = req?.body;
+  const isValid = await fileNameSchema.isValid({ fileName });
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+  await pictureDao.delete(fileName).catch((err: Error) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
   res.end();
 });
 
@@ -67,7 +74,7 @@ router.post('/', authenticate, async (req: any, res: Response) => {
   try {
     const userDao = new UserDao();
     const foundUser = await userDao.findOneById(req?.body?.payload?.id)
-      .catch((err) => {
+      .catch((err: Error) => {
         console.error(err);
         res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
       });
@@ -96,7 +103,7 @@ router.post('/', authenticate, async (req: any, res: Response) => {
 
       const pictureDao = new PictureDao();
 
-      await pictureDao.add(newPictureOrPictures).catch((err) => {
+      await pictureDao.add(newPictureOrPictures).catch((err: Error) => {
         console.error(err);
         res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
       });

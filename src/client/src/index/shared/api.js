@@ -103,6 +103,6 @@ export const getMessages = (passiveSideUserId) => {
   return axios.post("/api/message/getmessage", { passiveSideUserId });
 };
 
-export const deletePicture = (chosenFileName) => {
-  return axios.delete("/api/picture", { data: chosenFileName });
+export const deletePicture = (fileName) => {
+  return axios.post("/api/pictures/delete", {fileName});
 };

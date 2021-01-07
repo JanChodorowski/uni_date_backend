@@ -8,6 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import WarningIcon from "@material-ui/icons/Warning";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PlaceHolder from "../../../ChatPage/shared/Missing_avatar.svg";
+import {deletePicture} from "../../../../shared/api";
 
 const RemoveAvatar = ({
   chosenFileName,
@@ -21,18 +22,18 @@ const RemoveAvatar = ({
 
   const [isAvatarReadyToDelete, setIsAvatarReadyToDelete] = useState(false);
   const handleRemovePictureClick = () => {
-    // setIsLoading(true);
-    // deletePicture(chosenFileName)
-    //   .then((res) => {
-    //     const { data } = res;
-    //     if (!res?.data?.isRemoved) {
-    //       return;
-    //     }
-    //   })
-    //   .catch((e) => {})
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+    setIsLoading(true);
+    deletePicture(chosenFileName)
+      .then((res) => {
+        const { data } = res;
+        if (!res?.data?.isRemoved) {
+          return;
+        }
+      })
+      .catch((e) => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
     console.log("chosenFileName", chosenFileName);
     const filteredPictures = user.pictures.filter(
       (p) => p.fileName !== chosenFileName

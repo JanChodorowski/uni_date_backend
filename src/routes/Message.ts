@@ -36,7 +36,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
   const { content, userId_2, payload } = req.body;
   const { id } = payload;
 
-  const isThisDirectionRelationFound = await matchDao.findOneByUsersIds(id, userId_2).catch((err) => {
+  const isThisDirectionRelationFound = await matchDao.findOneByUsersIds(id, userId_2).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -49,7 +49,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
   newMessage.createdAt = new Date();
   newMessage.messageId = uuidv4();
 
-  await messageDao.add(newMessage).catch((err) => {
+  await messageDao.add(newMessage).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -72,7 +72,7 @@ router.post('/getmessage', authenticate, async (req: Request, res: Response) => 
 
   const { passiveSideUserId, payload } = req.body;
 
-  const rawMessages = await messageDao.get(payload.id, passiveSideUserId).catch((err) => {
+  const rawMessages = await messageDao.get(payload.id, passiveSideUserId).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });

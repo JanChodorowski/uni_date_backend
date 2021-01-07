@@ -55,7 +55,7 @@ router.post('/register', async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await userDao.register(trimmedEmail).catch((err) => {
+  const foundUser = await userDao.register(trimmedEmail).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -85,7 +85,7 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.ageFromFilter = 18;
   newUser.ageToFilter = 100;
 
-  await userDao.add(newUser).catch((err) => {
+  await userDao.add(newUser).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -127,7 +127,7 @@ router.post('/login', async (req: Request, res: Response) => {
   }
 
   const foundUser = await userDao.login(email)
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });

@@ -36,7 +36,7 @@ const filterValidation = {
 router.post('/', authenticate, async (req: Request, res: Response) => {
   const { id } = req?.body?.payload;
   const userViewData = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
@@ -87,7 +87,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.get('/matches', authenticate, async (req: Request, res: Response) => {
-  const matchesData = await userDao.findMatches(req.body.payload.id).catch((err) => {
+  const matchesData = await userDao.findMatches(req.body.payload.id).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -113,7 +113,7 @@ router.get('/matches', authenticate, async (req: Request, res: Response) => {
 router.post('/deletematch', authenticate, async (req: Request, res: Response) => {
   const { payload, passiveSideUserId } = req.body;
 
-  await userDao.deleteMatch(payload?.id, passiveSideUserId).catch((err) => {
+  await userDao.deleteMatch(payload?.id, passiveSideUserId).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -156,7 +156,7 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
     ageToFilter,
     maxSearchDistanceFilter,
   )
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
@@ -349,7 +349,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     newOrExistingCity,
     newOrExistingInterest,
     newOrExistingUniversity,
-  ).catch((err) => {
+  ).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -362,7 +362,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
 });
 
 router.delete('/', authenticate, async (req: Request, res: Response) => {
-  await userDao.delete(req.body.payload.id).catch((err) => {
+  await userDao.delete(req.body.payload.id).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });

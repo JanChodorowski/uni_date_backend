@@ -4,6 +4,7 @@ import { Picture } from '@entities/Picture';
 import { IPicture } from '@interfaces/IPicture';
 
 import { getConnection, getRepository } from 'typeorm';
+import { User } from '@entities/User';
 
 export interface IPictureDao {
     // getOne: (email: string) => Promise<IUser | null>;
@@ -76,6 +77,19 @@ class PictureDao implements IPictureDao {
 
         .execute();
     });
+  }
+
+  /**
+   *
+   * @param fileName
+   */
+  public async delete(fileName: string): Promise<void> {
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(Picture)
+      .where('fileName = :fileName', { fileName })
+      .execute();
   }
 }
 

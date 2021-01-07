@@ -38,7 +38,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
   const foundLikingBackRelation = await relationDao.findLikingBackRelation(
     passiveSideUserId,
     id,
-  ).catch((err) => {
+  ).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -49,7 +49,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     newMatch.userId_1 = id;
     newMatch.userId_2 = passiveSideUserId;
     newMatch.isResigned = false;
-    await relationDao.createMatch(foundLikingBackRelation, newMatch).catch((err) => {
+    await relationDao.createMatch(foundLikingBackRelation, newMatch).catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
@@ -61,7 +61,7 @@ router.post('/', authenticate, async (req: Request, res: Response) => {
     newRelation.passiveSideUserId = passiveSideUserId;
     newRelation.isLiking = isLiking;
     newRelation.createdAt = new Date();
-    await relationDao.add(newRelation).catch((err) => {
+    await relationDao.add(newRelation).catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
     });
