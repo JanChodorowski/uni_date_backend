@@ -186,11 +186,11 @@ function App({ coords }) {
                               path={`/${chat}`}
                               // component={ChatPage}
                               render={(props) => (
-                                  <ChatPage
-                                      {...props}
-                                      latitude={coords?.latitude}
-                                      longitude={coords?.longitude}
-                                  />
+                                <ChatPage
+                                  {...props}
+                                  latitude={coords?.latitude}
+                                  longitude={coords?.longitude}
+                                />
                               )}
                               exact
                             />
