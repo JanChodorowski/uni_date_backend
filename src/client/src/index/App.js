@@ -184,7 +184,14 @@ function App({ coords }) {
                           <Switch>
                             <Route
                               path={`/${chat}`}
-                              component={ChatPage}
+                              // component={ChatPage}
+                              render={(props) => (
+                                  <ChatPage
+                                      {...props}
+                                      latitude={coords?.latitude}
+                                      longitude={coords?.longitude}
+                                  />
+                              )}
                               exact
                             />
                             <Route

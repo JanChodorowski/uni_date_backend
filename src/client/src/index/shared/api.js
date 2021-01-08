@@ -101,8 +101,10 @@ export const createMessage = (userId_2, content) => {
   });
 };
 
-export const getMatches = () => {
-  return axios.get("/api/users/matches");
+export const getMatches = (latitude,
+                           longitude) => {
+  return axios.post("/api/users/matches",{latitude,
+    longitude});
 };
 
 export const getMessages = (passiveSideUserId) => {

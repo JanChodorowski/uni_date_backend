@@ -39,6 +39,11 @@ const filterValidation = {
   yearsFilter: yup.array(),
 };
 
+const locationValidation = {
+  latitude: yup.number().nullable().required(),
+  longitude: yup.number().nullable().required(),
+};
+
 router.get('/', authenticate, async (req: Request, res: Response) => {
   const { id } = req?.body?.payload;
   const userViewData = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
@@ -91,11 +96,28 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
   res.json(userDto).end();
 });
 
-router.get('/matches', authenticate, async (req: Request, res: Response) => {
+router.post('/matches', authenticate, async (req: Request, res: Response) => {
+  const {
+    latitude,
+    longitude,
+  } = req.body;
+
+  const schema = yup.object().shape(locationValidation);
+
+  const isValid = await schema.isValid({
+    latitude,
+    longitude,
+  });
+
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+
   const matchesData = await userDao.findMatches(req.body.payload.id).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
+
   if (!matchesData) {
     res.sendStatus(BAD_REQUEST).end();
   }
@@ -108,6 +130,12 @@ router.get('/matches', authenticate, async (req: Request, res: Response) => {
         && pd?.interests.length > 0
         && pd?.interests.map((interest: any) => interest.interestName))
         || [],
+    distance: Math.ceil(getDistanceFromLatLonInKm(
+      latitude,
+      longitude,
+      pd.latitude,
+      pd.longitude,
+    )),
   }));
 
   removeCityAndUniversityFromCollection(matchesDto);
@@ -151,8 +179,7 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
   } = req.body;
   const schema = yup.object().shape({
     ...filterValidation,
-    latitude: yup.number().nullable().required(),
-    longitude: yup.number().nullable().required(),
+    ...locationValidation,
   });
   const isValid = await schema.isValid({
     cityFilter,

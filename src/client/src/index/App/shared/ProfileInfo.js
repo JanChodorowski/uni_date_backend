@@ -10,6 +10,8 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
     !!(profiles && Array.isArray(profiles) && profiles.length > 0);
   const passiveSideUser =
     isProfilesFilled() && profiles.find((p) => p.id === passiveSideUserId);
+
+  const age = calculateAge(passiveSideUser?.dateOfBirth)
   return (
     <>
       <MatchGallery
@@ -29,9 +31,11 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
             }}
           >
             {`${passiveSideUser?.userName} ` || ""}
-            {calculateAge(passiveSideUser?.dateOfBirth) || ""}
+            {(age && age !== 0 && age) || ""}
             {passiveSideUser.distance &&
-              ` (${passiveSideUser.distance}km away)`}
+            passiveSideUser.distance !== 0 &&
+              ` (${passiveSideUser.distance}km away)`
+            }
           </Typography>
           <Divider></Divider>
         </>

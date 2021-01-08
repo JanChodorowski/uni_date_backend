@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatPage = () => {
+const ChatPage = ({latitude,
+                    longitude}) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
   const [user] = useContext(UserContext);
@@ -47,7 +48,8 @@ const ChatPage = () => {
 
     setIsLoading(true);
 
-    getMatches()
+    getMatches(latitude,
+        longitude)
       .then((res) => {
         let matchesData = res.data;
 
