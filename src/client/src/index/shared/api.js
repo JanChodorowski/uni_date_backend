@@ -23,15 +23,19 @@ export const getUser = () => {
   return axios.get("/api/users");
 };
 
-export const getProfiles = ({
-  cityFilter,
-  universityFilter,
-  ageFromFilter,
-  ageToFilter,
-  maxSearchDistanceFilter,
-  genderFilters,
-  interestFilter,
-},latitude,longitude) => {
+export const getProfiles = (
+  {
+    cityFilter,
+    universityFilter,
+    ageFromFilter,
+    ageToFilter,
+    maxSearchDistanceFilter,
+    genderFilters,
+    interestFilter,
+  },
+  latitude,
+  longitude
+) => {
   return axios.post("/api/users/profiles", {
     cityFilter,
     universityFilter,
@@ -41,8 +45,7 @@ export const getProfiles = ({
     genderFilters,
     interestFilter,
     latitude,
-    longitude
-
+    longitude,
   });
 };
 
@@ -107,10 +110,10 @@ export const getMessages = (passiveSideUserId) => {
 };
 
 export const deletePicture = (fileName) => {
-  return axios.post("/api/pictures/delete", {fileName});
+  return axios.post("/api/pictures/delete", { fileName });
 };
 
 export const sendLocation = (coords) => {
-  const {latitude, longitude} = coords
-  return axios.post("/api/users/location", {latitude, longitude});
+  const { latitude, longitude } = coords;
+  return axios.post("/api/users/location", { latitude, longitude });
 };

@@ -8,7 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import WarningIcon from "@material-ui/icons/Warning";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PlaceHolder from "../../../ChatPage/shared/Missing_avatar.svg";
-import {deletePicture} from "../../../../shared/api";
+import { deletePicture } from "../../../../shared/api";
 
 const RemoveAvatar = ({
   chosenFileName,

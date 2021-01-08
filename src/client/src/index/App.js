@@ -12,7 +12,7 @@ import MatchPage from "./App/MatchPage";
 import ProfilePage from "./App/ProfilePage";
 import ProgressShower from "./App/ProgressShower";
 import SettingsPage from "./App/SettingsPage";
-import {getPicture, getUser, sendLocation} from "./shared/api";
+import { getPicture, getUser, sendLocation } from "./shared/api";
 import BtmNav from "./App/BtmNav";
 import { ColorContext } from "./shared/colorContext";
 import { IncomingMessagesContext } from "./shared/incomingMessagesContext";
@@ -82,10 +82,12 @@ function App({ coords }) {
   }, []);
 
   useEffect(() => {
-    if(!coords){
-      return
+    if (!coords) {
+      return;
     }
-    sendLocation(coords).then(() => {}).catch((err)=> {})
+    sendLocation(coords)
+      .then(() => {})
+      .catch((err) => {});
   }, [coords]);
 
   useEffect(() => {
@@ -125,7 +127,6 @@ function App({ coords }) {
             if (!userData.id) {
               return;
             }
-
           })
           .catch((e) => {
             console.error("err", e);
@@ -189,7 +190,13 @@ function App({ coords }) {
                             <Route
                               path={`/${match}`}
                               // component={MatchPage}
-                              render={(props) => <MatchPage {...props} latitude={coords?.latitude} longitude={coords?.longitude}/>}
+                              render={(props) => (
+                                <MatchPage
+                                  {...props}
+                                  latitude={coords?.latitude}
+                                  longitude={coords?.longitude}
+                                />
+                              )}
                               exact
                             />
                             <Route

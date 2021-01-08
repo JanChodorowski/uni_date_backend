@@ -19,7 +19,7 @@ const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
 
-const MatchPage = ({latitude, longitude}) => {
+const MatchPage = ({ latitude, longitude }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
   const [user] = useContext(UserContext);

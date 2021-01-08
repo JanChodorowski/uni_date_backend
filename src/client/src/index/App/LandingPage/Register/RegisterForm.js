@@ -32,9 +32,9 @@ const RegisterForm = () => {
   };
   const formik = useFormik({
     initialValues: {
-      email: "karmazyn@gmail.com",
-      password: "karmazyn",
-      passwordConfirmation: "karmazyn",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
