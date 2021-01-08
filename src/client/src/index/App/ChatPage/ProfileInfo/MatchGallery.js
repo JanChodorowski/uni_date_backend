@@ -9,6 +9,7 @@ import { getPicture } from "../../../shared/api";
 import { DEFAULT_IMAGE_SIZE } from "../../../shared/constants";
 import { compareFileNames } from "../../../shared/functions";
 import { LoadingContext } from "../../../shared/loadingContext";
+import {CircularProgress} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,6 +107,7 @@ function MatchGallery({ profileId, profiles, setProfiles }) {
       {maxSteps ? (
         <>
           <div className={classes.root}>
+            {isLoading && <CircularProgress />}
             <SwipeableViews
               axis={theme.direction === "rtl" ? "x-reverse" : "x"}
               index={activeStep}

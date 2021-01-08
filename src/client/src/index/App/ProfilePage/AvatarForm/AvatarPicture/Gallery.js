@@ -7,6 +7,8 @@ import React, { useContext } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { DEFAULT_IMAGE_SIZE } from "../../../../shared/constants";
 import { UserContext } from "../../../../shared/userContext";
+import {CircularProgress} from "@material-ui/core";
+import {LoadingContext} from "../../../../shared/loadingContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 function Gallery({ setChosenFileName, activeStep, setActiveStep }) {
   const classes = useStyles();
   const theme = useTheme();
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const [user, setUser] = useContext(UserContext);
   const maxSteps = user?.pictures?.length;
@@ -55,6 +58,7 @@ function Gallery({ setChosenFileName, activeStep, setActiveStep }) {
     <>
       {maxSteps ? (
         <>
+          {isLoading && <CircularProgress />}
           <div className={classes.root}>
             <SwipeableViews
               axis={theme.direction === "rtl" ? "x-reverse" : "x"}
