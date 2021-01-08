@@ -103,10 +103,10 @@ function MatchGallery({ profileId, profiles, setProfiles }) {
 
   return (
     <>
-      {isLoading && <CircularProgress />}
       {maxSteps ? (
         <>
           <div className={classes.root}>
+            {isLoading && <CircularProgress />}
             <SwipeableViews
               axis={theme.direction === "rtl" ? "x-reverse" : "x"}
               index={activeStep}

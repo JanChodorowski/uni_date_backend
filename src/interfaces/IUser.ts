@@ -17,7 +17,6 @@ export interface IUser {
     email: string;
     passwordHash: string;
     createdAt: Date;
-    localization: string;
     isGraduated: boolean;
     fieldOfStudy: string;
     ageFromFilter: number;

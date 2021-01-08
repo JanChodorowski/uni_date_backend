@@ -48,9 +48,9 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
   const userViewData = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
     .catch((err: Error) => {
       console.error(err);
-      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`).end();
     });
-
+  console.log('userViewData', userViewData);
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }

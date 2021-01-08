@@ -8,7 +8,7 @@ import CenterHOC from "./shared/CenterHOC";
 import logo from "./shared/the-eiger.svg";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 
-const LandingPage = () => {
+const LandingPage = ({latitude, longitude}) => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);
 
   const paper = useTransparentPaperStyle();
@@ -73,7 +73,7 @@ const LandingPage = () => {
                 <LoginForm />
               </Paper>
               <Paper className={paper}>
-                <Register></Register>
+                <Register latitude={latitude} longitude={longitude}></Register>
               </Paper>
             </Grid>
           </CenterHOC>

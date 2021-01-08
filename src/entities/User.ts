@@ -48,9 +48,6 @@ export class User {
   @Column('timestamp without time zone', { name: 'created_at' })
   createdAt: Date;
 
-  @Column('character varying', { name: 'localization', length: 100 })
-  localization: string;
-
   @Column('boolean', { name: 'is_graduated' })
   isGraduated: boolean;
 
