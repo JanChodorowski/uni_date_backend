@@ -19,11 +19,11 @@ const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
 
-const MatchPage = () => {
+const MatchPage = ({latitude, longitude}) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
   const [user] = useContext(UserContext);
-
+console.log('MatchPage', latitude, longitude)
   const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null);
 
   const checkIfProfilesAlreadyFetched = () => profiles && profiles.length > 0;
@@ -37,7 +37,7 @@ const MatchPage = () => {
 
     setIsLoading(true);
 
-    getProfiles(user)
+    getProfiles(user, latitude, longitude)
       .then((res) => {
         let profilesData = res.data;
 
@@ -70,6 +70,7 @@ const MatchPage = () => {
           .finally(() => {
             setProfiles(profilesData);
             setIsLoading(false);
+            console.log('profilesData',profilesData)
           });
       })
       .catch((e) => {

@@ -30,6 +30,7 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
           >
             {`${passiveSideUser?.userName} ` || ""}
             {calculateAge(passiveSideUser?.dateOfBirth) || ""}
+              {passiveSideUser.distance && ` (${passiveSideUser.distance}km away)`}
           </Typography>
           <Divider></Divider>
         </>

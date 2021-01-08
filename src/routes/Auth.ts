@@ -4,7 +4,7 @@ import {
 import jwt, { SignOptions } from 'jsonwebtoken';
 import UserDao from '@daos/User/UserDao';
 import { User } from '@entities/User';
-import { PASSWORD_MIN_CHARS } from '@shared/constants';
+import { initialMaxSearchDistance, PASSWORD_MIN_CHARS } from '@shared/constants';
 import StatusCodes from 'http-status-codes';
 import * as yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
@@ -81,7 +81,7 @@ router.post('/register', async (req: Request, res: Response) => {
   // newUser.popularity = 0;
   // newUser.activityIntensity = 0;
   newUser.localization = '';
-  newUser.maxSearchDistanceFilter = 200;
+  newUser.maxSearchDistanceFilter = initialMaxSearchDistance;
   newUser.ageFromFilter = 18;
   newUser.ageToFilter = 100;
 

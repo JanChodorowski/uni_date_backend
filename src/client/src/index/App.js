@@ -64,10 +64,6 @@ function App({ coords }) {
     videoRef.current.playbackRate = 0.6;
   }, [videoRef]);
 
-  // useEffect(() => {
-  //   socket.removeAllListeners(PRIVATE_CHAT);
-  // }, []);
-
   useEffect(() => {
     if (!user.id) {
       return;
@@ -131,7 +127,7 @@ function App({ coords }) {
               pictures: picturesDataWithBlobs,
             };
             setUser(userData);
-
+console.log('userData',userData)
             if (!userData.id) {
               return;
             }
@@ -202,7 +198,8 @@ function App({ coords }) {
                             />
                             <Route
                               path={`/${match}`}
-                              component={MatchPage}
+                              // component={MatchPage}
+                              render={(props) => <MatchPage {...props} latitude={coords?.latitude} longitude={coords?.longitude}/>}
                               exact
                             />
                             <Route

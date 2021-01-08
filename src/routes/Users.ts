@@ -10,10 +10,15 @@ import * as yup from 'yup';
 import { City } from '@entities/City';
 import { University } from '@entities/University';
 import { Interest } from '@entities/Interest';
-import { capitalizeFirstLetter, removeCityAndUniversityFromCollection } from '@shared/functions';
+import {
+  capitalizeFirstLetter,
+  getDistanceFromLatLonInKm,
+  removeCityAndUniversityFromCollection,
+} from '@shared/functions';
 import { GenderFilter } from '@entities/GenderFilter';
 import { Match } from '@entities/Match';
 import { IUser } from '@interfaces/IUser';
+import { initialMaxSearchDistance } from '@shared/constants';
 
 global.Blob = require('node-blob');
 
@@ -34,7 +39,7 @@ const filterValidation = {
   yearsFilter: yup.array(),
 };
 
-router.post('/', authenticate, async (req: Request, res: Response) => {
+router.get('/', authenticate, async (req: Request, res: Response) => {
   const { id } = req?.body?.payload;
   const userViewData = await userDao.getUserViewDataByUserId(req?.body?.payload?.id)
     .catch((err: Error) => {
@@ -143,9 +148,15 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
     maxSearchDistanceFilter,
     genderFilters,
     interestFilter,
+    latitude,
+    longitude,
   } = req.body;
-
-  const schema = yup.object().shape(filterValidation);
+  console.log('profiles', latitude, longitude);
+  const schema = yup.object().shape({
+    ...filterValidation,
+    latitude: yup.number().nullable().required(),
+    longitude: yup.number().nullable().required(),
+  });
   const isValid = await schema.isValid({
     cityFilter,
     universityFilter,
@@ -154,12 +165,14 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
     maxSearchDistanceFilter,
     genderFilters,
     interestFilter,
+    latitude,
+    longitude,
   });
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
-  const profilesData = await userDao.findProfiles(
+  let profilesData = await userDao.findProfiles(
     payload?.id,
     cityFilter,
     universityFilter,
@@ -178,7 +191,18 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
     res.sendStatus(BAD_REQUEST).end();
   }
 
-  const profilesDto = profilesData.map((pd: any) => ({
+  let profilesDto: [];
+
+  if (maxSearchDistanceFilter < initialMaxSearchDistance && latitude && longitude) {
+    profilesData = profilesData.filter((pd:any) => getDistanceFromLatLonInKm(
+      latitude,
+      longitude,
+      pd.latitude,
+      pd.longitude,
+    ) <= maxSearchDistanceFilter);
+  }
+
+  profilesDto = profilesData.map((pd: any) => ({
     ...pd,
     city: pd?.cityName?.cityName || '',
     university: pd?.universityName?.universityName || '',
@@ -186,10 +210,15 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
         && pd?.interests.length > 0
         && pd?.interests.map((interest: any) => interest.interestName))
         || [],
+    distance: Math.ceil(getDistanceFromLatLonInKm(
+      latitude,
+      longitude,
+      pd.latitude,
+      pd.longitude,
+    )),
   }));
 
   removeCityAndUniversityFromCollection(profilesDto);
-
   res.json(profilesDto).end();
 });
 
@@ -207,7 +236,7 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       description: yup.string(),
       popularity: yup.number(),
       activityIntensity: yup.number(),
-      localization: yup.number(),
+      // localization: yup.number(),
       isGraduated: yup.bool(),
       fieldOfStudy: yup.string(),
       interests: yup.array(),
@@ -397,9 +426,9 @@ router.post('/location', authenticate, async (req: Request, res: Response) => {
   }
 
   console.log('isValid', isValid);
-  const { latitude, longitude } = req.body;
+  const { latitude, longitude, payload } = req.body;
   const updatedUser: IUser = new User();
-  updatedUser.id = req.body.payload.id;
+  updatedUser.id = payload.id;
   updatedUser.latitude = latitude;
   updatedUser.longitude = longitude;
   const dbResult = userDao.update(

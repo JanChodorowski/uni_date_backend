@@ -17,6 +17,8 @@ export interface IRequestWithPayload extends Request {
     }
 }
 
+export const initialMaxSearchDistance = 200;
+
 //
 // export interface IRequestWithFiles extends Request {
 //     files: any

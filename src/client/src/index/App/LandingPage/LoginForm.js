@@ -47,7 +47,7 @@ const LoginForm = () => {
       };
       login(formattedValues)
         .then(() => {
-          getUser(null)
+          getUser()
             .then((res) => {
               const { data } = res;
               if (!data.email) {

@@ -334,7 +334,7 @@ const FilterPage = () => {
                   aria-labelledby="max-distance-slider"
                   step={10}
                   marks
-                  min={0}
+                  min={1}
                   max={maxDistanceLimit}
                   valueLabelDisplay="on"
                   value={maxSearchDistanceFilter}

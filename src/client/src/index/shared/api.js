@@ -19,8 +19,8 @@ export const register = ({ email, password, passwordConfirmation }) => {
   });
 };
 
-export const getUser = (localization) => {
-  return axios.post("/api/users", { localization });
+export const getUser = () => {
+  return axios.get("/api/users");
 };
 
 export const getProfiles = ({
@@ -31,7 +31,7 @@ export const getProfiles = ({
   maxSearchDistanceFilter,
   genderFilters,
   interestFilter,
-}) => {
+},latitude,longitude) => {
   return axios.post("/api/users/profiles", {
     cityFilter,
     universityFilter,
@@ -40,6 +40,9 @@ export const getProfiles = ({
     maxSearchDistanceFilter,
     genderFilters,
     interestFilter,
+    latitude,
+    longitude
+
   });
 };
 

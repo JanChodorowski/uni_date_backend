@@ -25,7 +25,7 @@ const LabelValuePrinter = ({ label, value }) => {
           <Grid item>
             {Array.isArray(value) ? (
               value.map((v) => {
-                return <Typography key={v}>{v}</Typography>;
+                return <Typography style={{textAlign: 'right'}} key={v}>{v}</Typography>;
               })
             ) : (
               <Typography>{value}</Typography>
