@@ -87,12 +87,9 @@ function App({ coords }) {
     if(!coords){
       return
     }
-    console.log('coords',coords)
     sendLocation(coords).then(() => {}).catch((err)=> {})
   }, [coords]);
 
-  console.log('1',coords)
-  // console.log("user", user);
   useEffect(() => {
     let mounted = true;
     handleLoading(true);
@@ -127,15 +124,10 @@ function App({ coords }) {
               pictures: picturesDataWithBlobs,
             };
             setUser(userData);
-console.log('userData',userData)
             if (!userData.id) {
               return;
             }
 
-            // var systemUrl = 'http://localhost:3000';
-            // var socket = io.connect(systemUrl);
-
-            // socket.emit("register", userData.id);
           })
           .catch((e) => {
             console.error("err", e);

@@ -34,12 +34,9 @@ const RemoveAvatar = ({
       .finally(() => {
         setIsLoading(false);
       });
-    console.log("chosenFileName", chosenFileName);
     const filteredPictures = user.pictures.filter(
       (p) => p.fileName !== chosenFileName
     );
-    console.log("filteredPictures", filteredPictures);
-    // const userWithFilteredPictures = (user.pictures = filteredPictures);
 
     setUser((prevUser) => {
       return { ...prevUser, pictures: filteredPictures };

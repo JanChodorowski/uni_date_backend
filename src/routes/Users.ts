@@ -50,7 +50,6 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
-  console.log('userViewData', userViewData);
   const initGenderFilter = {
     Female: true,
     Male: true,
@@ -89,7 +88,6 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
   };
   delete userDto.cityName;
   delete userDto.universityName;
-  console.log('userDto', userDto);
   res.json(userDto).end();
 });
 
@@ -151,7 +149,6 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
     latitude,
     longitude,
   } = req.body;
-  console.log('profiles', latitude, longitude);
   const schema = yup.object().shape({
     ...filterValidation,
     latitude: yup.number().nullable().required(),
@@ -418,14 +415,12 @@ router.post('/location', authenticate, async (req: Request, res: Response) => {
       longitude: yup.number().required(),
     },
   );
-  console.log('req.body.coords', req.body);
 
   const isValid = await schema.isValid(req.body);
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
-  console.log('isValid', isValid);
   const { latitude, longitude, payload } = req.body;
   const updatedUser: IUser = new User();
   updatedUser.id = payload.id;

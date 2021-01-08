@@ -23,7 +23,6 @@ const MatchPage = ({latitude, longitude}) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
   const [user] = useContext(UserContext);
-console.log('MatchPage', latitude, longitude)
   const [areMoreProfilesNeeded, setAreMoreProfilesNeeded] = useState(null);
 
   const checkIfProfilesAlreadyFetched = () => profiles && profiles.length > 0;
@@ -70,7 +69,6 @@ console.log('MatchPage', latitude, longitude)
           .finally(() => {
             setProfiles(profilesData);
             setIsLoading(false);
-            console.log('profilesData',profilesData)
           });
       })
       .catch((e) => {
