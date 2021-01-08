@@ -33,9 +33,7 @@ import { PathContext } from "./shared/pathContext";
 import { ProfilesContext } from "./shared/profilesContext";
 import { UserContext } from "./shared/userContext";
 
-import io from "socket.io-client";
 import { socket } from "./shared/socket";
-import Schlern from "./App/Schlern.mp4";
 import SchlernLow from "./App/SchlernLow.mp4";
 
 const { privateChat, register } = SOCKET_EVENTS;
