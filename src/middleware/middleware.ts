@@ -4,7 +4,7 @@ import { NextFunction, Response } from 'express';
 import { IRequestWithPayload } from '@shared/constants';
 
 const {
-  BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,
+  BAD_REQUEST, UNAUTHORIZED,
 } = StatusCodes;
 const { TOKEN_SECRET } = process.env;
 

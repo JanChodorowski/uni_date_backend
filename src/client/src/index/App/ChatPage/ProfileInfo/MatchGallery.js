@@ -36,7 +36,6 @@ function MatchGallery({ profileId, profiles, setProfiles }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
-  // const [user, setUser] = useContext(UserContext);
 
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const maxSteps =
@@ -104,7 +103,6 @@ function MatchGallery({ profileId, profiles, setProfiles }) {
 
   return (
     <>
-      {" "}
       {isLoading && <CircularProgress />}
       {maxSteps ? (
         <>

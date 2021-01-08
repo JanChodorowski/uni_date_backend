@@ -51,16 +51,7 @@ const RemoveAvatar = ({
       (filteredPictures.length > 0 && filteredPictures[0].fileName) || ""
     );
     setActiveStep(0);
-    // const {pictures} = user
-    //       const index = pictures.findIndex((p) => p.fileName === chosenFileName);
-    //       pictures[index].messages = data;
-    //       setUser(user);
-    //
-    // const filteredPictures = user.pictures.filter(
-    //     (p) => p.fileName !== chosenFileName
-    // );
-    // const userWithFilteredPictures = (user.pictures = filteredPictures);
-    // setUser(userWithFilteredPictures);
+
     return () => {
       setIsLoading(false);
     };

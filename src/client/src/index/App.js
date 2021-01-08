@@ -184,7 +184,6 @@ function App({ coords }) {
                           <Switch>
                             <Route
                               path={`/${chat}`}
-                              // component={ChatPage}
                               render={(props) => (
                                 <ChatPage
                                   {...props}
@@ -196,7 +195,6 @@ function App({ coords }) {
                             />
                             <Route
                               path={`/${match}`}
-                              // component={MatchPage}
                               render={(props) => (
                                 <MatchPage
                                   {...props}

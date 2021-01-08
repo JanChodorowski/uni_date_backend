@@ -21,8 +21,6 @@ export class UserDto {
 
     ageToFilter: number;
 
-    // universityFilter: string;
-
     pictures: object[];
 
     city: string;

@@ -41,12 +41,6 @@ class RelationDao implements IRelationDao {
           isLiking: true,
         },
       });
-    // getConnection()
-    //     .createQueryBuilder()
-    //     .from(OneSidedRelation, 'osr')
-    //     .where('(osr.activeSideUserId = :paramUserId_1 AND osr.passiveSideUserId = :paramUserId_2 AND ) OR (osr.activeSideUserId = :paramUserId_2 AND osr.passiveSideUserId = :paramUserId_1)')
-    //     .setParameters({ paramUserId_1: activeSideUserId, paramUserId_2: passiveSideUserId })
-    //     .getRawMany();
   }
 
   /**

@@ -78,9 +78,6 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.createdAt = new Date();
   newUser.isGraduated = false;
   newUser.fieldOfStudy = '';
-  // newUser.popularity = 0;
-  // newUser.activityIntensity = 0;
-  newUser.localization = '';
   newUser.maxSearchDistanceFilter = initialMaxSearchDistance;
   newUser.ageFromFilter = 18;
   newUser.ageToFilter = 100;
@@ -153,34 +150,8 @@ router.post('/login', async (req: Request, res: Response) => {
 });
 
 router.post('/refresh', authenticate, (req, res) => {
-  // const { token } = req.cookies;
-  //
-  // if (!token) {
-  //   return res.status(UNAUTHORIZED).end();
-  // }
-  //
-  // let payload : any;
-  // try {
-  //   payload = jwt.verify(token, TOKEN_SECRET!);
-  // } catch (e) {
-  //   if (e instanceof jwt.JsonWebTokenError) {
-  //     return res.status(UNAUTHORIZED).end();
-  //   }
-  //   return res.status(BAD_REQUEST).end();
-  // }
-
-  // We ensure that a new token is not issued until enough time has elapsed
-  // In this case, a new token will only be issued if the old token is within
-  // 30 seconds of expiry. Otherwise, return a bad request status
-  // const nowUnixSeconds = Math.round(Number(new Date()) / 1000);
-  // if (payload.exp - nowUnixSeconds > 30) {
-  //   return res.status(BAD_REQUEST).end();
-  // }
-
-  // Now, create a new token for the current user, with a renewed expiration time
+  // TO-DO
   const newToken = jwt.sign({ id: req?.body?.payload?.id }, TOKEN_SECRET!, signOptions);
-
-  // Set the new token as the users `token` cookie
   res.cookie('token', newToken, cookieOptions).end();
 });
 

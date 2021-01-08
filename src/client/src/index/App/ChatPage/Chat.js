@@ -30,19 +30,6 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
   const [incomingMessages, setIncomingMessages] = useContext(
     IncomingMessagesContext
   );
-  // useEffect(() => {
-  //   let mounted = true;
-  //   socket.on(PRIVATE_CHAT, function (newIncomingMessage) {
-  //     alert("test", newIncomingMessage);
-  //
-  //     setIncomingMessages((prevIncomingMessages) => {
-  //       return [...prevIncomingMessages, newIncomingMessage];
-  //     });
-  //   });
-  //   return () => {
-  //     mounted = false;
-  //   };
-  // }, []);
 
   useEffect(() => {
     setIncomingMessages((prevIncomingMessages) => {
@@ -54,10 +41,6 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
 
   useEffect(() => {
     let mounted = true;
-
-    // if (checkIfProfilesAlreadyFetched()) {
-    //     return;
-    // }
 
     setIsLoading(true);
 
@@ -167,7 +150,6 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
                       key={i}
                       model={{
                         message: msg.content,
-                        // sentTime: "just now",
                         direction:
                           msg.senderUserId === passiveSideUserId
                             ? "incoming"

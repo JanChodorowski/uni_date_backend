@@ -19,7 +19,7 @@ const fs = require('fs');
 
 const router = Router();
 const {
-  BAD_REQUEST, CREATED, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR,
+  BAD_REQUEST, INTERNAL_SERVER_ERROR,
 } = StatusCodes;
 
 const fileNameSchema = yup.object().shape({ fileName: yup.string().required() });
@@ -84,7 +84,6 @@ router.post('/', authenticate, async (req: any, res: Response) => {
       if (Array.isArray(files)) {
         newPictureOrPictures = files.map((f: any, i: number) => {
           const newPicture = new Picture();
-          // newPicture.order = i;
           newPicture.fileName = uuidv4();
           newPicture.user = foundUser!;
           newPicture.isAvatar = false;
@@ -93,7 +92,6 @@ router.post('/', authenticate, async (req: any, res: Response) => {
         });
       } else {
         const newPicture = new Picture();
-        // newPicture.order = -1;
         newPicture.fileName = uuidv4();
         newPicture.user = foundUser!;
         newPicture.isAvatar = false;

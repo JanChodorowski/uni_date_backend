@@ -98,11 +98,7 @@ const AvatarPicture = () => {
                     variant="contained"
                     type="submit"
                     onClick={handleAvatarChange}
-                    disabled={
-                      // (chosenPictureIdx === activeStep &&
-                      //   chosenFileName !== PlaceHolder) ||
-                      isLoading
-                    }
+                    disabled={isLoading}
                     size="small"
                     startIcon={<FaceIcon></FaceIcon>}
                   >

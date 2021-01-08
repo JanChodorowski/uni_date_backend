@@ -19,17 +19,4 @@ export interface IRequestWithPayload extends Request {
 
 export const initialMaxSearchDistance = 200;
 
-//
-// export interface IRequestWithFiles extends Request {
-//     files: any
-// }
-
-// to be continued...
-// export enum gender {
-//     none,
-//     male,
-//     female,
-//     other,
-// }
-
 export const PASSWORD_MIN_CHARS = 8;

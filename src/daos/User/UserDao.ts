@@ -42,22 +42,6 @@ export interface IUserDao {
 }
 
 class UserDao implements IUserDao {
-  // user = [
-  //   'user.userName',
-  //   'user.gender',
-  //   'user.description',
-  //   'user.email',
-  //   'user.maxSearchDistanceFilter',
-  //   'user.ageFromFilter',
-  //   'user.ageToFilter',
-  //   'user.isGraduated',
-  //   'user.fieldOfStudy',
-  //   'picture.fileName',
-  //   'picture.isAvatar',
-  //   'city.cityName',
-  //   'university.universityName',
-  //   'interests.interestName',
-  // ]
     profilesDto = [
       'user.id',
       'user.userName',
@@ -122,8 +106,6 @@ class UserDao implements IUserDao {
           'user.isGraduated',
           'user.fieldOfStudy',
           'user.dateOfBirth',
-          // 'user.latitude',
-          // 'user.longitude',
           'genderFilters.genderFilter',
           'genderFilters.isLiking',
           'picture.fileName',
@@ -178,8 +160,6 @@ class UserDao implements IUserDao {
         .leftJoin('user.matches', 'matches')
         .where('id != :paramId')
         .andWhere('(matches2.userId = :paramId OR matches.userId_3 = :paramId) AND (matches2.isResigned = false OR matches2.isResigned IS NULL) AND (matches.isResigned = false OR matches.isResigned IS NULL)')
-        // .andWhere('matches2.isResigned = \'false\'')
-        // .andWhere('matches.isResigned = \'false\'')
         .setParameter('paramId', id)
         .select(this.profilesDto)
         .getMany();
@@ -274,7 +254,6 @@ class UserDao implements IUserDao {
         .setParameter('paramId', id)
         .select(this.profilesDto)
         .orderBy('picture.isAvatar')
-      // .limit(2)
         .getMany();
     }
 
@@ -288,14 +267,6 @@ class UserDao implements IUserDao {
         .save(user);
     }
 
-    //
-    // public async updateGeo(
-    //     latitude: number,
-    //     longitude: number,
-    // ): Promise<void> {
-    //     await getConnection().createEntityManager()
-    //
-    // }
     /**
    *
    * @param newOrUpdatedUser

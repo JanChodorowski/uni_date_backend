@@ -8,7 +8,6 @@ import morgan from 'morgan';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import path from 'path';
-// import throng from 'throng';
 import BaseRouter from './routes';
 
 const cors = require('cors');
@@ -17,16 +16,11 @@ const {
   NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL,
 } = process.env;
 
-// const WORKERS = process.env.WEB_CONCURRENCY || 1;
-
 const app = express();
 
-// const startApp = () => {
 const { BAD_REQUEST } = StatusCodes;
 
-// Do usuniecia?
 app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -34,12 +28,10 @@ app.use(cookieParser());
 let mainDirName;
 
 if (NODE_ENV === 'development') {
-  // Show routes called in console during development
   app.use(morgan('dev'));
 
   mainDirName = 'src';
 } else if (NODE_ENV === 'production') {
-  // Security
   app.use(helmet({
     contentSecurityPolicy: false,
   }));
@@ -51,7 +43,6 @@ const ormConfig = {
   type: 'postgres',
   url: DATABASE_URL || LOCAL_DATABASE_URL,
   synchronize: false,
-  // logging: NODE_ENV === 'development',
   logging: false,
   entities: [
     `${mainDirName}/entities/*.*`,
@@ -86,12 +77,5 @@ createConnection(ormConfig as any).then(async (connection) => {
     });
   }
 }).catch((error) => console.log('TypeORM connection error: ', error));
-// };
-
-// if (NODE_ENV === 'development') {
-//   startApp();
-// } else {
-//   throng(WORKERS, startApp);
-// }
 
 export default app;

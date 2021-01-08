@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { LoadingContext } from "../shared/loadingContext";
 
 const ProgressShower = () => {
-  const [isLoading, setIsLoading] = useContext(LoadingContext);
+  const [isLoading] = useContext(LoadingContext);
 
   return <>{isLoading && <LinearProgress />}</>;
 };

@@ -38,14 +38,6 @@ const RegisterForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      // let res;
-      // try {
-      //   res = await register(values);
-      //   setUser(res?.data);
-      // } catch {
-      // } finally {
-      //   setIsUserExisting(!!res?.data?.isUserExisting);
-      // }
       setIsLoading(true);
       register(values)
         .then((res) => {

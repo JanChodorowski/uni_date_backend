@@ -23,7 +23,6 @@ const PictureUploader = () => {
 
   const handleUpload = () => {
     setIsLoading(true);
-    // setIsUploaded(false);
 
     uploadPictures(picturesToUpload)
       .then((res) => {})

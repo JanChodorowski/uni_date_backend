@@ -16,7 +16,6 @@ import {
   removeCityAndUniversityFromCollection,
 } from '@shared/functions';
 import { GenderFilter } from '@entities/GenderFilter';
-import { Match } from '@entities/Match';
 import { IUser } from '@interfaces/IUser';
 import { initialMaxSearchDistance } from '@shared/constants';
 
@@ -258,9 +257,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
       gender: yup.string(),
       dateOfBirth: yup.string().nullable(),
       description: yup.string(),
-      popularity: yup.number(),
-      activityIntensity: yup.number(),
-      // localization: yup.number(),
       isGraduated: yup.bool(),
       fieldOfStudy: yup.string(),
       interests: yup.array(),
@@ -278,9 +274,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     dateOfBirth,
     description,
     email,
-    popularity,
-    activityIntensity,
-    localization,
     maxSearchDistanceFilter,
     university,
     city,
@@ -292,8 +285,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
     cityFilter,
     genderFilters,
     yearsFilter,
-    ageFromFilter,
-    ageToFilter,
   } = user;
 
   const updatedUser = new User();
@@ -312,15 +303,6 @@ router.put('/', authenticate, async (req: Request, res: Response) => {
   }
   if (email) {
     updatedUser.email = email;
-  }
-  // if (popularity) {
-  //   updatedUser.popularity = popularity;
-  // }
-  // if (activityIntensity) {
-  //   updatedUser.activityIntensity = activityIntensity;
-  // }
-  if (localization) {
-    updatedUser.localization = localization;
   }
   if (maxSearchDistanceFilter) {
     updatedUser.maxSearchDistanceFilter = maxSearchDistanceFilter;

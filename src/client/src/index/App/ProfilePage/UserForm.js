@@ -125,8 +125,6 @@ const UserForm = () => {
   return (
     <>
       <form noValidate autoComplete="off" onSubmit={onSubmit}>
-        {/*<Grid container direction="column" alignItems="center" justify="center">*/}
-        {/*  <Grid item>*/}
         <Grid
           container
           direction="row"
@@ -239,7 +237,6 @@ const UserForm = () => {
                 name="interests"
                 label="Interests"
                 blurBehavior="add"
-                // defaultValue={(user?.interests && user?.interests.length > 0 && user.interests.map(interest => interest.name)) || []}
                 defaultValue={interests}
                 onChange={onInterestsChange}
                 size="small"
@@ -257,23 +254,18 @@ const UserForm = () => {
             </Paper>
           </Grid>
         </Grid>
-        {/*</Grid>*/}
-        {/*<Grid item>*/}
         <Paper className={paper}>
           <Button
             color="primary"
             variant="contained"
             fullWidth
             type="submit"
-            // disabled={formik.isSubmitting}
             size="small"
             startIcon={<PublishIcon></PublishIcon>}
           >
             UPDATE DATA
           </Button>
         </Paper>
-        {/*  </Grid>*/}
-        {/*</Grid>*/}
       </form>
       <Snackbar
         open={snackbarOpen}

@@ -111,10 +111,6 @@ export const DEFAULT_SPACE = "0.5rem";
 
 export const DEFAULT_IMAGE_SIZE = "375px";
 
-// export const DATA_UPDATED = "DATA_UPDATED";
-//
-// export const DATA_NOT_UPDATED = "DATA_NOT_UPDATED";
-
 export const AUTO_HIDE_DURATION = 6000;
 
 export const PINK_INTENSITY = "400";
