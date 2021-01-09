@@ -50,6 +50,8 @@ const AvatarPicture = ({ picturesToUpload }) => {
   };
   const [activeStep, setActiveStep] = useState(0);
 
+  const arePicturesToUploadEmpty = () => picturesToUpload.length === 0
+
   return (
     <>
       {!user?.pictures ||
@@ -70,7 +72,7 @@ const AvatarPicture = ({ picturesToUpload }) => {
                       setActiveStep={setActiveStep}
                     ></Gallery>
                   </CenterHOC>
-                  {picturesToUpload.length === 0 && (
+                  {arePicturesToUploadEmpty() && (
                     <RemoveAvatar
                       chosenFileName={chosenFileName}
                       setChosenFileName={setChosenFileName}
@@ -80,7 +82,7 @@ const AvatarPicture = ({ picturesToUpload }) => {
                   )}
                 </>
               </Grid>
-              {picturesToUpload.length === 0 && (
+              {arePicturesToUploadEmpty() && (
                 <Grid
                   item
                   container
