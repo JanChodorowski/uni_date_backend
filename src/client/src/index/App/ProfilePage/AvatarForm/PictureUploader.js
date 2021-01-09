@@ -42,7 +42,7 @@ const PictureUploader = ({ picturesToUpload, setPicturesToUpload }) => {
         withIcon={false}
         buttonText="CHOOSE PICTURES TO UPLOAD"
         onChange={handlePictureChange}
-        imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
+        imgExtension={[".jpg", ".gif", ".png", ".jpeg"]}
         maxFileSize={5242880}
         withPreview
         label=""
