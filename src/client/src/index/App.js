@@ -250,7 +250,7 @@ function App({ coords }) {
 
 export default geolocated({
   positionOptions: {
-    enableHighAccuracy: false,
+    enableHighAccuracy: true,
   },
   userDecisionTimeout: 5000,
 })(App);

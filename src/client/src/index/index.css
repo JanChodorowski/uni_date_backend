@@ -9,42 +9,13 @@ html {
   overflow-x: hidden;
 }
 body {
-  /* The image used */
   background-color: rgb(241, 240, 240);
-  /*background-image: url(../morskie_oko.jpg);*/
-  /*background-color: lightblue; !* For browsers that do not support gradients *!*/
-  /*background-image: linear-gradient(blue, lightblue);*/
-
-  /* Full height */
   height: 100%;
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-#background-video {
-  /*!*height: 100%;*!*/
-  /*z-index: -1;*/
-  /*width: 100%;*/
-  /*float: left;*/
-  /*top: 0;*/
-  /*!*padding: none;*!*/
-  /*position: fixed; !* optional depending on what you want to do in your app *!*/
-  /*background-size: cover;*/
-  /*object-fit: cover;*/
-  /*width: 100vw;*/
-  /*height: 100vh;*/
-  /*position: fixed;*/
-  /*top: 0;*/
-  /*left: 0;*/
-  /*position: fixed;*/
-  /*right: 0;*/
-  /*bottom: 0;*/
-  /*min-width: 100%;*/
-  /*min-height: 100%;*/
-}
 .fullscreen-bg {
   position: fixed;
   top: 0;
@@ -63,16 +34,3 @@ body {
   width: 100%;
   height: 100%;
 }
-/*body {*/
-/*  margin: 0;*/
-/*  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
-/*    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',*/
-/*    sans-serif;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*}*/
-
-/*code {*/
-/*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
-/*    monospace;*/
-/*}*/

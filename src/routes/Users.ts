@@ -431,6 +431,7 @@ router.post('/location', authenticate, async (req: Request, res: Response) => {
   }
 
   const { latitude, longitude, payload } = req.body;
+  console.log('latitude longitude', latitude, longitude);
   const updatedUser: IUser = new User();
   updatedUser.id = payload.id;
   updatedUser.latitude = latitude;
