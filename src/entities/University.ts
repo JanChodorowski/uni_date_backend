@@ -1,12 +1,14 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { User } from "./User";
+import {
+  Column, Entity, Index, OneToMany,
+} from 'typeorm';
+import { User } from './User';
 
-@Index("university_pk", ["universityName"], { unique: true })
-@Entity("university", { schema: "public" })
+@Index('university_pk', ['universityName'], { unique: true })
+@Entity('university', { schema: 'public' })
 export class University {
-  @Column("character varying", {
+  @Column('character varying', {
     primary: true,
-    name: "university_name",
+    name: 'university_name',
     length: 255,
   })
   universityName: string;
