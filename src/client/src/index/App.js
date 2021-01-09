@@ -231,8 +231,10 @@ function App({ coords }) {
                           <BtmNav />
                         </>
                       ) : (
-                        <LandingPage  latitude={coords?.latitude}
-                                      longitude={coords?.longitude}></LandingPage>
+                        <LandingPage
+                          latitude={coords?.latitude}
+                          longitude={coords?.longitude}
+                        ></LandingPage>
                       )}
                     </IncomingMessagesContext.Provider>
                   </PathContext.Provider>

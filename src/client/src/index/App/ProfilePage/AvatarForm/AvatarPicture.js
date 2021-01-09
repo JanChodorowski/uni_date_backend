@@ -12,7 +12,7 @@ import PlaceHolder from "../../ChatPage/shared/Missing_avatar.svg";
 import useTransparentPaperStyle from "../../shared/useTransparentPaperStyle";
 import RemoveAvatar from "./AvatarPicture/RemoveAvatar";
 
-const AvatarPicture = () => {
+const AvatarPicture = ({ picturesToUpload }) => {
   const [user] = useContext(UserContext);
   const [chosenFileName, setChosenFileName] = useState(
     (user?.pictures &&
@@ -70,42 +70,46 @@ const AvatarPicture = () => {
                       setActiveStep={setActiveStep}
                     ></Gallery>
                   </CenterHOC>
-                  <RemoveAvatar
-                    chosenFileName={chosenFileName}
-                    setChosenFileName={setChosenFileName}
-                    setActiveStep={setActiveStep}
-                    setAvatarPicture={setAvatarPicture}
-                  ></RemoveAvatar>
+                  {picturesToUpload.length === 0 && (
+                    <RemoveAvatar
+                      chosenFileName={chosenFileName}
+                      setChosenFileName={setChosenFileName}
+                      setActiveStep={setActiveStep}
+                      setAvatarPicture={setAvatarPicture}
+                    ></RemoveAvatar>
+                  )}
                 </>
               </Grid>
-              <Grid
-                item
-                container
-                direction="row"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item style={{ padding: DEFAULT_SPACE }}>
-                  <Avatar
-                    alt={user.userName}
-                    src={avatarPicture}
-                    style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
-                  />
+              {picturesToUpload.length === 0 && (
+                <Grid
+                  item
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid item style={{ padding: DEFAULT_SPACE }}>
+                    <Avatar
+                      alt={user.userName}
+                      src={avatarPicture}
+                      style={{ height: AVATAR_SIZE, width: AVATAR_SIZE }}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      type="submit"
+                      onClick={handleAvatarChange}
+                      disabled={isLoading}
+                      size="small"
+                      startIcon={<FaceIcon></FaceIcon>}
+                    >
+                      CHOOSE AVATAR
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                    onClick={handleAvatarChange}
-                    disabled={isLoading}
-                    size="small"
-                    startIcon={<FaceIcon></FaceIcon>}
-                  >
-                    CHOOSE AVATAR
-                  </Button>
-                </Grid>
-              </Grid>
+              )}
             </Grid>
           </Paper>
         ))}

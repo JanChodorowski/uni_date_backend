@@ -1,9 +1,9 @@
 import { Grid } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import PictureUploader from "./AvatarForm/PictureUploader";
 import AvatarPicture from "./AvatarForm/AvatarPicture";
 
-const AvatarForm = () => {
+const AvatarForm = ({ picturesToUpload, setPicturesToUpload }) => {
   return (
     <>
       <Grid
@@ -21,12 +21,15 @@ const AvatarForm = () => {
             justify="center"
           >
             <Grid item>
-              <PictureUploader></PictureUploader>
+              <PictureUploader
+                picturesToUpload={picturesToUpload}
+                setPicturesToUpload={setPicturesToUpload}
+              ></PictureUploader>
             </Grid>
           </Grid>
         </Grid>
         <Grid item>
-          <AvatarPicture></AvatarPicture>
+          <AvatarPicture picturesToUpload={picturesToUpload}></AvatarPicture>
         </Grid>
       </Grid>
     </>

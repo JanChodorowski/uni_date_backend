@@ -9,13 +9,13 @@ import { DEFAULT_SPACE } from "../../../shared/constants";
 import { LoadingContext } from "../../../shared/loadingContext";
 import useTransparentPaperStyle from "../../shared/useTransparentPaperStyle";
 
-const PictureUploader = () => {
-  const [picturesToUpload, setPicturesToUpload] = useState([]);
-
+const PictureUploader = ({ picturesToUpload, setPicturesToUpload }) => {
   const [isDark] = useContext(ColorContext);
+  const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   const paper = useTransparentPaperStyle();
-  const [isLoading, setIsLoading] = useContext(LoadingContext);
+
+  const [isUploadBtnClicked, setIsUploadBtnClicked] = useState(false);
 
   const handlePictureChange = (newPictures) => {
     setPicturesToUpload(newPictures);
@@ -23,10 +23,13 @@ const PictureUploader = () => {
 
   const handleUpload = () => {
     setIsLoading(true);
+    setIsUploadBtnClicked(true);
 
     uploadPictures(picturesToUpload)
       .then((res) => {})
-      .catch((e) => {})
+      .catch((e) => {
+        setIsUploadBtnClicked(false);
+      })
       .finally(() => {
         setIsLoading(false);
         window.location.reload();
@@ -35,66 +38,43 @@ const PictureUploader = () => {
 
   return (
     <>
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justify="center"
-        spacing={1}
-      >
-        <Grid item>
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
-            justify="center"
+      <ImageUploader
+        withIcon={false}
+        buttonText="CHOOSE PICTURES TO UPLOAD"
+        onChange={handlePictureChange}
+        imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
+        maxFileSize={5242880}
+        withPreview
+        label=""
+        fileContainerStyle={{
+          backgroundColor: isDark
+            ? "rgba(38, 50, 56, 0.7)"
+            : "rgba(255, 255, 255, 0.6)",
+        }}
+        buttonStyles={{
+          backgroundColor: "#03a9f4",
+          fontWeight: "bold",
+          padding: DEFAULT_SPACE,
+          margin: DEFAULT_SPACE,
+        }}
+      />
+
+      {picturesToUpload.length > 0 && (
+        <Paper className={paper}>
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+            disabled={isLoading || isUploadBtnClicked}
+            onClick={handleUpload}
+            size="small"
+            startIcon={<BackupIcon></BackupIcon>}
           >
-            <Grid item>
-              <>
-                <ImageUploader
-                  withIcon={false}
-                  buttonText="CHOOSE PICTURES TO UPLOAD"
-                  onChange={handlePictureChange}
-                  imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
-                  maxFileSize={5242880}
-                  withPreview
-                  label=""
-                  fileContainerStyle={{
-                    backgroundColor: isDark
-                      ? "rgba(38, 50, 56, 0.7)"
-                      : "rgba(255, 255, 255, 0.6)",
-                  }}
-                  buttonStyles={{
-                    backgroundColor: "#03a9f4",
-                    fontWeight: "bold",
-                    padding: DEFAULT_SPACE,
-                    margin: DEFAULT_SPACE,
-                  }}
-                />
-              </>
-            </Grid>
-            <Grid item>
-              <>
-                <Paper className={paper}>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    fullWidth
-                    type="submit"
-                    disabled={isLoading || picturesToUpload.length === 0}
-                    onClick={handleUpload}
-                    size="small"
-                    startIcon={<BackupIcon></BackupIcon>}
-                  >
-                    Upload pictures
-                  </Button>{" "}
-                </Paper>
-              </>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item></Grid>
-      </Grid>
+            Upload pictures
+          </Button>
+        </Paper>
+      )}
     </>
   );
 };

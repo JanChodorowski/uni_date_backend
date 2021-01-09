@@ -11,7 +11,7 @@ const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
 ));
 
-export default function Register({latitude, longitude}) {
+export default function Register({ latitude, longitude }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -43,7 +43,10 @@ export default function Register({latitude, longitude}) {
       >
         <DialogTitle id="form-dialog-title">Create New Account</DialogTitle>
         <DialogContent>
-          <RegisterForm latitude={latitude} longitude={longitude}></RegisterForm>
+          <RegisterForm
+            latitude={latitude}
+            longitude={longitude}
+          ></RegisterForm>
         </DialogContent>
       </Dialog>
     </div>

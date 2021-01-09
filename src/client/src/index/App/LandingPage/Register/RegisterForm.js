@@ -5,7 +5,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
-import {register, sendLocation} from "../../../shared/api";
+import { register, sendLocation } from "../../../shared/api";
 import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../../shared/constants";
 import { LoadingContext } from "../../../shared/loadingContext";
 import { UserContext } from "../../../shared/userContext";
@@ -18,7 +18,7 @@ const validationSchema = yup.object({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
-const RegisterForm = ({longitude, latitude}) => {
+const RegisterForm = ({ longitude, latitude }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isUserExisting, setIsUserExisting] = useState(false);
   const handleClickShowPassword = () => {
@@ -45,9 +45,9 @@ const RegisterForm = ({longitude, latitude}) => {
           const { data } = res;
           if (data?.email) {
             setUser(data);
-            sendLocation({latitude, longitude})
-                .then(() => {})
-                .catch((err) => {});
+            sendLocation({ latitude, longitude })
+              .then(() => {})
+              .catch((err) => {});
           }
           setIsUserExisting(!!data?.isUserExisting);
         })

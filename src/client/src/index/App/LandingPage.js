@@ -8,7 +8,7 @@ import CenterHOC from "./shared/CenterHOC";
 import logo from "./shared/the-eiger.svg";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 
-const LandingPage = ({latitude, longitude}) => {
+const LandingPage = ({ latitude, longitude }) => {
   const [isLoadingUserData] = useContext(LoadingUserDataContext);
 
   const paper = useTransparentPaperStyle();
