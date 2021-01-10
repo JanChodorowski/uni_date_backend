@@ -9,12 +9,7 @@ const server = app.listen(port, () => {
 
 const connectedUsers:any = {};
 
-const io = require('socket.io')(server, {
-  cors: {
-    origin: 'http://localhost:3006',
-    methods: ['GET', 'POST'],
-  },
-});
+const io = require('socket.io')(server);
 
 io.on('connection', (socket:any) => {
   socket.on('register', (id:any) => {
@@ -24,6 +19,7 @@ io.on('connection', (socket:any) => {
 
   socket.on('private_chat', (data:any) => {
     const { content, passiveSideUserId, senderUserId } = data;
+    console.log('data, data', data);
     if (connectedUsers.hasOwnProperty(passiveSideUserId)) {
       connectedUsers[passiveSideUserId].emit('private_chat', {
         senderUserId,

@@ -35,7 +35,7 @@ const basicCredentialsValidation = {
 
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
-  const trimmedEmail = String(email).trim();
+  const trimmedEmail = String(email).trim().toLocaleLowerCase();
   const noWhitespacePassword = removeWhiteSpaces(password);
   const noWhitespacePasswordConfirmation = removeWhiteSpaces(passwordConfirmation);
 
@@ -111,19 +111,20 @@ router.post('/register', async (req: Request, res: Response) => {
 
 router.post('/login', async (req: Request, res: Response) => {
   const { email, password } = req.body;
-
+  const trimmedEmail = String(email).trim().toLocaleLowerCase();
+  const noWhitespacePassword = removeWhiteSpaces(password);
   const schema = yup.object().shape(basicCredentialsValidation);
 
   const isValid = await schema.isValid({
-    email,
-    password,
+    email: trimmedEmail,
+    password: noWhitespacePassword,
   });
 
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await userDao.login(email)
+  const foundUser = await userDao.login(trimmedEmail)
     .catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
@@ -135,7 +136,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
   const { passwordHash, id } = foundUser;
 
-  const arePasswordsMatching = await bcrypt.compare(password, passwordHash);
+  const arePasswordsMatching = await bcrypt.compare(noWhitespacePassword, passwordHash);
   if (!arePasswordsMatching) {
     return res.status(UNAUTHORIZED).end();
   }
