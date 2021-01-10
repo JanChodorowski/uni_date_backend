@@ -35,7 +35,7 @@ const basicCredentialsValidation = {
 
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
-  const trimmedEmail = String(email).trim().toLocaleLowerCase();
+  const formattedEmail = removeWhiteSpaces(String(email).toLocaleLowerCase());
   const noWhitespacePassword = removeWhiteSpaces(password);
   const noWhitespacePasswordConfirmation = removeWhiteSpaces(passwordConfirmation);
 
@@ -46,7 +46,7 @@ router.post('/register', async (req: Request, res: Response) => {
   });
 
   const isValid = await schema.isValid({
-    email: trimmedEmail,
+    email: formattedEmail,
     password: noWhitespacePassword,
     passwordConfirmation: noWhitespacePasswordConfirmation,
   });
@@ -55,7 +55,7 @@ router.post('/register', async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await userDao.register(trimmedEmail).catch((err: Error) => {
+  const foundUser = await userDao.register(formattedEmail).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -73,7 +73,7 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.dateOfBirth = null;
   newUser.gender = '';
   newUser.description = '';
-  newUser.email = trimmedEmail;
+  newUser.email = formattedEmail;
   newUser.passwordHash = passwordHash;
   newUser.createdAt = new Date();
   newUser.isGraduated = false;
@@ -111,12 +111,12 @@ router.post('/register', async (req: Request, res: Response) => {
 
 router.post('/login', async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  const trimmedEmail = String(email).trim().toLocaleLowerCase();
+  const formattedEmail = removeWhiteSpaces(String(email).toLocaleLowerCase());
   const noWhitespacePassword = removeWhiteSpaces(password);
   const schema = yup.object().shape(basicCredentialsValidation);
 
   const isValid = await schema.isValid({
-    email: trimmedEmail,
+    email: formattedEmail,
     password: noWhitespacePassword,
   });
 
@@ -124,7 +124,7 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(BAD_REQUEST).end();
   }
 
-  const foundUser = await userDao.login(trimmedEmail)
+  const foundUser = await userDao.login(formattedEmail)
     .catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
