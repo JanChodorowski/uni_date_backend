@@ -43,11 +43,11 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
       {passiveSideUser?.description && (
         <>
           <Typography
-            style={{
-              padding: DEFAULT_SPACE,
-              display: "flex",
-              justifyContent: "center",
-            }}
+            // style={{
+            //   padding: DEFAULT_SPACE,
+            //   display: "flex",
+            //   justifyContent: "center",
+            // }}
           >
             {passiveSideUser?.description || ""}
           </Typography>

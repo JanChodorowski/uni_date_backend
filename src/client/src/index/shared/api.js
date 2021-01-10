@@ -36,6 +36,7 @@ export const getProfiles = (
   latitude,
   longitude
 ) => {
+  console.log('latitude', latitude, longitude)
   return axios.post("/api/users/profiles", {
     cityFilter,
     universityFilter,

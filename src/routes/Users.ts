@@ -39,8 +39,8 @@ const filterValidation = {
 };
 
 const locationValidation = {
-  latitude: yup.number().nullable().required(),
-  longitude: yup.number().nullable().required(),
+  latitude: yup.number().nullable(),
+  longitude: yup.number().nullable(),
 };
 
 router.get('/', authenticate, async (req: Request, res: Response) => {
@@ -180,6 +180,7 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
     ...filterValidation,
     ...locationValidation,
   });
+  console.log('req.body', req.body);
   const isValid = await schema.isValid({
     cityFilter,
     universityFilter,

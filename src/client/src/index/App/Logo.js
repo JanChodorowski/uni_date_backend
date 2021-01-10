@@ -33,7 +33,7 @@ const Logo = () => {
         wrap="nowrap"
       >
         <Grid item style={{ marginRight: "6px" }}>
-          <img src={logo} style={{ width: logoSize, height: logoSize }} />{" "}
+          <img src={logo} style={{ width: logoSize, height: logoSize }} />
         </Grid>
         <Grid item>
           <Typography variant="h6" noWrap>
