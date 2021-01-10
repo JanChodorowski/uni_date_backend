@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
-
+import ProgressiveImage from 'react-progressive-graceful-image'
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
   const [isImageLoading, setIsImageLoading] = useState(true)
   return (
@@ -26,16 +26,17 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                 >
                   <Grid item>
                     {p.avatar ? (
-                      <Avatar
+                            <ProgressiveImage src={URL.createObjectURL(p.avatar)} placeholder={PlaceHolder}>
+                              {(src) =>
+                            <Avatar
                         alt={p.userName}
-                        src={URL.createObjectURL(p.avatar)}
+                        src={src}
                         style={{
                           height: AVATAR_SIZE,
                           width: AVATAR_SIZE,
                         }}
-                        onLoad={() => setIsImageLoading(false)}
 
-                      />
+                      />}</ProgressiveImage>
                     ) : (
                       <Avatar
                         alt={p.userName}
