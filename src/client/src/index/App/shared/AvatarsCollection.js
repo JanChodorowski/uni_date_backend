@@ -27,16 +27,13 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                   <Grid item>
                     {p.avatar ? (
                             <ProgressiveImage src={URL.createObjectURL(p.avatar)} placeholder={PlaceHolder}>
-                              {(src) =>
-                            <Avatar
-                        alt={p.userName}
-                        src={src}
-                        style={{
-                          height: AVATAR_SIZE,
-                          width: AVATAR_SIZE,
-                        }}
+                              {(src) => <img src={src} alt={p.userName} style={{
+                                height: AVATAR_SIZE,
+                                width: AVATAR_SIZE,
+                              }}/>
 
-                      />}</ProgressiveImage>
+
+                      }</ProgressiveImage>
                     ) : (
                       <Avatar
                         alt={p.userName}
