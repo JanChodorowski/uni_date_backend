@@ -34,8 +34,9 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                           width: AVATAR_SIZE,
                         }}
                         component={<Image
-                            src={URL.createObjectURL(p.avatar)}
+
                         />}
+                        imgProps={ {src: URL.createObjectURL(p.avatar)}}
                         onLoad={() => setIsImageLoading(false)}
                       />
                         ) : (
