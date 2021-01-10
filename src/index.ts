@@ -19,7 +19,6 @@ io.on('connection', (socket:any) => {
 
   socket.on('private_chat', (data:any) => {
     const { content, passiveSideUserId, senderUserId } = data;
-    console.log('data, data', data);
     if (connectedUsers.hasOwnProperty(passiveSideUserId)) {
       connectedUsers[passiveSideUserId].emit('private_chat', {
         senderUserId,
