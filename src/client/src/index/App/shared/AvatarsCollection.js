@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
-import Image from 'material-ui-image'
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
   const [isImageLoading, setIsImageLoading] = useState(true)
@@ -29,15 +28,15 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                     {p.avatar ? (
                       <Avatar
                         alt={p.userName}
+                        src={URL.createObjectURL(p.avatar)}
                         style={{
                           height: AVATAR_SIZE,
                           width: AVATAR_SIZE,
                         }}
-                        component={Image}
-                        imgProps={ {src: URL.createObjectURL(p.avatar)}}
                         onLoad={() => setIsImageLoading(false)}
+
                       />
-                        ) : (
+                    ) : (
                       <Avatar
                         alt={p.userName}
                         src={PlaceHolder}
