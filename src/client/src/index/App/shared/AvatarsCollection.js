@@ -1,4 +1,4 @@
-import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
+import {Avatar, CircularProgress, Grid, IconButton, Typography} from "@material-ui/core";
 import React from "react";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
@@ -7,7 +7,7 @@ import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
   return (
     <Grid container direction="row" alignItems="center" justify="center">
-      {collection &&
+      {collection ?
         collection.map((p, i) => (
           <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
             <Grid item>
@@ -59,7 +59,7 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
               </IconButton>
             </Grid>
           </Grid>
-        ))}
+        )): <CircularProgress />}
     </Grid>
   );
 };
