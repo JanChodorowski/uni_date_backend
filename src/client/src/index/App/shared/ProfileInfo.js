@@ -3,7 +3,7 @@ import React from "react";
 import MatchGallery from "../ChatPage/ProfileInfo/MatchGallery";
 import { calculateAge, getGenderColor } from "../../shared/functions";
 import LabelValuePrinter from "../ChatPage/ProfileInfo/LabelValuePrinter";
-import { DEFAULT_SPACE } from "../../shared/constants";
+import {DEFAULT_IMAGE_SIZE, DEFAULT_SPACE} from "../../shared/constants";
 
 const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
   const isProfilesFilled = () =>
@@ -19,6 +19,7 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
         profiles={profiles}
         setProfiles={setProfiles}
       ></MatchGallery>
+        <div style={{maxWidth: DEFAULT_IMAGE_SIZE}}>
       {isProfilesFilled() && passiveSideUser?.userName && (
         <>
           <Typography
@@ -43,11 +44,10 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
       {passiveSideUser?.description && (
         <>
           <Typography
-            // style={{
-            //   padding: DEFAULT_SPACE,
-            //   display: "flex",
-            //   justifyContent: "center",
-            // }}
+            style={{
+              padding: DEFAULT_SPACE,
+                textAlign: "center"
+            }}
           >
             {passiveSideUser?.description || ""}
           </Typography>
@@ -82,7 +82,7 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
         label="Interests"
         value={passiveSideUser?.interests || []}
       ></LabelValuePrinter>
-    </>
+        </div> </>
   );
 };
 
