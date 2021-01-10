@@ -50,7 +50,7 @@ const AvatarPicture = ({ picturesToUpload }) => {
   };
   const [activeStep, setActiveStep] = useState(0);
 
-  const arePicturesToUploadEmpty = () => picturesToUpload.length === 0
+  const arePicturesToUploadEmpty = () => picturesToUpload.length === 0;
 
   return (
     <>
