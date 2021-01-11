@@ -5,8 +5,10 @@ import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
+
+  const marginPct = '10%'
   return (
-    <Grid container direction="row" alignItems="center" justify="center">
+    <Grid container direction="row" alignItems="center" justify="center" style={{marginLeft: marginPct, marginRight: marginPct}}>
       {collection &&
         collection.map((p, i) => (
           <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
