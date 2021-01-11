@@ -3,12 +3,11 @@ import React, {useState} from "react";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
-import ProgressiveImage from 'react-progressive-graceful-image'
+import LazyLoad from 'react-lazyload';
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
-  const [isImageLoading, setIsImageLoading] = useState(true)
   return (
     <Grid container direction="row" alignItems="center" justify="center">
-      {isImageLoading && <CircularProgress />}
+
       {collection &&
         collection.map((p, i) => (
           <Grid item style={{ padding: DEFAULT_SPACE }} key={i}>
@@ -26,14 +25,13 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                 >
                   <Grid item>
                     {p.avatar ? (
-                            <ProgressiveImage src={URL.createObjectURL(p.avatar)} placeholder={PlaceHolder}>
-                              {(src) => <img src={src} alt={p.userName} style={{
+                        <LazyLoad height={AVATAR_SIZE} width={AVATAR_SIZE}>                           <img src={URL.createObjectURL(p.avatar)} alt={p.userName} style={{
                                 height: AVATAR_SIZE,
                                 width: AVATAR_SIZE,
                               }}/>
 
 
-                      }</ProgressiveImage>
+                        </LazyLoad>
                     ) : (
                       <Avatar
                         alt={p.userName}
@@ -42,7 +40,6 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                           height: AVATAR_SIZE,
                           width: AVATAR_SIZE,
                         }}
-                        onLoad={() => setIsImageLoading(false)}
                       />
                     )}
                   </Grid>
