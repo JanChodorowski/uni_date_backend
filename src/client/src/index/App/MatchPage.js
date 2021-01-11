@@ -150,6 +150,7 @@ const MatchPage = ({ latitude, longitude }) => {
               size="large"
               onClick={() => handleRelationClick(false)}
               startIcon={<NotInterested></NotInterested>}
+              disabled={isLoading}
             >
               DISLIKE
             </Button>
@@ -160,6 +161,7 @@ const MatchPage = ({ latitude, longitude }) => {
               size="large"
               onClick={() => handleRelationClick(true)}
               endIcon={<Stars></Stars>}
+              disabled={isLoading}
             >
               LIKE
             </Button>
