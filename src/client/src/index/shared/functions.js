@@ -25,8 +25,9 @@ export const calculateAge = (birthday) => {
   if (!birthday) {
     return "";
   }
-
-  birthday = new Date(birthday);
+  if (!(typeof birthday.getMonth === 'function')){
+    birthday = new Date(birthday);
+  }
   let ageDifMs = Date.now() - birthday;
   let ageDate = new Date(ageDifMs);
 
