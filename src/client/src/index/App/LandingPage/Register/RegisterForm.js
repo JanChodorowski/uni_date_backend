@@ -72,7 +72,7 @@ const RegisterForm = ({ longitude, latitude }) => {
           autoFocus
           size="small"
           style={{ marginBottom: DEFAULT_SPACE }}
-          autoComplete={false}
+          autoComplete="off"
         />
 
         <Grid
@@ -95,7 +95,7 @@ const RegisterForm = ({ longitude, latitude }) => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               size="small"
-              autoComplete={false}
+              autoComplete="off"
             />
           </Grid>
           <Grid item>
