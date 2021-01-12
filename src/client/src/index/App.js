@@ -88,7 +88,7 @@ function App({ coords }) {
     }
 
     console.log('coords',coords)
-
+navigator.geolocation.getCurrentPosition((test) => console.log('    navigator.geolocation.getCurrentPosition(success, error);\n', test))
     sendLocation(coords)
       .then(() => {})
       .catch((err) => {});
