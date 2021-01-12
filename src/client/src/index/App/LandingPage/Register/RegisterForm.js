@@ -36,7 +36,7 @@ const RegisterForm = ({ longitude, latitude }) => {
       password: "",
       passwordConfirmation: "",
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       setIsLoading(true);
       register(values)
