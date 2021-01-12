@@ -58,7 +58,6 @@ function Gallery({ setChosenFileName, activeStep, setActiveStep }) {
     <>
       {maxSteps ? (
         <>
-          {isLoading && <CircularProgress />}
           <div className={classes.root}>
             <SwipeableViews
               axis={theme.direction === "rtl" ? "x-reverse" : "x"}
