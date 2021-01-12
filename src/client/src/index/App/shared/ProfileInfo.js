@@ -81,7 +81,7 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
           label="Interests"
           value={passiveSideUser?.interests || []}
         ></LabelValuePrinter>
-      </div>{" "}
+      </div>
     </>
   );
 };

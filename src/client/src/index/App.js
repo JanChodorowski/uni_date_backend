@@ -86,6 +86,9 @@ function App({ coords }) {
     if (!coords) {
       return;
     }
+
+    console.log('coords',coords)
+
     sendLocation(coords)
       .then(() => {})
       .catch((err) => {});
