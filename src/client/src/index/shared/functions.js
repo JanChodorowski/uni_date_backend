@@ -28,8 +28,14 @@ export const calculateAge = (birthday) => {
   if (!(typeof birthday.getMonth === 'function')){
     birthday = new Date(birthday);
   }
+  console.log('birthday1',birthday)
+
   let ageDifMs = Date.now() - birthday;
+  console.log('ageDifMs',ageDifMs)
+
   let ageDate = new Date(ageDifMs);
+  console.log('ageDate',ageDate)
+  console.log('Math.abs(ageDate.getUTCFullYear() - 1970);',Math.abs(ageDate.getUTCFullYear() - 1970))
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
