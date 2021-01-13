@@ -11,6 +11,7 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
   const passiveSideUser =
     isProfilesFilled() && profiles.find((p) => p.id === passiveSideUserId);
   const age = calculateAge(passiveSideUser?.dateOfBirth);
+  console.log('age',age)
   return (
     <>
       <MatchGallery
