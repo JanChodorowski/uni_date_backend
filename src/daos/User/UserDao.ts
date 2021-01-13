@@ -254,6 +254,7 @@ class UserDao implements IUserDao {
         .setParameter('paramId', id)
         .select(this.profilesDto)
         .orderBy('picture.isAvatar')
+        .limit(20)
         .getMany();
     }
 
