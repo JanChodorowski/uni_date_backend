@@ -66,16 +66,15 @@ function App({ coords }) {
     if (!user.id) {
       return;
     }
-    socket.removeAllListeners(privateChat);
+    // socket.removeAllListeners(privateChat);
     socket.removeAllListeners(register);
     socket.emit("register", user.id);
 
-    socket.on(privateChat, function (newIncomingMessage) {
-      console.log('newIncomingMessage',newIncomingMessage)
-      setIncomingMessages((prevIncomingMessages) => {
-        return [...prevIncomingMessages, newIncomingMessage];
-      });
-    });
+    // socket.on(privateChat, function (newIncomingMessage) {
+    //   setIncomingMessages((prevIncomingMessages) => {
+    //     return [...prevIncomingMessages, newIncomingMessage];
+    //   });
+    // });
   }, [user.id]);
 
   useEffect(() => {

@@ -21,6 +21,7 @@ import { ButtonGroup } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import WarningIcon from "@material-ui/icons/Warning";
 import { DEFAULT_SPACE, SOCKET_EVENTS } from "../../shared/constants";
+const { privateChat, register } = SOCKET_EVENTS;
 
 const Chat = ({ passiveSideUserId, setOpen }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
@@ -30,6 +31,18 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
   const [incomingMessages, setIncomingMessages] = useContext(
     IncomingMessagesContext
   );
+    useEffect(() => {
+        if (!user.id) {
+            return;
+        }
+        socket.removeAllListeners(privateChat);
+
+        socket.on(privateChat, function (newIncomingMessage) {
+            setIncomingMessages((prevIncomingMessages) => {
+                return [...prevIncomingMessages, newIncomingMessage];
+            });
+        });
+    }, [user.id]);
 
   useEffect(() => {
     setIncomingMessages((prevIncomingMessages) => {
