@@ -210,6 +210,9 @@ const FilterPage = () => {
                 }
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                onFocus={(event) => {
+                  event.target.setAttribute('autocomplete', 'off');
+                }}
               />
               <div style={{ marginBottom: DEFAULT_SPACE }}>
                 <Typography
@@ -293,6 +296,9 @@ const FilterPage = () => {
                 }
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                onFocus={(event) => {
+                  event.target.setAttribute('autocomplete', 'off');
+                }}
               />
               <TextField
                 fullWidth
@@ -309,6 +315,9 @@ const FilterPage = () => {
                 }
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                onFocus={(event) => {
+                  event.target.setAttribute('autocomplete', 'off');
+                }}
               />
               <div style={{ marginBottom: DEFAULT_SPACE }}>
                 <Typography
@@ -340,7 +349,7 @@ const FilterPage = () => {
               )}
             </Paper>
             <Paper className={paper} style={{ marginTop: DEFAULT_SPACE }}>
-              {" "}
+
               <Button
                 color="primary"
                 variant="contained"

@@ -141,6 +141,9 @@ const UserForm = () => {
                 fullWidth
                 onChange={onChange}
                 size="small"
+                onFocus={(event) => {
+                  event.target.setAttribute('autocomplete', 'off');
+                }}
               />
               {university && (
                 <>
@@ -152,6 +155,9 @@ const UserForm = () => {
                     onChange={onChange}
                     size="small"
                     style={{ marginBottom: DEFAULT_SPACE }}
+                    onFocus={(event) => {
+                      event.target.setAttribute('autocomplete', 'off');
+                    }}
                   />
 
                   <FormGroup row>
@@ -182,6 +188,9 @@ const UserForm = () => {
                 onChange={onChange}
                 size="small"
                 style={{ marginBottom: "1rem" }}
+                onFocus={(event) => {
+                  event.target.setAttribute('autocomplete', 'off');
+                }}
               />
 
               <TextField
@@ -195,6 +204,9 @@ const UserForm = () => {
                 variant="outlined"
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                onFocus={(event) => {
+                  event.target.setAttribute('autocomplete', 'off');
+                }}
               />
 
               <TextField
@@ -250,6 +262,9 @@ const UserForm = () => {
                 fullWidth
                 onChange={onChange}
                 size="small"
+                onFocus={(event) => {
+                  event.target.setAttribute('autocomplete', 'off');
+                }}
               />
             </Paper>
           </Grid>
