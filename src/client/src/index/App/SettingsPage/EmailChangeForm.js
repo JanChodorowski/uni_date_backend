@@ -1,23 +1,17 @@
-import { Grid, Snackbar } from "@material-ui/core";
+import {Grid, Snackbar} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import {useFormik} from "formik";
+import React, {useContext, useState} from "react";
 import * as yup from "yup";
-import { changeEmail, getPicture, getUser, login } from "../../shared/api";
-import {
-  AUTO_HIDE_DURATION,
-  BASIC_VALIDATION,
-  DEFAULT_SPACE,
-} from "../../shared/constants";
-import { LoadingContext } from "../../shared/loadingContext";
-import { UserContext } from "../../shared/userContext";
+import {changeEmail} from "../../shared/api";
+import {AUTO_HIDE_DURATION, DEFAULT_SPACE,} from "../../shared/constants";
+import {LoadingContext} from "../../shared/loadingContext";
+import {UserContext} from "../../shared/userContext";
 import Slide from "@material-ui/core/Slide";
-import { Alert } from "@material-ui/lab";
-import PasswordVisibilityBtn from "../LandingPage/shared/PasswordVisibilityBtn";
+import {Alert} from "@material-ui/lab";
+import PasswordVisibilityBtn from "../shared/PasswordVisibilityBtn";
 import PublishIcon from "@material-ui/icons/Publish";
-import LabelValuePrinter from "../ChatPage/ProfileInfo/LabelValuePrinter";
 
 const EmailChangeForm = () => {
   const [showPassword, setShowPassword] = useState(false);

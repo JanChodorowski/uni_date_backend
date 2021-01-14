@@ -2,7 +2,7 @@ import { Divider, Typography } from "@material-ui/core";
 import React from "react";
 import MatchGallery from "../ChatPage/ProfileInfo/MatchGallery";
 import { calculateAge, getGenderColor } from "../../shared/functions";
-import LabelValuePrinter from "../ChatPage/ProfileInfo/LabelValuePrinter";
+import LabelValuePrinter from "./LabelValuePrinter";
 import { DEFAULT_IMAGE_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 
 const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {

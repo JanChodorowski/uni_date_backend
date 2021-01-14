@@ -5,7 +5,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
-import PasswordVisibilityBtn from "./shared/PasswordVisibilityBtn";
+import PasswordVisibilityBtn from "../shared/PasswordVisibilityBtn";
 import { getPicture, getUser, login } from "../../shared/api";
 import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../shared/constants";
 import { compareFileNames } from "../../shared/functions";

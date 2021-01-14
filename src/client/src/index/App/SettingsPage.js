@@ -18,7 +18,7 @@ import { UserContext } from "../shared/userContext";
 import ColorBtnCorner from "./SettingsPage/ColorBtnCorner";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 import EmailChangeForm from "./SettingsPage/EmailChangeForm";
-import LabelValuePrinter from "./ChatPage/ProfileInfo/LabelValuePrinter";
+import LabelValuePrinter from "./shared/LabelValuePrinter";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);

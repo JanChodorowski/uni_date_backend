@@ -9,7 +9,7 @@ import { register, sendLocation } from "../../../shared/api";
 import { BASIC_VALIDATION, DEFAULT_SPACE } from "../../../shared/constants";
 import { LoadingContext } from "../../../shared/loadingContext";
 import { UserContext } from "../../../shared/userContext";
-import PasswordVisibilityBtn from "../shared/PasswordVisibilityBtn";
+import PasswordVisibilityBtn from "../../shared/PasswordVisibilityBtn";
 
 const validationSchema = yup.object({
   ...BASIC_VALIDATION,
