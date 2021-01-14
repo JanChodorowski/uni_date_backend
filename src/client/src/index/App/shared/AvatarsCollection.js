@@ -1,11 +1,17 @@
-import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
-import React from "react";
+import {Avatar, Grid, IconButton, LinearProgress, Typography} from "@material-ui/core";
+import React, {useRef, useState} from "react";
 import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
 import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
+  const [isImageVisible, setIsImageVisible] = useState(false)
+  const test = useRef(null);
+
   return (
+      <>
+        {/*{!test.current.complete &&  <LinearProgress style={{ position: "fixed", zIndex: "1100" }} />}*/}
+
     <Grid container direction="row" alignItems="center" justify="center">
       {collection &&
         collection.map((p, i) => (
@@ -23,7 +29,8 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                   style={{ padding: "2rem" }}
                 >
                   <Grid item>
-                    {p.avatar ? (
+                    {p.avatar ? (<>
+                        <img ref={test} style={{height: '2rem', width: '2rem'}} src={URL.createObjectURL(p.avatar)}/>
                       <Avatar
                         alt={p.userName}
                         src={URL.createObjectURL(p.avatar)}
@@ -31,7 +38,7 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
                           height: AVATAR_SIZE,
                           width: AVATAR_SIZE,
                         }}
-                      />
+                      /></>
                     ) : (
                       <Avatar
                         alt={p.userName}
@@ -60,7 +67,7 @@ const AvatarsCollection = ({ collection, handleClickOpen }) => {
             </Grid>
           </Grid>
         ))}
-    </Grid>
+    </Grid></>
   );
 };
 
