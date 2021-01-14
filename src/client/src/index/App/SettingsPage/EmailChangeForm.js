@@ -40,7 +40,7 @@ const EmailChangeForm = () => {
   const formik = useFormik({
     initialValues: {
       newEmail: "",
-      password: "",
+      currPassword: "",
     },
     validationSchema: yup.object({
       newEmail: yup
@@ -48,16 +48,16 @@ const EmailChangeForm = () => {
         .email("Enter a valid new email")
         .notOneOf([user.email], "Provided new email is the same as current")
         .required("New email is required"),
-      password: yup
+      currPassword: yup
         .string("Enter your password")
         .min(8, "Password should be of minimum 8 characters length")
         .required("Password is required"),
     }),
     onSubmit: async (values, { resetForm }) => {
-      let { newEmail, password } = values;
+      let { newEmail, currPassword } = values;
       setAreCredentialsCorrect(true);
       const trimmedNewEmail = newEmail.trim();
-      changeEmail(trimmedNewEmail, password)
+      changeEmail(trimmedNewEmail, currPassword)
         .then((res) => {
           if (!res.data.hasEmailChanged) {
             return;
@@ -116,16 +116,16 @@ const EmailChangeForm = () => {
             <Grid item>
               <TextField
                 fullWidth
-                id="password"
-                name="password"
+                id="currPassword"
+                name="currPassword"
                 label="Password"
                 type={showPassword ? "text" : "password"}
-                value={formik.values.password}
+                value={formik.values.currPassword}
                 onChange={formik.handleChange}
                 error={
-                  formik.touched.password && Boolean(formik.errors.password)
+                  formik.touched.currPassword && Boolean(formik.errors.currPassword)
                 }
-                helperText={formik.touched.password && formik.errors.password}
+                helperText={formik.touched.currPassword && formik.errors.currPassword}
                 size="small"
                 autoComplete="new-password"
                 onFocus={(event) => {
