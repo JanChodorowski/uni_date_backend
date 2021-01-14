@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 const ChatPage = ({ latitude, longitude }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
   const [matches, setMatches] = useContext(MatchesContext);
-  const [user] = useContext(UserContext);
 
   const checkIfProfilesAlreadyFetched = () => matches && matches.length > 0;
   const { expand, expandOpen } = useStyles();
