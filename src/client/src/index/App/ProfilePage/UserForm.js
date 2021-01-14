@@ -141,8 +141,9 @@ const UserForm = () => {
                 fullWidth
                 onChange={onChange}
                 size="small"
+                autoComplete="new-password"
                 onFocus={(event) => {
-                  event.target.setAttribute('autocomplete', 'off');
+                  event.target.setAttribute("autocomplete", "off");
                 }}
               />
               {university && (
@@ -155,8 +156,9 @@ const UserForm = () => {
                     onChange={onChange}
                     size="small"
                     style={{ marginBottom: DEFAULT_SPACE }}
+                    autoComplete="new-password"
                     onFocus={(event) => {
-                      event.target.setAttribute('autocomplete', 'off');
+                      event.target.setAttribute("autocomplete", "off");
                     }}
                   />
 
@@ -188,8 +190,9 @@ const UserForm = () => {
                 onChange={onChange}
                 size="small"
                 style={{ marginBottom: "1rem" }}
+                autoComplete="new-password"
                 onFocus={(event) => {
-                  event.target.setAttribute('autocomplete', 'off');
+                  event.target.setAttribute("autocomplete", "off");
                 }}
               />
 
@@ -204,8 +207,9 @@ const UserForm = () => {
                 variant="outlined"
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                autoComplete="new-password"
                 onFocus={(event) => {
-                  event.target.setAttribute('autocomplete', 'off');
+                  event.target.setAttribute("autocomplete", "off");
                 }}
               />
 
@@ -262,8 +266,9 @@ const UserForm = () => {
                 fullWidth
                 onChange={onChange}
                 size="small"
+                autoComplete="new-password"
                 onFocus={(event) => {
-                  event.target.setAttribute('autocomplete', 'off');
+                  event.target.setAttribute("autocomplete", "off");
                 }}
               />
             </Paper>

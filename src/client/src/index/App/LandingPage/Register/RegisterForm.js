@@ -72,9 +72,11 @@ const RegisterForm = ({ longitude, latitude }) => {
           autoFocus
           size="small"
           style={{ marginBottom: DEFAULT_SPACE }}
+          autoComplete="new-password"
           onFocus={(event) => {
-            event.target.setAttribute('autocomplete', 'off');
-          }}         />
+            event.target.setAttribute("autocomplete", "off");
+          }}
+        />
 
         <Grid
           container
@@ -96,9 +98,11 @@ const RegisterForm = ({ longitude, latitude }) => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               size="small"
+              autoComplete="new-password"
               onFocus={(event) => {
-                event.target.setAttribute('autocomplete', 'off');
-              }}             />
+                event.target.setAttribute("autocomplete", "off");
+              }}
+            />
           </Grid>
           <Grid item>
             <PasswordVisibilityBtn
@@ -126,8 +130,9 @@ const RegisterForm = ({ longitude, latitude }) => {
           }
           size="small"
           style={{ marginBottom: DEFAULT_SPACE }}
+          autoComplete="new-password"
           onFocus={(event) => {
-            event.target.setAttribute('autocomplete', 'off');
+            event.target.setAttribute("autocomplete", "off");
           }}
         />
 

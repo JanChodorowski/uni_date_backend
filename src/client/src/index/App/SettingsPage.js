@@ -17,6 +17,8 @@ import { ProfilesContext } from "../shared/profilesContext";
 import { UserContext } from "../shared/userContext";
 import ColorBtnCorner from "./SettingsPage/ColorBtnCorner";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
+import EmailChangeForm from "./SettingsPage/EmailChangeForm";
+import LabelValuePrinter from "./ChatPage/ProfileInfo/LabelValuePrinter";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
@@ -43,24 +45,43 @@ const SettingsPage = () => {
   return (
     <>
       <ColorBtnCorner></ColorBtnCorner>
-      <Grid container direction="column" alignItems="center" justify="center">
+
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justify="center"
+        spacing={1}
+      >
         <Grid item>
-          <>
-            <Paper className={paper}>
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth
-                type="submit"
-                onClick={handleLogOut}
-                size="small"
-                startIcon={<MeetingRoom></MeetingRoom>}
-              >
-                LOG OUT
-              </Button>
-            </Paper>
-          </>
+          <Paper className={paper}>
+            <Button
+              color="primary"
+              variant="contained"
+              fullWidth
+              type="submit"
+              onClick={handleLogOut}
+              size="small"
+              startIcon={<MeetingRoom></MeetingRoom>}
+            >
+              LOG OUT
+            </Button>
+          </Paper>
         </Grid>
+        <Grid item>
+          <Paper className={paper}>
+            <LabelValuePrinter
+              label="Current Email"
+              value={`: ${user.email}`}
+            ></LabelValuePrinter>
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper className={paper}>
+            <EmailChangeForm></EmailChangeForm>
+          </Paper>
+        </Grid>
+
         <Grid item>
           <Paper className={paper}>
             <Button

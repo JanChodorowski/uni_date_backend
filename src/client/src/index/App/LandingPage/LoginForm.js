@@ -50,9 +50,11 @@ const LoginForm = () => {
           getUser()
             .then((res) => {
               const { data } = res;
+
               if (!data.email) {
                 throw new Error();
               }
+
               let userData = data;
               let promises = data.pictures.map((p) => {
                 return getPicture(p.fileName);

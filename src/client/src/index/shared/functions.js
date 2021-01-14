@@ -21,21 +21,24 @@ export const capitalizeFirstLetter = (
   first && first.toLocaleUpperCase(locale) + rest.join("").toLocaleLowerCase();
 
 export const calculateAge = (birthday) => {
-  console.log('birthday',birthday)
+  console.log("birthday", birthday);
   if (!birthday) {
     return "";
   }
-  if (!(typeof birthday.getMonth === 'function')){
+  if (!(typeof birthday.getMonth === "function")) {
     birthday = new Date(birthday);
   }
-  console.log('birthday1',birthday)
+  console.log("birthday1", birthday);
 
   let ageDifMs = Date.now() - birthday;
-  console.log('ageDifMs',ageDifMs)
+  console.log("ageDifMs", ageDifMs);
 
   let ageDate = new Date(ageDifMs);
-  console.log('ageDate',ageDate)
-  console.log('Math.abs(ageDate.getUTCFullYear() - 1970);',Math.abs(ageDate.getUTCFullYear() - 1970))
+  console.log("ageDate", ageDate);
+  console.log(
+    "Math.abs(ageDate.getUTCFullYear() - 1970);",
+    Math.abs(ageDate.getUTCFullYear() - 1970)
+  );
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };

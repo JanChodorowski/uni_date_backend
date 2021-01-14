@@ -418,7 +418,7 @@ router.delete('/', authenticate, async (req: Request, res: Response) => {
   res.end();
 });
 
-router.post('/location', authenticate, async (req: Request, res: Response) => {
+router.put('/location', authenticate, async (req: Request, res: Response) => {
   const schema = yup.object().shape(
     {
       latitude: yup.number().required(),

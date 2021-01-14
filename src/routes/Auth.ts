@@ -82,7 +82,7 @@ router.post('/register', async (req: Request, res: Response) => {
   newUser.ageFromFilter = 18;
   newUser.ageToFilter = 100;
 
-  await userDao.add(newUser).catch((err: Error) => {
+  await userDao.addOrUpdate(newUser).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
@@ -107,6 +107,66 @@ router.post('/register', async (req: Request, res: Response) => {
     .status(CREATED)
     .json(resUser)
     .end();
+});
+
+router.put('/email', authenticate, async (req: Request, res: Response) => {
+  const { newEmail, password, payload } = req.body;
+  const { id } = payload;
+  const formattedEmail = removeWhiteSpaces(String(newEmail).toLocaleLowerCase());
+  const noWhitespacePassword = removeWhiteSpaces(password);
+  console.log('req.body', req.body);
+  const currentEmail = userDao.getEmailById(id).catch((err: Error) => {
+    console.error(err);
+    res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+  });
+
+  const schema = yup.object().shape({
+    newEmail: yup
+      .string()
+      .email('Enter a valid new email')
+      .notOneOf([!currentEmail || ''], 'Provided new email is the same as current')
+      .required('New email is required'),
+    password: yup
+      .string()
+      .min(8, 'Password should be of minimum 8 characters length')
+      .required('Password is required'),
+  });
+
+  const isValid = await schema.isValid({
+    newEmail: formattedEmail,
+    password: noWhitespacePassword,
+  });
+
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+
+  const { user_password_hash } = await userDao.getPassword(id)
+    .catch((err: Error) => {
+      console.error(err);
+      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+    });
+
+  if (!user_password_hash) {
+    return res.status(UNAUTHORIZED).end();
+  }
+  const arePasswordsMatching = await bcrypt.compare(noWhitespacePassword, user_password_hash);
+
+  if (!arePasswordsMatching) {
+    return res.status(UNAUTHORIZED).end();
+  }
+
+  const userWithNewEmail = new User();
+  userWithNewEmail.id = id;
+  userWithNewEmail.email = newEmail;
+
+  userDao.addOrUpdate(userWithNewEmail)
+    .catch((err: Error) => {
+      console.error(err);
+      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+    });
+
+  res.json({ hasEmailChanged: true }).end();
 });
 
 router.post('/login', async (req: Request, res: Response) => {

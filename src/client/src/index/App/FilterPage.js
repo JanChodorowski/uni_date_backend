@@ -210,8 +210,9 @@ const FilterPage = () => {
                 }
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                autoComplete="new-password"
                 onFocus={(event) => {
-                  event.target.setAttribute('autocomplete', 'off');
+                  event.target.setAttribute("autocomplete", "off");
                 }}
               />
               <div style={{ marginBottom: DEFAULT_SPACE }}>
@@ -296,8 +297,9 @@ const FilterPage = () => {
                 }
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                autoComplete="new-password"
                 onFocus={(event) => {
-                  event.target.setAttribute('autocomplete', 'off');
+                  event.target.setAttribute("autocomplete", "off");
                 }}
               />
               <TextField
@@ -315,8 +317,9 @@ const FilterPage = () => {
                 }
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
+                autoComplete="new-password"
                 onFocus={(event) => {
-                  event.target.setAttribute('autocomplete', 'off');
+                  event.target.setAttribute("autocomplete", "off");
                 }}
               />
               <div style={{ marginBottom: DEFAULT_SPACE }}>
@@ -349,7 +352,6 @@ const FilterPage = () => {
               )}
             </Paper>
             <Paper className={paper} style={{ marginTop: DEFAULT_SPACE }}>
-
               <Button
                 color="primary"
                 variant="contained"

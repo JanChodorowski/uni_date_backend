@@ -90,7 +90,7 @@ export const NAVIGATION = {
 
 export const BASIC_VALIDATION = {
   email: yup
-    .string("Enter your email")
+    .string("Enter an email")
     .email("Enter a valid email")
     .required("Email is required"),
   password: yup
@@ -113,7 +113,7 @@ export const DEFAULT_IMAGE_SIZE = "375px";
 
 export const AUTO_HIDE_DURATION = 6000;
 
-export const AUTO_PADDING = '15%'
+export const AUTO_PADDING = "15%";
 
 export const PINK_INTENSITY = "400";
 export const YELLOW_INTENSITY = "800";

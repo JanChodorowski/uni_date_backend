@@ -5,7 +5,6 @@ import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
-
   return (
     <Grid container direction="row" alignItems="center" justify="center">
       {collection &&

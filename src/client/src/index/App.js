@@ -71,7 +71,7 @@ function App({ coords }) {
     socket.emit("register", user.id);
 
     socket.on(privateChat, function (newIncomingMessage) {
-      console.log('newIncomingMessage', newIncomingMessage)
+      console.log("newIncomingMessage", newIncomingMessage);
       setIncomingMessages((prevIncomingMessages) => {
         return [...prevIncomingMessages, newIncomingMessage];
       });
@@ -87,8 +87,13 @@ function App({ coords }) {
       return;
     }
 
-    console.log('coords',coords)
-navigator.geolocation.getCurrentPosition((test) => console.log('    navigator.geolocation.getCurrentPosition(success, error);\n', test))
+    console.log("coords", coords);
+    navigator.geolocation.getCurrentPosition((test) =>
+      console.log(
+        "    navigator.geolocation.getCurrentPosition(success, error);\n",
+        test
+      )
+    );
     sendLocation(coords)
       .then(() => {})
       .catch((err) => {});

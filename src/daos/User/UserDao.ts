@@ -10,7 +10,7 @@ import { GenderFilter } from '@entities/GenderFilter';
 import { Match } from '@entities/Match';
 
 export interface IUserDao {
-  add: (user: IUser) => Promise<IUser>;
+  addOrUpdate: (user: IUser) => Promise<IUser>;
   delete: (id: string) => Promise<void>;
   findOneByEmail: (email: string) => Promise<IUser | undefined>;
   findOneById: (id: string) => Promise<IUser | undefined>;
@@ -78,6 +78,19 @@ class UserDao implements IUserDao {
     }
 
     /**
+     * @param id
+     */
+    public getEmailById(id: string): Promise<IUser | undefined> {
+      return getRepository(User)
+        .createQueryBuilder('user')
+        .where({ id })
+        .select([
+          'user.email',
+        ])
+        .getOne();
+    }
+
+    /**
    * @param id
    */
     public getUserViewDataByUserId(id: string): Promise<any> {
@@ -131,6 +144,19 @@ class UserDao implements IUserDao {
           'user.passwordHash',
         ])
         .getOne();
+    }
+
+    /**
+     * @param id
+     */
+    public getPassword(id: string): Promise<any> {
+      return getRepository(User)
+        .createQueryBuilder('user')
+        .where({ id })
+        .select([
+          'user.passwordHash',
+        ])
+        .getRawOne();
     }
 
     /**
@@ -262,7 +288,7 @@ class UserDao implements IUserDao {
    *
    * @param user
    */
-    public async add(user: IUser): Promise<IUser> {
+    public async addOrUpdate(user: IUser): Promise<IUser> {
       return getConnection()
         .createEntityManager()
         .save(user);

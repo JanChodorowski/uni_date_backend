@@ -114,7 +114,11 @@ export const deletePicture = (fileName) => {
   return axios.post("/api/pictures/delete", { fileName });
 };
 
+export const changeEmail = (newEmail, password) => {
+  return axios.put("/api/auth/email", { newEmail, password });
+};
+
 export const sendLocation = (coords) => {
   const { latitude, longitude } = coords;
-  return axios.post("/api/users/location", { latitude, longitude });
+  return axios.put("/api/users/location", { latitude, longitude });
 };
