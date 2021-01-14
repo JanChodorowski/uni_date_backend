@@ -1,7 +1,7 @@
-import {Avatar, Grid, IconButton, Typography} from "@material-ui/core";
+import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
 import React from "react";
-import {AVATAR_SIZE, DEFAULT_SPACE} from "../../shared/constants";
-import {capitalizeFirstLetter, getGenderColor} from "../../shared/functions";
+import { AVATAR_SIZE, DEFAULT_SPACE } from "../../shared/constants";
+import { capitalizeFirstLetter, getGenderColor } from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {

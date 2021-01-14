@@ -92,7 +92,9 @@ const EmailChangeForm = () => {
             label="New Email"
             value={formik.values.newPassword}
             onChange={formik.handleChange}
-            error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
+            error={
+              formik.touched.newPassword && Boolean(formik.errors.newPassword)
+            }
             helperText={formik.touched.newPassword && formik.errors.newPassword}
             autoFocus
             size="small"
