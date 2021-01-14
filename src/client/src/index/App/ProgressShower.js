@@ -5,7 +5,13 @@ import { LoadingContext } from "../shared/loadingContext";
 const ProgressShower = () => {
   const [isLoading] = useContext(LoadingContext);
 
-  return <>{isLoading && <LinearProgress style={{position: 'fixed'}}/>}</>;
+  return (
+    <>
+      {isLoading && (
+        <LinearProgress style={{ position: "fixed", zIndex: "1100" }} />
+      )}
+    </>
+  );
 };
 
 export default ProgressShower;
