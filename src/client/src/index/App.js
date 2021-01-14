@@ -62,20 +62,20 @@ function App({ coords }) {
     videoRef.current.playbackRate = 0.6;
   }, [videoRef]);
 
-  useEffect(() => {
-    if (!user.id) {
-      return;
-    }
-    // socket.removeAllListeners(privateChat);
-    socket.removeAllListeners(register);
-    socket.emit("register", user.id);
-
-    // socket.on(privateChat, function (newIncomingMessage) {
-    //   setIncomingMessages((prevIncomingMessages) => {
-    //     return [...prevIncomingMessages, newIncomingMessage];
-    //   });
-    // });
-  }, [user.id]);
+  // useEffect(() => {
+  //   if (!user.id) {
+  //     return;
+  //   }
+  //   // socket.removeAllListeners(privateChat);
+  //   socket.removeAllListeners(register);
+  //   socket.emit("register", user.id);
+  //
+  //   // socket.on(privateChat, function (newIncomingMessage) {
+  //   //   setIncomingMessages((prevIncomingMessages) => {
+  //   //     return [...prevIncomingMessages, newIncomingMessage];
+  //   //   });
+  //   // });
+  // }, [user.id]);
 
   useEffect(() => {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) === THEME_NAMES.dark);
