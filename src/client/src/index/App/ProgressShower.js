@@ -8,7 +8,7 @@ const ProgressShower = () => {
   return (
     <>
       {isLoading && (
-        <LinearProgress style={{ position: "fixed", zIndex: "1100" }} />
+        <LinearProgress />
       )}
     </>
   );
