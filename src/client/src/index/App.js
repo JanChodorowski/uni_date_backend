@@ -71,6 +71,7 @@ function App({ coords }) {
     socket.emit("register", user.id);
 
     socket.on(privateChat, function (newIncomingMessage) {
+      console.log('newIncomingMessage',newIncomingMessage)
       setIncomingMessages((prevIncomingMessages) => {
         return [...prevIncomingMessages, newIncomingMessage];
       });
