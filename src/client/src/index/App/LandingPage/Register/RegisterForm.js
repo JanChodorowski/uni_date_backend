@@ -73,12 +73,7 @@ const RegisterForm = ({ longitude, latitude }) => {
           size="small"
           style={{ marginBottom: DEFAULT_SPACE }}
           autoComplete="new-password"
-          inputProps={{
-            autocomplete: 'new-password',
-            form: {
-              autocomplete: 'off',
-            },
-          }}        />
+        />
 
         <Grid
           container
@@ -101,12 +96,7 @@ const RegisterForm = ({ longitude, latitude }) => {
               helperText={formik.touched.password && formik.errors.password}
               size="small"
               autoComplete="new-password"
-              inputProps={{
-                autocomplete: 'new-password',
-                form: {
-                  autocomplete: 'off',
-                },
-              }}            />
+            />
           </Grid>
           <Grid item>
             <PasswordVisibilityBtn
@@ -135,12 +125,8 @@ const RegisterForm = ({ longitude, latitude }) => {
           size="small"
           style={{ marginBottom: DEFAULT_SPACE }}
           autoComplete="new-password"
-          inputProps={{
-            autocomplete: 'new-password',
-            form: {
-              autocomplete: 'off',
-            },
-          }}        />
+
+        />
 
         <br />
         {isUserExisting && !isLoading && (
