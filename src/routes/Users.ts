@@ -50,7 +50,6 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`).end();
     });
-  console.log('userViewData', userViewData);
   if (!userViewData) {
     res.sendStatus(BAD_REQUEST).end();
   }
@@ -180,7 +179,6 @@ router.post('/profiles', authenticate, async (req: Request, res: Response) => {
     ...filterValidation,
     ...locationValidation,
   });
-  console.log('req.body', req.body);
   const isValid = await schema.isValid({
     cityFilter,
     universityFilter,
@@ -432,12 +430,11 @@ router.put('/location', authenticate, async (req: Request, res: Response) => {
   }
 
   const { latitude, longitude, payload } = req.body;
-  console.log('latitude longitude', latitude, longitude);
   const updatedUser: IUser = new User();
   updatedUser.id = payload.id;
   updatedUser.latitude = latitude;
   updatedUser.longitude = longitude;
-  const dbResult = userDao.update(
+  await userDao.update(
     updatedUser,
   ).catch((err: Error) => {
     console.error(err);

@@ -33,6 +33,7 @@ const basicCredentialsValidation = {
   password: yup.string().min(PASSWORD_MIN_CHARS).required(),
 };
 const saltRounds = 10;
+
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
   const formattedEmail = removeWhiteSpaces(String(email).toLocaleLowerCase());
@@ -131,7 +132,7 @@ router.put('/password', authenticate, async (req: Request, res: Response) => {
   const isValid = await schema.isValid({
     newPassword: noWhitespaceNewPassword,
     password: noWhitespacePassword,
-  }); console.log('isValid', isValid, req.body);
+  });
 
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
@@ -151,7 +152,6 @@ router.put('/password', authenticate, async (req: Request, res: Response) => {
   if (!arePasswordsMatching) {
     return res.status(UNAUTHORIZED).end();
   }
-  console.log('noWhitespaceNewPassword', noWhitespaceNewPassword);
   const newPasswordHash = await bcrypt.hash(noWhitespaceNewPassword, saltRounds);
 
   const userWithNewPassword = new User();
