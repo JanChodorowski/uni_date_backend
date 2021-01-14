@@ -32,7 +32,7 @@ const basicCredentialsValidation = {
   email: yup.string().email().required(),
   password: yup.string().min(PASSWORD_MIN_CHARS).required(),
 };
-
+const saltRounds = 10;
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, passwordConfirmation } = req.body;
   const formattedEmail = removeWhiteSpaces(String(email).toLocaleLowerCase());
@@ -63,7 +63,7 @@ router.post('/register', async (req: Request, res: Response) => {
   if (foundUser) {
     return res.json({ isUserExisting: true }).end();
   }
-  const saltRounds = 10;
+
   const passwordHash = await bcrypt.hash(noWhitespacePassword, saltRounds);
 
   const newUser = new User();
@@ -109,19 +109,76 @@ router.post('/register', async (req: Request, res: Response) => {
     .end();
 });
 
+router.put('/password', authenticate, async (req: Request, res: Response) => {
+  const { newPassword, password, payload } = req.body;
+  const { id } = payload;
+  const noWhitespaceNewPassword = removeWhiteSpaces(newPassword);
+  const noWhitespacePassword = removeWhiteSpaces(password);
+
+  const schema = yup.object().shape({
+    newPassword: yup
+      .string()
+      .min(8, 'Password should be of minimum 8 characters length')
+      .notOneOf([yup.ref('password'), null, undefined], 'Passwords must be different')
+      .required('New email is required'),
+    password: yup
+      .string()
+      .notOneOf([null, undefined])
+      .min(8, 'Password should be of minimum 8 characters length')
+      .required('Password is required'),
+  });
+
+  const isValid = await schema.isValid({
+    newPassword: noWhitespaceNewPassword,
+    password: noWhitespacePassword,
+  }); console.log('isValid', isValid, req.body);
+
+  if (!isValid) {
+    return res.status(BAD_REQUEST).end();
+  }
+
+  const { user_password_hash } = await userDao.getPasswordById(id)
+    .catch((err: Error) => {
+      console.error(err);
+      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+    });
+
+  if (!user_password_hash) {
+    return res.status(UNAUTHORIZED).end();
+  }
+  const arePasswordsMatching = await bcrypt.compare(noWhitespacePassword, user_password_hash);
+
+  if (!arePasswordsMatching) {
+    return res.status(UNAUTHORIZED).end();
+  }
+  console.log('noWhitespaceNewPassword', noWhitespaceNewPassword);
+  const newPasswordHash = await bcrypt.hash(noWhitespaceNewPassword, saltRounds);
+
+  const userWithNewPassword = new User();
+  userWithNewPassword.id = id;
+  userWithNewPassword.passwordHash = newPasswordHash;
+
+  userDao.addOrUpdate(userWithNewPassword)
+    .catch((err: Error) => {
+      console.error(err);
+      res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
+    });
+
+  res.json({ hasPasswordChanged: true }).end();
+});
+
 router.put('/email', authenticate, async (req: Request, res: Response) => {
   const { newEmail, password, payload } = req.body;
   const { id } = payload;
   const formattedEmail = removeWhiteSpaces(String(newEmail).toLocaleLowerCase());
   const noWhitespacePassword = removeWhiteSpaces(password);
-  console.log('req.body', req.body);
   const currentEmail = userDao.getEmailById(id).catch((err: Error) => {
     console.error(err);
     res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);
   });
 
   const schema = yup.object().shape({
-    newEmail: yup
+    newPassword: yup
       .string()
       .email('Enter a valid new email')
       .notOneOf([!currentEmail || ''], 'Provided new email is the same as current')
@@ -133,15 +190,14 @@ router.put('/email', authenticate, async (req: Request, res: Response) => {
   });
 
   const isValid = await schema.isValid({
-    newEmail: formattedEmail,
+    newPassword: formattedEmail,
     password: noWhitespacePassword,
   });
-
   if (!isValid) {
     return res.status(BAD_REQUEST).end();
   }
 
-  const { user_password_hash } = await userDao.getPassword(id)
+  const { user_password_hash } = await userDao.getPasswordById(id)
     .catch((err: Error) => {
       console.error(err);
       res.status(INTERNAL_SERVER_ERROR).json(`Error: ${err}`);

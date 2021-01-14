@@ -90,10 +90,10 @@ const EmailChangeForm = () => {
             id="newEmail"
             name="newEmail"
             label="New Email"
-            value={formik.values.newEmail}
+            value={formik.values.newPassword}
             onChange={formik.handleChange}
-            error={formik.touched.newEmail && Boolean(formik.errors.newEmail)}
-            helperText={formik.touched.newEmail && formik.errors.newEmail}
+            error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
+            helperText={formik.touched.newPassword && formik.errors.newPassword}
             autoFocus
             size="small"
             style={{ marginBottom: DEFAULT_SPACE }}

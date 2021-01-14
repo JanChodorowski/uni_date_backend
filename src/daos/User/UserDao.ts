@@ -149,7 +149,7 @@ class UserDao implements IUserDao {
     /**
      * @param id
      */
-    public getPassword(id: string): Promise<any> {
+    public getPasswordById(id: string): Promise<any> {
       return getRepository(User)
         .createQueryBuilder('user')
         .where({ id })

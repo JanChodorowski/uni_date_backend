@@ -19,6 +19,7 @@ import ColorBtnCorner from "./SettingsPage/ColorBtnCorner";
 import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 import EmailChangeForm from "./SettingsPage/EmailChangeForm";
 import LabelValuePrinter from "./shared/LabelValuePrinter";
+import PasswordChangeForm from "./SettingsPage/PasswordChangeForm";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
@@ -79,6 +80,11 @@ const SettingsPage = () => {
         <Grid item>
           <Paper className={paper}>
             <EmailChangeForm></EmailChangeForm>
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper className={paper}>
+            <PasswordChangeForm></PasswordChangeForm>
           </Paper>
         </Grid>
 
