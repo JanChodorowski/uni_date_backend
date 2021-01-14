@@ -7,7 +7,6 @@ import React, { useContext } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { DEFAULT_IMAGE_SIZE } from "../../../../shared/constants";
 import { UserContext } from "../../../../shared/userContext";
-import { CircularProgress } from "@material-ui/core";
 import { LoadingContext } from "../../../../shared/loadingContext";
 
 const useStyles = makeStyles((theme) => ({
