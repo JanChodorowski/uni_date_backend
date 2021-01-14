@@ -33,9 +33,9 @@ const ProfileInfo = ({ passiveSideUserId, profiles, setProfiles }) => {
             >
               {`${passiveSideUser?.userName} ` || ""}
               {(age && age !== 0 && age) || ""}
-              {passiveSideUser?.distance &&
+              {(passiveSideUser?.distance &&
                 passiveSideUser?.distance !== 0 &&
-                ` (${passiveSideUser?.distance}km away)`}
+                ` (${passiveSideUser?.distance}km away)`) || ''}
             </Typography>
             <Divider></Divider>
           </>
