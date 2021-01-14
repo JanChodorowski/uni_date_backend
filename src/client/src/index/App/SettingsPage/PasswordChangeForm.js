@@ -135,7 +135,7 @@ const PasswordChangeForm = () => {
             <Grid item>
               <TextField
                 fullWidth
-                id="password"
+                id="currPassword"
                 name="password"
                 label="Password"
                 type={showPassword ? "text" : "password"}
