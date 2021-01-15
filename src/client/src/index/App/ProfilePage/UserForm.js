@@ -282,6 +282,7 @@ const UserForm = () => {
             type="submit"
             size="small"
             startIcon={<PublishIcon></PublishIcon>}
+            disable={isLoading}
           >
             UPDATE DATA
           </Button>

@@ -155,6 +155,7 @@ const EmailChangeForm = () => {
             disabled={formik.isSubmitting}
             size="small"
             startIcon={<PublishIcon></PublishIcon>}
+            disabled={isLoading}
           >
             UPDATE EMAIL
           </Button>

@@ -158,12 +158,12 @@ const LoginForm = () => {
           variant="contained"
           fullWidth
           type="submit"
-          disabled={formik.isSubmitting}
+          disabled={formik.isSubmitting || isLoading}
           size="small"
           startIcon={<ArrowForwardIcon></ArrowForwardIcon>}
           endIcon={<ArrowForwardIcon></ArrowForwardIcon>}
         >
-          Log In
+          LOG IN
         </Button>
       </form>
     </div>

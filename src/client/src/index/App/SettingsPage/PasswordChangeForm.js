@@ -171,7 +171,7 @@ const PasswordChangeForm = () => {
             variant="contained"
             fullWidth
             type="submit"
-            disabled={formik.isSubmitting}
+            disabled={formik.isSubmitting || isLoading}
             size="small"
             startIcon={<PublishIcon></PublishIcon>}
           >

@@ -191,6 +191,7 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
             onClick={() => setIsMatchReadyToDelete(true)}
             size="small"
             startIcon={<DeleteIcon></DeleteIcon>}
+            disabled={isLoading}
           >
             REMOVE THE MATCH
           </Button>
@@ -203,6 +204,7 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
               size="small"
               onClick={handleRemoveMatchClick}
               startIcon={<WarningIcon></WarningIcon>}
+              disabled={isLoading}
             >
               YES, REMOVE THE MATCH
             </Button>
@@ -213,6 +215,7 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
               size="small"
               onClick={() => setIsMatchReadyToDelete(false)}
               endIcon={<KeyboardBackspaceIcon></KeyboardBackspaceIcon>}
+              disabled={isLoading}
             >
               NO
             </Button>

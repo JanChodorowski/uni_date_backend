@@ -20,11 +20,13 @@ import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 import EmailChangeForm from "./SettingsPage/EmailChangeForm";
 import LabelValuePrinter from "./shared/LabelValuePrinter";
 import PasswordChangeForm from "./SettingsPage/PasswordChangeForm";
+import {LoadingContext} from "../shared/loadingContext";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
   const [matches, setMatches] = useContext(MatchesContext);
   const [path, setPath] = useContext(PathContext);
+  const [isLoading] = useContext(LoadingContext);
 
   const paper = useTransparentPaperStyle();
   const history = useHistory();
@@ -64,6 +66,7 @@ const SettingsPage = () => {
               onClick={handleLogOut}
               size="small"
               startIcon={<MeetingRoom></MeetingRoom>}
+              disabled={isLoading}
             >
               LOG OUT
             </Button>
@@ -98,6 +101,7 @@ const SettingsPage = () => {
               onClick={handleDeleteAccount}
               size="small"
               startIcon={<DeleteIcon></DeleteIcon>}
+              disabled={isLoading}
             >
               DELETE ACCOUNT
             </Button>

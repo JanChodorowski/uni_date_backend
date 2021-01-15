@@ -68,6 +68,7 @@ const RemoveAvatar = ({
           onClick={() => setIsAvatarReadyToDelete(true)}
           size="small"
           startIcon={<DeleteIcon></DeleteIcon>}
+          disabled={isLoading}
         >
           REMOVE CURRENT PICTURE
         </Button>
@@ -80,6 +81,7 @@ const RemoveAvatar = ({
             size="small"
             onClick={handleRemovePictureClick}
             startIcon={<WarningIcon></WarningIcon>}
+            disabled={isLoading}
           >
             YES, REMOVE PICTURE ABOVE
           </Button>
@@ -90,6 +92,7 @@ const RemoveAvatar = ({
             size="small"
             onClick={() => setIsAvatarReadyToDelete(false)}
             endIcon={<KeyboardBackspaceIcon></KeyboardBackspaceIcon>}
+            disabled={isLoading}
           >
             NO
           </Button>
