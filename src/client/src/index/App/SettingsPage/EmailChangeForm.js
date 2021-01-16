@@ -45,8 +45,9 @@ const EmailChangeForm = () => {
     validationSchema: yup.object({
       newEmail: yup
         .string("Enter an new email")
-        .email("Enter a valid new email")
-        .notOneOf([user.email], "Provided new email is the same as current")
+          .notOneOf([user.email], "Provided new email is the same as current")
+
+          .email("Enter a valid new email")
         .required("New email is required"),
       currPassword: yup
         .string("Enter your password")
@@ -54,6 +55,7 @@ const EmailChangeForm = () => {
         .required("Password is required"),
     }),
     onSubmit: async (values, { resetForm, setStatus }) => {
+      console.log('onSubmit', user.email)
       let { newEmail, currPassword } = values;
       setAreCredentialsCorrect(true);
       const trimmedNewEmail = newEmail.trim();
@@ -92,13 +94,12 @@ const EmailChangeForm = () => {
             id="newEmail"
             name="newEmail"
             label="New Email"
-            value={formik.values.newPassword}
+            value={formik.values.newEmail}
             onChange={formik.handleChange}
             error={
-              formik.touched.newPassword && Boolean(formik.errors.newPassword)
+              formik.touched.newEmail && Boolean(formik.errors.newEmail)
             }
-            helperText={formik.touched.newPassword && formik.errors.newPassword}
-            autoFocus
+            helperText={formik.touched.newEmail && formik.errors.newEmail}
             size="small"
             style={{ marginBottom: DEFAULT_SPACE }}
             autoComplete="new-password"
