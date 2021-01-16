@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { getMatches, getPicture } from "../shared/api";
 import { LoadingContext } from "../shared/loadingContext";
 import { MatchesContext } from "../shared/matchesContext";
-import { UserContext } from "../shared/userContext";
 import AvatarsCollection from "./shared/AvatarsCollection";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import Dialog from "@material-ui/core/Dialog";

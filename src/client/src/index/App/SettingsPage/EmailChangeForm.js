@@ -53,7 +53,7 @@ const EmailChangeForm = () => {
         .min(8, "Password should be of minimum 8 characters length")
         .required("Password is required"),
     }),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm, setStatus }) => {
       let { newEmail, currPassword } = values;
       setAreCredentialsCorrect(true);
       const trimmedNewEmail = newEmail.trim();
@@ -63,7 +63,8 @@ const EmailChangeForm = () => {
             return;
           }
           setIsUpdatedCorrectly(true);
-          resetForm({ values: "" });
+          setStatus({success: true})
+          resetForm({});
           setUser((user) => {
             return {
               ...user,
@@ -72,6 +73,7 @@ const EmailChangeForm = () => {
           });
         })
         .catch((e) => {
+          setStatus({success: false})
           setAreCredentialsCorrect(false);
         })
         .finally(() => {
