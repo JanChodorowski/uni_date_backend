@@ -33,10 +33,8 @@ import { PathContext } from "./shared/pathContext";
 import { ProfilesContext } from "./shared/profilesContext";
 import { UserContext } from "./shared/userContext";
 
-import { socket } from "./shared/socket";
 import SchlernLow from "./App/SchlernLow.mp4";
 
-const { privateChat, register } = SOCKET_EVENTS;
 
 function App({ coords }) {
   const [isDark, setIsDark] = useState(false);
@@ -61,21 +59,6 @@ function App({ coords }) {
   useEffect(() => {
     videoRef.current.playbackRate = 0.6;
   }, [videoRef]);
-
-  // useEffect(() => {
-  //   if (!user.id) {
-  //     return;
-  //   }
-  //   // socket.removeAllListeners(privateChat);
-  //   socket.removeAllListeners(register);
-  //   socket.emit("register", user.id);
-  //
-  //   // socket.on(privateChat, function (newIncomingMessage) {
-  //   //   setIncomingMessages((prevIncomingMessages) => {
-  //   //     return [...prevIncomingMessages, newIncomingMessage];
-  //   //   });
-  //   // });
-  // }, [user.id]);
 
   useEffect(() => {
     setIsDark(getItemByKey(LOCAL_STORAGE_KEY.theme) === THEME_NAMES.dark);
