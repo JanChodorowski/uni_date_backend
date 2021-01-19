@@ -215,7 +215,95 @@ const FilterPage = () => {
                   event.target.setAttribute("autocomplete", "off");
                 }}
               />
-              <div style={{ marginBottom: DEFAULT_SPACE }}>
+              <TextField
+                  fullWidth
+                  id="cityFilter"
+                  name="cityFilter"
+                  label="City filter"
+                  value={formik.values.cityFilter}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.cityFilter && Boolean(formik.errors.cityFilter)
+                  }
+                  helperText={
+                    formik.touched.cityFilter && formik.errors.cityFilter
+                  }
+                  size="small"
+                  style={{ marginBottom: DEFAULT_SPACE }}
+                  autoComplete="new-password"
+                  onFocus={(event) => {
+                    event.target.setAttribute("autocomplete", "off");
+                  }}
+              />
+              <TextField
+                  fullWidth
+                  id="interestFilter"
+                  name="interestFilter"
+                  label="Interest filter"
+                  value={formik.values.interestFilter}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.interestFilter &&
+                    Boolean(formik.errors.interestFilter)
+                  }
+                  helperText={
+                    formik.touched.interestFilter && formik.errors.interestFilter
+                  }
+                  size="small"
+                  style={{ marginBottom: DEFAULT_SPACE }}
+                  autoComplete="new-password"
+                  onFocus={(event) => {
+                    event.target.setAttribute("autocomplete", "off");
+                  }}
+              />
+              <FormControl
+                  component="fieldset"
+                  className={classes.formControl}
+                  style={{ marginBottom: DEFAULT_SPACE, marginTop: "1rem" }}
+                  required
+                  error={isNoneGenderPicked}
+              >
+                <FormLabel component="legend">Gender filter</FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                      control={
+                        <Checkbox
+                            style={{ color: blue[BLUE_INTENSITY] }}
+                            checked={Male}
+                            onChange={handleChange}
+                            name="Male"
+                        />
+                      }
+                      label="Male"
+                  />
+                  <FormControlLabel
+                      control={
+                        <Checkbox
+                            style={{ color: pink[PINK_INTENSITY] }}
+                            checked={Female}
+                            onChange={handleChange}
+                            name="Female"
+                        />
+                      }
+                      label="Female"
+                  />
+                  <FormControlLabel
+                      control={
+                        <Checkbox
+                            style={{ color: yellow[YELLOW_INTENSITY] }}
+                            checked={Other}
+                            onChange={handleChange}
+                            name="Other"
+                        />
+                      }
+                      label="Other"
+                  />
+                </FormGroup>
+                {isNoneGenderPicked && (
+                    <FormHelperText>Pick at least one</FormHelperText>
+                )}
+              </FormControl>
+              <div >
                 <Typography
                   id="years-filter-range-slider"
                   gutterBottom
@@ -233,95 +321,9 @@ const FilterPage = () => {
                   min={minYears}
                 />
               </div>
-              <FormControl
-                component="fieldset"
-                className={classes.formControl}
-                style={{ marginBottom: DEFAULT_SPACE }}
-                required
-                error={isNoneGenderPicked}
-              >
-                <FormLabel component="legend">Gender filter</FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        style={{ color: blue[BLUE_INTENSITY] }}
-                        checked={Male}
-                        onChange={handleChange}
-                        name="Male"
-                      />
-                    }
-                    label="Male"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        // color={pink[400]}
-                        style={{ color: pink[PINK_INTENSITY] }}
-                        checked={Female}
-                        onChange={handleChange}
-                        name="Female"
-                      />
-                    }
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        style={{ color: yellow[YELLOW_INTENSITY] }}
-                        checked={Other}
-                        onChange={handleChange}
-                        name="Other"
-                      />
-                    }
-                    label="Other"
-                  />
-                </FormGroup>
-                {isNoneGenderPicked && (
-                  <FormHelperText>Pick at least one</FormHelperText>
-                )}
-              </FormControl>
-              <TextField
-                fullWidth
-                id="interestFilter"
-                name="interestFilter"
-                label="Interest filter"
-                value={formik.values.interestFilter}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.interestFilter &&
-                  Boolean(formik.errors.interestFilter)
-                }
-                helperText={
-                  formik.touched.interestFilter && formik.errors.interestFilter
-                }
-                size="small"
-                style={{ marginBottom: DEFAULT_SPACE }}
-                autoComplete="new-password"
-                onFocus={(event) => {
-                  event.target.setAttribute("autocomplete", "off");
-                }}
-              />
-              <TextField
-                fullWidth
-                id="cityFilter"
-                name="cityFilter"
-                label="City filter"
-                value={formik.values.cityFilter}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.cityFilter && Boolean(formik.errors.cityFilter)
-                }
-                helperText={
-                  formik.touched.cityFilter && formik.errors.cityFilter
-                }
-                size="small"
-                style={{ marginBottom: DEFAULT_SPACE }}
-                autoComplete="new-password"
-                onFocus={(event) => {
-                  event.target.setAttribute("autocomplete", "off");
-                }}
-              />
+
+
+
               <div style={{ marginBottom: DEFAULT_SPACE }}>
                 <Typography
                   id="max-distance-slider"
