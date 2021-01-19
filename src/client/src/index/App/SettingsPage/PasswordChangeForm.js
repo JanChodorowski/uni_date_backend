@@ -5,7 +5,11 @@ import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
 import { changePassword } from "../../shared/api";
-import {AUTO_HIDE_DURATION, DEFAULT_SPACE, STANDARD_MAX_WIDTH} from "../../shared/constants";
+import {
+  AUTO_HIDE_DURATION,
+  DEFAULT_SPACE,
+  STANDARD_MAX_WIDTH,
+} from "../../shared/constants";
 import { LoadingContext } from "../../shared/loadingContext";
 import Slide from "@material-ui/core/Slide";
 import { Alert } from "@material-ui/lab";
@@ -80,7 +84,7 @@ const PasswordChangeForm = () => {
 
   return (
     <>
-      <div style={{maxWidth: STANDARD_MAX_WIDTH}}>
+      <div style={{ maxWidth: STANDARD_MAX_WIDTH }}>
         <form onSubmit={formik.handleSubmit}>
           <Grid
             container
@@ -123,17 +127,17 @@ const PasswordChangeForm = () => {
               ></PasswordVisibilityBtn>
             </Grid>
           </Grid>
-          {formik.values.newPassword &&
-          <Grid
+          {formik.values.newPassword && (
+            <Grid
               container
               direction="row"
               alignItems="center"
               justify="center"
               wrap="nowrap"
-              style={{marginBottom: DEFAULT_SPACE}}
-          >
-            <Grid item>
-              <TextField
+              style={{ marginBottom: DEFAULT_SPACE }}
+            >
+              <Grid item>
+                <TextField
                   fullWidth
                   id="password"
                   name="password"
@@ -150,17 +154,17 @@ const PasswordChangeForm = () => {
                   onFocus={(event) => {
                     event.target.setAttribute("autocomplete", "off");
                   }}
-              />
-            </Grid>
-            <Grid item>
-              <PasswordVisibilityBtn
+                />
+              </Grid>
+              <Grid item>
+                <PasswordVisibilityBtn
                   showPassword={showPassword}
                   handleClickShowPassword={handleClickShowPassword}
                   handleMouseDownPassword={handleMouseDownPassword}
-              ></PasswordVisibilityBtn>
+                ></PasswordVisibilityBtn>
+              </Grid>
             </Grid>
-          </Grid>
-          }
+          )}
           {!areCredentialsCorrect && !isLoading && (
             <p style={{ color: "rgb(204,0,0)", textAlign: "center" }}>
               Wrong password

@@ -5,7 +5,11 @@ import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
 import { changeEmail } from "../../shared/api";
-import {AUTO_HIDE_DURATION, DEFAULT_SPACE, STANDARD_MAX_WIDTH} from "../../shared/constants";
+import {
+  AUTO_HIDE_DURATION,
+  DEFAULT_SPACE,
+  STANDARD_MAX_WIDTH,
+} from "../../shared/constants";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";
 import Slide from "@material-ui/core/Slide";
@@ -45,9 +49,9 @@ const EmailChangeForm = () => {
     validationSchema: yup.object({
       newEmail: yup
         .string("Enter an new email")
-          .notOneOf([user.email], "Provided new email is the same as current")
+        .notOneOf([user.email], "Provided new email is the same as current")
 
-          .email("Enter a valid new email")
+        .email("Enter a valid new email")
         .required("New email is required"),
       currPassword: yup
         .string("Enter your password")
@@ -55,7 +59,7 @@ const EmailChangeForm = () => {
         .required("Password is required"),
     }),
     onSubmit: async (values, { resetForm, setStatus }) => {
-      console.log('onSubmit', user.email)
+      console.log("onSubmit", user.email);
       let { newEmail, currPassword } = values;
       setAreCredentialsCorrect(true);
       const trimmedNewEmail = newEmail.trim();
@@ -65,7 +69,7 @@ const EmailChangeForm = () => {
             return;
           }
           setIsUpdatedCorrectly(true);
-          setStatus({success: true})
+          setStatus({ success: true });
           resetForm({});
           setUser((user) => {
             return {
@@ -75,7 +79,7 @@ const EmailChangeForm = () => {
           });
         })
         .catch((e) => {
-          setStatus({success: false})
+          setStatus({ success: false });
           setAreCredentialsCorrect(false);
         })
         .finally(() => {
@@ -87,7 +91,7 @@ const EmailChangeForm = () => {
 
   return (
     <>
-      <div style={{maxWidth: '230px'}}>
+      <div style={{ maxWidth: "230px" }}>
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
@@ -96,9 +100,7 @@ const EmailChangeForm = () => {
             label="New Email"
             value={formik.values.newEmail}
             onChange={formik.handleChange}
-            error={
-              formik.touched.newEmail && Boolean(formik.errors.newEmail)
-            }
+            error={formik.touched.newEmail && Boolean(formik.errors.newEmail)}
             helperText={formik.touched.newEmail && formik.errors.newEmail}
             size="small"
             style={{ marginBottom: DEFAULT_SPACE }}
@@ -107,44 +109,47 @@ const EmailChangeForm = () => {
               event.target.setAttribute("autocomplete", "off");
             }}
           />
-          {formik.values.newEmail &&
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="center"
-            wrap="nowrap"
-            style={{ marginBottom: DEFAULT_SPACE }}
-          >
-            <Grid item>
-              <TextField
-                fullWidth
-                id="currPassword"
-                name="currPassword"
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                value={formik.values.currPassword}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.currPassword && Boolean(formik.errors.currPassword)
-                }
-                helperText={formik.touched.currPassword && formik.errors.currPassword}
-                size="small"
-                autoComplete="new-password"
-                onFocus={(event) => {
-                  event.target.setAttribute("autocomplete", "off");
-                }}
-              />
+          {formik.values.newEmail && (
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="center"
+              wrap="nowrap"
+              style={{ marginBottom: DEFAULT_SPACE }}
+            >
+              <Grid item>
+                <TextField
+                  fullWidth
+                  id="currPassword"
+                  name="currPassword"
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  value={formik.values.currPassword}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.currPassword &&
+                    Boolean(formik.errors.currPassword)
+                  }
+                  helperText={
+                    formik.touched.currPassword && formik.errors.currPassword
+                  }
+                  size="small"
+                  autoComplete="new-password"
+                  onFocus={(event) => {
+                    event.target.setAttribute("autocomplete", "off");
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <PasswordVisibilityBtn
+                  showPassword={showPassword}
+                  handleClickShowPassword={handleClickShowPassword}
+                  handleMouseDownPassword={handleMouseDownPassword}
+                ></PasswordVisibilityBtn>
+              </Grid>
             </Grid>
-            <Grid item>
-              <PasswordVisibilityBtn
-                showPassword={showPassword}
-                handleClickShowPassword={handleClickShowPassword}
-                handleMouseDownPassword={handleMouseDownPassword}
-              ></PasswordVisibilityBtn>
-            </Grid>
-          </Grid>
-          }
+          )}
           {!areCredentialsCorrect && !isLoading && (
             <p style={{ color: "rgb(204,0,0)", textAlign: "center" }}>
               Wrong password

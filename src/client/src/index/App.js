@@ -35,7 +35,6 @@ import { UserContext } from "./shared/userContext";
 
 import SchlernLow from "./App/SchlernLow.mp4";
 
-
 function App({ coords }) {
   const [isDark, setIsDark] = useState(false);
   const [user, setUser] = useState(EMPTY_USER);

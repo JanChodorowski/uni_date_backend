@@ -357,7 +357,9 @@ const FilterPage = () => {
                 variant="contained"
                 fullWidth
                 type="submit"
-                disabled={formik.isSubmitting || isNoneGenderPicked || isLoading}
+                disabled={
+                  formik.isSubmitting || isNoneGenderPicked || isLoading
+                }
                 size="small"
                 startIcon={<PublishIcon></PublishIcon>}
               >

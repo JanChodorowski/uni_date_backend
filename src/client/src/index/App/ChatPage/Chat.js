@@ -1,26 +1,26 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
-    Avatar,
-    ChatContainer,
-    ConversationHeader,
-    MainContainer,
-    Message,
-    MessageInput,
-    MessageList,
+  Avatar,
+  ChatContainer,
+  ConversationHeader,
+  MainContainer,
+  Message,
+  MessageInput,
+  MessageList,
 } from "@chatscope/chat-ui-kit-react";
-import {createMessage, deleteMatch, getMessages} from "../../shared/api";
-import {LoadingContext} from "../../shared/loadingContext";
-import {MatchesContext} from "../../shared/matchesContext";
+import { createMessage, deleteMatch, getMessages } from "../../shared/api";
+import { LoadingContext } from "../../shared/loadingContext";
+import { MatchesContext } from "../../shared/matchesContext";
 import PlaceHolder from "./shared/Missing_avatar.svg";
-import {socket} from "./Chat/socket";
-import {UserContext} from "../../shared/userContext";
-import {IncomingMessagesContext} from "../../shared/incomingMessagesContext";
+import { socket } from "./Chat/socket";
+import { UserContext } from "../../shared/userContext";
+import { IncomingMessagesContext } from "../../shared/incomingMessagesContext";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
-import {ButtonGroup} from "@material-ui/core";
+import { ButtonGroup } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import WarningIcon from "@material-ui/icons/Warning";
-import {DEFAULT_SPACE, SOCKET_EVENTS} from "../../shared/constants";
+import { DEFAULT_SPACE, SOCKET_EVENTS } from "../../shared/constants";
 
 const { privateChat, register } = SOCKET_EVENTS;
 
@@ -32,19 +32,19 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
   const [incomingMessages, setIncomingMessages] = useContext(
     IncomingMessagesContext
   );
-    useEffect(() => {
-        if (!user.id) {
-            return;
-        }
-        socket.removeAllListeners(privateChat);
-        socket.removeAllListeners(register);
-        socket.emit("register", user.id);
-        socket.on(privateChat, function (newIncomingMessage) {
-            setIncomingMessages((prevIncomingMessages) => {
-                return [...prevIncomingMessages, newIncomingMessage];
-            });
-        });
-    }, [user.id]);
+  useEffect(() => {
+    if (!user.id) {
+      return;
+    }
+    socket.removeAllListeners(privateChat);
+    socket.removeAllListeners(register);
+    socket.emit("register", user.id);
+    socket.on(privateChat, function (newIncomingMessage) {
+      setIncomingMessages((prevIncomingMessages) => {
+        return [...prevIncomingMessages, newIncomingMessage];
+      });
+    });
+  }, [user.id]);
 
   useEffect(() => {
     setIncomingMessages((prevIncomingMessages) => {

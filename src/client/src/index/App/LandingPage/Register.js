@@ -4,9 +4,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Zoom from "@material-ui/core/Zoom";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import RegisterForm from "./Register/RegisterForm";
-import {LoadingContext} from "../../shared/loadingContext";
+import { LoadingContext } from "../../shared/loadingContext";
 
 const Transition = React.forwardRef((props, ref) => (
   <Zoom ref={ref} {...props} />
@@ -14,7 +14,7 @@ const Transition = React.forwardRef((props, ref) => (
 
 export default function Register({ latitude, longitude }) {
   const [open, setOpen] = React.useState(false);
-    const [isLoading] = useContext(LoadingContext);
+  const [isLoading] = useContext(LoadingContext);
 
   const handleClickOpen = () => {
     setOpen(true);

@@ -21,7 +21,11 @@ import "date-fns";
 import ChipInput from "material-ui-chip-input";
 import React, { useContext, useReducer, useState } from "react";
 import { updateUser } from "../../shared/api";
-import {AUTO_HIDE_DURATION, DEFAULT_SPACE, STANDARD_MAX_WIDTH} from "../../shared/constants";
+import {
+  AUTO_HIDE_DURATION,
+  DEFAULT_SPACE,
+  STANDARD_MAX_WIDTH,
+} from "../../shared/constants";
 import { capitalizeFirstLetter } from "../../shared/functions";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";

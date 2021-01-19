@@ -1,15 +1,24 @@
 import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
-import React, {useContext, useEffect} from "react";
-import {AVATAR_SIZE, DEFAULT_SPACE, LOCAL_STORAGE_KEY, THEME_NAMES} from "../../shared/constants";
-import {capitalizeFirstLetter, getGenderColor, getItemByKey} from "../../shared/functions";
+import React, { useContext, useEffect } from "react";
+import {
+  AVATAR_SIZE,
+  DEFAULT_SPACE,
+  LOCAL_STORAGE_KEY,
+  THEME_NAMES,
+} from "../../shared/constants";
+import {
+  capitalizeFirstLetter,
+  getGenderColor,
+  getItemByKey,
+} from "../../shared/functions";
 import PlaceHolder from "../ChatPage/shared/Missing_avatar.svg";
-import {LoadingContext} from "../../shared/loadingContext";
+import { LoadingContext } from "../../shared/loadingContext";
 
 const AvatarsCollection = ({ collection, handleClickOpen }) => {
   const [isLoading, setIsLoading] = useContext(LoadingContext);
 
   useEffect(() => {
-    setIsLoading(false)
+    setIsLoading(false);
   }, []);
 
   return (

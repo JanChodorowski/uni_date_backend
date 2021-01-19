@@ -20,7 +20,7 @@ import useTransparentPaperStyle from "./shared/useTransparentPaperStyle";
 import EmailChangeForm from "./SettingsPage/EmailChangeForm";
 import LabelValuePrinter from "./shared/LabelValuePrinter";
 import PasswordChangeForm from "./SettingsPage/PasswordChangeForm";
-import {LoadingContext} from "../shared/loadingContext";
+import { LoadingContext } from "../shared/loadingContext";
 const SettingsPage = () => {
   const [user, setUser] = useContext(UserContext);
   const [profiles, setProfiles] = useContext(ProfilesContext);
