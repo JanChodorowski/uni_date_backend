@@ -36,7 +36,7 @@ const Logo = () => {
           <img src={logo} style={{ width: logoSize, height: logoSize }} />
         </Grid>
         <Grid item>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap style={{userSelect: 'none'}}>
             {APP_NAME}
           </Typography>
         </Grid>
