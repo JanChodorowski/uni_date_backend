@@ -119,6 +119,6 @@ export class User {
   ])
   universityName: University | null;
 
-  @ManyToMany(() => Interest, (interest) => interest.users2, { cascade: true })
+  @ManyToMany(() => Interest, (interest) => interest.users2)
   interests: Interest[];
 }
