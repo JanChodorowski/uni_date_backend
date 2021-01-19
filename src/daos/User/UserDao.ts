@@ -325,6 +325,9 @@ class UserDao implements IUserDao {
           }
           if (newOrUpdatedInterests) {
             await entityManager.save(newOrUpdatedInterests);
+            // newOrUpdatedInterests.forEach(nui => {
+            //
+            // })
             newOrUpdatedUser.interests = newOrUpdatedInterests;
           }
           if (newOrUpdatedGenderFilters) {
