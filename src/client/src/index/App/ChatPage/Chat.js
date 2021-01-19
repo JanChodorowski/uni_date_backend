@@ -12,7 +12,7 @@ import {createMessage, deleteMatch, getMessages} from "../../shared/api";
 import {LoadingContext} from "../../shared/loadingContext";
 import {MatchesContext} from "../../shared/matchesContext";
 import PlaceHolder from "./shared/Missing_avatar.svg";
-import {socket} from "../../shared/socket";
+import {socket} from "./Chat/socket";
 import {UserContext} from "../../shared/userContext";
 import {IncomingMessagesContext} from "../../shared/incomingMessagesContext";
 import DeleteIcon from "@material-ui/icons/Delete";
