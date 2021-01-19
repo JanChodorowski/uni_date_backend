@@ -21,7 +21,7 @@ export class Interest {
   @OneToMany(() => User, (user) => user.interestFilter)
   users: User[];
 
-  @ManyToMany(() => User, (user) => user.interests, { cascade: true })
+  @ManyToMany(() => User, (user) => user.interests)
   @JoinTable({
     name: 'user_interest',
     joinColumns: [
