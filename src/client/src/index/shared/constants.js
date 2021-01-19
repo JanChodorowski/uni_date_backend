@@ -115,6 +115,8 @@ export const AUTO_HIDE_DURATION = 6000;
 
 export const AUTO_PADDING = "15%";
 
+export const STANDARD_MAX_WIDTH = "250px"
+
 export const PINK_INTENSITY = "400";
 export const YELLOW_INTENSITY = "800";
 export const BLUE_INTENSITY = "700";

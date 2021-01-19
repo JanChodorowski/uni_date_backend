@@ -21,7 +21,7 @@ import "date-fns";
 import ChipInput from "material-ui-chip-input";
 import React, { useContext, useReducer, useState } from "react";
 import { updateUser } from "../../shared/api";
-import { AUTO_HIDE_DURATION, DEFAULT_SPACE } from "../../shared/constants";
+import {AUTO_HIDE_DURATION, DEFAULT_SPACE, STANDARD_MAX_WIDTH} from "../../shared/constants";
 import { capitalizeFirstLetter } from "../../shared/functions";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";
@@ -132,7 +132,7 @@ const UserForm = () => {
           justify="center"
           spacing={1}
         >
-          <Grid item style={{ maxWidth: "250px" }}>
+          <Grid item style={{ maxWidth: STANDARD_MAX_WIDTH }}>
             <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
               <TextField
                 name="university"
@@ -180,7 +180,7 @@ const UserForm = () => {
               )}
             </Paper>
           </Grid>
-          <Grid item style={{ maxWidth: "250px" }}>
+          <Grid item style={{ maxWidth: STANDARD_MAX_WIDTH }}>
             <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
               <TextField
                 name="userName"

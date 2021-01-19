@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
 import { changeEmail } from "../../shared/api";
-import { AUTO_HIDE_DURATION, DEFAULT_SPACE } from "../../shared/constants";
+import {AUTO_HIDE_DURATION, DEFAULT_SPACE, STANDARD_MAX_WIDTH} from "../../shared/constants";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";
 import Slide from "@material-ui/core/Slide";
@@ -87,7 +87,7 @@ const EmailChangeForm = () => {
 
   return (
     <>
-      <div>
+      <div style={{maxWidth: '230px'}}>
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
@@ -107,7 +107,7 @@ const EmailChangeForm = () => {
               event.target.setAttribute("autocomplete", "off");
             }}
           />
-
+          {formik.values.newEmail &&
           <Grid
             container
             direction="row"
@@ -144,7 +144,7 @@ const EmailChangeForm = () => {
               ></PasswordVisibilityBtn>
             </Grid>
           </Grid>
-
+          }
           {!areCredentialsCorrect && !isLoading && (
             <p style={{ color: "rgb(204,0,0)", textAlign: "center" }}>
               Wrong password
