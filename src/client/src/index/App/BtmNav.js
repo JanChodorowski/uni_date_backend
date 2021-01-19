@@ -20,7 +20,10 @@ const useStyles = makeStyles({
     width: "100%",
     position: "fixed",
     bottom: 0,
+    backdropFilter: "blur(5px)"
+
   },
+
 });
 
 function BtmNav() {
@@ -41,7 +44,6 @@ function BtmNav() {
   const handleChangeOnSmallView = (name) => () => {
     redirect(name);
   };
-  const [isDark] = useContext(ColorContext);
 
   return (
     <>

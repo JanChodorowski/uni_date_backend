@@ -24,8 +24,8 @@ const APP_THEME_EXTENDED = {
   },
 };
 
-export const LIGHT_TRANSPARENT = "rgba(255, 255, 255, 0.8)";
-export const DARK_TRANSPARENT = "rgba(38, 50, 56, 0.7)";
+export const LIGHT_TRANSPARENT = "rgba(255, 255, 255, 0.6)";
+export const DARK_TRANSPARENT = "rgba(38, 50, 56, 0.6)";
 const lightOpaque = "rgba(255, 255, 255, 0.98)";
 const darkOpaque = "rgba(38, 50, 56, 0.98)";
 

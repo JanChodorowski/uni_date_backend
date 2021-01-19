@@ -13,6 +13,7 @@ const useTransparentPaperStyle = () => {
     paper: {
       padding: DEFAULT_SPACE,
       backgroundColor: isDark ? DARK_TRANSPARENT : LIGHT_TRANSPARENT,
+      backdropFilter: "blur(5px)"
     },
   }));
 
