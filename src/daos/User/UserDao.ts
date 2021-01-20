@@ -8,7 +8,6 @@ import { City } from '@entities/City';
 import { Interest } from '@entities/Interest';
 import { GenderFilter } from '@entities/GenderFilter';
 import { Match } from '@entities/Match';
-import { OneSidedRelation } from '@entities/OneSidedRelation';
 
 export interface IUserDao {
   addOrUpdate: (user: IUser) => Promise<IUser>;
@@ -39,7 +38,8 @@ export interface IUserDao {
     ) => Promise<any>
     findMatches: (id: string) => Promise<any>
     deleteMatch: (id :string, passiveSideUserId:string) => Promise<void>
-
+    getEmailById: (id: string) => Promise<IUser | undefined>
+    getPasswordById: (id: string) => Promise<any>
 }
 
 class UserDao implements IUserDao {
@@ -272,8 +272,6 @@ class UserDao implements IUserDao {
             .select('u2.id')
             .from(User, 'u2')
             .innerJoin('u2.matches', 'osr2')
-            // .where('osr2.userId = :paramId')
-            // .andWhere('osr2.userId_3 = u2.id')
             .where('(osr2.userId = :paramId AND osr2.userId_3 = u2.id) OR (osr2.userId = u2.id AND osr2.userId_3 = :paramId)')
             .getQuery();
           return `(user.id NOT IN ${subQuery}) AND user.id != :paramId`;
@@ -281,7 +279,6 @@ class UserDao implements IUserDao {
         .setParameter('paramId', id)
         .select(this.profilesDto)
         .orderBy('picture.isAvatar')
-        // .limit(20)
         .getMany();
     }
 
@@ -325,27 +322,11 @@ class UserDao implements IUserDao {
             await entityManager.save(newOrUpdatedUniversity);
           }
           if (newOrUpdatedInterests) {
-            // await entityManager.save(newOrUpdatedInterests);
-
-            // newOrUpdatedInterests.forEach(async (interest) => {
-            //   await entityManager
-            //     .createQueryBuilder()
-            //     .relation(User, 'interests')
-            //     .of(newOrUpdatedUser)
-            //     .add(interest);
-            // });
             newOrUpdatedInterests.forEach(async (interest) => {
               const foundInterest = await entityManager.findOne(Interest, { where: { interestName: interest.interestName } });
               if (!foundInterest) {
                 await entityManager.save(interest);
               }
-
-              // await entityManager.createQueryBuilder()
-              //   .insert()
-              //   .into(Interest)
-              //   .values(interest)
-              //   .onConflict('("interestName") DO NOTHING')
-              //   .execute();
             });
 
             newOrUpdatedUser.interests = newOrUpdatedInterests;
