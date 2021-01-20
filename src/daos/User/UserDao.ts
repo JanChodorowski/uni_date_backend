@@ -219,11 +219,7 @@ class UserDao implements IUserDao {
         genders = Object.keys(genderFilters).filter((key) => genderFilters[key]);
       }
 
-      // const maxDate = new Date();
-      // maxDate.setFullYear(maxDate.getFullYear() - ageFromFilter);
       const maxDate = moment().subtract(ageFromFilter, 'y').toDate();
-      // const minDate = new Date();
-      // minDate.setFullYear(minDate.getFullYear() - ageToFilter);
       const minDate = moment().subtract(ageToFilter, 'y').toDate();
 
       return getRepository(User)
