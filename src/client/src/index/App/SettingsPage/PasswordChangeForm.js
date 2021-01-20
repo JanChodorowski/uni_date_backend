@@ -63,6 +63,7 @@ const PasswordChangeForm = () => {
     onSubmit: async (values, { resetForm }) => {
       let { newPassword, password } = values;
       setAreCredentialsCorrect(true);
+      setIsLoading(true);
       const trimmedNewPassword = newPassword.trim();
       changePassword(trimmedNewPassword, password)
         .then((res) => {

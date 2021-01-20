@@ -62,6 +62,7 @@ const EmailChangeForm = () => {
       let { newEmail, currPassword } = values;
       setAreCredentialsCorrect(true);
       const trimmedNewEmail = newEmail.trim();
+      setIsLoading(true);
       changeEmail(trimmedNewEmail, currPassword)
         .then((res) => {
           if (!res.data.hasEmailChanged) {
