@@ -111,7 +111,6 @@ const PasswordChangeForm = () => {
                 helperText={
                   formik.touched.newPassword && formik.errors.newPassword
                 }
-                autoFocus
                 size="small"
                 style={{ marginBottom: DEFAULT_SPACE }}
                 autoComplete="new-password"
