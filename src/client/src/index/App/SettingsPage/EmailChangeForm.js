@@ -8,7 +8,6 @@ import { changeEmail } from "../../shared/api";
 import {
   AUTO_HIDE_DURATION,
   DEFAULT_SPACE,
-  STANDARD_MAX_WIDTH,
 } from "../../shared/constants";
 import { LoadingContext } from "../../shared/loadingContext";
 import { UserContext } from "../../shared/userContext";

@@ -24,11 +24,12 @@ export const calculateAge = (birthday) => {
   if (!birthday) {
     return "";
   }
+
   if (!(typeof birthday.getMonth === "function")) {
     birthday = new Date(birthday);
   }
 
-  let ageDifMs = Date.now() - birthday;
+  let ageDifMs = Date.now() - birthday.getTime();
   let ageDate = new Date(ageDifMs);
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
