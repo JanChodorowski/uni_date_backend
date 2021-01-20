@@ -333,12 +333,14 @@ class UserDao implements IUserDao {
             //     .of(newOrUpdatedUser)
             //     .add(interest);
             // });
-            await entityManager.createQueryBuilder()
-              .insert()
-              .into(Interest)
-              .values(newOrUpdatedInterests)
-              .onConflict('("interest_name") DO NOTHING')
-              .execute();
+            newOrUpdatedInterests.forEach(async (interest) => {
+              await entityManager.createQueryBuilder()
+                .insert()
+                .into(Interest)
+                .values(interest)
+                .onConflict('("interest_name") DO NOTHING')
+                .execute();
+            });
 
             newOrUpdatedUser.interests = newOrUpdatedInterests;
           }
