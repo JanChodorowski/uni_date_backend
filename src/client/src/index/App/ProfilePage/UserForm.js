@@ -138,94 +138,99 @@ const UserForm = () => {
         >
           <Grid item>
             <Grid
-                container
-                direction="column"
-                alignItems="flex-end"
-                justify="center"
-                style={{maxWidth: STANDARD_MAX_WIDTH}}
+              container
+              direction="column"
+              alignItems="flex-end"
+              justify="center"
+              style={{ maxWidth: STANDARD_MAX_WIDTH }}
             >
               <Grid item>
-                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
+                <Paper
+                  className={paper}
+                  style={{ marginBottom: DEFAULT_SPACE }}
+                >
                   <TextField
-                      name="description"
-                      label="Description"
-                      multiline
-                      fullWidth
-                      rows={6}
-                      value={description}
-                      onChange={onChange}
-                      variant="outlined"
-                      size="small"
-                      autoComplete="new-password"
-                      onFocus={(event) => {
-                        event.target.setAttribute("autocomplete", "off");
-                      }}
-                  />
-
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE, zIndex:"1" }}>
-                  <ChipInput
-                      fullWidth
-                      variant="filled"
-                      name="interests"
-                      label="Interests"
-                      blurBehavior="add"
-                      defaultValue={interests}
-                      onChange={onInterestsChange}
-                      size="small"
-                  />
-                </Paper>
-              </Grid>
-
-            </Grid></Grid>
-          <Grid item style={{ maxWidth: STANDARD_MAX_WIDTH }}>
-            <Grid item>
-              <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
-                <TextField
-                    name="university"
-                    value={university}
-                    label="University"
+                    name="description"
+                    label="Description"
+                    multiline
                     fullWidth
+                    rows={6}
+                    value={description}
                     onChange={onChange}
+                    variant="outlined"
                     size="small"
                     autoComplete="new-password"
                     onFocus={(event) => {
                       event.target.setAttribute("autocomplete", "off");
                     }}
+                  />
+                </Paper>
+              </Grid>
+              <Grid item>
+                <Paper
+                  className={paper}
+                  style={{ marginBottom: DEFAULT_SPACE, zIndex: "1" }}
+                >
+                  <ChipInput
+                    fullWidth
+                    variant="filled"
+                    name="interests"
+                    label="Interests"
+                    blurBehavior="add"
+                    defaultValue={interests}
+                    onChange={onInterestsChange}
+                    size="small"
+                  />
+                </Paper>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item style={{ maxWidth: STANDARD_MAX_WIDTH }}>
+            <Grid item>
+              <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
+                <TextField
+                  name="university"
+                  value={university}
+                  label="University"
+                  fullWidth
+                  onChange={onChange}
+                  size="small"
+                  autoComplete="new-password"
+                  onFocus={(event) => {
+                    event.target.setAttribute("autocomplete", "off");
+                  }}
                 />
                 {university && (
-                    <>
-                      <TextField
-                          name="fieldOfStudy"
-                          value={fieldOfStudy}
-                          label="Field of study"
-                          fullWidth
-                          onChange={onChange}
-                          size="small"
-                          style={{ marginBottom: DEFAULT_SPACE }}
-                          autoComplete="new-password"
-                          onFocus={(event) => {
-                            event.target.setAttribute("autocomplete", "off");
-                          }}
-                      />
+                  <>
+                    <TextField
+                      name="fieldOfStudy"
+                      value={fieldOfStudy}
+                      label="Field of study"
+                      fullWidth
+                      onChange={onChange}
+                      size="small"
+                      style={{ marginBottom: DEFAULT_SPACE }}
+                      autoComplete="new-password"
+                      onFocus={(event) => {
+                        event.target.setAttribute("autocomplete", "off");
+                      }}
+                    />
 
-                      <FormGroup row>
-                        <FormControlLabel
-                            control={
-                              <Switch
-                                  checked={isGraduated}
-                                  onChange={onIsGraduatedChange}
-                                  name="isGraduated"
-                                  color="primary"
-                                  size="small"
-                              />
-                            }
-                            label="Already graduated?"
-                        />
-                      </FormGroup>
-                    </>
+                    <FormGroup row>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isGraduated}
+                            onChange={onIsGraduatedChange}
+                            name="isGraduated"
+                            color="primary"
+                            size="small"
+                          />
+                        }
+                        label="Already graduated?"
+                      />
+                    </FormGroup>
+                  </>
                 )}
               </Paper>
             </Grid>
@@ -243,8 +248,6 @@ const UserForm = () => {
                   event.target.setAttribute("autocomplete", "off");
                 }}
               />
-
-
 
               <TextField
                 name="gender"
@@ -279,8 +282,6 @@ const UserForm = () => {
                   size="small"
                 />
               </MuiPickersUtilsProvider>
-
-
 
               <TextField
                 name="city"
