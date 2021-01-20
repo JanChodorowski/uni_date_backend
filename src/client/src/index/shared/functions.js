@@ -1,5 +1,6 @@
 import { blue, grey, pink, yellow } from "@material-ui/core/colors";
 import { BLUE_INTENSITY, PINK_INTENSITY, YELLOW_INTENSITY } from "./constants";
+import moment from 'moment'
 
 export const getItemByKey = (item) =>
   typeof window !== "undefined" && window.localStorage.getItem(item);
@@ -34,14 +35,17 @@ export const calculateAge = (birthday) => {
   // let ageDate = new Date(ageDifMs);
   //
   // return Math.abs(ageDate.getUTCFullYear() - 1970);
-  var today = new Date();
-  var birthDate = new Date(birthday);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
+  // var today = new Date();
+  // var birthDate = new Date(birthday);
+  // var age = today.getFullYear() - birthDate.getFullYear();
+  // var m = today.getMonth() - birthDate.getMonth();
+  // if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  //   age--;
+  // }
+  // return age;
+
+  return  moment().diff(birthday, 'years');
+
 };
 
 export const getGenderColor = (gender) => {
