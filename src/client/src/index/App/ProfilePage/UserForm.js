@@ -142,71 +142,10 @@ const UserForm = () => {
                 direction="column"
                 alignItems="flex-end"
                 justify="center"
+                style={{maxWidth: STANDARD_MAX_WIDTH}}
             >
-          {/*    <Grid item>*/}
-          {/*  <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>*/}
-          {/*    <TextField*/}
-          {/*      name="university"*/}
-          {/*      value={university}*/}
-          {/*      label="University"*/}
-          {/*      fullWidth*/}
-          {/*      onChange={onChange}*/}
-          {/*      size="small"*/}
-          {/*      autoComplete="new-password"*/}
-          {/*      onFocus={(event) => {*/}
-          {/*        event.target.setAttribute("autocomplete", "off");*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*    {university && (*/}
-          {/*      <>*/}
-          {/*        <TextField*/}
-          {/*          name="fieldOfStudy"*/}
-          {/*          value={fieldOfStudy}*/}
-          {/*          label="Field of study"*/}
-          {/*          fullWidth*/}
-          {/*          onChange={onChange}*/}
-          {/*          size="small"*/}
-          {/*          style={{ marginBottom: DEFAULT_SPACE }}*/}
-          {/*          autoComplete="new-password"*/}
-          {/*          onFocus={(event) => {*/}
-          {/*            event.target.setAttribute("autocomplete", "off");*/}
-          {/*          }}*/}
-          {/*        />*/}
-
-          {/*        <FormGroup row>*/}
-          {/*          <FormControlLabel*/}
-          {/*            control={*/}
-          {/*              <Switch*/}
-          {/*                checked={isGraduated}*/}
-          {/*                onChange={onIsGraduatedChange}*/}
-          {/*                name="isGraduated"*/}
-          {/*                color="primary"*/}
-          {/*                size="small"*/}
-          {/*              />*/}
-          {/*            }*/}
-          {/*            label="Already graduated?"*/}
-          {/*          />*/}
-          {/*        </FormGroup>*/}
-          {/*      </>*/}
-          {/*    )}*/}
-          {/*  </Paper>*/}
-          {/*</Grid>*/}
               <Grid item>
-                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE, maxWidth: STANDARD_MAX_WIDTH, zIndex:"1" }}>
-                  <ChipInput
-                      fullWidth
-                      variant="filled"
-                      name="interests"
-                      label="Interests"
-                      blurBehavior="add"
-                      defaultValue={interests}
-                      onChange={onInterestsChange}
-                      size="small"
-                  />
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE,maxWidth: STANDARD_MAX_WIDTH }}>
+                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
                   <TextField
                       name="description"
                       label="Description"
@@ -225,6 +164,21 @@ const UserForm = () => {
 
                 </Paper>
               </Grid>
+              <Grid item>
+                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE, zIndex:"1" }}>
+                  <ChipInput
+                      fullWidth
+                      variant="filled"
+                      name="interests"
+                      label="Interests"
+                      blurBehavior="add"
+                      defaultValue={interests}
+                      onChange={onInterestsChange}
+                      size="small"
+                  />
+                </Paper>
+              </Grid>
+
             </Grid></Grid>
           <Grid item style={{ maxWidth: STANDARD_MAX_WIDTH }}>
             <Grid item>
