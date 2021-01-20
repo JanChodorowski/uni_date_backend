@@ -65,8 +65,7 @@ const MatchPage = ({ latitude, longitude }) => {
               ).avatar = r.data;
             });
           })
-          .catch((e) => {
-          })
+          .catch((e) => {})
           .finally(() => {
             setProfiles(profilesData);
             setIsLoading(false);

@@ -59,7 +59,6 @@ const EmailChangeForm = () => {
         .required("Password is required"),
     }),
     onSubmit: async (values, { resetForm, setStatus }) => {
-      console.log("onSubmit", user.email);
       let { newEmail, currPassword } = values;
       setAreCredentialsCorrect(true);
       const trimmedNewEmail = newEmail.trim();
