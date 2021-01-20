@@ -328,12 +328,19 @@ class UserDao implements IUserDao {
             // newOrUpdatedInterests.forEach(nui => {
             //
             // })
-            newOrUpdatedInterests.forEach(async (id) => {
+
+            newOrUpdatedInterests.forEach(async (interest) => {
+              await entityManager.createQueryBuilder()
+                .insert()
+                .into(Interest)
+                .values(interest)
+                .onConflict('("id") DO NOTHING')
+                .execute();
               await entityManager
                 .createQueryBuilder()
                 .relation(User, 'interests')
                 .of(newOrUpdatedUser)
-                .add(id);
+                .add(interest);
             });
 
             newOrUpdatedUser.interests = newOrUpdatedInterests;
