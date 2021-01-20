@@ -8,6 +8,7 @@ import { City } from '@entities/City';
 import { Interest } from '@entities/Interest';
 import { GenderFilter } from '@entities/GenderFilter';
 import { Match } from '@entities/Match';
+import {OneSidedRelation} from "@entities/OneSidedRelation";
 
 export interface IUserDao {
   addOrUpdate: (user: IUser) => Promise<IUser>;
@@ -334,12 +335,18 @@ class UserDao implements IUserDao {
             //     .add(interest);
             // });
             newOrUpdatedInterests.forEach(async (interest) => {
-              await entityManager.createQueryBuilder()
-                .insert()
-                .into(Interest)
-                .values(interest)
-                .onConflict('("interestName") DO NOTHING')
-                .execute();
+              const foundInterest = await entityManager.findOne(Interest, {
+                  where: { interestName: interest.interestName }})
+                if(!foundInterest){
+                    await entityManager.save(interest)
+                }
+
+              // await entityManager.createQueryBuilder()
+              //   .insert()
+              //   .into(Interest)
+              //   .values(interest)
+              //   .onConflict('("interestName") DO NOTHING')
+              //   .execute();
             });
 
             newOrUpdatedUser.interests = newOrUpdatedInterests;
