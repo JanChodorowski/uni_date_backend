@@ -192,7 +192,7 @@ const UserForm = () => {
           {/*  </Paper>*/}
           {/*</Grid>*/}
               <Grid item>
-                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE, maxWidth: STANDARD_MAX_WIDTH }}>
+                <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE, maxWidth: STANDARD_MAX_WIDTH, zIndex:"1" }}>
                   <ChipInput
                       fullWidth
                       variant="filled"
