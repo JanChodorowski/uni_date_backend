@@ -8,6 +8,7 @@ import { City } from '@entities/City';
 import { Interest } from '@entities/Interest';
 import { GenderFilter } from '@entities/GenderFilter';
 import { Match } from '@entities/Match';
+import moment from 'moment';
 
 export interface IUserDao {
   addOrUpdate: (user: IUser) => Promise<IUser>;
@@ -217,10 +218,13 @@ class UserDao implements IUserDao {
       if (genderFilters) {
         genders = Object.keys(genderFilters).filter((key) => genderFilters[key]);
       }
-      const maxDate = new Date();
-      maxDate.setFullYear(maxDate.getFullYear() - ageFromFilter);
-      const minDate = new Date();
-      minDate.setFullYear(minDate.getFullYear() - ageToFilter);
+
+      // const maxDate = new Date();
+      // maxDate.setFullYear(maxDate.getFullYear() - ageFromFilter);
+      const maxDate = moment().subtract(ageFromFilter, 'y').toDate();
+      // const minDate = new Date();
+      // minDate.setFullYear(minDate.getFullYear() - ageToFilter);
+      const minDate = moment().subtract(ageToFilter, 'y').toDate();
 
       return getRepository(User)
         .createQueryBuilder('user')
