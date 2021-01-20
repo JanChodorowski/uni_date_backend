@@ -334,7 +334,7 @@ class UserDao implements IUserDao {
                 .insert()
                 .into(Interest)
                 .values(interest)
-                .onConflict('("id") DO NOTHING')
+                .onConflict('("interest_name") DO NOTHING')
                 .execute();
               await entityManager
                 .createQueryBuilder()
