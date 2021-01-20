@@ -136,7 +136,7 @@ const UserForm = () => {
           justify="center"
           spacing={1}
         >
-          <Grid item style={{ maxWidth: STANDARD_MAX_WIDTH }}>
+          <Grid item >
             <Paper className={paper} style={{ marginBottom: DEFAULT_SPACE }}>
               <TextField
                 name="university"
