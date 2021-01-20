@@ -337,7 +337,7 @@ class UserDao implements IUserDao {
               .insert()
               .into(Interest)
               .values(newOrUpdatedInterests)
-              .onConflict('("id") DO NOTHING')
+              .onConflict('("interest_name") DO NOTHING')
               .execute();
 
             newOrUpdatedUser.interests = newOrUpdatedInterests;
