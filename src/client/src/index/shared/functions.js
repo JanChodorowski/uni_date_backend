@@ -21,18 +21,27 @@ export const capitalizeFirstLetter = (
   first && first.toLocaleUpperCase(locale) + rest.join("").toLocaleLowerCase();
 
 export const calculateAge = (birthday) => {
-  if (!birthday) {
-    return "";
+  // console.log('birthday',birthday, typeof birthday)
+  // if (!birthday) {
+  //   return "";
+  // }
+  //
+  // if (!(typeof birthday.getMonth === "function")) {
+  //   birthday = new Date(birthday);
+  // }
+  //
+  // let ageDifMs = Date.now() - birthday.getTime();
+  // let ageDate = new Date(ageDifMs);
+  //
+  // return Math.abs(ageDate.getUTCFullYear() - 1970);
+  var today = new Date();
+  var birthDate = new Date(birthday);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
   }
-
-  if (!(typeof birthday.getMonth === "function")) {
-    birthday = new Date(birthday);
-  }
-
-  let ageDifMs = Date.now() - birthday.getTime();
-  let ageDate = new Date(ageDifMs);
-
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
+  return age;
 };
 
 export const getGenderColor = (gender) => {
