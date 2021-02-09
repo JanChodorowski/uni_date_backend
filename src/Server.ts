@@ -8,9 +8,8 @@ import morgan from 'morgan';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import path from 'path';
+import cors from 'cors';
 import BaseRouter from './routes';
-
-const cors = require('cors');
 
 const {
   NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL,
