@@ -33,9 +33,9 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
     IncomingMessagesContext
   );
   useEffect(() => {
-    if (!user.id) {
-      return;
-    }
+    // if (!user.id) {
+    //   return;
+    // }
     socket.removeAllListeners(privateChat);
     socket.removeAllListeners(register);
     socket.emit(register, user.id);
