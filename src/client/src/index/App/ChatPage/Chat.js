@@ -37,7 +37,7 @@ const Chat = ({ passiveSideUserId, setOpen }) => {
       return;
     }
     socket.removeAllListeners(privateChat);
-    socket.removeAllListeners(register);
+    // socket.removeAllListeners(register);
     socket.emit(register, user.id);
     socket.on(privateChat, function (newIncomingMessage) {
       setIncomingMessages((prevIncomingMessages) => {
