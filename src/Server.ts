@@ -74,10 +74,10 @@ createConnection(ormConfig as any).then(async (connection) => {
   console.log('NODE_ENV4',NODE_ENV)  
   // if (NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
-    app.get('*', (req, res) => {
-      console.log('NODE_ENV5',NODE_ENV)  
-      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    });
+    // app.get('*', (req, res) => {
+    //   console.log('NODE_ENV5',NODE_ENV)  
+    //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    // });
   // }
 }).catch((error) => console.log('TypeORM connection error: ', error));
 
