@@ -18,7 +18,6 @@ const {
 const app = express();
 
 const { BAD_REQUEST } = StatusCodes;
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -68,13 +67,13 @@ createConnection(ormConfig as any).then(async (connection) => {
       error: err.message,
     });
   });
-
-  if (NODE_ENV === 'production') {
+console.log('NODE_ENV',NODE_ENV)
+  // if (NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
     app.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
-  }
+  // }
 }).catch((error) => console.log('TypeORM connection error: ', error));
 
 export default app;
