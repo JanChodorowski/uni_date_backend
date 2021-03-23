@@ -57,9 +57,12 @@ const ormConfig = {
     migrationsDir: `${mainDirName}/migration`,
     subscribersDir: `${mainDirName}/subscriber`,
   },
+  ssl: true,
   extra: {
-    ssl: true
-}
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 };
 console.log('NODE_ENV2',NODE_ENV)
 
