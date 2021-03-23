@@ -38,7 +38,7 @@ if (NODE_ENV === 'development') {
   mainDirName = 'dist';
 }
 
-const ormConfig = {
+let ormConfig = {
   type: 'postgres',
   url: DATABASE_URL || LOCAL_DATABASE_URL,
   synchronize: false,
@@ -57,13 +57,20 @@ const ormConfig = {
     migrationsDir: `${mainDirName}/migration`,
     subscribersDir: `${mainDirName}/subscriber`,
   },
-  ssl: true,
-  extra: {
+  ssl: NODE_ENV === 'production' ? true : false,
+  extra: NODE_ENV === 'production' ? {
     ssl: {
       rejectUnauthorized: false,
     },
-  },
+  } : {}
 };
+
+// if(NODE_ENV === 'production'){
+//   ormConfig = {
+//     ...ormConfig,
+    
+//   }
+// }
 console.log('NODE_ENV2',NODE_ENV)
 
 createConnection(ormConfig as any).then(async (connection) => {
@@ -80,10 +87,10 @@ createConnection(ormConfig as any).then(async (connection) => {
   console.log('NODE_ENV4',NODE_ENV)  
   // if (NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
-    // app.get('*', (req, res) => {
-    //   console.log('NODE_ENV5',NODE_ENV)  
-    //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    // });
+    app.get('*', (req, res) => {
+      console.log('NODE_ENV5',NODE_ENV)  
+      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
   // }
 }).catch((error) => console.log('TypeORM connection error: ', error));
 
