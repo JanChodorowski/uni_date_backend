@@ -14,6 +14,7 @@ import BaseRouter from './routes';
 const {
   NODE_ENV, DATABASE_URL, LOCAL_DATABASE_URL,
 } = process.env;
+console.log('NODE_ENV1',NODE_ENV)
 
 const app = express();
 
@@ -57,8 +58,11 @@ const ormConfig = {
     subscribersDir: `${mainDirName}/subscriber`,
   },
 };
+console.log('NODE_ENV2',NODE_ENV)
 
 createConnection(ormConfig as any).then(async (connection) => {
+  console.log('NODE_ENV3',NODE_ENV)
+
   app.use('/api', BaseRouter);
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -67,10 +71,11 @@ createConnection(ormConfig as any).then(async (connection) => {
       error: err.message,
     });
   });
-console.log('NODE_ENV',NODE_ENV)
+  console.log('NODE_ENV4',NODE_ENV)  
   // if (NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
     app.get('*', (req, res) => {
+      console.log('NODE_ENV5',NODE_ENV)  
       res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
   // }
